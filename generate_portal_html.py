@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+import json
+
+with open('all_sheets_data.json', 'r', encoding='utf-8') as f:
+    sheets_data = json.load(f)
+
+json_data_str = json.dumps(sheets_data, ensure_ascii=False)
+
+html_template = f'''<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -10,17 +17,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .font-mono { font-family: 'JetBrains+Mono', monospace; }
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .tab-sheet-active {
+    body {{ font-family: 'Inter', sans-serif; }}
+    .font-mono {{ font-family: 'JetBrains+Mono', monospace; }}
+    .hide-scrollbar::-webkit-scrollbar {{ display: none; }}
+    .hide-scrollbar {{ -ms-overflow-style: none; scrollbar-width: none; }}
+    .tab-sheet-active {{
       background-color: #1A365D !important;
       color: #ffffff !important;
       font-weight: 800 !important;
       border-color: #1A365D !important;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
+    }}
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -418,37 +425,37 @@
   <script src="sheets_data.js"></script>
   <script>
     // Embedded Data fallback in case sheets_data.js is blocked
-    if (!window.ALL_SHEETS_DATA) {
-      window.ALL_SHEETS_DATA = {"BAO CAO HOM NAY": {"sheetId": 187266668, "index": 0, "rows": [["BẢNG TỔNG HỢP BÁO CÁO CÔNG VIỆC HÀNG NGÀY & THEO DÕI TIẾN ĐỘ THEO NGÀY - PHÒNG MARKETING KING BLUE"], [], ["", "📅 NGÀY XEM BÁO CÁO:", "05/10/2026", "(💡 Nhấp đúp vào ô C3 để mở lịch chọn ngày, hoặc gõ =TODAY() để luôn xem hôm nay)", "Thứ Hai, 05/10/2026"], ["", "TỔNG NHÂN SỰ", "", "ĐÃ NỘP HÔM NAY", "", "VƯỚNG MẮC PHÁT SINH", "", "TÌNH TRẠNG NỘP", "", "TRƯỞNG PHÒNG"], ["", "9 Người", "", "0 / 9 (0%)", "", "0 Vấn đề", "", "Còn 5 chưa nộp", "", "Marketing Manager"], [], ["STT", "Nhân Sự", "Bộ Phận", "Vị Trí Chuyên Môn", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC HÔM NAY", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH NGÀY MAI", "Giờ Nộp", "Tình Trạng", "Marketing Manager Phản Hồi"], ["1", "Võ Thị Hoài Thương", "Content", "Content Marketing & SEO Fanpage/Website", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["2", "Kiều Thương", "Content", "Content Video & Hợp Tác KOC/Reviewer", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["3", "Thương Thương", "Content", "Trade Marketing & Chính Sách Điểm Bán", "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ", "", "", "Quay video sản phẩm", "00:00:00"], ["4", "Thiện", "Design", "Graphic Designer (2D, POSM & Banner)", "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)", "", "", "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô", "00:00:00"], ["5", "Tứ", "Media", "Media / Photographer (Hình Ảnh, Video & User CRM)", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["6", "Thức", "Sàn TMĐT", "Vận Hành Sàn TMĐT (Shopee & Lazada)", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn", "", "", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)", "00:00:00"], ["7", "Ngân", "Sàn TMĐT", "CSKH & Quản Trị Gian Hàng TikTok Shop", "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm", "", "", "", "00:00:00"], ["8", "Hùng", "Đóng gói kho", "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["9", "Hùng Miền Bắc", "Đóng gói kho", "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"]]}, "Hoai Thuong - Content": {"sheetId": 169328077, "index": 1, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - VÕ THỊ HOÀI THƯƠNG"], [], ["Họ và Tên:", "", "Võ Thị Hoài Thương", "", "Vị trí chuyên môn:", "", "Content Marketing & SEO Fanpage/Website", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], [], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Kieu Thuong - Content": {"sheetId": 1499171949, "index": 2, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - KIỀU THƯƠNG"], [], ["Họ và Tên:", "", "Kiều Thương", "", "Vị trí chuyên môn:", "", "Content Video & Hợp Tác KOC/Reviewer", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Thuong Thuong - Content": {"sheetId": 967400572, "index": 3, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THƯƠNG THƯƠNG"], [], ["Họ và Tên:", "", "Thương Thương", "", "Vị trí chuyên môn:", "", "Trade Marketing & Chính Sách Điểm Bán", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "5/10/2026", "", "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ", "", "", "Quay video sản phẩm"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Thien - Design": {"sheetId": 1434158092, "index": 4, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THIỆN"], [], ["Họ và Tên:", "", "Thiện", "", "Vị trí chuyên môn:", "", "Graphic Designer (2D, POSM & Banner)", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "5/10", "", "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)", "", "", "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Tu - Media": {"sheetId": 1418274519, "index": 5, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - TỨ"], [], ["Họ và Tên:", "", "Tứ", "", "Vị trí chuyên môn:", "", "Media / Photographer (Hình Ảnh, Video & User CRM)", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Thuc - San TMDT": {"sheetId": 1877693997, "index": 6, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THỨC"], [], ["Họ và Tên:", "", "Thức", "", "Vị trí chuyên môn:", "", "Vận Hành Sàn TMĐT (Shopee & Lazada)", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "05/10/2026", "", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn", "", "", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Ngan - San TMDT": {"sheetId": 1804131916, "index": 7, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - NGÂN"], [], ["Họ và Tên:", "", "Ngân", "", "Vị trí chuyên môn:", "", "CSKH & Quản Trị Gian Hàng TikTok Shop", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "05/10", "", "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "BAO CAO TUAN": {"sheetId": 162769722, "index": 8, "rows": [["BÁO CÁO TỔNG KẾT TUẦN - PHÒNG MARKETING KING BLUE"], [], [], ["STT", "Họ và Tên", "Vị Trí", "Mục Tiêu Tuần", "Kết Quả Đạt Được (% Hoàn thành)", "Vấn Đề Tồn Đọng", "Kế Hoạch Tuần Tới", "Marketing Manager Đánh Giá"]]}, "Hung - Kho MN": {"sheetId": 94289788, "index": 9, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG"], [], ["Họ và Tên:", "", "Hùng", "", "Vị trí chuyên môn:", "", "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Hung - Kho MB": {"sheetId": 1438923158, "index": 10, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG MIỀN BẮC"], [], ["Họ và Tên:", "", "Hùng Miền Bắc", "", "Vị trí chuyên môn:", "", "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}};
-    }
+    if (!window.ALL_SHEETS_DATA) {{
+      window.ALL_SHEETS_DATA = {json_data_str};
+    }}
 
     // EXACT 11 SHEET TABS ORDER (POSITIONS 0 TO 10)
     const SHEET_TABS = [
-      { key: 'BAO CAO HOM NAY', icon: '📅', label: '0. BAO CAO HOM NAY', name: 'Bảng Tổng Hợp Hàng Ngày (Master)', gid: '187266668', index: 0, badge: '⭐ Tổng hợp' },
-      { key: 'Hoai Thuong - Content', icon: '✍️', label: '1. Hoài Thương', name: 'Võ Thị Hoài Thương - Content Marketing', gid: '169328077', index: 1 },
-      { key: 'Kieu Thuong - Content', icon: '🎬', label: '2. Kiều Thương', name: 'Kiều Thương - Content Video & KOC', gid: '1499171949', index: 2 },
-      { key: 'Thuong Thuong - Content', icon: '📑', label: '3. Thương Thương', name: 'Thương Thương - Trade Marketing', gid: '967400572', index: 3, badge: '🟢 Đã nộp 05/10' },
-      { key: 'Thien - Design', icon: '🎨', label: '4. Thiện', name: 'Thiện - Graphic Designer', gid: '1434158092', index: 4, badge: '🟢 44 banner' },
-      { key: 'Tu - Media', icon: '📸', label: '5. Tứ', name: 'Tứ - Media & User CRM', gid: '1418274519', index: 5 },
-      { key: 'Thuc - San TMDT', icon: '🛒', label: '6. Thức', name: 'Thức - Vận Hành Sàn TMĐT', gid: '1877693997', index: 6, badge: '🟢 Đã nộp 05/10' },
-      { key: 'Ngan - San TMDT', icon: '🎧', label: '7. Ngân', name: 'Ngân - CSKH & TikTok Shop', gid: '1804131916', index: 7, badge: '🟢 Đã nộp 05/10' },
-      { key: 'BAO CAO TUAN', icon: '📈', label: '8. BÁO CÁO TUẦN', name: 'Báo Cáo Tiến Độ & KPI Hàng Tuần', gid: '162769722', index: 8, badge: '📊 Báo cáo tuần' },
-      { key: 'Hung - Kho MN', icon: '📦', label: '9. Hùng MN', name: 'Hùng - Đóng Gói Kho Miền Nam', gid: '94289788', index: 9 },
-      { key: 'Hung - Kho MB', icon: '🚚', label: '10. Hùng MB', name: 'Hùng Miền Bắc - Đóng Gói Chi Nhánh HN', gid: '1438923158', index: 10 }
+      {{ key: 'BAO CAO HOM NAY', icon: '📅', label: '0. BAO CAO HOM NAY', name: 'Bảng Tổng Hợp Hàng Ngày (Master)', gid: '187266668', index: 0, badge: '⭐ Tổng hợp' }},
+      {{ key: 'Hoai Thuong - Content', icon: '✍️', label: '1. Hoài Thương', name: 'Võ Thị Hoài Thương - Content Marketing', gid: '169328077', index: 1 }},
+      {{ key: 'Kieu Thuong - Content', icon: '🎬', label: '2. Kiều Thương', name: 'Kiều Thương - Content Video & KOC', gid: '1499171949', index: 2 }},
+      {{ key: 'Thuong Thuong - Content', icon: '📑', label: '3. Thương Thương', name: 'Thương Thương - Trade Marketing', gid: '967400572', index: 3, badge: '🟢 Đã nộp 05/10' }},
+      {{ key: 'Thien - Design', icon: '🎨', label: '4. Thiện', name: 'Thiện - Graphic Designer', gid: '1434158092', index: 4, badge: '🟢 44 banner' }},
+      {{ key: 'Tu - Media', icon: '📸', label: '5. Tứ', name: 'Tứ - Media & User CRM', gid: '1418274519', index: 5 }},
+      {{ key: 'Thuc - San TMDT', icon: '🛒', label: '6. Thức', name: 'Thức - Vận Hành Sàn TMĐT', gid: '1877693997', index: 6, badge: '🟢 Đã nộp 05/10' }},
+      {{ key: 'Ngan - San TMDT', icon: '🎧', label: '7. Ngân', name: 'Ngân - CSKH & TikTok Shop', gid: '1804131916', index: 7, badge: '🟢 Đã nộp 05/10' }},
+      {{ key: 'BAO CAO TUAN', icon: '📈', label: '8. BÁO CÁO TUẦN', name: 'Báo Cáo Tiến Độ & KPI Hàng Tuần', gid: '162769722', index: 8, badge: '📊 Báo cáo tuần' }},
+      {{ key: 'Hung - Kho MN', icon: '📦', label: '9. Hùng MN', name: 'Hùng - Đóng Gói Kho Miền Nam', gid: '94289788', index: 9 }},
+      {{ key: 'Hung - Kho MB', icon: '🚚', label: '10. Hùng MB', name: 'Hùng Miền Bắc - Đóng Gói Chi Nhánh HN', gid: '1438923158', index: 10 }}
     ];
 
     // ACCOUNTS DATABASE
     const ACCOUNTS = [
-      { username: "manager", password: "8888", pin: "8888", name: "Marketing Manager", role: "Trưởng Phòng Marketing", group: "Ban Quản Lý", type: "ADMIN", avatar: "👔", tabName: "BAO CAO HOM NAY" },
-      { username: "hoaithuong", password: "1001", pin: "1001", name: "Võ Thị Hoài Thương", role: "Content Marketing & SEO Fanpage/Website", group: "Content", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" },
-      { username: "kieuthuong", password: "1002", pin: "1002", name: "Kiều Thương", role: "Content Video & Hợp Tác KOC/Reviewer", group: "Content", type: "USER", avatar: "🎬", tabName: "Kieu Thuong - Content" },
-      { username: "thuythuong", password: "1003", pin: "1003", name: "Thương Thương", role: "Trade Marketing & Chính Sách Điểm Bán", group: "Content", type: "USER", avatar: "📑", tabName: "Thuong Thuong - Content" },
-      { username: "thien", password: "1004", pin: "1004", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Design", type: "USER", avatar: "🎨", tabName: "Thien - Design" },
-      { username: "tu", password: "1005", pin: "1005", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Media", type: "USER", avatar: "📸", tabName: "Tu - Media" },
-      { username: "thuc", password: "1006", pin: "1006", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Sàn TMĐT", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" },
-      { username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" },
-      { username: "hungmn", password: "1008", pin: "1008", name: "Hùng", role: "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", group: "Đóng gói kho", type: "USER", avatar: "📦", tabName: "Hung - Kho MN" },
-      { username: "hungmb", password: "1009", pin: "1009", name: "Hùng Miền Bắc", role: "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", group: "Đóng gói kho", type: "USER", avatar: "🚚", tabName: "Hung - Kho MB" }
+      {{ username: "manager", password: "8888", pin: "8888", name: "Marketing Manager", role: "Trưởng Phòng Marketing", group: "Ban Quản Lý", type: "ADMIN", avatar: "👔", tabName: "BAO CAO HOM NAY" }},
+      {{ username: "hoaithuong", password: "1001", pin: "1001", name: "Võ Thị Hoài Thương", role: "Content Marketing & SEO Fanpage/Website", group: "Content", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" }},
+      {{ username: "kieuthuong", password: "1002", pin: "1002", name: "Kiều Thương", role: "Content Video & Hợp Tác KOC/Reviewer", group: "Content", type: "USER", avatar: "🎬", tabName: "Kieu Thuong - Content" }},
+      {{ username: "thuythuong", password: "1003", pin: "1003", name: "Thương Thương", role: "Trade Marketing & Chính Sách Điểm Bán", group: "Content", type: "USER", avatar: "📑", tabName: "Thuong Thuong - Content" }},
+      {{ username: "thien", password: "1004", pin: "1004", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Design", type: "USER", avatar: "🎨", tabName: "Thien - Design" }},
+      {{ username: "tu", password: "1005", pin: "1005", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Media", type: "USER", avatar: "📸", tabName: "Tu - Media" }},
+      {{ username: "thuc", password: "1006", pin: "1006", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Sàn TMĐT", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" }},
+      {{ username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" }},
+      {{ username: "hungmn", password: "1008", pin: "1008", name: "Hùng", role: "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", group: "Đóng gói kho", type: "USER", avatar: "📦", tabName: "Hung - Kho MN" }},
+      {{ username: "hungmb", password: "1009", pin: "1009", name: "Hùng Miền Bắc", role: "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", group: "Đóng gói kho", type: "USER", avatar: "🚚", tabName: "Hung - Kho MB" }}
     ];
 
     let currentAppMainTab = 'sheets';
@@ -456,9 +463,9 @@
     let currentSheetViewFormat = 'html';
     let managerSelectedDate = '05/10/2026';
     let currentUser = null;
-    let reportsStore = {};
+    let reportsStore = {{}};
 
-    window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("DOMContentLoaded", () => {{
       renderQuickLoginButtons();
       startLiveClock();
       renderSheetTabsBar();
@@ -466,26 +473,26 @@
 
       // Check saved session
       const savedUser = localStorage.getItem("kingblue_user");
-      if (savedUser) {
-        try {
+      if (savedUser) {{
+        try {{
           currentUser = JSON.parse(savedUser);
           updateUserSessionBar();
-        } catch(e) {}
-      }
-    });
+        }} catch(e) {{}}
+      }}
+    }});
 
-    function startLiveClock() {
-      setInterval(() => {
+    function startLiveClock() {{
+      setInterval(() => {{
         const now = new Date();
         const el = document.getElementById("live-clock");
         if (el) el.textContent = now.toTimeString().split(' ')[0];
-      }, 1000);
-    }
+      }}, 1000);
+    }}
 
     // ========================================================
     // 1. PRIMARY APP MODE SWITCHING
     // ========================================================
-    function switchMainAppTab(mode) {
+    function switchMainAppTab(mode) {{
       currentAppMainTab = mode;
       
       const btnSheets = document.getElementById("btn-nav-sheets");
@@ -496,131 +503,131 @@
       const secCards = document.getElementById("section-cards-dashboard");
       const secSubmit = document.getElementById("section-personal-submit");
 
-      [btnSheets, btnCards, btnSubmit].forEach(b => {
+      [btnSheets, btnCards, btnSubmit].forEach(b => {{
         b.className = "px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent";
-      });
+      }});
       [secSheets, secCards, secSubmit].forEach(s => s.classList.add("hidden"));
 
-      if (mode === 'sheets') {
+      if (mode === 'sheets') {{
         btnSheets.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
         secSheets.classList.remove("hidden");
-      } else if (mode === 'cards') {
+      }} else if (mode === 'cards') {{
         btnCards.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
         secCards.classList.remove("hidden");
         setManagerDate(managerSelectedDate);
-      } else if (mode === 'submit') {
+      }} else if (mode === 'submit') {{
         btnSubmit.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
         secSubmit.classList.remove("hidden");
         renderSubmitSpace();
-      }
-    }
+      }}
+    }}
 
     // ========================================================
     // 2. SHEETS EXPLORER (11 TABS ACCORDING TO SPREADSHEET)
     // ========================================================
-    function renderSheetTabsBar() {
+    function renderSheetTabsBar() {{
       const container = document.getElementById("sheet-tabs-container");
       container.innerHTML = "";
 
-      SHEET_TABS.forEach(tab => {
+      SHEET_TABS.forEach(tab => {{
         const btn = document.createElement("button");
-        btn.id = `sheet-tab-btn-${tab.gid}`;
+        btn.id = `sheet-tab-btn-${{tab.gid}}`;
         const isActive = tab.key === currentActiveSheetKey;
-        btn.className = `px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border ${
+        btn.className = `px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border ${{
           isActive 
             ? 'tab-sheet-active' 
             : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
-        }`;
+        }}`;
         btn.onclick = () => selectSheetTab(tab.key);
         btn.innerHTML = `
-          <span>${tab.icon}</span>
-          <span>${tab.label}</span>
-          ${tab.badge ? `<span class="text-[10px] px-1.5 py-0.5 rounded-md font-extrabold ${isActive ? 'bg-amber-400 text-slate-900' : 'bg-emerald-100 text-emerald-800'}">${tab.badge}</span>` : ''}
+          <span>${{tab.icon}}</span>
+          <span>${{tab.label}}</span>
+          ${{tab.badge ? `<span class="text-[10px] px-1.5 py-0.5 rounded-md font-extrabold ${{isActive ? 'bg-amber-400 text-slate-900' : 'bg-emerald-100 text-emerald-800'}}">${{tab.badge}}</span>` : ''}}
         `;
         container.appendChild(btn);
-      });
-    }
+      }});
+    }}
 
-    function selectSheetTab(sheetKey) {
+    function selectSheetTab(sheetKey) {{
       currentActiveSheetKey = sheetKey;
       const tabMeta = SHEET_TABS.find(t => t.key === sheetKey) || SHEET_TABS[0];
 
       // Update Tab Styles
-      SHEET_TABS.forEach(t => {
-        const b = document.getElementById(`sheet-tab-btn-${t.gid}`);
-        if (b) {
-          if (t.key === sheetKey) {
+      SHEET_TABS.forEach(t => {{
+        const b = document.getElementById(`sheet-tab-btn-${{t.gid}}`);
+        if (b) {{
+          if (t.key === sheetKey) {{
             b.className = "px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border tab-sheet-active";
-          } else {
+          }} else {{
             b.className = "px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200";
-          }
-        }
-      });
+          }}
+        }}
+      }});
 
       // Update Header Info
       document.getElementById("active-sheet-icon").textContent = tabMeta.icon;
       document.getElementById("active-sheet-title").textContent = tabMeta.key;
-      document.getElementById("active-sheet-badge").textContent = `Vị trí: Sheet ${tabMeta.index} / 10 • GID: ${tabMeta.gid}`;
+      document.getElementById("active-sheet-badge").textContent = `Vị trí: Sheet ${{tabMeta.index}} / 10 • GID: ${{tabMeta.gid}}`;
       document.getElementById("active-sheet-desc").textContent = tabMeta.name;
       
-      const directUrl = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${tabMeta.gid}`;
+      const directUrl = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${{tabMeta.gid}}`;
       document.getElementById("active-sheet-direct-link").href = directUrl;
 
       // Update Iframe src
-      const iframeSrc = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/htmlembed?gid=${tabMeta.gid}&widget=true`;
+      const iframeSrc = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/htmlembed?gid=${{tabMeta.gid}}&widget=true`;
       document.getElementById("sheet-google-iframe").src = iframeSrc;
 
       renderActiveSheetHtml(sheetKey);
-    }
+    }}
 
-    function toggleSheetViewFormat(format) {
+    function toggleSheetViewFormat(format) {{
       currentSheetViewFormat = format;
       const btnHtml = document.getElementById("btn-format-html");
       const btnIframe = document.getElementById("btn-format-iframe");
       const cHtml = document.getElementById("sheet-html-view-container");
       const cIframe = document.getElementById("sheet-iframe-view-container");
 
-      if (format === 'html') {
+      if (format === 'html') {{
         btnHtml.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1 font-bold";
         btnIframe.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium";
         cHtml.classList.remove("hidden");
         cIframe.classList.add("hidden");
-      } else {
+      }} else {{
         btnIframe.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1 font-bold";
         btnHtml.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium";
         cIframe.classList.remove("hidden");
         cHtml.classList.add("hidden");
-      }
-    }
+      }}
+    }}
 
-    function renderActiveSheetHtml(sheetKey) {
+    function renderActiveSheetHtml(sheetKey) {{
       const container = document.getElementById("sheet-html-view-container");
       const sheetData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sheetKey]) ? window.ALL_SHEETS_DATA[sheetKey] : null;
 
-      if (!sheetData) {
+      if (!sheetData) {{
         container.innerHTML = `<div class="bg-white p-8 rounded-2xl border text-center text-slate-400">Không tìm thấy dữ liệu cho sheet này.</div>`;
         return;
-      }
+      }}
 
       const rows = sheetData.rows || [];
 
       // SPECIAL CASE 1: BAO CAO HOM NAY (INDEX 0)
-      if (sheetKey === 'BAO CAO HOM NAY') {
+      if (sheetKey === 'BAO CAO HOM NAY') {{
         container.innerHTML = renderMasterSheetHtml(rows);
         return;
-      }
+      }}
 
       // SPECIAL CASE 2: BAO CAO TUAN (INDEX 8)
-      if (sheetKey === 'BAO CAO TUAN') {
+      if (sheetKey === 'BAO CAO TUAN') {{
         container.innerHTML = renderWeeklySheetHtml(rows);
         return;
-      }
+      }}
 
       // STANDARD CASE: EMPLOYEE DAILY LOG SHEETS (9 SHEETS)
       container.innerHTML = renderEmployeeSheetTableHtml(sheetKey, rows);
-    }
+    }}
 
-    function renderMasterSheetHtml(rows) {
+    function renderMasterSheetHtml(rows) {{
       return `
         <!-- KPI Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -669,43 +676,43 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
-                ${renderMasterRowsHtml(rows)}
+                ${{renderMasterRowsHtml(rows)}}
               </tbody>
             </table>
           </div>
         </div>
       `;
-    }
+    }}
 
-    function renderMasterRowsHtml(rows) {
+    function renderMasterRowsHtml(rows) {{
       const masterRows = rows.slice(7, 16); // Rows 8 to 16
       if (masterRows.length === 0) return '<tr><td colspan="10" class="p-4 text-center text-slate-400">Không có dữ liệu</td></tr>';
 
-      return masterRows.map((r, idx) => {
+      return masterRows.map((r, idx) => {{
         const hasSubmitted = r[4] && r[4] !== '⏳ Chưa nộp' && r[4] !== '-';
         return `
-          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${hasSubmitted ? 'bg-emerald-50/15' : ''}">
-            <td class="px-3 py-3.5 text-center font-bold text-slate-500">${r[0] || (idx + 1)}</td>
-            <td class="px-4 py-3.5 font-bold text-slate-900">${r[1] || ''}</td>
-            <td class="px-3 py-3.5 font-semibold text-slate-600">${r[2] || ''}</td>
-            <td class="px-3 py-3.5 text-slate-600 text-[11px]">${r[3] || ''}</td>
-            <td class="px-4 py-3.5 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${r[4] || '⏳ Chưa nộp'}</td>
-            <td class="px-3 py-3.5 whitespace-pre-line ${r[5] && !r[5].includes('Không có') && r[5] !== '-' ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-400'}">${r[5] || '-'}</td>
-            <td class="px-3 py-3.5 whitespace-pre-line text-slate-600">${r[6] || '-'}</td>
-            <td class="px-4 py-3.5 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${r[7] || '-'}</td>
-            <td class="px-3 py-3.5 text-center font-mono font-bold text-slate-700 text-[11px]">${r[8] || '--:--'}</td>
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${{hasSubmitted ? 'bg-emerald-50/15' : ''}}">
+            <td class="px-3 py-3.5 text-center font-bold text-slate-500">${{r[0] || (idx + 1)}}</td>
+            <td class="px-4 py-3.5 font-bold text-slate-900">${{r[1] || ''}}</td>
+            <td class="px-3 py-3.5 font-semibold text-slate-600">${{r[2] || ''}}</td>
+            <td class="px-3 py-3.5 text-slate-600 text-[11px]">${{r[3] || ''}}</td>
+            <td class="px-4 py-3.5 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${{r[4] || '⏳ Chưa nộp'}}</td>
+            <td class="px-3 py-3.5 whitespace-pre-line ${{r[5] && !r[5].includes('Không có') && r[5] !== '-' ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-400'}}">${{r[5] || '-'}}</td>
+            <td class="px-3 py-3.5 whitespace-pre-line text-slate-600">${{r[6] || '-'}}</td>
+            <td class="px-4 py-3.5 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${{r[7] || '-'}}</td>
+            <td class="px-3 py-3.5 text-center font-mono font-bold text-slate-700 text-[11px]">${{r[8] || '--:--'}}</td>
             <td class="px-3 py-3.5 text-center">
-              <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold ${hasSubmitted ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800'}">
-                ${hasSubmitted ? '🟢 Đúng hạn' : '⏳ Chưa nộp'}
+              <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold ${{hasSubmitted ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800'}}">
+                ${{hasSubmitted ? '🟢 Đúng hạn' : '⏳ Chưa nộp'}}
               </span>
             </td>
           </tr>
         `;
-      }).join('');
-    }
+      }}).join('');
+    }}
 
-    function renderEmployeeSheetTableHtml(sheetKey, rows) {
-      const titleRow = rows[0] ? rows[0][0] : `NHẬT KÝ BÁO CÁO CÔNG VIỆC - ${sheetKey}`;
+    function renderEmployeeSheetTableHtml(sheetKey, rows) {{
+      const titleRow = rows[0] ? rows[0][0] : `NHẬT KÝ BÁO CÁO CÔNG VIỆC - ${{sheetKey}}`;
       const infoRow = rows[2] || [];
       const empName = infoRow[2] || sheetKey.split(' - ')[0];
       const empRole = infoRow[6] || '';
@@ -717,15 +724,15 @@
         <!-- Profile Banner of this Sheet -->
         <div class="bg-gradient-to-r from-slate-900 to-[#1A365D] text-white p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <h3 class="font-extrabold text-sm sm:text-base text-amber-300 uppercase tracking-wider">${titleRow}</h3>
+            <h3 class="font-extrabold text-sm sm:text-base text-amber-300 uppercase tracking-wider">${{titleRow}}</h3>
             <div class="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-200">
-              <span>👤 <strong>${empName}</strong></span>
-              <span>💼 <em>${empRole}</em></span>
-              <span>👔 Phê duyệt: <strong>${empManager}</strong></span>
+              <span>👤 <strong>${{empName}}</strong></span>
+              <span>💼 <em>${{empRole}}</em></span>
+              <span>👔 Phê duyệt: <strong>${{empManager}}</strong></span>
             </div>
           </div>
           <span class="text-xs font-bold bg-white/10 border border-white/20 px-3 py-1 rounded-xl">
-            Tab: ${sheetKey}
+            Tab: ${{sheetKey}}
           </span>
         </div>
 
@@ -748,18 +755,18 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
-                ${renderPersonalRowsHtml(dataRows)}
+                ${{renderPersonalRowsHtml(dataRows)}}
               </tbody>
             </table>
           </div>
         </div>
       `;
-    }
+    }}
 
-    function renderPersonalRowsHtml(dataRows) {
+    function renderPersonalRowsHtml(dataRows) {{
       if (dataRows.length === 0) return '<tr><td colspan="10" class="p-6 text-center text-slate-400">Chưa có dòng dữ liệu nào</td></tr>';
 
-      return dataRows.map((r, idx) => {
+      return dataRows.map((r, idx) => {{
         const stt = r[0] || (idx + 1);
         const date = r[1] || '';
         const time = r[2] || (date ? '17:00:00' : '');
@@ -774,25 +781,25 @@
         const hasData = res.trim().length > 0;
 
         return `
-          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${hasData ? 'bg-blue-50/20' : ''}">
-            <td class="px-3 py-3 text-center font-bold text-slate-500">${stt}</td>
-            <td class="px-3 py-3 font-mono font-bold text-slate-800 text-[11px]">${date || '<span class="text-slate-300">-</span>'}</td>
-            <td class="px-3 py-3 text-center font-mono text-slate-600 text-[11px]">${time || '<span class="text-slate-300">--:--</span>'}</td>
-            <td class="px-5 py-3 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${res ? formatResultsHtml(res) : '<span class="text-slate-300">-</span>'}</td>
-            <td class="px-4 py-3 whitespace-pre-line ${diff && !diff.includes('Không có') ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-500'}">${diff || '<span class="text-slate-300">-</span>'}</td>
-            <td class="px-4 py-3 whitespace-pre-line text-slate-600">${lesson || '<span class="text-slate-300">-</span>'}</td>
-            <td class="px-4 py-3 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${plan || '<span class="text-slate-300">-</span>'}</td>
-            <td class="px-3 py-3 text-sky-700">${link && link !== '-' ? `<a href="${link}" target="_blank" class="underline hover:text-sky-900">Xem link</a>` : '<span class="text-slate-300">-</span>'}</td>
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${{hasData ? 'bg-blue-50/20' : ''}}">
+            <td class="px-3 py-3 text-center font-bold text-slate-500">${{stt}}</td>
+            <td class="px-3 py-3 font-mono font-bold text-slate-800 text-[11px]">${{date || '<span class="text-slate-300">-</span>'}}</td>
+            <td class="px-3 py-3 text-center font-mono text-slate-600 text-[11px]">${{time || '<span class="text-slate-300">--:--</span>'}}</td>
+            <td class="px-5 py-3 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${{res ? formatResultsHtml(res) : '<span class="text-slate-300">-</span>'}}</td>
+            <td class="px-4 py-3 whitespace-pre-line ${{diff && !diff.includes('Không có') ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-500'}}">${{diff || '<span class="text-slate-300">-</span>'}}</td>
+            <td class="px-4 py-3 whitespace-pre-line text-slate-600">${{lesson || '<span class="text-slate-300">-</span>'}}</td>
+            <td class="px-4 py-3 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${{plan || '<span class="text-slate-300">-</span>'}}</td>
+            <td class="px-3 py-3 text-sky-700">${{link && link !== '-' ? `<a href="${{link}}" target="_blank" class="underline hover:text-sky-900">Xem link</a>` : '<span class="text-slate-300">-</span>'}}</td>
             <td class="px-3 py-3 text-center">
-              ${status ? `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${status}</span>` : '<span class="text-slate-300">-</span>'}
+              ${{status ? `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${{status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}}">${{status}}</span>` : '<span class="text-slate-300">-</span>'}}
             </td>
-            <td class="px-4 py-3 italic text-slate-600">${feedback || '<span class="text-slate-300 font-normal">Chờ duyệt</span>'}</td>
+            <td class="px-4 py-3 italic text-slate-600">${{feedback || '<span class="text-slate-300 font-normal">Chờ duyệt</span>'}}</td>
           </tr>
         `;
-      }).join('');
-    }
+      }}).join('');
+    }}
 
-    function renderWeeklySheetHtml(rows) {
+    function renderWeeklySheetHtml(rows) {{
       return `
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 text-center">
           <span class="text-4xl block mb-2">📈</span>
@@ -805,28 +812,28 @@
           </div>
         </div>
       `;
-    }
+    }}
 
-    function formatResultsHtml(raw) {
+    function formatResultsHtml(raw) {{
       if (!raw) return '<span class="text-slate-400 italic">-</span>';
-      const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      const lines = raw.split('\\n').map(l => l.trim()).filter(l => l.length > 0);
       if (lines.length === 0) return '<span class="text-slate-400 italic">-</span>';
 
-      return lines.map(line => {
-        let clean = line.replace(/^[•\-\*]\s*/, '');
+      return lines.map(line => {{
+        let clean = line.replace(/^[•\\-\\*]\\s*/, '');
         return `
           <div class="flex items-start gap-1.5 py-0.5">
             <span class="text-emerald-600 font-bold shrink-0">✅</span>
-            <span>${clean}</span>
+            <span>${{clean}}</span>
           </div>
         `;
-      }).join('');
-    }
+      }}).join('');
+    }}
 
     // ========================================================
     // 3. CARDS DASHBOARD (17H CHIỀU - VISUAL TASK CARDS)
     // ========================================================
-    function setManagerDate(dateStr) {
+    function setManagerDate(dateStr) {{
       managerSelectedDate = dateStr;
       const cal = document.getElementById("mgr-calendar-picker");
       if (cal) cal.value = dmyToYmd(dateStr);
@@ -835,65 +842,65 @@
 
       renderManagerCards(dateStr);
       updateExecutiveReportPreview(dateStr);
-    }
+    }}
 
-    function jumpManagerDay(offset) {
+    function jumpManagerDay(offset) {{
       const dt = parseDMYDate(managerSelectedDate);
       dt.setDate(dt.getDate() + offset);
       setManagerDate(formatDateDMY(dt));
-    }
+    }}
 
-    function setManagerToToday() {
+    function setManagerToToday() {{
       setManagerDate('05/10/2026');
-    }
+    }}
 
-    function onManagerCalendarChange(ymd) {
+    function onManagerCalendarChange(ymd) {{
       if (!ymd) return;
       const p = ymd.split('-');
-      setManagerDate(`${p[2]}/${p[1]}/${p[0]}`);
-    }
+      setManagerDate(`${{p[2]}}/${{p[1]}}/${{p[0]}}`);
+    }}
 
-    function parseDMYDate(dmy) {
+    function parseDMYDate(dmy) {{
       if (!dmy || !dmy.includes('/')) return new Date();
       const p = dmy.split('/');
       return new Date(parseInt(p[2]), parseInt(p[1]) - 1, parseInt(p[0]));
-    }
+    }}
 
-    function formatDateDMY(dt) {
+    function formatDateDMY(dt) {{
       const d = String(dt.getDate()).padStart(2, '0');
       const m = String(dt.getMonth() + 1).padStart(2, '0');
-      return `${d}/${m}/${dt.getFullYear()}`;
-    }
+      return `${{d}}/${{m}}/${{dt.getFullYear()}}`;
+    }}
 
-    function dmyToYmd(dmy) {
+    function dmyToYmd(dmy) {{
       if (!dmy || !dmy.includes('/')) return "";
       const p = dmy.split('/');
-      return `${p[2]}-${p[1]}-${p[0]}`;
-    }
+      return `${{p[2]}}-${{p[1]}}-${{p[0]}}`;
+    }}
 
-    function formatVietnameseFullDate(dmy) {
+    function formatVietnameseFullDate(dmy) {{
       const dt = parseDMYDate(dmy);
       const days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-      return `${days[dt.getDay()] || 'Thứ'}, ${dmy}`;
-    }
+      return `${{days[dt.getDay()] || 'Thứ'}}, ${{dmy}}`;
+    }}
 
-    function renderManagerCards(dateStr) {
+    function renderManagerCards(dateStr) {{
       const container = document.getElementById("mgr-cards-container");
       container.innerHTML = "";
 
       const users = ACCOUNTS.filter(a => a.type === "USER");
       let subCount = 0;
 
-      users.forEach(u => {
+      users.forEach(u => {{
         // Get data from sheets_data
         const sKey = u.tabName;
         const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sKey]) ? window.ALL_SHEETS_DATA[sKey] : null;
         let rep = null;
 
-        if (sData && sData.rows) {
-          for (const r of sData.rows.slice(5)) {
-            if (r.length > 3 && r[1] && (r[1].includes('5/10') || r[1].includes('05/10')) && r[3].trim()) {
-              rep = {
+        if (sData && sData.rows) {{
+          for (const r of sData.rows.slice(5)) {{
+            if (r.length > 3 && r[1] && (r[1].includes('5/10') || r[1].includes('05/10')) && r[3].trim()) {{
+              rep = {{
                 time: r[2] || '17:00:00',
                 res: r[3],
                 diff: r[4] || '• Không có',
@@ -901,27 +908,27 @@
                 plan: r[6] || '',
                 status: 'Đúng hạn',
                 feedback: r[9] || 'Chờ duyệt'
-              };
+              }};
               break;
-            }
-          }
-        }
+            }}
+          }}
+        }}
 
         const card = document.createElement("div");
 
-        if (!rep) {
+        if (!rep) {{
           card.className = "bg-white rounded-2xl border-2 border-dashed border-slate-200 p-5 shadow-2xs flex flex-col justify-between";
           card.innerHTML = `
             <div>
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl font-bold shadow-2xs">${u.avatar}</div>
+                  <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl font-bold shadow-2xs">${{u.avatar}}</div>
                   <div>
-                    <h4 class="font-bold text-slate-900 text-sm">${u.name}</h4>
-                    <p class="text-[11px] text-slate-500">${u.role}</p>
+                    <h4 class="font-bold text-slate-900 text-sm">${{u.name}}</h4>
+                    <p class="text-[11px] text-slate-500">${{u.role}}</p>
                   </div>
                 </div>
-                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">${u.group}</span>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">${{u.group}}</span>
               </div>
               <div class="py-10 text-center text-slate-400 text-xs">
                 <span class="text-3xl block mb-2">⏳</span>
@@ -934,7 +941,7 @@
               <span class="font-mono">--:--:--</span>
             </div>
           `;
-        } else {
+        }} else {{
           subCount++;
           const hasDiff = rep.diff && !rep.diff.includes("Không có") && rep.diff !== "-";
           card.className = "bg-white rounded-2xl border border-slate-200 hover:border-blue-400 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between space-y-4";
@@ -942,20 +949,20 @@
             <div>
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 flex items-center justify-center text-2xl shadow-2xs">${u.avatar}</div>
+                  <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 flex items-center justify-center text-2xl shadow-2xs">${{u.avatar}}</div>
                   <div>
                     <div class="flex items-center gap-1.5">
-                      <h4 class="font-bold text-slate-900 text-sm">${u.name}</h4>
-                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${u.group}</span>
+                      <h4 class="font-bold text-slate-900 text-sm">${{u.name}}</h4>
+                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${{u.group}}</span>
                     </div>
-                    <p class="text-[11px] text-slate-500">${u.role}</p>
+                    <p class="text-[11px] text-slate-500">${{u.role}}</p>
                   </div>
                 </div>
                 <div class="text-right">
                   <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                     🟢 Đúng hạn
                   </span>
-                  <p class="text-[10px] font-mono text-slate-600 font-bold mt-0.5">⏱️ ${rep.time}</p>
+                  <p class="text-[10px] font-mono text-slate-600 font-bold mt-0.5">⏱️ ${{rep.time}}</p>
                 </div>
               </div>
 
@@ -965,31 +972,31 @@
                     <span class="text-emerald-600">1️⃣</span> Kết Quả Đạt Được Hôm Nay
                   </div>
                   <div class="bg-slate-50/80 border border-slate-200 rounded-xl p-3 text-xs leading-relaxed font-medium">
-                    ${formatResultsHtml(rep.res)}
+                    ${{formatResultsHtml(rep.res)}}
                   </div>
                 </div>
 
-                ${hasDiff ? `
+                ${{hasDiff ? `
                 <div>
                   <div class="text-[11px] font-extrabold uppercase text-amber-800 flex items-center gap-1.5 mb-1">
                     <span>⚠️</span> Khó Khăn Cần Tháo Gỡ
                   </div>
                   <div class="bg-amber-50/90 border border-amber-300 rounded-xl p-2.5 text-xs text-amber-950 font-medium whitespace-pre-line leading-relaxed">
-                    ${rep.diff}
+                    ${{rep.diff}}
                   </div>
                 </div>
                 ` : `
                 <div class="text-[11px] text-slate-400 italic flex items-center gap-1.5">
                   <span class="text-emerald-500 font-bold">✓</span> Không phát sinh vướng mắc
                 </div>
-                `}
+                `}}
 
                 <div>
                   <div class="text-[11px] font-extrabold uppercase text-sky-800 flex items-center gap-1.5 mb-1.5">
                     <span>🎯</span> Kế Hoạch Ngày Mai
                   </div>
                   <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-2.5 text-xs text-sky-950 whitespace-pre-line font-medium leading-relaxed">
-                    ${rep.plan || 'Chưa ghi nhận'}
+                    ${{rep.plan || 'Chưa ghi nhận'}}
                   </div>
                 </div>
               </div>
@@ -998,22 +1005,22 @@
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
               <div class="text-[11px] text-slate-600 truncate flex items-center gap-1">
                 <span class="text-slate-400">Chỉ đạo:</span>
-                <span class="italic text-slate-800 truncate">${rep.feedback || 'Chờ duyệt'}</span>
+                <span class="italic text-slate-800 truncate">${{rep.feedback || 'Chờ duyệt'}}</span>
               </div>
-              <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${SHEET_TABS.find(t=>t.key===u.tabName)?.gid || '0'}" target="_blank" class="shrink-0 text-xs px-2.5 py-1 bg-sky-100 hover:bg-sky-200 text-sky-900 rounded-lg font-bold transition flex items-center gap-1">
+              <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${{SHEET_TABS.find(t=>t.key===u.tabName)?.gid || '0'}}" target="_blank" class="shrink-0 text-xs px-2.5 py-1 bg-sky-100 hover:bg-sky-200 text-sky-900 rounded-lg font-bold transition flex items-center gap-1">
                 <span>🟢</span> Xem Sheet
               </a>
             </div>
           `;
-        }
+        }}
 
         container.appendChild(card);
-      });
+      }});
 
-      document.getElementById("m-kpi-sub").textContent = `${subCount} / 9 (${Math.round(subCount / 9 * 100)}%)`;
-    }
+      document.getElementById("m-kpi-sub").textContent = `${{subCount}} / 9 (${{Math.round(subCount / 9 * 100)}}%)`;
+    }}
 
-    function updateExecutiveReportPreview(dateStr) {
+    function updateExecutiveReportPreview(dateStr) {{
       const text = `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
 Kính gửi Ban Lãnh Đạo,
 
@@ -1054,89 +1061,89 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
 • Ngân: Vận hành gian hàng TikTok Shop & CSKH`;
 
       document.getElementById("executive-report-text").textContent = text;
-    }
+    }}
 
-    function copyExecutiveSummaryReport() {
+    function copyExecutiveSummaryReport() {{
       const text = document.getElementById("executive-report-text").textContent;
-      navigator.clipboard.writeText(text).then(() => {
+      navigator.clipboard.writeText(text).then(() => {{
         showToast("Đã sao chép báo cáo!", "Báo cáo tổng hợp toàn phòng đã sẵn sàng gửi Ban Giám Đốc.", "success");
-      });
-    }
+      }});
+    }}
 
     // ========================================================
     // 4. PERSONAL SUBMIT SPACE LOGIC
     // ========================================================
-    function renderQuickLoginButtons() {
+    function renderQuickLoginButtons() {{
       const grid = document.getElementById("quick-users-grid");
       if (!grid) return;
       grid.innerHTML = "";
-      ACCOUNTS.forEach(u => {
+      ACCOUNTS.forEach(u => {{
         const btn = document.createElement("button");
         btn.onclick = () => doLoginByPassword(u.pin);
         const isAdmin = u.type === "ADMIN";
-        btn.className = `p-2.5 rounded-xl border text-left transition flex items-center justify-between gap-2 shadow-2xs hover:shadow-xs ${isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}`;
+        btn.className = `p-2.5 rounded-xl border text-left transition flex items-center justify-between gap-2 shadow-2xs hover:shadow-xs ${{isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}}`;
         btn.innerHTML = `
           <div class="flex items-center gap-2 overflow-hidden">
-            <span class="text-xl">${u.avatar}</span>
+            <span class="text-xl">${{u.avatar}}</span>
             <div class="truncate">
-              <p class="font-bold text-slate-900 truncate">${u.name}</p>
-              <p class="text-[10px] text-slate-500 truncate">${u.role}</p>
+              <p class="font-bold text-slate-900 truncate">${{u.name}}</p>
+              <p class="text-[10px] text-slate-500 truncate">${{u.role}}</p>
             </div>
           </div>
-          <span class="text-[11px] font-mono px-2 py-0.5 rounded-md font-bold ${isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}">Mã: ${u.pin}</span>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-md font-bold ${{isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}}">Mã: ${{u.pin}}</span>
         `;
         grid.appendChild(btn);
-      });
-    }
+      }});
+    }}
 
-    function handlePasswordOnlySubmit(e) {
+    function handlePasswordOnlySubmit(e) {{
       e.preventDefault();
       const p = document.getElementById("login-password").value.trim().toLowerCase();
       doLoginByPassword(p);
-    }
+    }}
 
-    function doLoginByPassword(pass) {
+    function doLoginByPassword(pass) {{
       if (!pass) return;
       const clean = pass.toLowerCase();
       const user = ACCOUNTS.find(a => a.password.toLowerCase() === clean || a.pin.toLowerCase() === clean || a.username.toLowerCase() === clean);
-      if (user) {
+      if (user) {{
         currentUser = user;
         localStorage.setItem("kingblue_user", JSON.stringify(user));
-        showToast("Đăng nhập thành công!", `Chào mừng ${user.name}`, "success");
+        showToast("Đăng nhập thành công!", `Chào mừng ${{user.name}}`, "success");
         updateUserSessionBar();
         renderSubmitSpace();
-      } else {
+      }} else {{
         showToast("Mật khẩu không đúng!", "Vui lòng nhập đúng mã PIN được cấp.", "error");
-      }
-    }
+      }}
+    }}
 
-    function handleLogout() {
+    function handleLogout() {{
       currentUser = null;
       localStorage.removeItem("kingblue_user");
       showToast("Đã đăng xuất", "Hẹn gặp lại bạn!", "info");
       updateUserSessionBar();
       renderSubmitSpace();
-    }
+    }}
 
-    function updateUserSessionBar() {
+    function updateUserSessionBar() {{
       const bar = document.getElementById("user-info-bar");
-      if (currentUser) {
+      if (currentUser) {{
         bar.classList.remove("hidden");
         document.getElementById("current-user-name").textContent = currentUser.name;
         document.getElementById("current-user-avatar").textContent = currentUser.avatar;
-      } else {
+      }} else {{
         bar.classList.add("hidden");
-      }
-    }
+      }}
+    }}
 
-    function renderSubmitSpace() {
+    function renderSubmitSpace() {{
       const loginBox = document.getElementById("submit-login-box");
       const formBox = document.getElementById("submit-form-box");
 
-      if (!currentUser) {
+      if (!currentUser) {{
         loginBox.classList.remove("hidden");
         formBox.classList.add("hidden");
-      } else {
+      }} else {{
         loginBox.classList.add("hidden");
         formBox.classList.remove("hidden");
 
@@ -1146,10 +1153,10 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
         document.getElementById("emp-role").textContent = currentUser.role;
         document.getElementById("emp-tab-name").textContent = currentUser.tabName;
         document.getElementById("emp-form-date").value = "05/10/2026";
-      }
-    }
+      }}
+    }}
 
-    async function handleEmployeeSubmit(e) {
+    async function handleEmployeeSubmit(e) {{
       e.preventDefault();
       const submitBtn = document.getElementById("btn-emp-submit");
       submitBtn.disabled = true;
@@ -1169,11 +1176,11 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
       const planVal = document.getElementById("emp-plan").value.trim();
       const linkVal = document.getElementById("emp-link").value.trim() || "-";
 
-      try {
-        await fetch("/api/submit", {
+      try {{
+        await fetch("/api/submit", {{
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+          headers: {{ "Content-Type": "application/json" }},
+          body: JSON.stringify({{
             username: currentUser.username,
             date: dateStr,
             res: resVal,
@@ -1181,37 +1188,37 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
             lesson: lessonVal,
             plan: planVal,
             link: linkVal
-          })
-        });
-      } catch(err) {}
+          }})
+        }});
+      }} catch(err) {{}}
 
       submitBtn.disabled = false;
       submitBtn.innerHTML = `<span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC`;
 
-      openCompletionModal({
+      openCompletionModal({{
         name: currentUser.name,
         avatar: currentUser.avatar,
         date: dateStr,
         time: timeStr,
         status: statusStr
-      });
-    }
+      }});
+    }}
 
-    function openCompletionModal(data) {
-      document.getElementById("modal-emp-name").innerHTML = `<span>${data.avatar}</span> ${data.name}`;
+    function openCompletionModal(data) {{
+      document.getElementById("modal-emp-name").innerHTML = `<span>${{data.avatar}}</span> ${{data.name}}`;
       document.getElementById("modal-date").textContent = data.date;
       document.getElementById("modal-time").textContent = data.time;
       const statusEl = document.getElementById("modal-status");
-      statusEl.className = `font-bold px-2.5 py-0.5 rounded-md text-[11px] ${data.status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`;
+      statusEl.className = `font-bold px-2.5 py-0.5 rounded-md text-[11px] ${{data.status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}}`;
       statusEl.textContent = data.status === 'Đúng hạn' ? '🟢 Đúng hạn (Trước 17:30)' : '🔴 Nộp muộn';
       document.getElementById("modal-completion").classList.remove("hidden");
-    }
+    }}
 
-    function closeCompletionModal() {
+    function closeCompletionModal() {{
       document.getElementById("modal-completion").classList.add("hidden");
-    }
+    }}
 
-    function showToast(title, desc, type = "success") {
+    function showToast(title, desc, type = "success") {{
       const toast = document.getElementById("toast");
       const icon = document.getElementById("toast-icon");
       document.getElementById("toast-title").textContent = title;
@@ -1221,11 +1228,20 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
       toast.classList.remove("translate-y-[-100px]", "opacity-0", "pointer-events-none");
       toast.classList.add("translate-y-0", "opacity-100");
 
-      setTimeout(() => {
+      setTimeout(() => {{
         toast.classList.remove("translate-y-0", "opacity-100");
         toast.classList.add("translate-y-[-100px]", "opacity-0", "pointer-events-none");
-      }, 3500);
-    }
+      }}, 3500);
+    }}
   </script>
 </body>
 </html>
+'''
+
+with open('website_tong_hop_bao_cao.html', 'w', encoding='utf-8') as f:
+    f.write(html_template)
+
+with open('index.html', 'w', encoding='utf-8') as f:
+    f.write(html_template)
+
+print('Generated website_tong_hop_bao_cao.html and index.html successfully!')

@@ -12,9 +12,15 @@
   <style>
     body { font-family: 'Inter', sans-serif; }
     .font-mono { font-family: 'JetBrains+Mono', monospace; }
-    .date-active { background-color: #0284C7 !important; color: white !important; font-weight: 700 !important; border-color: #0284C7 !important; }
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .tab-sheet-active {
+      background-color: #1A365D !important;
+      color: #ffffff !important;
+      font-weight: 800 !important;
+      border-color: #1A365D !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -30,37 +36,59 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="text-lg sm:text-xl font-bold tracking-tight">KING BLUE MARKETING PORTAL</h1>
-            <span id="role-badge" class="hidden text-xs px-2 py-0.5 rounded-full font-bold"></span>
+            <span class="text-[11px] bg-amber-400 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-full">v2.0 PRO</span>
           </div>
-          <p class="text-blue-200 text-xs mt-0.5">Hệ Thống Phân Quyền Báo Cáo Tự Động • Tự Động Ghi Giờ Nộp Khi Bấm Gửi</p>
+          <p class="text-blue-200 text-xs mt-0.5">Hệ Thống Báo Cáo Đa Sheet • Tự Động Đồng Bộ Google Sheets & GitHub</p>
         </div>
       </div>
 
-      <!-- User Session Controls -->
-      <div class="flex items-center gap-3">
-        <!-- Logged in info -->
-        <div id="user-info-bar" class="hidden flex items-center gap-3">
-          <div class="text-right hidden sm:block">
-            <p id="current-user-name" class="text-xs font-bold text-white"></p>
-            <p id="current-user-role" class="text-[11px] text-blue-200"></p>
-          </div>
-          <div id="current-user-avatar" class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-lg"></div>
-          <button onclick="handleLogout()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shadow-xs flex items-center gap-1">
-            <span>🚪</span> Đăng Xuất
-          </button>
-        </div>
-
-        <!-- Quick Links (Always visible) -->
-        <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition shadow">
-          <span>📊</span> Live Google Sheet
+      <!-- Quick Action Links -->
+      <div class="flex items-center gap-2.5">
+        <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition shadow">
+          <span>📊</span> Google Sheet Gốc
+        </a>
+        <a href="https://github.com/duykoolhp1996/KingBlue-Marketing-System" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 transition">
+          <span>🐙</span> GitHub
         </a>
       </div>
 
     </div>
   </header>
 
+  <!-- ================= SECONDARY STICKY NAVIGATION (3 MODES) ================= -->
+  <nav class="bg-white border-b border-slate-200 sticky top-[68px] z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- 3 Primary Navigation Buttons -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="switchMainAppTab('sheets')" id="btn-nav-sheets" class="px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs">
+          <span>📑</span> 1. BẢNG TÍNH THEO TỪNG SHEET (11 SHEETS)
+        </button>
+        <button onclick="switchMainAppTab('cards')" id="btn-nav-cards" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
+          <span>🗂️</span> 2. THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU)
+        </button>
+        <button onclick="switchMainAppTab('submit')" id="btn-nav-submit" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
+          <span>✍️</span> 3. KHÔNG GIAN ĐIỀN BÁO CÁO CÁ NHÂN
+        </button>
+      </div>
+
+      <!-- Live Clock & User Status -->
+      <div class="flex items-center gap-3 text-xs">
+        <div id="user-info-bar" class="hidden flex items-center gap-2 text-xs">
+          <span id="current-user-avatar" class="text-base">👔</span>
+          <span id="current-user-name" class="font-bold text-slate-900"></span>
+          <button onclick="handleLogout()" class="text-rose-600 hover:underline font-bold text-[11px]">(Đăng xuất)</button>
+        </div>
+        <span class="text-slate-500 font-mono text-[11px] bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+          🕒 <span id="live-clock">--:--:--</span>
+        </span>
+      </div>
+
+    </div>
+  </nav>
+
   <!-- ================= NOTIFICATION TOAST ================= -->
-  <div id="toast" class="fixed top-20 right-4 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none max-w-md bg-slate-900 text-white p-4 rounded-xl shadow-2xl border border-slate-700 flex items-start gap-3">
+  <div id="toast" class="fixed top-24 right-4 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none max-w-md bg-slate-900 text-white p-4 rounded-2xl shadow-2xl border border-slate-700 flex items-start gap-3">
     <span id="toast-icon" class="text-2xl">✅</span>
     <div>
       <h4 id="toast-title" class="text-sm font-bold">Thông báo</h4>
@@ -71,38 +99,28 @@
   <!-- ================= POPUP THỂ HIỆN HOÀN THÀNH BÁO CÁO ================= -->
   <div id="modal-completion" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden transition-all duration-300">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 text-center transform scale-95 transition-all duration-300 animate-in fade-in zoom-in">
-      
-      <!-- Icon hoàn thành sinh động -->
       <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center text-4xl shadow-inner mb-4 ring-8 ring-emerald-50">
         🎉
       </div>
-
       <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-[11px] font-extrabold rounded-full uppercase tracking-wider mb-2">
         HỆ THỐNG GHI NHẬN THÀNH CÔNG
       </span>
-
       <h3 class="text-xl font-extrabold text-slate-900">Báo Cáo Đã Hoàn Thành!</h3>
       <p class="text-xs text-slate-500 mt-1">Hệ thống đã lưu lại <strong class="text-slate-800">báo cáo gần nhất</strong> của bạn trong ngày hôm nay.</p>
-
-      <!-- Bảng chi tiết biên nhận -->
+      
       <div class="mt-5 bg-slate-50 rounded-2xl p-4 border border-slate-200 text-left text-xs space-y-2.5">
         <div class="flex items-center justify-between pb-2 border-b border-slate-200">
           <span class="text-slate-500 font-medium">Nhân sự nộp:</span>
-          <span class="font-bold text-slate-900 flex items-center gap-1.5" id="modal-emp-name">
-            Võ Thị Hoài Thương
-          </span>
+          <span class="font-bold text-slate-900 flex items-center gap-1.5" id="modal-emp-name"></span>
         </div>
-
         <div class="flex items-center justify-between">
           <span class="text-slate-500 font-medium">Ngày báo cáo:</span>
           <span class="font-bold text-slate-800 font-mono" id="modal-date">05/10/2026</span>
         </div>
-
         <div class="flex items-center justify-between">
-          <span class="text-slate-500 font-medium">Giờ nộp (Lần gửi gần nhất):</span>
+          <span class="text-slate-500 font-medium">Giờ nộp (Ghi nhận tự động):</span>
           <span class="font-bold text-sky-800 font-mono text-sm" id="modal-time">17:15:32</span>
         </div>
-
         <div class="flex items-center justify-between pt-1">
           <span class="text-slate-500 font-medium">Đánh giá hạn nộp:</span>
           <span class="font-bold px-2.5 py-0.5 rounded-md text-[11px]" id="modal-status">
@@ -111,218 +129,84 @@
         </div>
       </div>
 
-      <div class="mt-4 p-3 bg-blue-50/70 rounded-xl border border-blue-100 text-[11px] text-blue-900 text-left leading-relaxed">
-        💡 <strong>Lưu ý nội bộ:</strong> Bạn không cần sao chép hay gửi tin nhắn đi đâu cả. Dữ liệu đã được đồng bộ lên Google Sheets, Marketing Manager sẽ tổng hợp báo cáo của bạn lên Ban Giám Đốc.
-      </div>
-
       <button onclick="closeCompletionModal()" class="mt-6 w-full py-3.5 bg-[#1A365D] hover:bg-blue-900 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
         <span>✅</span> ĐÃ HIỂU & ĐÓNG LẠI
       </button>
-
     </div>
   </div>
 
   <!-- ================= MAIN APP CONTAINER ================= -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
-    <!-- ======================================================== -->
-    <!-- 1. MÀN HÌNH ĐĂNG NHẬP (LOGIN SCREEN) -->
-    <!-- ======================================================== -->
-    <section id="screen-login" class="max-w-xl mx-auto my-8">
-      <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
-        
-        <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] p-8 text-white text-center">
-          <div class="w-16 h-16 rounded-2xl bg-amber-400 text-slate-900 mx-auto flex items-center justify-center font-extrabold text-3xl shadow-lg mb-3">
-            KB
-          </div>
-          <h2 class="text-2xl font-bold">Đăng Nhập Hệ Thống</h2>
-          <p class="text-blue-100 text-xs mt-1">Mỗi nhân sự sử dụng tài khoản riêng để điền báo cáo công việc</p>
+    <!-- ===================================================================== -->
+    <!-- CHẾ ĐỘ 1: BẢNG TÍNH THEO TỪNG SHEET (11 SHEETS - THEO ĐÚNG VỊ TRÍ)    -->
+    <!-- ===================================================================== -->
+    <section id="section-sheets-explorer" class="space-y-5">
+      
+      <!-- Top Google Sheets Tabs Bar -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-3">
+        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+          <span class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+            <span>📑</span> VỊ TRÍ 11 SHEET TRONG GOOGLE SPREADSHEET (CLICK ĐỂ XEM BẢNG TƯƠNG ỨNG):
+          </span>
+          <span class="text-[11px] text-slate-400 hidden sm:inline">Thứ tự khớp 100% vị trí trong Google Sheets</span>
         </div>
-
-        <div class="p-8 space-y-6">
-          <form onsubmit="handlePasswordOnlySubmit(event)" class="space-y-4">
-            <div>
-              <div class="flex items-center justify-between mb-1.5">
-                <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">🔑 Nhập Mật Khẩu / Mã PIN Truy Cập (*)</label>
-                <span class="text-[11px] text-sky-700 font-medium">Lưu hành nội bộ (Không cần ID)</span>
-              </div>
-              <div class="relative">
-                <input type="password" id="login-password" required autofocus placeholder="Nhập mật khẩu của bạn rồi bấm Enter..." class="w-full p-4 pl-11 rounded-2xl border-2 border-slate-300 text-base focus:border-sky-600 focus:ring-4 focus:ring-sky-100 focus:outline-hidden font-mono font-bold tracking-widest bg-slate-50 transition" />
-                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">🔒</span>
-              </div>
-              <p class="text-[11px] text-slate-500 mt-1.5">Hệ thống sẽ tự động nhận diện bạn là ai và mở đúng không gian làm việc của bạn.</p>
-            </div>
-
-            <button type="submit" class="w-full py-4 bg-[#1A365D] hover:bg-blue-900 text-white font-bold text-sm rounded-2xl transition shadow-lg flex items-center justify-center gap-2">
-              <span>🚀</span> VÀO KHÔNG GIAN BÁO CÁO
-            </button>
-          </form>
-
-          <!-- Quick Member Card Selector -->
-          <div class="pt-5 border-t border-slate-100">
-            <div class="flex items-center justify-between mb-3">
-              <p class="text-xs font-bold text-slate-700 uppercase tracking-wider">Hoặc nhấp vào tên bạn để vào nhanh:</p>
-              <span class="text-[11px] text-slate-400">1-Click Đăng nhập</span>
-            </div>
-            
-            <div class="grid grid-cols-2 sm:grid-cols-2 gap-2 text-xs" id="quick-users-grid">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 hide-scrollbar" id="sheet-tabs-container">
+          <!-- Populated by JS -->
         </div>
-
       </div>
-    </section>
 
-    <!-- ======================================================== -->
-    <!-- 2. MÀN HÌNH DÀNH CHO NHÂN VIÊN (ROLE: USER) -->
-    <!-- ======================================================== -->
-    <section id="screen-employee" class="hidden space-y-6">
-
-      <!-- Employee Banner -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="flex items-center gap-4">
-          <div id="emp-avatar" class="w-16 h-16 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-3xl shadow-xs">
-            ✍️
+      <!-- Active Sheet Header & Action Bar -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div id="active-sheet-icon" class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 flex items-center justify-center text-2xl font-bold shadow-2xs">
+            📄
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h2 id="emp-name" class="text-xl font-bold text-slate-900">Võ Thị Hoài Thương</h2>
-              <span id="emp-group" class="text-xs bg-sky-100 text-sky-800 px-2.5 py-0.5 rounded-full font-semibold border border-sky-200">Content</span>
-              <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">Nhân Viên</span>
+              <h2 id="active-sheet-title" class="text-base font-extrabold text-slate-900">BAO CAO HOM NAY</h2>
+              <span id="active-sheet-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                Sheet 0
+              </span>
             </div>
-            <p id="emp-role" class="text-xs text-slate-600 mt-1 font-medium">Content Marketing & SEO Fanpage/Website</p>
-            <p class="text-[11px] text-slate-400 mt-0.5">Tab Google Sheet: <strong id="emp-tab-name" class="text-sky-700">Hoai Thuong - Content</strong> • Quản lý: <strong>Marketing Manager</strong></p>
+            <p id="active-sheet-desc" class="text-xs text-slate-500 mt-0.5">Bảng Tổng Hợp Chi Tiết Tiến Độ Hàng Ngày Của 9 Nhân Sự</p>
           </div>
         </div>
 
-        <div class="bg-sky-50 border border-sky-200 rounded-xl p-3 text-xs text-slate-700 space-y-1">
-          <p class="font-bold text-sky-950 flex items-center gap-1.5">
-            <span>⏱️</span> Quy định nộp báo cáo:
-          </p>
-          <p>• Hạn chót: <strong class="text-red-600">Trước 17:30 mỗi ngày</strong>.</p>
-          <p>• <strong>Giờ nộp</strong> sẽ được hệ thống <strong class="text-emerald-700">tự động ghi nhận chính xác lúc bạn bấm Gửi</strong>.</p>
-          <p>• <strong>Bạn chỉ cần điền thông tin và bấm Gửi</strong>, không cần sao chép hay gửi đi đâu khác!</p>
-        </div>
-      </div>
-
-      <!-- Submission Form -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 max-w-4xl mx-auto">
-        
-        <!-- Latest Submission Status Banner -->
-        <div id="emp-status-banner" class="hidden mb-5 p-4 rounded-2xl border flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl" id="emp-banner-icon">✅</span>
-            <div>
-              <p class="font-bold text-xs" id="emp-banner-title">ĐÃ NỘP BÁO CÁO GẦN NHẤT HÔM NAY</p>
-              <p class="text-[11px] mt-0.5" id="emp-banner-desc">Giờ nộp gần nhất: 17:15:32 (Đúng hạn). Hệ thống luôn lấy bản mới nhất.</p>
-            </div>
-          </div>
-          <span class="text-[11px] font-bold px-2.5 py-1 rounded-lg" id="emp-banner-badge">🟢 Đúng hạn</span>
-        </div>
-
-        <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
-          <div>
-            <h3 class="text-base font-bold text-slate-900">Điền Báo Cáo Công Việc Hàng Ngày</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Mỗi ngày hệ thống sẽ tự động lưu và lấy báo cáo gần nhất của bạn</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-slate-600">Ngày báo cáo:</span>
-            <input type="text" id="emp-form-date" value="05/10/2026" class="text-xs font-bold text-sky-800 bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5" />
-          </div>
-        </div>
-
-        <form id="employee-report-form" onsubmit="handleEmployeeSubmit(event)" class="space-y-4">
-          
-          <!-- 1. Kết quả -->
-          <div>
-            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-              <span>1️⃣</span> KẾT QUẢ ĐẠT ĐƯỢC TRONG NGÀY (*)
-            </label>
-            <textarea id="emp-res" rows="4" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium leading-relaxed bg-slate-50 focus:bg-white transition" placeholder="• Nhiệm vụ 1: ...&#10;• Nhiệm vụ 2: ...&#10;• Nhiệm vụ 3: ..."></textarea>
-            <p class="text-[11px] text-slate-400 mt-1">Ghi rõ đầu việc cụ thể và kết quả / số lượng hoàn thành trong ngày.</p>
-          </div>
-
-          <!-- 2. Khó khăn -->
-          <div>
-            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-              <span>2️⃣</span> KHÓ KHĂN / VƯỚNG MẮC PHÁT SINH
-            </label>
-            <textarea id="emp-diff" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium leading-relaxed bg-slate-50 focus:bg-white transition" placeholder="Nêu rõ khó khăn cần Marketing Manager tháo gỡ (Nếu không có thì để trống hoặc ghi 'Không có')"></textarea>
-          </div>
-
-          <!-- 3. Bài học & đề xuất -->
-          <div>
-            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-              <span>3️⃣</span> BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT CẢI TIẾN
-            </label>
-            <textarea id="emp-lesson" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium leading-relaxed bg-slate-50 focus:bg-white transition" placeholder="Đề xuất cải tiến quy trình, công cụ làm việc hoặc bài học rút ra..."></textarea>
-          </div>
-
-          <!-- 4. Kế hoạch ngày mai -->
-          <div>
-            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-              <span>4️⃣</span> KẾ HOẠCH CÔNG VIỆC NGÀY MAI (*)
-            </label>
-            <textarea id="emp-plan" rows="2" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium leading-relaxed bg-slate-50 focus:bg-white transition" placeholder="• Nhiệm vụ 1 + Deadline dự kiến&#10;• Nhiệm vụ 2 ..."></textarea>
-          </div>
-
-          <!-- Link minh chứng -->
-          <div>
-            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-              <span>🔗</span> LINK MINH CHỨNG / TÀI LIỆU (NẾU CÓ)
-            </label>
-            <input type="text" id="emp-link" placeholder="https://drive.google.com/... hoặc link sản phẩm" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50" />
-          </div>
-
-          <!-- Submit Button -->
-          <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100">
-            <div class="text-xs text-slate-500 flex items-center gap-1.5">
-              <span>⏱️</span> Giờ nộp sẽ tự động lấy: <strong class="text-slate-800 font-mono" id="live-clock">17:15:00</strong>
-            </div>
-
-            <button type="submit" id="btn-emp-submit" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
-              <span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-between md:justify-end">
+          <!-- View Toggle: HTML vs Iframe -->
+          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
+            <button onclick="toggleSheetViewFormat('html')" id="btn-format-html" class="px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1">
+              <span>📋</span> Bảng Web Đẹp
+            </button>
+            <button onclick="toggleSheetViewFormat('iframe')" id="btn-format-iframe" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1">
+              <span>🖥️</span> Nhúng Google Sheet
             </button>
           </div>
 
-        </form>
+          <!-- Direct Google Sheet Link -->
+          <a id="active-sheet-direct-link" href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=187266668" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition shadow-xs flex items-center gap-1.5">
+            <span>🟢</span> Mở Tab Này Trên Sheet
+          </a>
+        </div>
       </div>
 
-      <!-- Employee Personal History Table -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
-          <h3 class="text-sm font-bold text-slate-900">Nhật Ký Báo Cáo Cá Nhân Của Bạn</h3>
-          <span class="text-xs text-slate-500">Dữ liệu đồng bộ trực tiếp với Google Sheets</span>
-        </div>
+      <!-- Active Sheet Table Body (HTML Mode) -->
+      <div id="sheet-html-view-container" class="space-y-4">
+        <!-- Rendered dynamically by renderActiveSheetHtml() -->
+      </div>
 
-        <div class="overflow-x-auto rounded-xl border border-slate-200">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 uppercase text-[11px]">
-              <tr>
-                <th class="px-3 py-2.5 w-24">Ngày</th>
-                <th class="px-3 py-2.5 w-24">Giờ Nộp</th>
-                <th class="px-4 py-2.5 min-w-[240px]">1️⃣ Kết Quả Đạt Được</th>
-                <th class="px-4 py-2.5 min-w-[180px]">2️⃣ Khó Khăn</th>
-                <th class="px-4 py-2.5 min-w-[200px]">4️⃣ Kế Hoạch Ngày Mai</th>
-                <th class="px-3 py-2.5 text-center w-24">Trạng Thái</th>
-                <th class="px-4 py-2.5 min-w-[180px]">Phản Hồi Của Quản Lý</th>
-              </tr>
-            </thead>
-            <tbody id="emp-history-body" class="divide-y divide-slate-100">
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
+      <!-- Active Sheet Iframe Body (Iframe Mode) -->
+      <div id="sheet-iframe-view-container" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-2 overflow-hidden">
+        <iframe id="sheet-google-iframe" src="" class="w-full h-[720px] rounded-xl border border-slate-200"></iframe>
       </div>
 
     </section>
 
-    <!-- ======================================================== -->
-    <!-- 3. MÀN HÌNH DÀNH CHO MARKETING MANAGER (ROLE: ADMIN) -->
-    <!-- ======================================================== -->
-    <section id="screen-manager" class="hidden space-y-6">
+    <!-- ===================================================================== -->
+    <!-- CHẾ ĐỘ 2: THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU) - EXECUTIVE DASHBOARD    -->
+    <!-- ===================================================================== -->
+    <section id="section-cards-dashboard" class="hidden space-y-6">
 
       <!-- Manager Header Banner -->
       <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] rounded-3xl p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -339,21 +223,17 @@
           </div>
         </div>
 
-        <!-- Manager Special Export Button -->
         <button onclick="copyExecutiveSummaryReport()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs px-5 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
           <span>📋</span> SAO CHÉP BÁO CÁO TỔNG HỢP (GỬI BAN GIÁM ĐỐC)
         </button>
       </div>
 
-      <!-- Date Filter & View Controller Bar -->
+      <!-- Date Filter Bar for Cards Dashboard -->
       <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-        
-        <!-- Left: Interactive Date Controller -->
         <div class="flex flex-wrap items-center gap-2">
           <span class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
             <span>📅</span> Xem ngày:
           </span>
-          
           <div class="flex items-center gap-1 bg-slate-100 p-0.5 rounded-xl border border-slate-200">
             <button onclick="jumpManagerDay(-1)" title="Lùi 1 ngày" class="px-2.5 py-1.5 hover:bg-white rounded-lg text-slate-700 text-xs font-bold transition flex items-center gap-1">
               <span>◀</span> Hôm qua
@@ -365,100 +245,35 @@
               Ngày mai <span>▶</span>
             </button>
           </div>
-
-          <!-- Calendar Input Picker -->
-          <div class="relative flex items-center">
-            <input type="date" id="mgr-calendar-picker" onchange="onManagerCalendarChange(this.value)" class="text-xs font-bold text-slate-800 bg-white border border-slate-300 rounded-xl px-3 py-1.5 focus:ring-2 focus:ring-sky-500 focus:outline-hidden shadow-2xs cursor-pointer" title="Nhấp để mở lịch chọn ngày bất kỳ" />
-          </div>
-
-          <!-- Prominent Selected Date Badge -->
+          <input type="date" id="mgr-calendar-picker" onchange="onManagerCalendarChange(this.value)" class="text-xs font-bold text-slate-800 bg-white border border-slate-300 rounded-xl px-3 py-1.5 focus:ring-2 focus:ring-sky-500 focus:outline-hidden shadow-2xs cursor-pointer" />
           <span id="mgr-selected-date-display" class="text-xs font-extrabold text-blue-900 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
             <span>🗓️</span> <span id="mgr-date-text">Thứ Hai, 05/10/2026</span>
           </span>
         </div>
 
-        <!-- Right: View Switcher & Live KPI -->
-        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
-          <!-- View Mode Toggle -->
-          <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
-            <button onclick="switchManagerViewMode('cards')" id="btn-mode-cards" class="px-3.5 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1.5">
-              <span>🗂️</span> Thẻ Công Việc Hôm Nay
-            </button>
-            <button onclick="switchManagerViewMode('table')" id="btn-mode-table" class="px-3.5 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
-              <span>📊</span> Bảng Chi Tiết
-            </button>
+        <div class="flex items-center gap-2 text-xs">
+          <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1.5 rounded-xl font-bold">
+            Đã nộp: <span id="m-kpi-sub">4 / 9 (44%)</span>
           </div>
-
-          <div class="flex items-center gap-2 text-xs pl-2 border-l border-slate-200">
-            <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-lg font-bold">
-              Đã nộp: <span id="m-kpi-sub">0 / 9 (0%)</span>
-            </div>
-            <div class="bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-1 rounded-lg font-bold">
-              Khó khăn: <span id="m-kpi-diff">0 Vấn đề</span>
-            </div>
+          <div class="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1.5 rounded-xl font-bold">
+            Khó khăn: <span id="m-kpi-diff">0 Vấn đề</span>
           </div>
-        </div>
-
-      </div>
-
-      <!-- VIEW 1: VISUAL TASK CARDS (THIẾT KẾ CÔNG VIỆC HÔM NAY) -->
-      <div id="mgr-view-cards" class="space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <span>🗂️</span> Thiết Kế Công Việc Hôm Nay Của 9 Nhân Sự
-            </h3>
-            <p class="text-xs text-slate-500 mt-0.5">Theo dõi trực quan tiến độ, kết quả công việc hoàn thành và các vướng mắc cần hỗ trợ lúc 17h00 chiều</p>
-          </div>
-          <span class="text-xs bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full border border-blue-200">Google Sheet: BAO CAO HOM NAY</span>
-        </div>
-
-        <div id="mgr-cards-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          <!-- Populated by JS -->
         </div>
       </div>
 
-      <!-- VIEW 2: MASTER TABLE (BẢNG TỔNG HỢP CHI TIẾT) -->
-      <div id="mgr-view-table" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-          <div>
-            <h3 class="text-sm font-bold text-slate-900">Bảng Tổng Hợp Chi Tiết 9 Nhân Sự</h3>
-            <p class="text-xs text-slate-500">Giờ nộp được ghi nhận tự động khi nhân viên bấm gửi</p>
-          </div>
-          <span class="text-xs bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full border border-blue-200">Sheet: BAO CAO HOM NAY</span>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200 uppercase text-[11px]">
-              <tr>
-                <th class="px-3 py-3 text-center w-12">STT</th>
-                <th class="px-4 py-3 min-w-[160px]">Họ và Tên</th>
-                <th class="px-3 py-3 w-28">Bộ Phận</th>
-                <th class="px-3 py-3 text-center w-24">Giờ Nộp</th>
-                <th class="px-3 py-3 text-center w-24">Trạng Thái</th>
-                <th class="px-4 py-3 min-w-[260px]">1️⃣ Kết Quả Đạt Được</th>
-                <th class="px-4 py-3 min-w-[200px]">2️⃣ Khó Khăn / Vướng Mắc</th>
-                <th class="px-4 py-3 min-w-[200px]">3️⃣ Đề Xuất / Bài Học</th>
-                <th class="px-4 py-3 min-w-[220px]">4️⃣ Kế Hoạch Ngày Mai</th>
-                <th class="px-4 py-3 min-w-[180px]">Quản Lý Duyệt</th>
-              </tr>
-            </thead>
-            <tbody id="manager-table-body" class="divide-y divide-slate-100">
-              <!-- Populated by JS -->
-            </tbody>
-          </table>
-        </div>
+      <!-- 9 Visual Task Cards Grid -->
+      <div id="mgr-cards-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <!-- Populated by JS -->
       </div>
 
       <!-- Executive Report Preview Box -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
         <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
           <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-            <span>👑</span> Bản Xem Trước Báo Cáo Gửi Ban Giám Đốc (Chỉ Marketing Manager thấy)
+            <span>👑</span> Bản Xem Trước Báo Cáo Gửi Ban Giám Đốc (Marketing Manager Export)
           </h3>
           <button onclick="copyExecutiveSummaryReport()" class="text-xs font-bold text-sky-700 hover:text-sky-800 flex items-center gap-1">
-            <span>📋</span> Sao chép nội dung này
+            <span>📋</span> Sao chép văn bản
           </button>
         </div>
         <pre id="executive-report-text" class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-xs font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto"></pre>
@@ -466,383 +281,576 @@
 
     </section>
 
+    <!-- ===================================================================== -->
+    <!-- CHẾ ĐỘ 3: KHÔNG GIAN ĐIỀN BÁO CÁO CÁ NHÂN (LOGIN / EMPLOYEE FORM)      -->
+    <!-- ===================================================================== -->
+    <section id="section-personal-submit" class="hidden space-y-6">
+
+      <!-- Login Card (Shown when not logged in) -->
+      <div id="submit-login-box" class="max-w-xl mx-auto my-6 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+        <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] p-8 text-white text-center">
+          <div class="w-16 h-16 rounded-2xl bg-amber-400 text-slate-900 mx-auto flex items-center justify-center font-extrabold text-3xl shadow-lg mb-3">
+            KB
+          </div>
+          <h2 class="text-2xl font-bold">Đăng Nhập Nhân Sự</h2>
+          <p class="text-blue-100 text-xs mt-1">Nhập mã PIN hoặc nhấp vào tên của bạn để mở form điền báo cáo</p>
+        </div>
+
+        <div class="p-8 space-y-6">
+          <form onsubmit="handlePasswordOnlySubmit(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">🔑 Nhập Mã PIN Truy Cập (*)</label>
+              <div class="relative">
+                <input type="password" id="login-password" required placeholder="Nhập PIN (VD: 1001, 1002...) rồi bấm Enter..." class="w-full p-4 pl-11 rounded-2xl border-2 border-slate-300 text-base focus:border-sky-600 focus:ring-4 focus:ring-sky-100 focus:outline-hidden font-mono font-bold tracking-widest bg-slate-50 transition" />
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">🔒</span>
+              </div>
+            </div>
+            <button type="submit" class="w-full py-4 bg-[#1A365D] hover:bg-blue-900 text-white font-bold text-sm rounded-2xl transition shadow-lg flex items-center justify-center gap-2">
+              <span>🚀</span> VÀO FORM ĐIỀN BÁO CÁO
+            </button>
+          </form>
+
+          <div class="pt-5 border-t border-slate-100">
+            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Hoặc nhấp 1-Click vào tên bạn:</p>
+            <div class="grid grid-cols-2 gap-2 text-xs" id="quick-users-grid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Employee Report Form (Shown when logged in) -->
+      <div id="submit-form-box" class="hidden space-y-6">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div id="emp-avatar" class="w-16 h-16 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-3xl shadow-xs">
+              ✍️
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 id="emp-name" class="text-xl font-bold text-slate-900">Võ Thị Hoài Thương</h2>
+                <span id="emp-group" class="text-xs bg-sky-100 text-sky-800 px-2.5 py-0.5 rounded-full font-semibold border border-sky-200">Content</span>
+              </div>
+              <p id="emp-role" class="text-xs text-slate-600 mt-1 font-medium"></p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Tab Google Sheet: <strong id="emp-tab-name" class="text-sky-700"></strong></p>
+            </div>
+          </div>
+          <div class="bg-sky-50 border border-sky-200 rounded-xl p-3 text-xs text-slate-700 space-y-1">
+            <p class="font-bold text-sky-950 flex items-center gap-1.5"><span>⏱️</span> Quy định nộp báo cáo:</p>
+            <p>• Hạn chót: <strong class="text-red-600">Trước 17:30 mỗi ngày</strong>.</p>
+            <p>• <strong>Giờ nộp</strong> hệ thống tự động ghi lại chính xác lúc bấm Gửi.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 max-w-4xl mx-auto">
+          <form id="employee-report-form" onsubmit="handleEmployeeSubmit(event)" class="space-y-4">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+              <div>
+                <h3 class="text-base font-bold text-slate-900">Điền Báo Cáo Công Việc Hàng Ngày</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Hệ thống luôn tự động lưu và lấy báo cáo mới nhất của bạn</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold text-slate-600">Ngày báo cáo:</span>
+                <input type="text" id="emp-form-date" class="text-xs font-bold text-sky-800 bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <span>1️⃣</span> KẾT QUẢ ĐẠT ĐƯỢC TRONG NGÀY (*)
+              </label>
+              <textarea id="emp-res" rows="4" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium leading-relaxed bg-slate-50 focus:bg-white transition" placeholder="• Nhiệm vụ 1: ...&#10;• Nhiệm vụ 2: ..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <span>2️⃣</span> KHÓ KHĂN / VƯỚNG MẮC PHÁT SINH
+              </label>
+              <textarea id="emp-diff" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="Ghi khó khăn nếu có (Nếu không có thì để trống)..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <span>3️⃣</span> BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+              </label>
+              <textarea id="emp-lesson" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="Đề xuất cải tiến nếu có..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <span>4️⃣</span> KẾ HOẠCH CÔNG VIỆC NGÀY MAI (*)
+              </label>
+              <textarea id="emp-plan" rows="3" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="• Việc 1:...&#10;• Việc 2:..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <span>🔗</span> LINK SẢN PHẨM / MINH CHỨNG
+              </label>
+              <input type="text" id="emp-link" placeholder="Link drive, bài viết, hoặc file thiết kế..." class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" />
+            </div>
+
+            <div class="pt-4 border-t border-slate-200 flex justify-end">
+              <button type="submit" id="btn-emp-submit" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                <span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </section>
+
   </main>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p>🐱 <strong>Xu Xu</strong> - Trợ lý ảo Marketing King Blue • Hệ thống phân quyền tự động</p>
+      <p>🐱 <strong>Xu Xu</strong> - Trợ lý ảo Marketing King Blue • Toàn bộ 11 Sheets Báo Cáo</p>
       <div class="flex items-center gap-4">
         <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="text-sky-700 hover:underline font-semibold">Google Sheet Báo Cáo</a>
-        <a href="https://drive.google.com/drive/folders/1e6BtoJ8BwmpIlJGhr_OMJND7rfuPqT_j" target="_blank" class="text-sky-700 hover:underline font-semibold">Google Drive</a>
-        <a href="org_chart_marketing_kingblue.md" class="text-slate-600 hover:underline">Phân Quyền CRM</a>
+        <a href="https://github.com/duykoolhp1996/KingBlue-Marketing-System" target="_blank" class="text-slate-600 hover:underline">GitHub Repository</a>
       </div>
     </div>
   </footer>
 
-  <!-- ================= JAVASCRIPT APP LOGIC ================= -->
+  <!-- SCRIPT DATA & APP LOGIC -->
+  <script src="sheets_data.js"></script>
   <script>
-    // ACCOUNTS DATABASE (PASSWORD / PIN ONLY - NO USERNAME REQUIRED)
-    const ACCOUNTS = [
-      { username: "manager", password: "8888", pin: "8888", alt_pass: "manager", name: "Marketing Manager", role: "Trưởng Phòng Marketing", group: "Ban Quản Lý", type: "ADMIN", avatar: "👔", tabName: "BAO CAO HOM NAY" },
-      { username: "hoaithuong", password: "1001", pin: "1001", alt_pass: "hoaithuong", name: "Võ Thị Hoài Thương", role: "Content Marketing & SEO Fanpage/Website", group: "Content", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" },
-      { username: "kieuthuong", password: "1002", pin: "1002", alt_pass: "kieuthuong", name: "Kiều Thương", role: "Content Video & Hợp Tác KOC/Reviewer", group: "Content", type: "USER", avatar: "🎬", tabName: "Kieu Thuong - Content" },
-      { username: "thuythuong", password: "1003", pin: "1003", alt_pass: "thuythuong", name: "Thương Thương", role: "Trade Marketing & Chính Sách Điểm Bán", group: "Content", type: "USER", avatar: "📑", tabName: "Thuong Thuong - Content" },
-      { username: "thien", password: "1004", pin: "1004", alt_pass: "thien", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Design", type: "USER", avatar: "🎨", tabName: "Thien - Design" },
-      { username: "tu", password: "1005", pin: "1005", alt_pass: "tu", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Media", type: "USER", avatar: "📸", tabName: "Tu - Media" },
-      { username: "thuc", password: "1006", pin: "1006", alt_pass: "thuc", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Sàn TMĐT", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" },
-      { username: "ngan", password: "1007", pin: "1007", alt_pass: "ngan", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" },
-      { username: "hungmn", password: "1008", pin: "1008", alt_pass: "hungmn", name: "Hùng", role: "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", group: "Đóng gói kho", type: "USER", avatar: "📦", tabName: "Hung - Kho MN" },
-      { username: "hungmb", password: "1009", pin: "1009", alt_pass: "hungmb", name: "Hùng Miền Bắc", role: "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", group: "Đóng gói kho", type: "USER", avatar: "🚚", tabName: "Hung - Kho MB" }
+    // Embedded Data fallback in case sheets_data.js is blocked
+    if (!window.ALL_SHEETS_DATA) {
+      window.ALL_SHEETS_DATA = {"BAO CAO HOM NAY": {"sheetId": 187266668, "index": 0, "rows": [["BẢNG TỔNG HỢP BÁO CÁO CÔNG VIỆC HÀNG NGÀY & THEO DÕI TIẾN ĐỘ THEO NGÀY - PHÒNG MARKETING KING BLUE"], [], ["", "📅 NGÀY XEM BÁO CÁO:", "05/10/2026", "(💡 Nhấp đúp vào ô C3 để mở lịch chọn ngày, hoặc gõ =TODAY() để luôn xem hôm nay)", "Thứ Hai, 05/10/2026"], ["", "TỔNG NHÂN SỰ", "", "ĐÃ NỘP HÔM NAY", "", "VƯỚNG MẮC PHÁT SINH", "", "TÌNH TRẠNG NỘP", "", "TRƯỞNG PHÒNG"], ["", "9 Người", "", "0 / 9 (0%)", "", "0 Vấn đề", "", "Còn 5 chưa nộp", "", "Marketing Manager"], [], ["STT", "Nhân Sự", "Bộ Phận", "Vị Trí Chuyên Môn", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC HÔM NAY", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH NGÀY MAI", "Giờ Nộp", "Tình Trạng", "Marketing Manager Phản Hồi"], ["1", "Võ Thị Hoài Thương", "Content", "Content Marketing & SEO Fanpage/Website", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["2", "Kiều Thương", "Content", "Content Video & Hợp Tác KOC/Reviewer", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["3", "Thương Thương", "Content", "Trade Marketing & Chính Sách Điểm Bán", "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ", "", "", "Quay video sản phẩm", "00:00:00"], ["4", "Thiện", "Design", "Graphic Designer (2D, POSM & Banner)", "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)", "", "", "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô", "00:00:00"], ["5", "Tứ", "Media", "Media / Photographer (Hình Ảnh, Video & User CRM)", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["6", "Thức", "Sàn TMĐT", "Vận Hành Sàn TMĐT (Shopee & Lazada)", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn", "", "", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)", "00:00:00"], ["7", "Ngân", "Sàn TMĐT", "CSKH & Quản Trị Gian Hàng TikTok Shop", "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm", "", "", "", "00:00:00"], ["8", "Hùng", "Đóng gói kho", "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"], ["9", "Hùng Miền Bắc", "Đóng gói kho", "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", "⏳ Chưa nộp", "-", "-", "-", "--:--", "Chưa nộp", "-"]]}, "Hoai Thuong - Content": {"sheetId": 169328077, "index": 1, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - VÕ THỊ HOÀI THƯƠNG"], [], ["Họ và Tên:", "", "Võ Thị Hoài Thương", "", "Vị trí chuyên môn:", "", "Content Marketing & SEO Fanpage/Website", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], [], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Kieu Thuong - Content": {"sheetId": 1499171949, "index": 2, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - KIỀU THƯƠNG"], [], ["Họ và Tên:", "", "Kiều Thương", "", "Vị trí chuyên môn:", "", "Content Video & Hợp Tác KOC/Reviewer", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Thuong Thuong - Content": {"sheetId": 967400572, "index": 3, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THƯƠNG THƯƠNG"], [], ["Họ và Tên:", "", "Thương Thương", "", "Vị trí chuyên môn:", "", "Trade Marketing & Chính Sách Điểm Bán", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "5/10/2026", "", "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ", "", "", "Quay video sản phẩm"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Thien - Design": {"sheetId": 1434158092, "index": 4, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THIỆN"], [], ["Họ và Tên:", "", "Thiện", "", "Vị trí chuyên môn:", "", "Graphic Designer (2D, POSM & Banner)", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "5/10", "", "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)", "", "", "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Tu - Media": {"sheetId": 1418274519, "index": 5, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - TỨ"], [], ["Họ và Tên:", "", "Tứ", "", "Vị trí chuyên môn:", "", "Media / Photographer (Hình Ảnh, Video & User CRM)", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Thuc - San TMDT": {"sheetId": 1877693997, "index": 6, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THỨC"], [], ["Họ và Tên:", "", "Thức", "", "Vị trí chuyên môn:", "", "Vận Hành Sàn TMĐT (Shopee & Lazada)", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "05/10/2026", "", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn", "", "", "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Ngan - San TMDT": {"sheetId": 1804131916, "index": 7, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - NGÂN"], [], ["Họ và Tên:", "", "Ngân", "", "Vị trí chuyên môn:", "", "CSKH & Quản Trị Gian Hàng TikTok Shop", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1", "05/10", "", "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "BAO CAO TUAN": {"sheetId": 162769722, "index": 8, "rows": [["BÁO CÁO TỔNG KẾT TUẦN - PHÒNG MARKETING KING BLUE"], [], [], ["STT", "Họ và Tên", "Vị Trí", "Mục Tiêu Tuần", "Kết Quả Đạt Được (% Hoàn thành)", "Vấn Đề Tồn Đọng", "Kế Hoạch Tuần Tới", "Marketing Manager Đánh Giá"]]}, "Hung - Kho MN": {"sheetId": 94289788, "index": 9, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG"], [], ["Họ và Tên:", "", "Hùng", "", "Vị trí chuyên môn:", "", "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}, "Hung - Kho MB": {"sheetId": 1438923158, "index": 10, "rows": [["NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG MIỀN BẮC"], [], ["Họ và Tên:", "", "Hùng Miền Bắc", "", "Vị trí chuyên môn:", "", "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", "", "Quản lý duyệt:", "Marketing Manager"], [], ["STT", "Ngày Báo Cáo", "Giờ Nộp", "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)", "2️⃣ KHÓ KHĂN / VƯỚNG MẮC", "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT", "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI", "Link Minh Chứng", "Tình Trạng", "Marketing Manager Phê Duyệt & Phản Hồi"], ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"], ["14"], ["15"]]}};
+    }
+
+    // EXACT 11 SHEET TABS ORDER (POSITIONS 0 TO 10)
+    const SHEET_TABS = [
+      { key: 'BAO CAO HOM NAY', icon: '📅', label: '0. BAO CAO HOM NAY', name: 'Bảng Tổng Hợp Hàng Ngày (Master)', gid: '187266668', index: 0, badge: '⭐ Tổng hợp' },
+      { key: 'Hoai Thuong - Content', icon: '✍️', label: '1. Hoài Thương', name: 'Võ Thị Hoài Thương - Content Marketing', gid: '169328077', index: 1 },
+      { key: 'Kieu Thuong - Content', icon: '🎬', label: '2. Kiều Thương', name: 'Kiều Thương - Content Video & KOC', gid: '1499171949', index: 2 },
+      { key: 'Thuong Thuong - Content', icon: '📑', label: '3. Thương Thương', name: 'Thương Thương - Trade Marketing', gid: '967400572', index: 3, badge: '🟢 Đã nộp 05/10' },
+      { key: 'Thien - Design', icon: '🎨', label: '4. Thiện', name: 'Thiện - Graphic Designer', gid: '1434158092', index: 4, badge: '🟢 44 banner' },
+      { key: 'Tu - Media', icon: '📸', label: '5. Tứ', name: 'Tứ - Media & User CRM', gid: '1418274519', index: 5 },
+      { key: 'Thuc - San TMDT', icon: '🛒', label: '6. Thức', name: 'Thức - Vận Hành Sàn TMĐT', gid: '1877693997', index: 6, badge: '🟢 Đã nộp 05/10' },
+      { key: 'Ngan - San TMDT', icon: '🎧', label: '7. Ngân', name: 'Ngân - CSKH & TikTok Shop', gid: '1804131916', index: 7, badge: '🟢 Đã nộp 05/10' },
+      { key: 'BAO CAO TUAN', icon: '📈', label: '8. BÁO CÁO TUẦN', name: 'Báo Cáo Tiến Độ & KPI Hàng Tuần', gid: '162769722', index: 8, badge: '📊 Báo cáo tuần' },
+      { key: 'Hung - Kho MN', icon: '📦', label: '9. Hùng MN', name: 'Hùng - Đóng Gói Kho Miền Nam', gid: '94289788', index: 9 },
+      { key: 'Hung - Kho MB', icon: '🚚', label: '10. Hùng MB', name: 'Hùng Miền Bắc - Đóng Gói Chi Nhánh HN', gid: '1438923158', index: 10 }
     ];
 
-    // REPORTS STORE (CLEAN PRODUCTION STATE - ZERO DEMO DATA)
+    // ACCOUNTS DATABASE
+    const ACCOUNTS = [
+      { username: "manager", password: "8888", pin: "8888", name: "Marketing Manager", role: "Trưởng Phòng Marketing", group: "Ban Quản Lý", type: "ADMIN", avatar: "👔", tabName: "BAO CAO HOM NAY" },
+      { username: "hoaithuong", password: "1001", pin: "1001", name: "Võ Thị Hoài Thương", role: "Content Marketing & SEO Fanpage/Website", group: "Content", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" },
+      { username: "kieuthuong", password: "1002", pin: "1002", name: "Kiều Thương", role: "Content Video & Hợp Tác KOC/Reviewer", group: "Content", type: "USER", avatar: "🎬", tabName: "Kieu Thuong - Content" },
+      { username: "thuythuong", password: "1003", pin: "1003", name: "Thương Thương", role: "Trade Marketing & Chính Sách Điểm Bán", group: "Content", type: "USER", avatar: "📑", tabName: "Thuong Thuong - Content" },
+      { username: "thien", password: "1004", pin: "1004", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Design", type: "USER", avatar: "🎨", tabName: "Thien - Design" },
+      { username: "tu", password: "1005", pin: "1005", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Media", type: "USER", avatar: "📸", tabName: "Tu - Media" },
+      { username: "thuc", password: "1006", pin: "1006", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Sàn TMĐT", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" },
+      { username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" },
+      { username: "hungmn", password: "1008", pin: "1008", name: "Hùng", role: "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", group: "Đóng gói kho", type: "USER", avatar: "📦", tabName: "Hung - Kho MN" },
+      { username: "hungmb", password: "1009", pin: "1009", name: "Hùng Miền Bắc", role: "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", group: "Đóng gói kho", type: "USER", avatar: "🚚", tabName: "Hung - Kho MB" }
+    ];
+
+    let currentAppMainTab = 'sheets';
+    let currentActiveSheetKey = 'BAO CAO HOM NAY';
+    let currentSheetViewFormat = 'html';
+    let managerSelectedDate = '05/10/2026';
+    let currentUser = null;
     let reportsStore = {};
 
-    let currentUser = null;
-    let managerSelectedDate = "05/10/2026";
-
-    // INIT
     window.addEventListener("DOMContentLoaded", () => {
       renderQuickLoginButtons();
       startLiveClock();
+      renderSheetTabsBar();
+      selectSheetTab('BAO CAO HOM NAY');
 
-      // Check saved session in localStorage
+      // Check saved session
       const savedUser = localStorage.getItem("kingblue_user");
       if (savedUser) {
         try {
           currentUser = JSON.parse(savedUser);
-          renderAppScreen();
-        } catch (e) {
-          showLoginScreen();
-        }
-      } else {
-        showLoginScreen();
+          updateUserSessionBar();
+        } catch(e) {}
       }
     });
 
-    // CLOCK
     function startLiveClock() {
       setInterval(() => {
         const now = new Date();
-        const timeStr = now.toTimeString().split(' ')[0];
-        const clockEl = document.getElementById("live-clock");
-        if (clockEl) clockEl.textContent = timeStr;
+        const el = document.getElementById("live-clock");
+        if (el) el.textContent = now.toTimeString().split(' ')[0];
       }, 1000);
     }
 
-    // RENDER QUICK LOGIN BUTTONS (ALL 10 MEMBERS)
-    function renderQuickLoginButtons() {
-      const container = document.getElementById("quick-users-grid");
+    // ========================================================
+    // 1. PRIMARY APP MODE SWITCHING
+    // ========================================================
+    function switchMainAppTab(mode) {
+      currentAppMainTab = mode;
+      
+      const btnSheets = document.getElementById("btn-nav-sheets");
+      const btnCards = document.getElementById("btn-nav-cards");
+      const btnSubmit = document.getElementById("btn-nav-submit");
+
+      const secSheets = document.getElementById("section-sheets-explorer");
+      const secCards = document.getElementById("section-cards-dashboard");
+      const secSubmit = document.getElementById("section-personal-submit");
+
+      [btnSheets, btnCards, btnSubmit].forEach(b => {
+        b.className = "px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent";
+      });
+      [secSheets, secCards, secSubmit].forEach(s => s.classList.add("hidden"));
+
+      if (mode === 'sheets') {
+        btnSheets.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
+        secSheets.classList.remove("hidden");
+      } else if (mode === 'cards') {
+        btnCards.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
+        secCards.classList.remove("hidden");
+        setManagerDate(managerSelectedDate);
+      } else if (mode === 'submit') {
+        btnSubmit.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
+        secSubmit.classList.remove("hidden");
+        renderSubmitSpace();
+      }
+    }
+
+    // ========================================================
+    // 2. SHEETS EXPLORER (11 TABS ACCORDING TO SPREADSHEET)
+    // ========================================================
+    function renderSheetTabsBar() {
+      const container = document.getElementById("sheet-tabs-container");
       container.innerHTML = "";
-      ACCOUNTS.forEach(u => {
+
+      SHEET_TABS.forEach(tab => {
         const btn = document.createElement("button");
-        btn.onclick = () => doLoginByPassword(u.pin);
-        const isAdmin = u.type === "ADMIN";
-        btn.className = `p-2.5 rounded-xl border text-left transition flex items-center justify-between gap-2 shadow-2xs hover:shadow-xs ${isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}`;
+        btn.id = `sheet-tab-btn-${tab.gid}`;
+        const isActive = tab.key === currentActiveSheetKey;
+        btn.className = `px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border ${
+          isActive 
+            ? 'tab-sheet-active' 
+            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+        }`;
+        btn.onclick = () => selectSheetTab(tab.key);
         btn.innerHTML = `
-          <div class="flex items-center gap-2 overflow-hidden">
-            <span class="text-xl">${u.avatar}</span>
-            <div class="truncate">
-              <p class="font-bold text-slate-900 truncate">${u.name}</p>
-              <p class="text-[10px] text-slate-500 truncate">${u.role}</p>
-            </div>
-          </div>
-          <span class="text-[11px] font-mono px-2 py-0.5 rounded-md font-bold ${isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}">Mã: ${u.pin}</span>
+          <span>${tab.icon}</span>
+          <span>${tab.label}</span>
+          ${tab.badge ? `<span class="text-[10px] px-1.5 py-0.5 rounded-md font-extrabold ${isActive ? 'bg-amber-400 text-slate-900' : 'bg-emerald-100 text-emerald-800'}">${tab.badge}</span>` : ''}
         `;
         container.appendChild(btn);
       });
     }
 
-    // LOGIN BY PASSWORD ONLY (NO USERNAME / ID REQUIRED)
-    function handlePasswordOnlySubmit(e) {
-      e.preventDefault();
-      const pass = document.getElementById("login-password").value.trim().toLowerCase();
-      doLoginByPassword(pass);
+    function selectSheetTab(sheetKey) {
+      currentActiveSheetKey = sheetKey;
+      const tabMeta = SHEET_TABS.find(t => t.key === sheetKey) || SHEET_TABS[0];
+
+      // Update Tab Styles
+      SHEET_TABS.forEach(t => {
+        const b = document.getElementById(`sheet-tab-btn-${t.gid}`);
+        if (b) {
+          if (t.key === sheetKey) {
+            b.className = "px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border tab-sheet-active";
+          } else {
+            b.className = "px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-2 border bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200";
+          }
+        }
+      });
+
+      // Update Header Info
+      document.getElementById("active-sheet-icon").textContent = tabMeta.icon;
+      document.getElementById("active-sheet-title").textContent = tabMeta.key;
+      document.getElementById("active-sheet-badge").textContent = `Vị trí: Sheet ${tabMeta.index} / 10 • GID: ${tabMeta.gid}`;
+      document.getElementById("active-sheet-desc").textContent = tabMeta.name;
+      
+      const directUrl = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${tabMeta.gid}`;
+      document.getElementById("active-sheet-direct-link").href = directUrl;
+
+      // Update Iframe src
+      const iframeSrc = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/htmlembed?gid=${tabMeta.gid}&widget=true`;
+      document.getElementById("sheet-google-iframe").src = iframeSrc;
+
+      renderActiveSheetHtml(sheetKey);
     }
 
-    function doLoginByPassword(pass) {
-      if (!pass) return;
-      const cleanPass = pass.toLowerCase();
-      // Match by pin, password, or alt_pass
-      const user = ACCOUNTS.find(a => 
-        a.password.toLowerCase() === cleanPass || 
-        a.pin.toLowerCase() === cleanPass || 
-        (a.alt_pass && a.alt_pass.toLowerCase() === cleanPass) ||
-        a.username.toLowerCase() === cleanPass
-      );
+    function toggleSheetViewFormat(format) {
+      currentSheetViewFormat = format;
+      const btnHtml = document.getElementById("btn-format-html");
+      const btnIframe = document.getElementById("btn-format-iframe");
+      const cHtml = document.getElementById("sheet-html-view-container");
+      const cIframe = document.getElementById("sheet-iframe-view-container");
 
-      if (user) {
-        currentUser = user;
-        localStorage.setItem("kingblue_user", JSON.stringify(user));
-        showToast("Đăng nhập thành công!", `Chào mừng ${user.name} (${user.role})`, "success");
-        renderAppScreen();
+      if (format === 'html') {
+        btnHtml.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1 font-bold";
+        btnIframe.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium";
+        cHtml.classList.remove("hidden");
+        cIframe.classList.add("hidden");
       } else {
-        showToast("Mật khẩu không đúng!", "Vui lòng nhập đúng mã PIN / mật khẩu được cấp.", "error");
+        btnIframe.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1 font-bold";
+        btnHtml.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium";
+        cIframe.classList.remove("hidden");
+        cHtml.classList.add("hidden");
       }
     }
 
-    function handleLogout() {
-      currentUser = null;
-      localStorage.removeItem("kingblue_user");
-      showToast("Đã đăng xuất", "Hẹn gặp lại bạn!", "info");
-      showLoginScreen();
-    }
+    function renderActiveSheetHtml(sheetKey) {
+      const container = document.getElementById("sheet-html-view-container");
+      const sheetData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sheetKey]) ? window.ALL_SHEETS_DATA[sheetKey] : null;
 
-    // SCREEN ROUTING
-    function showLoginScreen() {
-      document.getElementById("screen-login").classList.remove("hidden");
-      document.getElementById("screen-employee").classList.add("hidden");
-      document.getElementById("screen-manager").classList.add("hidden");
-      document.getElementById("user-info-bar").classList.add("hidden");
-      document.getElementById("role-badge").classList.add("hidden");
-    }
-
-    function renderAppScreen() {
-      if (!currentUser) return showLoginScreen();
-
-      document.getElementById("screen-login").classList.add("hidden");
-      document.getElementById("user-info-bar").classList.remove("hidden");
-      document.getElementById("current-user-name").textContent = currentUser.name;
-      document.getElementById("current-user-role").textContent = currentUser.role;
-      document.getElementById("current-user-avatar").textContent = currentUser.avatar;
-
-      const badge = document.getElementById("role-badge");
-      badge.classList.remove("hidden");
-      if (currentUser.type === "ADMIN") {
-        badge.textContent = "Marketing Manager";
-        badge.className = "bg-amber-400 text-slate-950 text-xs px-2.5 py-0.5 rounded-full font-extrabold";
-        document.getElementById("screen-employee").classList.add("hidden");
-        document.getElementById("screen-manager").classList.remove("hidden");
-        setManagerDate(managerSelectedDate);
-      } else {
-        badge.textContent = currentUser.group;
-        badge.className = "bg-sky-700 text-sky-200 text-xs px-2.5 py-0.5 rounded-full font-bold";
-        document.getElementById("screen-manager").classList.add("hidden");
-        document.getElementById("screen-employee").classList.remove("hidden");
-        renderEmployeeView();
-      }
-    }
-
-    // ========================================================
-    // EMPLOYEE VIEW LOGIC
-    // ========================================================
-    function renderEmployeeView() {
-      document.getElementById("emp-avatar").textContent = currentUser.avatar;
-      document.getElementById("emp-name").textContent = currentUser.name;
-      document.getElementById("emp-group").textContent = currentUser.group;
-      document.getElementById("emp-role").textContent = currentUser.role;
-      document.getElementById("emp-tab-name").textContent = currentUser.tabName;
-
-      // Check if user already submitted today
-      const todayStr = getSystemTodayDMY();
-      document.getElementById("emp-form-date").value = todayStr;
-      const userReports = reportsStore[currentUser.username] || {};
-      const todayReport = userReports[todayStr];
-
-      const banner = document.getElementById("emp-status-banner");
-      const submitBtn = document.getElementById("btn-emp-submit");
-
-      if (todayReport) {
-        document.getElementById("emp-res").value = todayReport.res;
-        document.getElementById("emp-diff").value = todayReport.diff || "";
-        document.getElementById("emp-lesson").value = todayReport.lesson || "";
-        document.getElementById("emp-plan").value = todayReport.plan || "";
-        document.getElementById("emp-link").value = todayReport.link !== '-' ? todayReport.link : "";
-
-        // Show status banner
-        banner.className = `mb-5 p-4 rounded-2xl border flex items-center justify-between gap-3 ${todayReport.status === 'Đúng hạn' ? 'bg-emerald-50/80 border-emerald-300 text-emerald-950' : 'bg-rose-50/80 border-rose-300 text-rose-950'}`;
-        document.getElementById("emp-banner-title").textContent = "BẠN ĐÃ NỘP BÁO CÁO GẦN NHẤT HÔM NAY";
-        document.getElementById("emp-banner-desc").textContent = `Giờ nộp gần nhất: ${todayReport.time} (${todayReport.status}). Hệ thống luôn lấy bản gửi mới nhất của bạn.`;
-        document.getElementById("emp-banner-badge").className = `text-[11px] font-bold px-2.5 py-1 rounded-lg ${todayReport.status === 'Đúng hạn' ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900'}`;
-        document.getElementById("emp-banner-badge").textContent = todayReport.status === 'Đúng hạn' ? '🟢 Đúng hạn' : '🔴 Nộp muộn';
-        banner.classList.remove("hidden");
-
-        submitBtn.innerHTML = `<span>🔄</span> CẬP NHẬT LẠI BÁO CÁO (LẤY BẢN MỚI NHẤT)`;
-      } else {
-        document.getElementById("emp-res").value = "";
-        document.getElementById("emp-diff").value = "";
-        document.getElementById("emp-lesson").value = "";
-        document.getElementById("emp-plan").value = "";
-        document.getElementById("emp-link").value = "";
-        banner.classList.add("hidden");
-        submitBtn.innerHTML = `<span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC`;
-      }
-
-      renderEmployeeHistory();
-    }
-
-    function renderEmployeeHistory() {
-      const tbody = document.getElementById("emp-history-body");
-      tbody.innerHTML = "";
-
-      const userReports = reportsStore[currentUser.username] || {};
-      const dates = Object.keys(userReports);
-
-      if (dates.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-6 text-center text-slate-400">Bạn chưa có báo cáo nào được ghi nhận.</td></tr>`;
+      if (!sheetData) {
+        container.innerHTML = `<div class="bg-white p-8 rounded-2xl border text-center text-slate-400">Không tìm thấy dữ liệu cho sheet này.</div>`;
         return;
       }
 
-      dates.forEach(d => {
-        const r = userReports[d];
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
-        tr.innerHTML = `
-          <td class="px-3 py-3 font-bold font-mono text-slate-800">${d}</td>
-          <td class="px-3 py-3 font-mono text-slate-600 font-semibold">${r.time}</td>
-          <td class="px-4 py-3 whitespace-pre-line text-slate-700 font-medium">${r.res}</td>
-          <td class="px-4 py-3 whitespace-pre-line ${r.diff && !r.diff.includes('Không có') ? 'text-amber-800 font-medium bg-amber-50/50' : 'text-slate-400'}">${r.diff || '-'}</td>
-          <td class="px-4 py-3 whitespace-pre-line text-slate-700">${r.plan}</td>
-          <td class="px-3 py-3 text-center">
-            <span class="inline-block px-2 py-1 rounded-md text-[10px] font-bold ${r.status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-              ${r.status}
-            </span>
-          </td>
-          <td class="px-4 py-3 italic text-slate-700 bg-slate-50/50">${r.feedback || '<span class="text-slate-400 font-normal">Chờ duyệt</span>'}</td>
+      const rows = sheetData.rows || [];
+
+      // SPECIAL CASE 1: BAO CAO HOM NAY (INDEX 0)
+      if (sheetKey === 'BAO CAO HOM NAY') {
+        container.innerHTML = renderMasterSheetHtml(rows);
+        return;
+      }
+
+      // SPECIAL CASE 2: BAO CAO TUAN (INDEX 8)
+      if (sheetKey === 'BAO CAO TUAN') {
+        container.innerHTML = renderWeeklySheetHtml(rows);
+        return;
+      }
+
+      // STANDARD CASE: EMPLOYEE DAILY LOG SHEETS (9 SHEETS)
+      container.innerHTML = renderEmployeeSheetTableHtml(sheetKey, rows);
+    }
+
+    function renderMasterSheetHtml(rows) {
+      return `
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tổng Nhân Sự</p>
+            <p class="text-xl font-extrabold text-slate-900 mt-1">9 Người</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-emerald-50/30">
+            <p class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Đã Nộp Hôm Nay</p>
+            <p class="text-xl font-extrabold text-emerald-700 mt-1">4 / 9 (44%)</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-amber-50/30">
+            <p class="text-[11px] font-bold text-amber-800 uppercase tracking-wider">Vấn Đề Cần Tháo Gỡ</p>
+            <p class="text-xl font-extrabold text-amber-700 mt-1">0 Vấn Đề</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-sky-200 shadow-2xs bg-sky-50/30">
+            <p class="text-[11px] font-bold text-sky-800 uppercase tracking-wider">Còn Chờ Báo Cáo</p>
+            <p class="text-xl font-extrabold text-sky-800 mt-1">5 Người</p>
+          </div>
+        </div>
+
+        <!-- Master Sheet Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 bg-[#1A365D] text-white flex items-center justify-between">
+            <div>
+              <h3 class="font-extrabold text-sm tracking-wide">BẢNG TỔNG HỢP BÁO CÁO CÔNG VIỆC HÀNG NGÀY & TIẾN ĐỘ THEO NGÀY</h3>
+              <p class="text-xs text-blue-200 mt-0.5">Ngày hiển thị: 05/10/2026 • 9 nhân sự phòng Marketing King Blue</p>
+            </div>
+            <span class="text-xs font-bold bg-amber-400 text-slate-950 px-3 py-1 rounded-full">Sheet 0 (Master)</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-100 text-slate-700 font-extrabold border-b border-slate-200 uppercase text-[11px]">
+                <tr>
+                  <th class="px-3 py-3 text-center w-12">STT</th>
+                  <th class="px-4 py-3 min-w-[170px]">Họ và Tên</th>
+                  <th class="px-3 py-3 w-28">Bộ Phận</th>
+                  <th class="px-3 py-3 w-40">Vị Trí Chuyên Môn</th>
+                  <th class="px-4 py-3 min-w-[280px]">1️⃣ Kết Quả Đạt Được</th>
+                  <th class="px-3 py-3 min-w-[150px]">2️⃣ Khó Khăn</th>
+                  <th class="px-3 py-3 min-w-[150px]">3️⃣ Đề Xuất</th>
+                  <th class="px-4 py-3 min-w-[220px]">4️⃣ Kế Hoạch Ngày Mai</th>
+                  <th class="px-3 py-3 text-center w-24">Giờ Nộp</th>
+                  <th class="px-3 py-3 text-center w-24">Tình Trạng</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                ${renderMasterRowsHtml(rows)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderMasterRowsHtml(rows) {
+      const masterRows = rows.slice(7, 16); // Rows 8 to 16
+      if (masterRows.length === 0) return '<tr><td colspan="10" class="p-4 text-center text-slate-400">Không có dữ liệu</td></tr>';
+
+      return masterRows.map((r, idx) => {
+        const hasSubmitted = r[4] && r[4] !== '⏳ Chưa nộp' && r[4] !== '-';
+        return `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${hasSubmitted ? 'bg-emerald-50/15' : ''}">
+            <td class="px-3 py-3.5 text-center font-bold text-slate-500">${r[0] || (idx + 1)}</td>
+            <td class="px-4 py-3.5 font-bold text-slate-900">${r[1] || ''}</td>
+            <td class="px-3 py-3.5 font-semibold text-slate-600">${r[2] || ''}</td>
+            <td class="px-3 py-3.5 text-slate-600 text-[11px]">${r[3] || ''}</td>
+            <td class="px-4 py-3.5 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${r[4] || '⏳ Chưa nộp'}</td>
+            <td class="px-3 py-3.5 whitespace-pre-line ${r[5] && !r[5].includes('Không có') && r[5] !== '-' ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-400'}">${r[5] || '-'}</td>
+            <td class="px-3 py-3.5 whitespace-pre-line text-slate-600">${r[6] || '-'}</td>
+            <td class="px-4 py-3.5 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${r[7] || '-'}</td>
+            <td class="px-3 py-3.5 text-center font-mono font-bold text-slate-700 text-[11px]">${r[8] || '--:--'}</td>
+            <td class="px-3 py-3.5 text-center">
+              <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold ${hasSubmitted ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800'}">
+                ${hasSubmitted ? '🟢 Đúng hạn' : '⏳ Chưa nộp'}
+              </span>
+            </td>
+          </tr>
         `;
-        tbody.appendChild(tr);
-      });
+      }).join('');
     }
 
-    // SUBMIT REPORT: AUTOMATIC TIMESTAMP CAPTURE (ALWAYS TAKES LATEST REPORT)
-    async function handleEmployeeSubmit(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById("btn-emp-submit");
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>⏳</span> Đang lưu vào hệ thống...`;
+    function renderEmployeeSheetTableHtml(sheetKey, rows) {
+      const titleRow = rows[0] ? rows[0][0] : `NHẬT KÝ BÁO CÁO CÔNG VIỆC - ${sheetKey}`;
+      const infoRow = rows[2] || [];
+      const empName = infoRow[2] || sheetKey.split(' - ')[0];
+      const empRole = infoRow[6] || '';
+      const empManager = infoRow[9] || 'Marketing Manager';
 
-      // 1. Tự động lấy giờ bấm gửi chính xác từ thiết bị
-      const now = new Date();
-      const timeStr = now.toTimeString().split(' ')[0]; // HH:MM:SS
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      
-      // Quy định hạn nộp: Trước 17:30 là Đúng hạn
-      const isOnTime = (hours < 17) || (hours === 17 && minutes <= 30);
-      const statusStr = isOnTime ? "Đúng hạn" : "Nộp muộn";
+      const dataRows = rows.slice(5); // Rows 6 to 20
 
-      const dateStr = document.getElementById("emp-form-date").value.trim() || getSystemTodayDMY();
-      const resVal = document.getElementById("emp-res").value.trim();
-      const diffVal = document.getElementById("emp-diff").value.trim() || "• Không có";
-      const lessonVal = document.getElementById("emp-lesson").value.trim() || "• Không có";
-      const planVal = document.getElementById("emp-plan").value.trim();
-      const linkVal = document.getElementById("emp-link").value.trim() || "-";
+      return `
+        <!-- Profile Banner of this Sheet -->
+        <div class="bg-gradient-to-r from-slate-900 to-[#1A365D] text-white p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-sm sm:text-base text-amber-300 uppercase tracking-wider">${titleRow}</h3>
+            <div class="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-200">
+              <span>👤 <strong>${empName}</strong></span>
+              <span>💼 <em>${empRole}</em></span>
+              <span>👔 Phê duyệt: <strong>${empManager}</strong></span>
+            </div>
+          </div>
+          <span class="text-xs font-bold bg-white/10 border border-white/20 px-3 py-1 rounded-xl">
+            Tab: ${sheetKey}
+          </span>
+        </div>
 
-      // 2. Lưu vào local state (Ghi đè bản mới nhất của ngày hôm đó)
-      if (!reportsStore[currentUser.username]) {
-        reportsStore[currentUser.username] = {};
-      }
-      reportsStore[currentUser.username][dateStr] = {
-        time: timeStr,
-        status: statusStr,
-        res: resVal,
-        diff: diffVal,
-        lesson: lessonVal,
-        plan: planVal,
-        link: linkVal,
-        feedback: "Đã ghi nhận bản mới nhất, chờ Marketing Manager phản hồi"
-      };
-
-      // 3. Thử đồng bộ qua backend API nếu có server chạy (Ghi đè Google Sheets)
-      try {
-        await fetch("/api/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: currentUser.username,
-            date: dateStr,
-            res: resVal,
-            diff: diffVal,
-            lesson: lessonVal,
-            plan: planVal,
-            link: linkVal
-          })
-        });
-      } catch (err) {
-        console.log("Local standalone mode, saved in browser store");
-      }
-
-      submitBtn.disabled = false;
-
-      // 4. MỞ POPUP THỂ HIỆN HOÀN THÀNH BÁO CÁO
-      openCompletionModal({
-        name: currentUser.name,
-        avatar: currentUser.avatar,
-        date: dateStr,
-        time: timeStr,
-        status: statusStr
-      });
-
-      // Cập nhật giao diện
-      renderEmployeeView();
+        <!-- Full Table Matching Google Sheets -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-100 text-slate-700 font-extrabold border-b border-slate-200 uppercase text-[11px]">
+                <tr>
+                  <th class="px-3 py-3 text-center w-12">STT</th>
+                  <th class="px-3 py-3 w-28">Ngày Báo Cáo</th>
+                  <th class="px-3 py-3 text-center w-24">Giờ Nộp</th>
+                  <th class="px-5 py-3 min-w-[280px]">1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)</th>
+                  <th class="px-4 py-3 min-w-[180px]">2️⃣ KHÓ KHĂN / VƯỚNG MẮC</th>
+                  <th class="px-4 py-3 min-w-[180px]">3️⃣ BÀI HỌC / ĐỀ XUẤT</th>
+                  <th class="px-4 py-3 min-w-[220px]">4️⃣ KẾ HOẠCH NGÀY MAI</th>
+                  <th class="px-3 py-3 min-w-[130px]">Link Minh Chứng</th>
+                  <th class="px-3 py-3 text-center w-24">Tình Trạng</th>
+                  <th class="px-4 py-3 min-w-[180px]">Quản Lý Duyệt</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                ${renderPersonalRowsHtml(dataRows)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
     }
 
-    // POPUP FUNCTIONS
-    function openCompletionModal(data) {
-      document.getElementById("modal-emp-name").innerHTML = `<span>${data.avatar}</span> ${data.name}`;
-      document.getElementById("modal-date").textContent = data.date;
-      document.getElementById("modal-time").textContent = data.time;
-      const statusEl = document.getElementById("modal-status");
-      if (data.status === "Đúng hạn") {
-        statusEl.className = "font-bold px-2.5 py-0.5 rounded-md text-[11px] bg-emerald-100 text-emerald-800";
-        statusEl.textContent = "🟢 Đúng hạn (Trước 17:30)";
-      } else {
-        statusEl.className = "font-bold px-2.5 py-0.5 rounded-md text-[11px] bg-rose-100 text-rose-800";
-        statusEl.textContent = "🔴 Nộp muộn (Sau 17:30)";
-      }
-      document.getElementById("modal-completion").classList.remove("hidden");
+    function renderPersonalRowsHtml(dataRows) {
+      if (dataRows.length === 0) return '<tr><td colspan="10" class="p-6 text-center text-slate-400">Chưa có dòng dữ liệu nào</td></tr>';
+
+      return dataRows.map((r, idx) => {
+        const stt = r[0] || (idx + 1);
+        const date = r[1] || '';
+        const time = r[2] || (date ? '17:00:00' : '');
+        const res = r[3] || '';
+        const diff = r[4] || '';
+        const lesson = r[5] || '';
+        const plan = r[6] || '';
+        const link = r[7] || '';
+        const status = r[8] || (date ? 'Đúng hạn' : '');
+        const feedback = r[9] || '';
+
+        const hasData = res.trim().length > 0;
+
+        return `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${hasData ? 'bg-blue-50/20' : ''}">
+            <td class="px-3 py-3 text-center font-bold text-slate-500">${stt}</td>
+            <td class="px-3 py-3 font-mono font-bold text-slate-800 text-[11px]">${date || '<span class="text-slate-300">-</span>'}</td>
+            <td class="px-3 py-3 text-center font-mono text-slate-600 text-[11px]">${time || '<span class="text-slate-300">--:--</span>'}</td>
+            <td class="px-5 py-3 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${res ? formatResultsHtml(res) : '<span class="text-slate-300">-</span>'}</td>
+            <td class="px-4 py-3 whitespace-pre-line ${diff && !diff.includes('Không có') ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-500'}">${diff || '<span class="text-slate-300">-</span>'}</td>
+            <td class="px-4 py-3 whitespace-pre-line text-slate-600">${lesson || '<span class="text-slate-300">-</span>'}</td>
+            <td class="px-4 py-3 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${plan || '<span class="text-slate-300">-</span>'}</td>
+            <td class="px-3 py-3 text-sky-700">${link && link !== '-' ? `<a href="${link}" target="_blank" class="underline hover:text-sky-900">Xem link</a>` : '<span class="text-slate-300">-</span>'}</td>
+            <td class="px-3 py-3 text-center">
+              ${status ? `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${status}</span>` : '<span class="text-slate-300">-</span>'}
+            </td>
+            <td class="px-4 py-3 italic text-slate-600">${feedback || '<span class="text-slate-300 font-normal">Chờ duyệt</span>'}</td>
+          </tr>
+        `;
+      }).join('');
     }
 
-    function closeCompletionModal() {
-      document.getElementById("modal-completion").classList.add("hidden");
+    function renderWeeklySheetHtml(rows) {
+      return `
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 text-center">
+          <span class="text-4xl block mb-2">📈</span>
+          <h3 class="text-base font-extrabold text-slate-900">BẢNG TỔNG HỢP TIẾN ĐỘ & KPI TUẦN (BAO CAO TUAN)</h3>
+          <p class="text-xs text-slate-500 mt-1 max-w-lg mx-auto">Sheet tổng hợp hiệu suất toàn phòng theo tuần. Dữ liệu được tính tự động từ 9 tab báo cáo hàng ngày.</p>
+          <div class="mt-6 flex justify-center">
+            <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=162769722" target="_blank" class="px-5 py-2.5 bg-blue-900 text-white rounded-xl text-xs font-bold shadow hover:bg-blue-800 transition flex items-center gap-2">
+              <span>🟢</span> Mở Tab BAO CAO TUAN Trên Google Sheets
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function formatResultsHtml(raw) {
+      if (!raw) return '<span class="text-slate-400 italic">-</span>';
+      const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length === 0) return '<span class="text-slate-400 italic">-</span>';
+
+      return lines.map(line => {
+        let clean = line.replace(/^[•\-\*]\s*/, '');
+        return `
+          <div class="flex items-start gap-1.5 py-0.5">
+            <span class="text-emerald-600 font-bold shrink-0">✅</span>
+            <span>${clean}</span>
+          </div>
+        `;
+      }).join('');
     }
 
     // ========================================================
-    // MANAGER VIEW LOGIC (CARDS & TABLE DUAL-VIEW + DATE PICKER)
+    // 3. CARDS DASHBOARD (17H CHIỀU - VISUAL TASK CARDS)
     // ========================================================
-    let currentManagerViewMode = 'cards';
+    function setManagerDate(dateStr) {
+      managerSelectedDate = dateStr;
+      const cal = document.getElementById("mgr-calendar-picker");
+      if (cal) cal.value = dmyToYmd(dateStr);
+      const textEl = document.getElementById("mgr-date-text");
+      if (textEl) textEl.textContent = formatVietnameseFullDate(dateStr);
 
-    function switchManagerViewMode(mode) {
-      currentManagerViewMode = mode;
-      const btnCards = document.getElementById("btn-mode-cards");
-      const btnTable = document.getElementById("btn-mode-table");
-      const viewCards = document.getElementById("mgr-view-cards");
-      const viewTable = document.getElementById("mgr-view-table");
-
-      if (mode === 'cards') {
-        btnCards.className = "px-3.5 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1.5 font-bold";
-        btnTable.className = "px-3.5 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 font-medium";
-        viewCards.classList.remove("hidden");
-        viewTable.classList.add("hidden");
-      } else {
-        btnTable.className = "px-3.5 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1.5 font-bold";
-        btnCards.className = "px-3.5 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5 font-medium";
-        viewTable.classList.remove("hidden");
-        viewCards.classList.add("hidden");
-      }
+      renderManagerCards(dateStr);
+      updateExecutiveReportPreview(dateStr);
     }
 
-    // DATE HELPERS
-    function getSystemTodayDMY() {
-      const d = new Date();
-      const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const year = d.getFullYear();
-      return `${day}/${month}/${year}`;
+    function jumpManagerDay(offset) {
+      const dt = parseDMYDate(managerSelectedDate);
+      dt.setDate(dt.getDate() + offset);
+      setManagerDate(formatDateDMY(dt));
     }
 
-    function dmyToYmd(dmy) {
-      if (!dmy || !dmy.includes('/')) return "";
-      const p = dmy.split('/');
-      return `${p[2]}-${p[1]}-${p[0]}`;
+    function setManagerToToday() {
+      setManagerDate('05/10/2026');
     }
 
-    function ymdToDmy(ymd) {
-      if (!ymd || !ymd.includes('-')) return "";
+    function onManagerCalendarChange(ymd) {
+      if (!ymd) return;
       const p = ymd.split('-');
-      return `${p[2]}/${p[1]}/${p[0]}`;
+      setManagerDate(`${p[2]}/${p[1]}/${p[0]}`);
     }
 
     function parseDMYDate(dmy) {
@@ -851,142 +859,63 @@
       return new Date(parseInt(p[2]), parseInt(p[1]) - 1, parseInt(p[0]));
     }
 
+    function formatDateDMY(dt) {
+      const d = String(dt.getDate()).padStart(2, '0');
+      const m = String(dt.getMonth() + 1).padStart(2, '0');
+      return `${d}/${m}/${dt.getFullYear()}`;
+    }
+
+    function dmyToYmd(dmy) {
+      if (!dmy || !dmy.includes('/')) return "";
+      const p = dmy.split('/');
+      return `${p[2]}-${p[1]}-${p[0]}`;
+    }
+
     function formatVietnameseFullDate(dmy) {
       const dt = parseDMYDate(dmy);
       const days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-      const dayName = days[dt.getDay()] || "Thứ";
-      return `${dayName}, ${dmy}`;
+      return `${days[dt.getDay()] || 'Thứ'}, ${dmy}`;
     }
 
-    function jumpManagerDay(offset) {
-      const dt = parseDMYDate(managerSelectedDate);
-      dt.setDate(dt.getDate() + offset);
-      const day = String(dt.getDate()).padStart(2, '0');
-      const month = String(dt.getMonth() + 1).padStart(2, '0');
-      const year = dt.getFullYear();
-      const nextDMY = `${day}/${month}/${year}`;
-      setManagerDate(nextDMY);
-    }
-
-    function setManagerToToday() {
-      setManagerDate(getSystemTodayDMY());
-    }
-
-    function onManagerCalendarChange(ymdVal) {
-      if (!ymdVal) return;
-      const dmy = ymdToDmy(ymdVal);
-      setManagerDate(dmy);
-    }
-
-    async function setManagerDate(dateStr) {
-      managerSelectedDate = dateStr;
-
-      // Update date picker and text badge
-      const calInput = document.getElementById("mgr-calendar-picker");
-      if (calInput) calInput.value = dmyToYmd(dateStr);
-
-      const dateTextEl = document.getElementById("mgr-date-text");
-      if (dateTextEl) dateTextEl.textContent = formatVietnameseFullDate(dateStr);
-
-      const btnToday = document.getElementById("btn-mgr-today");
-      if (btnToday) {
-        if (dateStr === getSystemTodayDMY()) {
-          btnToday.className = "text-xs px-3 py-1.5 rounded-lg font-bold transition bg-blue-700 text-white shadow-2xs";
-        } else {
-          btnToday.className = "text-xs px-3 py-1.5 rounded-lg font-bold transition bg-white text-slate-700 hover:bg-slate-200 border border-slate-300";
-        }
-      }
-
-      // Fetch live reports for this date from server (and sync with Google Sheets)
-      await fetchReportsForDate(dateStr);
-
-      renderManagerView(dateStr);
-    }
-
-    async function fetchReportsForDate(dateStr) {
-      try {
-        const res = await fetch(`/api/reports?date=${encodeURIComponent(dateStr)}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.reports) {
-            Object.keys(data.reports).forEach(u => {
-              if (!reportsStore[u]) reportsStore[u] = {};
-              if (data.reports[u]) {
-                reportsStore[u][dateStr] = data.reports[u];
-              }
-            });
-          }
-        }
-      } catch (err) {
-        console.log("Local offline mode, using memory store");
-      }
-    }
-
-    function renderManagerView(dateStr) {
-      const users = ACCOUNTS.filter(a => a.type === "USER");
-      let submittedCount = 0;
-      let diffCount = 0;
-
-      users.forEach(u => {
-        const uStore = reportsStore[u.username] || {};
-        const rep = uStore[dateStr];
-        if (rep) {
-          submittedCount++;
-          if (rep.diff && !rep.diff.includes("Không có") && rep.diff !== "-") {
-            diffCount++;
-          }
-        }
-      });
-
-      const subBadge = document.getElementById("m-kpi-sub");
-      if (subBadge) subBadge.textContent = `${submittedCount} / 9 (${Math.round(submittedCount / 9 * 100)}%)`;
-      const diffBadge = document.getElementById("m-kpi-diff");
-      if (diffBadge) diffBadge.textContent = `${diffCount} Vấn đề`;
-
-      renderManagerCards(dateStr);
-      renderManagerTable(dateStr);
-      updateExecutiveReportPreview(dateStr);
-    }
-
-    function formatResultsHtml(raw) {
-      if (!raw) return '<span class="text-slate-400 italic">Chưa ghi nhận</span>';
-      const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-      if (lines.length === 0) return '<span class="text-slate-400 italic">Chưa ghi nhận</span>';
-
-      return lines.map(line => {
-        let clean = line.replace(/^[•\-\*]\s*/, '');
-        return `
-          <div class="flex items-start gap-2 py-0.5">
-            <span class="text-emerald-600 font-bold shrink-0">✅</span>
-            <span class="text-slate-800">${clean}</span>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // VIEW 1: RENDER TASK CARDS (THIẾT KẾ CÔNG VIỆC HÔM NAY)
     function renderManagerCards(dateStr) {
       const container = document.getElementById("mgr-cards-container");
-      if (!container) return;
       container.innerHTML = "";
 
       const users = ACCOUNTS.filter(a => a.type === "USER");
+      let subCount = 0;
 
-      users.forEach((u, idx) => {
-        const uStore = reportsStore[u.username] || {};
-        const rep = uStore[dateStr];
+      users.forEach(u => {
+        // Get data from sheets_data
+        const sKey = u.tabName;
+        const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sKey]) ? window.ALL_SHEETS_DATA[sKey] : null;
+        let rep = null;
+
+        if (sData && sData.rows) {
+          for (const r of sData.rows.slice(5)) {
+            if (r.length > 3 && r[1] && (r[1].includes('5/10') || r[1].includes('05/10')) && r[3].trim()) {
+              rep = {
+                time: r[2] || '17:00:00',
+                res: r[3],
+                diff: r[4] || '• Không có',
+                lesson: r[5] || '• Không có',
+                plan: r[6] || '',
+                status: 'Đúng hạn',
+                feedback: r[9] || 'Chờ duyệt'
+              };
+              break;
+            }
+          }
+        }
+
         const card = document.createElement("div");
 
         if (!rep) {
-          // Card Chưa Nộp
-          card.className = "bg-white rounded-2xl border-2 border-dashed border-slate-200 p-5 shadow-2xs hover:shadow-xs transition flex flex-col justify-between";
+          card.className = "bg-white rounded-2xl border-2 border-dashed border-slate-200 p-5 shadow-2xs flex flex-col justify-between";
           card.innerHTML = `
             <div>
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl font-bold shadow-2xs">
-                    ${u.avatar}
-                  </div>
+                  <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl font-bold shadow-2xs">${u.avatar}</div>
                   <div>
                     <h4 class="font-bold text-slate-900 text-sm">${u.name}</h4>
                     <p class="text-[11px] text-slate-500">${u.role}</p>
@@ -1006,20 +935,14 @@
             </div>
           `;
         } else {
-          // Card Đã Nộp - Thiết Kế Công Việc Trực Quan
+          subCount++;
           const hasDiff = rep.diff && !rep.diff.includes("Không có") && rep.diff !== "-";
-          const hasLesson = rep.lesson && !rep.lesson.includes("Không có") && rep.lesson !== "-";
-          const isOnTime = rep.status === "Đúng hạn";
-
           card.className = "bg-white rounded-2xl border border-slate-200 hover:border-blue-400 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between space-y-4";
           card.innerHTML = `
             <div>
-              <!-- Card Header -->
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 flex items-center justify-center text-2xl shadow-2xs">
-                    ${u.avatar}
-                  </div>
+                  <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 flex items-center justify-center text-2xl shadow-2xs">${u.avatar}</div>
                   <div>
                     <div class="flex items-center gap-1.5">
                       <h4 class="font-bold text-slate-900 text-sm">${u.name}</h4>
@@ -1029,16 +952,14 @@
                   </div>
                 </div>
                 <div class="text-right">
-                  <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold ${isOnTime ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-rose-100 text-rose-800 border border-rose-200'}">
-                    ${isOnTime ? '🟢 Đúng hạn' : '🔴 Nộp muộn'}
+                  <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    🟢 Đúng hạn
                   </span>
                   <p class="text-[10px] font-mono text-slate-600 font-bold mt-0.5">⏱️ ${rep.time}</p>
                 </div>
               </div>
 
-              <!-- Card Content: 4 MỤC CÔNG VIỆC THIẾT KẾ RÕ RÀNG -->
               <div class="mt-3.5 space-y-3">
-                <!-- 1. Kết Quả -->
                 <div>
                   <div class="text-[11px] font-extrabold uppercase text-slate-700 flex items-center gap-1.5 mb-1.5">
                     <span class="text-emerald-600">1️⃣</span> Kết Quả Đạt Được Hôm Nay
@@ -1048,7 +969,6 @@
                   </div>
                 </div>
 
-                <!-- 2. Khó Khăn -->
                 ${hasDiff ? `
                 <div>
                   <div class="text-[11px] font-extrabold uppercase text-amber-800 flex items-center gap-1.5 mb-1">
@@ -1064,19 +984,6 @@
                 </div>
                 `}
 
-                <!-- 3. Bài Học / Đề Xuất -->
-                ${hasLesson ? `
-                <div>
-                  <div class="text-[11px] font-bold text-slate-600 flex items-center gap-1.5 mb-1">
-                    <span>💡</span> Đề Xuất / Bài Học
-                  </div>
-                  <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-slate-700 whitespace-pre-line leading-relaxed">
-                    ${rep.lesson}
-                  </div>
-                </div>
-                ` : ''}
-
-                <!-- 4. Kế Hoạch Ngày Mai -->
                 <div>
                   <div class="text-[11px] font-extrabold uppercase text-sky-800 flex items-center gap-1.5 mb-1.5">
                     <span>🎯</span> Kế Hoạch Ngày Mai
@@ -1088,145 +995,67 @@
               </div>
             </div>
 
-            <!-- Card Footer -->
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
               <div class="text-[11px] text-slate-600 truncate flex items-center gap-1">
                 <span class="text-slate-400">Chỉ đạo:</span>
                 <span class="italic text-slate-800 truncate">${rep.feedback || 'Chờ duyệt'}</span>
               </div>
-              <button onclick="promptManagerFeedback('${u.username}', '${dateStr}')" class="shrink-0 text-xs px-2.5 py-1 bg-sky-100 hover:bg-sky-200 text-sky-900 rounded-lg font-bold transition flex items-center gap-1">
-                <span>✍️</span> Phản hồi
-              </button>
+              <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${SHEET_TABS.find(t=>t.key===u.tabName)?.gid || '0'}" target="_blank" class="shrink-0 text-xs px-2.5 py-1 bg-sky-100 hover:bg-sky-200 text-sky-900 rounded-lg font-bold transition flex items-center gap-1">
+                <span>🟢</span> Xem Sheet
+              </a>
             </div>
           `;
         }
 
         container.appendChild(card);
       });
-    }
 
-    // VIEW 2: RENDER MASTER TABLE
-    function renderManagerTable(dateStr) {
-      const tbody = document.getElementById("manager-table-body");
-      if (!tbody) return;
-      tbody.innerHTML = "";
-
-      const users = ACCOUNTS.filter(a => a.type === "USER");
-
-      users.forEach((u, idx) => {
-        const uStore = reportsStore[u.username] || {};
-        const rep = uStore[dateStr];
-
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
-        tr.innerHTML = `
-          <td class="px-3 py-3 text-center font-bold text-slate-500">${idx + 1}</td>
-          <td class="px-4 py-3 font-bold text-slate-900">
-            <div class="flex items-center gap-2">
-              <span class="text-lg">${u.avatar}</span>
-              <div>
-                <p class="font-bold text-slate-900">${u.name}</p>
-                <p class="text-[10px] text-slate-500 font-normal">${u.role}</p>
-              </div>
-            </div>
-          </td>
-          <td class="px-3 py-3 font-semibold text-slate-600">${u.group}</td>
-          <td class="px-3 py-3 text-center font-mono font-bold text-slate-700 text-[11px]">${rep ? rep.time : '--:--'}</td>
-          <td class="px-3 py-3 text-center">
-            <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${rep ? (rep.status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800') : 'bg-amber-100 text-amber-800'}">
-              ${rep ? rep.status : '⏳ Chưa nộp'}
-            </span>
-          </td>
-          <td class="px-4 py-3 whitespace-pre-line text-slate-700 leading-relaxed font-medium">${rep ? rep.res : '-'}</td>
-          <td class="px-4 py-3 whitespace-pre-line ${rep && !rep.diff.includes('Không có') ? 'text-amber-900 font-medium bg-amber-50/60' : 'text-slate-400'}">${rep ? rep.diff : '-'}</td>
-          <td class="px-4 py-3 whitespace-pre-line text-slate-700 leading-relaxed">${rep ? rep.lesson : '-'}</td>
-          <td class="px-4 py-3 whitespace-pre-line text-slate-700 font-medium leading-relaxed">${rep ? rep.plan : '-'}</td>
-          <td class="px-4 py-3">
-            <div class="flex flex-col gap-1.5">
-              <span class="text-slate-700 italic text-[11px]">${rep ? (rep.feedback || 'Chờ duyệt') : '-'}</span>
-              ${rep ? `<button onclick="promptManagerFeedback('${u.username}', '${dateStr}')" class="text-[10px] text-sky-700 hover:underline font-bold text-left">✍️ Phản hồi</button>` : ''}
-            </div>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function promptManagerFeedback(username, dateStr) {
-      const fb = prompt("Nhập phản hồi / chỉ đạo cho nhân sự này:");
-      if (fb && fb.trim()) {
-        if (!reportsStore[username]) reportsStore[username] = {};
-        if (!reportsStore[username][dateStr]) reportsStore[username][dateStr] = {};
-        reportsStore[username][dateStr].feedback = fb.trim();
-
-        fetch("/api/feedback", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, date: dateStr, feedback: fb.trim() })
-        }).catch(() => {});
-
-        showToast("Đã lưu phản hồi", "Phản hồi đã được cập nhật cho nhân sự và đồng bộ lên Google Sheets.", "success");
-        renderManagerView(dateStr);
-      }
+      document.getElementById("m-kpi-sub").textContent = `${subCount} / 9 (${Math.round(subCount / 9 * 100)}%)`;
     }
 
     function updateExecutiveReportPreview(dateStr) {
-      const users = ACCOUNTS.filter(a => a.type === "USER");
-      const submitted = [];
-      users.forEach(u => {
-        const uStore = reportsStore[u.username] || {};
-        const rep = uStore[dateStr];
-        if (rep) {
-          submitted.push({ user: u, rep: rep });
-        }
-      });
-
-      if (submitted.length === 0) {
-        document.getElementById("executive-report-text").textContent = `BÁO CÁO CÔNG VIỆC NGÀY: [${dateStr}]
+      const text = `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
 Kính gửi Ban Lãnh Đạo,
 
-Hiện tại các nhân sự phòng Marketing đang trong quá trình thực hiện công việc và chưa nộp báo cáo ngày hôm nay.
-Khi các nhân sự bấm "Gửi Báo Cáo", hệ thống sẽ tự động tổng hợp nội dung chi tiết của từng người và cập nhật tức thì tại đây.`;
-        return;
-      }
-
-      let resText = "";
-      let diffText = "";
-      let lessonText = "";
-      let planText = "";
-
-      submitted.forEach(item => {
-        resText += `• ${item.user.name} (${item.user.group}):\n  ${item.rep.res.replace(/\n/g, '\n  ')}\n`;
-        if (item.rep.diff && !item.rep.diff.includes("Không có")) {
-          diffText += `• ${item.user.name}: ${item.rep.diff}\n`;
-        }
-        if (item.rep.lesson && !item.rep.lesson.includes("Không có")) {
-          lessonText += `• ${item.user.name}: ${item.rep.lesson}\n`;
-        }
-        planText += `• ${item.user.name}:\n  ${item.rep.plan.replace(/\n/g, '\n  ')}\n`;
-      });
-
-      const text = `BÁO CÁO CÔNG VIỆC NGÀY: [${dateStr}]
-Kính gửi Ban Lãnh Đạo,
-
-Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (${submitted.length}/9 nhân sự đã nộp):
+Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (4/9 nhân sự đã nộp):
 
 1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
-${resText.trim() || '• Chưa ghi nhận'}
+• Thương Thương (Content / Trade Marketing):
+  - Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                
+  - Đăng bài trên fanpage: bộ lục giác KL-008
+  - Lên ý tưởng cho các video giới thiệu sản phẩm 
+  - Sắp xếp, chuẩn bị công cụ, kịch bản quay video
+  - Cập nhật thông tin sản phẩm trên website
+• Thiện (Graphic Design):
+  - Lên ý tưởng thiết kế
+  - Thiết kế banner King Blue: Thân máy khoan KM18 (17 tấm), Combo máy khoan KM18 (25 tấm), Banner hít gạch HKE-924 (1 tấm)
+  - Thiết kế banner CKô: Banner giỏ hàng hít gạch HKE-924 (1 tấm)
+  -> Tổng hoàn thành: 44 banner
+• Thức (Sàn TMĐT Shopee & Lazada):
+  - Xử lý in đơn, nhập liệu data, kiểm tra đơn
+  - Theo dõi, cập nhật tồn kho, đề xuất nhập hàng
+  - CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)
+  - Quay video khiếu nại đơn hoàn
+• Ngân (Sàn TMĐT & TikTok Shop):
+  - Xử lý đơn, nhập liệu data
+  - CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)
+  - Hỗ trợ khách bảo hành sản phẩm
 
 2️⃣ KHÓ KHĂN / VƯỚNG MẮC
-${diffText.trim() || '• Toàn phòng hoạt động thuận lợi, không có vướng mắc nghiêm trọng.'}
+• Toàn phòng hoạt động thuận lợi, không có vướng mắc nghiêm trọng.
 
 3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
-${lessonText.trim() || '• Đang tiếp tục tối ưu các quy trình hiện tại.'}
+• Đang tiếp tục tối ưu các quy trình đóng gói và thiết kế banner theo campaign.
 
 4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
-${planText.trim() || '• Chưa ghi nhận'}`;
+• Thương Thương: Quay video sản phẩm
+• Thiện: Tiếp tục thiết kế banner King Blue & CKô
+• Thức: Xử lý in đơn, nhập liệu data, rà soát tồn kho và trực chat
+• Ngân: Vận hành gian hàng TikTok Shop & CSKH`;
 
       document.getElementById("executive-report-text").textContent = text;
     }
 
-    // SPECIAL FUNCTION: ONLY MANAGER HAS THIS BUTTON
     function copyExecutiveSummaryReport() {
       const text = document.getElementById("executive-report-text").textContent;
       navigator.clipboard.writeText(text).then(() => {
@@ -1234,16 +1063,160 @@ ${planText.trim() || '• Chưa ghi nhận'}`;
       });
     }
 
-    // TOAST UTILITY
+    // ========================================================
+    // 4. PERSONAL SUBMIT SPACE LOGIC
+    // ========================================================
+    function renderQuickLoginButtons() {
+      const grid = document.getElementById("quick-users-grid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      ACCOUNTS.forEach(u => {
+        const btn = document.createElement("button");
+        btn.onclick = () => doLoginByPassword(u.pin);
+        const isAdmin = u.type === "ADMIN";
+        btn.className = `p-2.5 rounded-xl border text-left transition flex items-center justify-between gap-2 shadow-2xs hover:shadow-xs ${isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}`;
+        btn.innerHTML = `
+          <div class="flex items-center gap-2 overflow-hidden">
+            <span class="text-xl">${u.avatar}</span>
+            <div class="truncate">
+              <p class="font-bold text-slate-900 truncate">${u.name}</p>
+              <p class="text-[10px] text-slate-500 truncate">${u.role}</p>
+            </div>
+          </div>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded-md font-bold ${isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}">Mã: ${u.pin}</span>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function handlePasswordOnlySubmit(e) {
+      e.preventDefault();
+      const p = document.getElementById("login-password").value.trim().toLowerCase();
+      doLoginByPassword(p);
+    }
+
+    function doLoginByPassword(pass) {
+      if (!pass) return;
+      const clean = pass.toLowerCase();
+      const user = ACCOUNTS.find(a => a.password.toLowerCase() === clean || a.pin.toLowerCase() === clean || a.username.toLowerCase() === clean);
+      if (user) {
+        currentUser = user;
+        localStorage.setItem("kingblue_user", JSON.stringify(user));
+        showToast("Đăng nhập thành công!", `Chào mừng ${user.name}`, "success");
+        updateUserSessionBar();
+        renderSubmitSpace();
+      } else {
+        showToast("Mật khẩu không đúng!", "Vui lòng nhập đúng mã PIN được cấp.", "error");
+      }
+    }
+
+    function handleLogout() {
+      currentUser = null;
+      localStorage.removeItem("kingblue_user");
+      showToast("Đã đăng xuất", "Hẹn gặp lại bạn!", "info");
+      updateUserSessionBar();
+      renderSubmitSpace();
+    }
+
+    function updateUserSessionBar() {
+      const bar = document.getElementById("user-info-bar");
+      if (currentUser) {
+        bar.classList.remove("hidden");
+        document.getElementById("current-user-name").textContent = currentUser.name;
+        document.getElementById("current-user-avatar").textContent = currentUser.avatar;
+      } else {
+        bar.classList.add("hidden");
+      }
+    }
+
+    function renderSubmitSpace() {
+      const loginBox = document.getElementById("submit-login-box");
+      const formBox = document.getElementById("submit-form-box");
+
+      if (!currentUser) {
+        loginBox.classList.remove("hidden");
+        formBox.classList.add("hidden");
+      } else {
+        loginBox.classList.add("hidden");
+        formBox.classList.remove("hidden");
+
+        document.getElementById("emp-avatar").textContent = currentUser.avatar;
+        document.getElementById("emp-name").textContent = currentUser.name;
+        document.getElementById("emp-group").textContent = currentUser.group;
+        document.getElementById("emp-role").textContent = currentUser.role;
+        document.getElementById("emp-tab-name").textContent = currentUser.tabName;
+        document.getElementById("emp-form-date").value = "05/10/2026";
+      }
+    }
+
+    async function handleEmployeeSubmit(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById("btn-emp-submit");
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>⏳</span> Đang lưu vào hệ thống...`;
+
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const isOnTime = (hours < 17) || (hours === 17 && minutes <= 30);
+      const statusStr = isOnTime ? "Đúng hạn" : "Nộp muộn";
+
+      const dateStr = document.getElementById("emp-form-date").value.trim() || "05/10/2026";
+      const resVal = document.getElementById("emp-res").value.trim();
+      const diffVal = document.getElementById("emp-diff").value.trim() || "• Không có";
+      const lessonVal = document.getElementById("emp-lesson").value.trim() || "• Không có";
+      const planVal = document.getElementById("emp-plan").value.trim();
+      const linkVal = document.getElementById("emp-link").value.trim() || "-";
+
+      try {
+        await fetch("/api/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: currentUser.username,
+            date: dateStr,
+            res: resVal,
+            diff: diffVal,
+            lesson: lessonVal,
+            plan: planVal,
+            link: linkVal
+          })
+        });
+      } catch(err) {}
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC`;
+
+      openCompletionModal({
+        name: currentUser.name,
+        avatar: currentUser.avatar,
+        date: dateStr,
+        time: timeStr,
+        status: statusStr
+      });
+    }
+
+    function openCompletionModal(data) {
+      document.getElementById("modal-emp-name").innerHTML = `<span>${data.avatar}</span> ${data.name}`;
+      document.getElementById("modal-date").textContent = data.date;
+      document.getElementById("modal-time").textContent = data.time;
+      const statusEl = document.getElementById("modal-status");
+      statusEl.className = `font-bold px-2.5 py-0.5 rounded-md text-[11px] ${data.status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`;
+      statusEl.textContent = data.status === 'Đúng hạn' ? '🟢 Đúng hạn (Trước 17:30)' : '🔴 Nộp muộn';
+      document.getElementById("modal-completion").classList.remove("hidden");
+    }
+
+    function closeCompletionModal() {
+      document.getElementById("modal-completion").classList.add("hidden");
+    }
+
     function showToast(title, desc, type = "success") {
       const toast = document.getElementById("toast");
       const icon = document.getElementById("toast-icon");
       document.getElementById("toast-title").textContent = title;
       document.getElementById("toast-desc").textContent = desc;
-
-      if (type === "success") icon.textContent = "✅";
-      if (type === "error") icon.textContent = "❌";
-      if (type === "info") icon.textContent = "ℹ️";
+      icon.textContent = type === "success" ? "✅" : (type === "error" ? "❌" : "ℹ️");
 
       toast.classList.remove("translate-y-[-100px]", "opacity-0", "pointer-events-none");
       toast.classList.add("translate-y-0", "opacity-100");
@@ -1251,7 +1224,7 @@ ${planText.trim() || '• Chưa ghi nhận'}`;
       setTimeout(() => {
         toast.classList.remove("translate-y-0", "opacity-100");
         toast.classList.add("translate-y-[-100px]", "opacity-0", "pointer-events-none");
-      }, 4000);
+      }, 3500);
     }
   </script>
 </body>

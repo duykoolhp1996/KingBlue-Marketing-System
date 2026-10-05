@@ -1,0 +1,926 @@
+window.ALL_SHEETS_DATA = {
+  "BAO CAO HOM NAY": {
+    "sheetId": 187266668,
+    "index": 0,
+    "rows": [
+      [
+        "BẢNG TỔNG HỢP BÁO CÁO CÔNG VIỆC HÀNG NGÀY & THEO DÕI TIẾN ĐỘ THEO NGÀY - PHÒNG MARKETING KING BLUE"
+      ],
+      [],
+      [
+        "",
+        "📅 NGÀY XEM BÁO CÁO:",
+        "05/10/2026",
+        "(💡 Nhấp đúp vào ô C3 để mở lịch chọn ngày, hoặc gõ =TODAY() để luôn xem hôm nay)",
+        "Thứ Hai, 05/10/2026"
+      ],
+      [
+        "",
+        "TỔNG NHÂN SỰ",
+        "",
+        "ĐÃ NỘP HÔM NAY",
+        "",
+        "VƯỚNG MẮC PHÁT SINH",
+        "",
+        "TÌNH TRẠNG NỘP",
+        "",
+        "TRƯỞNG PHÒNG"
+      ],
+      [
+        "",
+        "9 Người",
+        "",
+        "0 / 9 (0%)",
+        "",
+        "0 Vấn đề",
+        "",
+        "Còn 5 chưa nộp",
+        "",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Nhân Sự",
+        "Bộ Phận",
+        "Vị Trí Chuyên Môn",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC HÔM NAY",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH NGÀY MAI",
+        "Giờ Nộp",
+        "Tình Trạng",
+        "Marketing Manager Phản Hồi"
+      ],
+      [
+        "1",
+        "Võ Thị Hoài Thương",
+        "Content",
+        "Content Marketing & SEO Fanpage/Website",
+        "⏳ Chưa nộp",
+        "-",
+        "-",
+        "-",
+        "--:--",
+        "Chưa nộp",
+        "-"
+      ],
+      [
+        "2",
+        "Kiều Thương",
+        "Content",
+        "Content Video & Hợp Tác KOC/Reviewer",
+        "⏳ Chưa nộp",
+        "-",
+        "-",
+        "-",
+        "--:--",
+        "Chưa nộp",
+        "-"
+      ],
+      [
+        "3",
+        "Thương Thương",
+        "Content",
+        "Trade Marketing & Chính Sách Điểm Bán",
+        "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ",
+        "",
+        "",
+        "Quay video sản phẩm",
+        "00:00:00"
+      ],
+      [
+        "4",
+        "Thiện",
+        "Design",
+        "Graphic Designer (2D, POSM & Banner)",
+        "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)",
+        "",
+        "",
+        "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
+        "00:00:00"
+      ],
+      [
+        "5",
+        "Tứ",
+        "Media",
+        "Media / Photographer (Hình Ảnh, Video & User CRM)",
+        "⏳ Chưa nộp",
+        "-",
+        "-",
+        "-",
+        "--:--",
+        "Chưa nộp",
+        "-"
+      ],
+      [
+        "6",
+        "Thức",
+        "Sàn TMĐT",
+        "Vận Hành Sàn TMĐT (Shopee & Lazada)",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn",
+        "",
+        "",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)",
+        "00:00:00"
+      ],
+      [
+        "7",
+        "Ngân",
+        "Sàn TMĐT",
+        "CSKH & Quản Trị Gian Hàng TikTok Shop",
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm",
+        "",
+        "",
+        "",
+        "00:00:00"
+      ],
+      [
+        "8",
+        "Hùng",
+        "Đóng gói kho",
+        "Đóng Gói & Kho Vận Hàng Hóa Miền Nam",
+        "⏳ Chưa nộp",
+        "-",
+        "-",
+        "-",
+        "--:--",
+        "Chưa nộp",
+        "-"
+      ],
+      [
+        "9",
+        "Hùng Miền Bắc",
+        "Đóng gói kho",
+        "Đóng Gói & Kho Vận Chi Nhánh Hà Nội",
+        "⏳ Chưa nộp",
+        "-",
+        "-",
+        "-",
+        "--:--",
+        "Chưa nộp",
+        "-"
+      ]
+    ]
+  },
+  "Hoai Thuong - Content": {
+    "sheetId": 169328077,
+    "index": 1,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - VÕ THỊ HOÀI THƯƠNG"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Võ Thị Hoài Thương",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Content Marketing & SEO Fanpage/Website",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Kieu Thuong - Content": {
+    "sheetId": 1499171949,
+    "index": 2,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - KIỀU THƯƠNG"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Kiều Thương",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Content Video & Hợp Tác KOC/Reviewer",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Thuong Thuong - Content": {
+    "sheetId": 967400572,
+    "index": 3,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THƯƠNG THƯƠNG"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Thương Thương",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Trade Marketing & Chính Sách Điểm Bán",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1",
+        "5/10/2026",
+        "",
+        "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ",
+        "",
+        "",
+        "Quay video sản phẩm"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Thien - Design": {
+    "sheetId": 1434158092,
+    "index": 4,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THIỆN"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Thiện",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Graphic Designer (2D, POSM & Banner)",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1",
+        "5/10",
+        "",
+        "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)",
+        "",
+        "",
+        "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Tu - Media": {
+    "sheetId": 1418274519,
+    "index": 5,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - TỨ"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Tứ",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Media / Photographer (Hình Ảnh, Video & User CRM)",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Thuc - San TMDT": {
+    "sheetId": 1877693997,
+    "index": 6,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THỨC"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Thức",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Vận Hành Sàn TMĐT (Shopee & Lazada)",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1",
+        "05/10/2026",
+        "",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn",
+        "",
+        "",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Ngan - San TMDT": {
+    "sheetId": 1804131916,
+    "index": 7,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - NGÂN"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Ngân",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "CSKH & Quản Trị Gian Hàng TikTok Shop",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1",
+        "05/10",
+        "",
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "BAO CAO TUAN": {
+    "sheetId": 162769722,
+    "index": 8,
+    "rows": [
+      [
+        "BÁO CÁO TỔNG KẾT TUẦN - PHÒNG MARKETING KING BLUE"
+      ],
+      [],
+      [],
+      [
+        "STT",
+        "Họ và Tên",
+        "Vị Trí",
+        "Mục Tiêu Tuần",
+        "Kết Quả Đạt Được (% Hoàn thành)",
+        "Vấn Đề Tồn Đọng",
+        "Kế Hoạch Tuần Tới",
+        "Marketing Manager Đánh Giá"
+      ]
+    ]
+  },
+  "Hung - Kho MN": {
+    "sheetId": 94289788,
+    "index": 9,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Hùng",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Đóng Gói & Kho Vận Hàng Hóa Miền Nam",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  },
+  "Hung - Kho MB": {
+    "sheetId": 1438923158,
+    "index": 10,
+    "rows": [
+      [
+        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG MIỀN BẮC"
+      ],
+      [],
+      [
+        "Họ và Tên:",
+        "",
+        "Hùng Miền Bắc",
+        "",
+        "Vị trí chuyên môn:",
+        "",
+        "Đóng Gói & Kho Vận Chi Nhánh Hà Nội",
+        "",
+        "Quản lý duyệt:",
+        "Marketing Manager"
+      ],
+      [],
+      [
+        "STT",
+        "Ngày Báo Cáo",
+        "Giờ Nộp",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
+        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
+        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
+        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
+        "Link Minh Chứng",
+        "Tình Trạng",
+        "Marketing Manager Phê Duyệt & Phản Hồi"
+      ],
+      [
+        "1"
+      ],
+      [
+        "2"
+      ],
+      [
+        "3"
+      ],
+      [
+        "4"
+      ],
+      [
+        "5"
+      ],
+      [
+        "6"
+      ],
+      [
+        "7"
+      ],
+      [
+        "8"
+      ],
+      [
+        "9"
+      ],
+      [
+        "10"
+      ],
+      [
+        "11"
+      ],
+      [
+        "12"
+      ],
+      [
+        "13"
+      ],
+      [
+        "14"
+      ],
+      [
+        "15"
+      ]
+    ]
+  }
+};
