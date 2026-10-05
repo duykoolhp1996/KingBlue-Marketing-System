@@ -302,13 +302,22 @@ html_template = f'''<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Bottom Row: KPIs -->
-        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+        <!-- Bottom Row: KPIs & Live Auto-Sync Status -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100 items-center">
           <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-2 rounded-xl font-black text-xs sm:text-sm text-center flex items-center justify-center gap-1.5">
-            <span>✅ Đã nộp:</span> <span id="m-kpi-sub" class="text-emerald-900 font-black">4 / 7 (57%)</span>
+            <span>✅ Đã nộp:</span> <span id="m-kpi-sub" class="text-emerald-900 font-black">6 / 7 (86%)</span>
           </div>
           <div class="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-2 rounded-xl font-black text-xs sm:text-sm text-center flex items-center justify-center gap-1.5">
             <span>⚠️ Khó khăn:</span> <span id="m-kpi-diff" class="text-amber-900 font-black">0 Vấn đề</span>
+          </div>
+          <div class="flex items-center gap-1.5 justify-center sm:justify-end">
+            <span id="live-sync-indicator" onclick="autoSyncLiveGoogleSheets(false)" title="Nhấp để đồng bộ ngay từ Google Sheets" class="cursor-pointer bg-emerald-100 hover:bg-emerald-200 text-emerald-950 border border-emerald-300 px-3 py-2 rounded-xl font-black text-xs flex items-center gap-1.5 shadow-2xs transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>🟢 Auto Live Sync</span>
+            </span>
+            <button onclick="autoSyncLiveGoogleSheets(false)" title="Làm mới số liệu từ Google Sheets" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-xl font-bold transition shadow-2xs">
+              🔄
+            </button>
           </div>
         </div>
       </div>
@@ -526,6 +535,11 @@ html_template = f'''<!DOCTYPE html>
 
       // Default to Tab 2: 'cards' (THẺ CÔNG VIỆC HÔM NAY - MỞ TỰ DO KHÔNG CẦN ĐĂNG NHẬP)
       switchMainAppTab('cards');
+
+      // AUTO LIVE SYNC DIRECTLY FROM GOOGLE SHEETS
+      setTimeout(() => autoSyncLiveGoogleSheets(true), 600);
+      setInterval(() => autoSyncLiveGoogleSheets(true), 30000);
+      window.addEventListener('focus', () => autoSyncLiveGoogleSheets(true));
     }});
 
     function startLiveClock() {{
@@ -991,6 +1005,66 @@ html_template = f'''<!DOCTYPE html>
       }}
     }}
 
+    function findReportForUser(u, dateStr) {{
+      const dParts = dateStr.split('/');
+      const day = parseInt(dParts[0]);
+      const month = parseInt(dParts[1]);
+      const year = dParts[2] || '2026';
+      const patterns = [
+        `${{day}}/${{month}}/${{year}}`,
+        `${{String(day).padStart(2, '0')}}/${{String(month).padStart(2, '0')}}/${{year}}`,
+        `${{day}}/${{month}}`,
+        `${{String(day).padStart(2, '0')}}/${{String(month).padStart(2, '0')}}`
+      ];
+
+      // Strategy 1: Check individual staff tab (window.ALL_SHEETS_DATA[u.tabName])
+      const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[u.tabName]) ? window.ALL_SHEETS_DATA[u.tabName] : null;
+      if (sData && sData.rows) {{
+        for (const r of sData.rows.slice(2)) {{
+          if (r && r.length > 2) {{
+            const cellDate = String(r[1] || r[0] || '').trim();
+            const isDateMatch = patterns.some(p => cellDate.includes(p));
+            const resText = String(r[3] || r[2] || '').trim();
+            
+            if (isDateMatch && resText && !resText.includes('Chưa nộp') && resText !== '-') {{
+              return {{
+                time: (r[2] && r[2] !== '--:--' && r[2] !== '00:00:00') ? r[2] : '17:00:00',
+                res: resText,
+                diff: r[4] || '• Không có',
+                lesson: r[5] || '• Không có',
+                plan: r[6] || '',
+                status: 'Đúng hạn',
+                feedback: (r[9] && r[9] !== 'Chờ duyệt') ? r[9] : ''
+              }};
+            }}
+          }}
+        }}
+      }}
+
+      // Strategy 2: Check Master sheet 'BAO CAO HOM NAY'
+      const masterData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA['BAO CAO HOM NAY']) ? window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] : null;
+      if (masterData && masterData.rows) {{
+        for (const r of masterData.rows) {{
+          if (r && r.length > 4 && r[1] && (r[1].includes(u.name) || u.name.includes(r[1]))) {{
+            const resText = String(r[4] || '').trim();
+            if (resText && !resText.includes('Chưa nộp') && resText !== '-') {{
+              return {{
+                time: (r[8] && r[8] !== '--:--' && r[8] !== '00:00:00') ? r[8] : '17:00:00',
+                res: resText,
+                diff: r[5] || '• Không có',
+                lesson: r[6] || '• Không có',
+                plan: r[7] || '',
+                status: 'Đúng hạn',
+                feedback: (r[10] && r[10] !== 'Chờ duyệt') ? r[10] : ''
+              }};
+            }}
+          }}
+        }}
+      }}
+
+      return null;
+    }}
+
     function renderManagerCards(dateStr) {{
       const container = document.getElementById("mgr-cards-container");
       container.innerHTML = "";
@@ -1000,30 +1074,9 @@ html_template = f'''<!DOCTYPE html>
 
       users.forEach(u => {{
         const theme = getRoleColorTheme(u.group);
-
-        // Get data from sheets_data
-        const sKey = u.tabName;
-        const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sKey]) ? window.ALL_SHEETS_DATA[sKey] : null;
-        let rep = null;
-
-        if (sData && sData.rows) {{
-          for (const r of sData.rows.slice(5)) {{
-            if (r.length > 3 && r[1] && (r[1].includes('5/10') || r[1].includes('05/10')) && r[3].trim()) {{
-              rep = {{
-                time: r[2] || '17:00:00',
-                res: r[3],
-                diff: r[4] || '• Không có',
-                lesson: r[5] || '• Không có',
-                plan: r[6] || '',
-                status: 'Đúng hạn',
-                feedback: r[9] || 'Chờ duyệt'
-              }};
-              break;
-            }}
-          }}
-        }}
-
+        const rep = findReportForUser(u, dateStr);
         const card = document.createElement("div");
+
         if (!rep) {{
           card.className = `bg-white/95 rounded-3xl border-2 border-dashed border-slate-200 ${{theme.borderTop}} p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between`;
           card.innerHTML = `
@@ -1134,31 +1187,153 @@ html_template = f'''<!DOCTYPE html>
     }}
 
     function updateExecutiveReportPreview(dateStr) {{
-      const text = `BÁO CÁO CÔNG VIỆC NGÀY: [${{dateStr}}]
-Kính gửi Ban Lãnh Đạo,
+      const users = ACCOUNTS.filter(a => a.type === "USER");
+      let subCount = 0;
+      const reports = [];
 
-Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (4/7 nhân sự đã nộp):
+      users.forEach(u => {{
+        const rep = findReportForUser(u, dateStr);
+        if (rep) {{
+          subCount++;
+          reports.push({{ user: u, rep: rep }});
+        }}
+      }});
 
-1️⃣ KẾT QUẢ ĐẠT ĐƯỢC CHÍNH
-• Thương Thương (Trade Marketing): Giải đáp khách Fanpage & TikTok Ckostore; Đăng bài KL-008; Lên ý tưởng & kịch bản video; Cập nhật website.
-• Thiện (Design): Hoàn thành 44 banner chất lượng cao (KM18 thân & combo, HKE-924...).
-• Thức (Sàn TMĐT): Xử lý in đơn, dữ liệu vận hành Shopee/Lazada, bổ sung kho, khiếu nại đơn hoàn.
-• Ngân (Sàn TMĐT): Vận hành TikTok Shop, trực CSKH, xuất hóa đơn VAT, hỗ trợ bảo hành.
-• Hoài Thương, Kiều Thương, Tứ: Đang trong tiến độ hoàn thiện.
+      const nl = String.fromCharCode(10);
+      const lines = [
+        "BÁO CÁO CÔNG VIỆC NGÀY: [" + dateStr + "]",
+        "Kính gửi Ban Lãnh Đạo,",
+        "",
+        "Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (" + subCount + "/" + users.length + " nhân sự đã nộp):",
+        "",
+        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC CHÍNH:"
+      ];
 
-2️⃣ KHÓ KHĂN / VƯỚNG MẮC
-• Toàn phòng hoạt động nhịp nhàng, chưa phát sinh vướng mắc nghiêm trọng.
+      reports.forEach(item => {{
+        const meaningfulLines = item.rep.res.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\s*Nhiệm vụ \d+:?$/i));
+        const cleanRes = (meaningfulLines.length > 0 ? meaningfulLines : item.rep.res.split(nl).map(s => s.trim()).filter(Boolean)).slice(0, 2).join('; ');
+        lines.push("• " + item.user.name + " (" + item.user.group + "): " + cleanRes);
+      }});
 
-3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
-• Tiếp tục tối ưu hóa chiến dịch banner & video review phục vụ đợt khuyến mãi sắp tới.
+      const unsubmitted = users.filter(u => !reports.some(r => r.user.username === u.username));
+      if (unsubmitted.length > 0) {{
+        lines.push("• Chưa nộp: " + unsubmitted.map(u => u.name).join(', '));
+      }}
 
-4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
-• Thương Thương: Quay video sản phẩm
-• Thiện: Tiếp tục thiết kế banner King Blue & CKô
-• Thức: Xử lý đơn, tồn kho sàn Shopee/Lazada
-• Ngân: Vận hành gian hàng TikTok Shop & CSKH`;
+      lines.push("");
+      lines.push("2️⃣ KHÓ KHĂN / VƯỚNG MẮC:");
+      lines.push("• Toàn phòng hoạt động nhịp nhàng, chưa phát sinh vướng mắc nghiêm trọng.");
+      lines.push("");
+      lines.push("3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT:");
+      lines.push("• Tiếp tục tối ưu hóa chiến dịch banner & video review phục vụ đợt khuyến mãi sắp tới.");
+      lines.push("");
+      lines.push("4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI:");
 
-      document.getElementById("executive-report-text").textContent = text;
+      reports.forEach(item => {{
+        if (item.rep.plan) {{
+          const meaningfulPlanLines = item.rep.plan.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\s*Nhiệm vụ \d+:?$/i));
+          const cleanPlan = (meaningfulPlanLines.length > 0 ? meaningfulPlanLines[0] : item.rep.plan.split(nl).map(s => s.trim()).filter(Boolean)[0]) || 'Tiếp tục triển khai công việc';
+          lines.push("• " + item.user.name + ": " + cleanPlan);
+        }}
+      }});
+
+      const el = document.getElementById("executive-report-text");
+      if (el) el.textContent = lines.join(nl);
+    }}
+
+    // ========================================================
+    // AUTO LIVE SYNC ENGINE (CLIENT-SIDE DIRECT GOOGLE SHEETS)
+    // ========================================================
+    const SPREADSHEET_ID = "1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo";
+    let isLiveSyncing = false;
+
+    async function autoSyncLiveGoogleSheets(silent = true) {{
+      if (isLiveSyncing) return;
+      isLiveSyncing = true;
+      const statusBadge = document.getElementById("live-sync-indicator");
+      
+      if (statusBadge) {{
+        statusBadge.innerHTML = `<span class="animate-spin inline-block">🔄</span> <span>Đang đồng bộ...</span>`;
+      }}
+
+      try {{
+        // 1. Fetch Master sheet BAO CAO HOM NAY live
+        const masterUrl = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=out:json&gid=187266668&t=${{Date.now()}}`;
+        const res = await fetch(masterUrl);
+        const text = await res.text();
+        const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+
+        if (jsonMatch && jsonMatch[1]) {{
+          const data = JSON.parse(jsonMatch[1]);
+          if (data.table && data.table.rows) {{
+            const parsedRows = data.table.rows.map(r => {{
+              return r.c ? r.c.map(cell => (cell ? (cell.f !== undefined ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : "")) : "")) : [];
+            }});
+
+            if (!window.ALL_SHEETS_DATA) window.ALL_SHEETS_DATA = {{}};
+            window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] = {{
+              sheetId: 187266668,
+              index: 0,
+              rows: parsedRows
+            }};
+          }}
+        }}
+
+        // 2. Fetch all staff individual tabs asynchronously in parallel
+        await syncAllStaffTabsLive();
+
+        // 3. Re-render views with freshest live data
+        if (currentAppMainTab === 'cards') {{
+          renderManagerCards(managerSelectedDate);
+          updateExecutiveReportPreview(managerSelectedDate);
+        }} else if (currentAppMainTab === 'sheets') {{
+          renderActiveSheetHtml(currentActiveSheetKey);
+        }}
+
+        const nowTime = new Date().toLocaleTimeString('vi-VN', {{ hour: '2-digit', minute: '2-digit', second: '2-digit' }});
+        if (statusBadge) {{
+          statusBadge.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> <span>Auto Live (${{nowTime}})</span>`;
+        }}
+
+        if (!silent) {{
+          showToast("Đã đồng bộ Live!", "Số liệu mới nhất từ Google Sheets đã được cập nhật thành công.", "success");
+        }}
+      }} catch (err) {{
+        console.warn("Live sync warning:", err);
+        if (statusBadge) {{
+          statusBadge.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> <span>Live Google Sheets</span>`;
+        }}
+      }} finally {{
+        isLiveSyncing = false;
+      }}
+    }}
+
+    async function syncAllStaffTabsLive() {{
+      const promises = SHEET_TABS.filter(t => t.key !== 'BAO CAO HOM NAY' && t.key !== 'BAO CAO TUAN').map(async (tab) => {{
+        try {{
+          const url = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=out:json&gid=${{tab.gid}}&t=${{Date.now()}}`;
+          const res = await fetch(url);
+          const text = await res.text();
+          const m = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+          if (m && m[1]) {{
+            const parsed = JSON.parse(m[1]);
+            if (parsed.table && parsed.table.rows) {{
+              const rows = parsed.table.rows.map(r => {{
+                return r.c ? r.c.map(cell => (cell ? (cell.f !== undefined ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : "")) : "")) : [];
+              }});
+              window.ALL_SHEETS_DATA[tab.key] = {{
+                sheetId: parseInt(tab.gid),
+                index: tab.index,
+                rows: rows
+              }};
+            }}
+          }}
+        }} catch(e) {{
+          // Silent fallback to existing cache
+        }}
+      }});
+
+      await Promise.all(promises);
     }}
 
     function copyExecutiveSummaryReport() {{

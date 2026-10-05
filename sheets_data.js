@@ -30,11 +30,11 @@ window.ALL_SHEETS_DATA = {
         "",
         "7 Người",
         "",
-        "4 / 7 (57%)",
+        "6 / 7 (86%)",
         "",
         "0 Vấn đề",
         "",
-        "Còn 3 chưa nộp",
+        "Còn 1 chưa nộp",
         "",
         "Marketing Manager"
       ],
@@ -57,26 +57,23 @@ window.ALL_SHEETS_DATA = {
         "Võ Thị Hoài Thương",
         "Content",
         "Content Marketing & SEO Fanpage/Website",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1:\nHỗ trợ tư vấn chính sách, sản phẩm cho đại lý mới: Công Trí Tools, Điện Cơ Hoà Chẩy, Điện máy cầm tay Phước Lai\nNhiệm vụ 2:\nCập nhật thông tin đơn nhập hàng của đại lý Công Trí Tools \nNhiệm vụ 3:\nTrao đổi thông tin, cập nhật danh sách sản phẩm kí gửi\nThế giới đồ nghề, Điện Cơ Hoà Chẩy\nNhiệm vụ 4:\nChỉnh sửa tờ trình chính sách cho các đại lý mới\nNhiệm vụ 5:\nLiên hệ, hẹn gặp khách hàng mới\nNhiệm vụ 6:\nĐiều chỉnh bảng báo giá sàn TMĐT (Máy pin)",
+        "",
+        "",
+        "",
+        "00:00:00"
       ],
       [
         "2",
         "Kiều Thương",
         "Content",
         "Content Video & Hợp Tác KOC/Reviewer",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1: \n- Viết content bài đăng Fanpage King Blue (SL: 1, SP: KBA-I1500)\n- Rep cmt và tư vấn khách trên kênh Fanpage/TikTok King Blue.\n- Edit clip và đăng lên tiktok King Blue (SL:1, SP: KLJ015)\n- Hỗ trợ khách bào hành sản phẩm\nNhiệm vụ 2: \n- Điều chỉnh hoa hồng KOL\nNhiệm vụ 3: \n- Trao đổi công việc với TP.MKT\nNhiệm vụ 4: \n- Lên kịch bản giới thiệu sản phẩm ",
+        "",
+        "",
+        "- Viết content và đăng bài Fanpage King Blue.\r\n- Lên kịch bản và brief cho media dựng video\r\n- Order thiết kế.",
+        "00:00:00",
+        "Hoàn thành"
       ],
       [
         "3",
@@ -87,7 +84,8 @@ window.ALL_SHEETS_DATA = {
         "",
         "",
         "Quay video sản phẩm",
-        "00:00:00"
+        "00:00:00",
+        "Hoàn thành "
       ],
       [
         "4",
@@ -98,7 +96,8 @@ window.ALL_SHEETS_DATA = {
         "",
         "",
         "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
-        "00:00:00"
+        "00:00:00",
+        "Hoàn thành "
       ],
       [
         "5",
@@ -118,11 +117,12 @@ window.ALL_SHEETS_DATA = {
         "Thức",
         "Sàn TMĐT",
         "Vận Hành Sàn TMĐT (Shopee & Lazada)",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn\nNhiệm vụ 5:\n- Vận chuyển hàng Tiktok ra bưu cục ",
         "",
         "",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)",
-        "00:00:00"
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: Mua hàng",
+        "00:00:00",
+        "Hoàn thành "
       ],
       [
         "7",
@@ -170,7 +170,12 @@ window.ALL_SHEETS_DATA = {
         "Tình Trạng",
         "Marketing Manager Phê Duyệt & Phản Hồi"
       ],
-      [],
+      [
+        "",
+        "05/10/2026",
+        "",
+        "Nhiệm vụ 1:\nHỗ trợ tư vấn chính sách, sản phẩm cho đại lý mới: Công Trí Tools, Điện Cơ Hoà Chẩy, Điện máy cầm tay Phước Lai\nNhiệm vụ 2:\nCập nhật thông tin đơn nhập hàng của đại lý Công Trí Tools \nNhiệm vụ 3:\nTrao đổi thông tin, cập nhật danh sách sản phẩm kí gửi\nThế giới đồ nghề, Điện Cơ Hoà Chẩy\nNhiệm vụ 4:\nChỉnh sửa tờ trình chính sách cho các đại lý mới\nNhiệm vụ 5:\nLiên hệ, hẹn gặp khách hàng mới\nNhiệm vụ 6:\nĐiều chỉnh bảng báo giá sàn TMĐT (Máy pin)"
+      ],
       [
         "2"
       ],
@@ -249,7 +254,15 @@ window.ALL_SHEETS_DATA = {
         "Marketing Manager Phê Duyệt & Phản Hồi"
       ],
       [
-        "1"
+        "1",
+        "05/10/2026",
+        "",
+        "Nhiệm vụ 1: \n- Viết content bài đăng Fanpage King Blue (SL: 1, SP: KBA-I1500)\n- Rep cmt và tư vấn khách trên kênh Fanpage/TikTok King Blue.\n- Edit clip và đăng lên tiktok King Blue (SL:1, SP: KLJ015)\n- Hỗ trợ khách bào hành sản phẩm\nNhiệm vụ 2: \n- Điều chỉnh hoa hồng KOL\nNhiệm vụ 3: \n- Trao đổi công việc với TP.MKT\nNhiệm vụ 4: \n- Lên kịch bản giới thiệu sản phẩm ",
+        "",
+        "",
+        "- Viết content và đăng bài Fanpage King Blue.\r\n- Lên kịch bản và brief cho media dựng video\r\n- Order thiết kế.",
+        "",
+        "Hoàn thành"
       ],
       [
         "2"
@@ -335,7 +348,9 @@ window.ALL_SHEETS_DATA = {
         "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: bộ lục giác KL-008\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Sắp xếp, chuẩn bị công cụ, kịch bản quay video\nNhiệm vụ 3:\nCập nhật thông tin sản phẩm trên website ",
         "",
         "",
-        "Quay video sản phẩm"
+        "Quay video sản phẩm",
+        "",
+        "Hoàn thành "
       ],
       [
         "2"
@@ -421,7 +436,9 @@ window.ALL_SHEETS_DATA = {
         "• Nhiệm vụ 1: \r\n- Lên ý tưởng thiết kế\r\n\r\n• Nhiệm vụ 2: Thiết kế banner King Blue\r\n- Banner thân máy khoan KM18 (17 tấm)\r\n- Banner combo máy khoan KM18 (25 tấm)\r\n- Banner đổi tên hít gạch điện tử HKE-924 (1 tấm)\r\n\r\n• Nhiệm vụ 3: Thiết kế banner CKô\r\n- Banner giỏ hàng đổi tên hít gạch điện tử HKE-924 (1 tấm)",
         "",
         "",
-        "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô"
+        "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
+        "",
+        "Hoàn thành "
       ],
       [
         "2"
@@ -584,10 +601,12 @@ window.ALL_SHEETS_DATA = {
         "1",
         "05/10/2026",
         "",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Quay khiếu nại đơn hoàn\nNhiệm vụ 5:\n- Vận chuyển hàng Tiktok ra bưu cục ",
         "",
         "",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)"
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: Mua hàng",
+        "",
+        "Hoàn thành "
       ],
       [
         "2"
