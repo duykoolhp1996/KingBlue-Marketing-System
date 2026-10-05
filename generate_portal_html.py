@@ -34,28 +34,28 @@ html_template = f'''<!DOCTYPE html>
 
   <!-- ================= TOP APP HEADER ================= -->
   <header class="bg-[#1A365D] text-white border-b-4 border-amber-400 sticky top-0 z-50 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
       
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-extrabold text-xl shadow-inner">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-lg sm:text-xl shadow-inner shrink-0">
           KB
         </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-lg sm:text-xl font-bold tracking-tight">KING BLUE MARKETING PORTAL</h1>
-            <span class="text-[11px] bg-amber-400 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-full">v2.0 PRO</span>
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <h1 class="text-sm sm:text-lg font-black tracking-tight truncate">KING BLUE MARKETING</h1>
+            <span class="text-[10px] sm:text-xs bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full shrink-0">PRO</span>
           </div>
-          <p class="text-blue-200 text-xs mt-0.5">Bảng Điều Hành Marketing • Tự Động Đồng Bộ Google Sheets & GitHub</p>
+          <p class="text-blue-200 text-[11px] sm:text-xs truncate hidden xs:block">Hệ Thống Báo Cáo & Quản Trị Marketing</p>
         </div>
       </div>
 
       <!-- Quick Action Links -->
-      <div class="flex items-center gap-2.5">
-        <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition shadow">
-          <span>📊</span> Google Sheet Gốc
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 transition shadow-xs">
+          <span>📊</span> <span class="hidden sm:inline">Google Sheet Gốc</span><span class="sm:hidden">Sheet</span>
         </a>
-        <a href="https://github.com/duykoolhp1996/KingBlue-Marketing-System" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 transition">
-          <span>🐙</span> GitHub
+        <a href="https://github.com/duykoolhp1996/KingBlue-Marketing-System" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 transition">
+          <span>🐙</span> <span class="hidden sm:inline">GitHub</span>
         </a>
       </div>
 
@@ -63,33 +63,33 @@ html_template = f'''<!DOCTYPE html>
   </header>
 
   <!-- ================= SECONDARY STICKY NAVIGATION (3 MODES) ================= -->
-  <nav class="bg-white border-b border-slate-200 sticky top-[68px] z-40 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+  <nav class="bg-white border-b border-slate-200 sticky top-[53px] sm:top-[68px] z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
       
-      <!-- 3 Primary Navigation Buttons -->
-      <div class="flex flex-wrap items-center gap-2">
-        <button onclick="switchMainAppTab('cards')" id="btn-nav-cards" class="px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs">
-          <span>🗂️</span> 2. THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU) <span class="bg-emerald-400 text-emerald-950 font-bold px-2 py-0.5 rounded-full text-[10px]">Mở tự do</span>
+      <!-- Primary Tabs (Horizontal Scroll on Mobile) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto hide-scrollbar pb-1 sm:pb-0 touch-pan-x shrink-0">
+        <button onclick="switchMainAppTab('cards')" id="btn-nav-cards" class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center gap-1.5 bg-[#1A365D] text-white shadow-xs whitespace-nowrap shrink-0">
+          <span>🗂️</span> <span>2. Thẻ Việc Hôm Nay (17h)</span> <span class="bg-emerald-400 text-emerald-950 font-black px-1.5 py-0.5 rounded-full text-[10px]">Tự do</span>
         </button>
-        <button onclick="switchMainAppTab('sheets')" id="btn-nav-sheets" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
-          <span id="icon-lock-sheets">🔒</span> 1. BẢNG TÍNH THEO TỪNG SHEET
+        <button onclick="switchMainAppTab('sheets')" id="btn-nav-sheets" class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-700 hover:bg-slate-100 border border-transparent whitespace-nowrap shrink-0">
+          <span id="icon-lock-sheets">🔒</span> <span>1. Bảng 9 Sheets</span>
         </button>
-        <button onclick="switchMainAppTab('submit')" id="btn-nav-submit" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
-          <span>✍️</span> 3. KHÔNG GIAN ĐIỀN BÁO CÁO CÁ NHÂN
+        <button onclick="switchMainAppTab('submit')" id="btn-nav-submit" class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 text-slate-700 hover:bg-slate-100 border border-transparent whitespace-nowrap shrink-0">
+          <span>✍️</span> <span>3. Điền Báo Cáo</span>
         </button>
       </div>
 
       <!-- Live Clock & User Status / Login Button -->
-      <div class="flex items-center gap-3 text-xs">
-        <button onclick="openLoginModal()" id="btn-open-login" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-xs">
+      <div class="flex items-center justify-between sm:justify-end gap-2 text-xs">
+        <button onclick="openLoginModal()" id="btn-open-login" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 transition shadow-xs shrink-0">
           <span>🔑</span> Đăng nhập nội bộ
         </button>
-        <div id="user-info-bar" class="hidden flex items-center gap-2 text-xs">
-          <span id="current-user-avatar" class="text-base">👔</span>
-          <span id="current-user-name" class="font-bold text-slate-900"></span>
-          <button onclick="handleLogout()" class="text-rose-600 hover:underline font-bold text-[11px]">(Đăng xuất)</button>
+        <div id="user-info-bar" class="hidden flex items-center gap-1.5 text-xs truncate">
+          <span id="current-user-avatar" class="text-base shrink-0">👔</span>
+          <span id="current-user-name" class="font-black text-slate-900 truncate max-w-[130px]"></span>
+          <button onclick="handleLogout()" class="text-rose-600 hover:underline font-extrabold text-[11px] shrink-0">(Đăng xuất)</button>
         </div>
-        <span class="text-slate-500 font-mono text-[11px] bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+        <span class="text-slate-500 font-mono text-[11px] bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 shrink-0">
           🕒 <span id="live-clock">--:--:--</span>
         </span>
       </div>
@@ -257,54 +257,58 @@ html_template = f'''<!DOCTYPE html>
     <section id="section-cards-dashboard" class="space-y-6">
 
       <!-- Manager Header Banner -->
-      <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] rounded-3xl p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="flex items-center gap-4">
-          <div class="w-16 h-16 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-3xl font-extrabold shadow-md">
+      <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white shadow-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        <div class="flex items-center gap-3 sm:gap-4">
+          <div class="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center text-2xl sm:text-3xl font-black shadow-md shrink-0">
             👔
           </div>
           <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-xl font-bold">Bảng Điều Hành Tiến Độ Marketing</h2>
-              <span class="bg-emerald-400 text-slate-950 font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">MỞ TỰ DO XEM NHANH</span>
+            <div class="flex flex-wrap items-center gap-2">
+              <h2 class="text-lg sm:text-2xl font-black">Bảng Điều Hành Tiến Độ Marketing</h2>
+              <span class="bg-emerald-400 text-slate-950 font-black text-[11px] px-2.5 py-0.5 rounded-full">MỞ TỰ DO XEM NHANH</span>
             </div>
-            <p class="text-blue-100 text-xs mt-1">Theo dõi 7 nhân sự Marketing • Duyệt tiến độ • Xuất báo cáo tổng hợp gửi Ban Giám Đốc</p>
+            <p class="text-blue-100 text-xs sm:text-sm mt-1">Theo dõi 7 nhân sự Marketing • Duyệt tiến độ • Xuất báo cáo tổng hợp gửi Ban Giám Đốc</p>
           </div>
         </div>
 
-        <button onclick="copyExecutiveSummaryReport()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold text-xs px-5 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+        <button onclick="copyExecutiveSummaryReport()" class="w-full md:w-auto bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs sm:text-sm px-5 py-3.5 rounded-xl transition shadow-lg flex items-center justify-center gap-2 active:scale-95">
           <span>📋</span> SAO CHÉP BÁO CÁO TỔNG HỢP (GỬI BAN GIÁM ĐỐC)
         </button>
       </div>
 
-      <!-- Date Filter Bar for Cards Dashboard -->
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-            <span>📅</span> Xem ngày:
-          </span>
-          <div class="flex items-center gap-1 bg-slate-100 p-0.5 rounded-xl border border-slate-200">
-            <button onclick="jumpManagerDay(-1)" title="Lùi 1 ngày" class="px-2.5 py-1.5 hover:bg-white rounded-lg text-slate-700 text-xs font-bold transition flex items-center gap-1">
+      <!-- Date Filter Bar for Cards Dashboard (Mobile Optimized) -->
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-xs flex flex-col gap-3">
+        <!-- Top Row: Date controls -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <!-- 3 Quick Day Buttons -->
+          <div class="grid grid-cols-3 sm:flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+            <button onclick="jumpManagerDay(-1)" title="Lùi 1 ngày" class="py-2 px-3 text-center hover:bg-white rounded-lg text-slate-700 text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1">
               <span>◀</span> Hôm qua
             </button>
-            <button onclick="setManagerToToday()" id="btn-mgr-today" class="text-xs px-3 py-1.5 rounded-lg font-bold transition bg-blue-700 text-white shadow-2xs">
+            <button onclick="setManagerToToday()" id="btn-mgr-today" class="py-2 px-3 text-center text-xs sm:text-sm rounded-lg font-black transition bg-blue-700 text-white shadow-2xs flex items-center justify-center gap-1">
               ⭐ Hôm nay
             </button>
-            <button onclick="jumpManagerDay(1)" title="Tiến 1 ngày" class="px-2.5 py-1.5 hover:bg-white rounded-lg text-slate-700 text-xs font-bold transition flex items-center gap-1">
+            <button onclick="jumpManagerDay(1)" title="Tiến 1 ngày" class="py-2 px-3 text-center hover:bg-white rounded-lg text-slate-700 text-xs sm:text-sm font-bold transition flex items-center justify-center gap-1">
               Ngày mai <span>▶</span>
             </button>
           </div>
-          <input type="date" id="mgr-calendar-picker" onchange="onManagerCalendarChange(this.value)" class="text-xs font-bold text-slate-800 bg-white border border-slate-300 rounded-xl px-3 py-1.5 focus:ring-2 focus:ring-sky-500 focus:outline-hidden shadow-2xs cursor-pointer" />
-          <span id="mgr-selected-date-display" class="text-xs font-extrabold text-blue-900 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
-            <span>🗓️</span> <span id="mgr-date-text">Thứ Hai, 05/10/2026</span>
-          </span>
+
+          <!-- Date picker & formatted text -->
+          <div class="flex flex-wrap items-center gap-2">
+            <input type="date" id="mgr-calendar-picker" onchange="onManagerCalendarChange(this.value)" class="flex-1 sm:flex-initial text-xs sm:text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-xl px-3 py-2 focus:ring-2 focus:ring-sky-500 focus:outline-hidden shadow-2xs cursor-pointer min-h-[42px]" />
+            <span id="mgr-selected-date-display" class="flex-1 sm:flex-initial text-xs sm:text-sm font-black text-blue-900 bg-blue-50 border border-blue-200 px-3 py-2 rounded-xl flex items-center justify-center gap-1.5 min-h-[42px]">
+              <span>🗓️</span> <span id="mgr-date-text">Thứ Hai, 05/10/2026</span>
+            </span>
+          </div>
         </div>
 
-        <div class="flex items-center gap-2 text-xs">
-          <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1.5 rounded-xl font-bold">
-            Đã nộp: <span id="m-kpi-sub">4 / 7 (57%)</span>
+        <!-- Bottom Row: KPIs -->
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+          <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-2 rounded-xl font-black text-xs sm:text-sm text-center flex items-center justify-center gap-1.5">
+            <span>✅ Đã nộp:</span> <span id="m-kpi-sub" class="text-emerald-900 font-black">4 / 7 (57%)</span>
           </div>
-          <div class="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1.5 rounded-xl font-bold">
-            Khó khăn: <span id="m-kpi-diff">0 Vấn đề</span>
+          <div class="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-2 rounded-xl font-black text-xs sm:text-sm text-center flex items-center justify-center gap-1.5">
+            <span>⚠️ Khó khăn:</span> <span id="m-kpi-diff" class="text-amber-900 font-black">0 Vấn đề</span>
           </div>
         </div>
       </div>
@@ -884,7 +888,11 @@ html_template = f'''<!DOCTYPE html>
 
     function formatResultsHtml(text) {{
       if (!text) return '<span class="text-slate-400 italic">Chưa nộp nội dung</span>';
-      return text.replace(/\\n/g, '<br/>').replace(/•/g, '<span class="text-emerald-600 font-bold">•</span>');
+      let clean = text.replace(/\\r\\n/g, '\\n').replace(/\\r/g, '\\n');
+      return clean
+        .replace(/\\n/g, '<br/>')
+        .replace(/•/g, '<span class="text-emerald-600 font-black inline-block mr-1">•</span>')
+        .replace(/-\s+/g, '<span class="text-emerald-500 font-bold inline-block mr-1">- </span>');
     }}
 
     // ========================================================
@@ -1016,103 +1024,104 @@ html_template = f'''<!DOCTYPE html>
         }}
 
         const card = document.createElement("div");
-
         if (!rep) {{
-          card.className = `bg-white/95 rounded-3xl border-2 border-dashed border-slate-200 ${{theme.borderTop}} p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between`;
+          card.className = `bg-white/95 rounded-3xl border-2 border-dashed border-slate-200 ${{theme.borderTop}} p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between`;
           card.innerHTML = `
             <div>
-              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-start justify-between pb-3.5 border-b border-slate-100 gap-2">
                 <div class="flex items-center gap-3 min-w-0">
-                  <div class="w-14 h-14 rounded-2xl ${{theme.avatarBg}} border opacity-85 flex items-center justify-center text-3xl font-bold shadow-2xs shrink-0">${{u.avatar}}</div>
+                  <div class="w-13 h-13 sm:w-15 sm:h-15 rounded-2xl ${{theme.avatarBg}} border opacity-85 flex items-center justify-center text-3xl font-black shadow-2xs shrink-0">${{u.avatar}}</div>
                   <div class="min-w-0">
-                    <h4 class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight">${{u.name}}</h4>
+                    <h4 class="font-black text-slate-900 text-lg sm:text-xl leading-tight tracking-tight">${{u.name}}</h4>
                     <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
-                      <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-lg border shadow-2xs ${{theme.badgeBg}}">${{u.group}}</span>
-                      <span class="text-[11px] font-bold px-2 py-0.5 rounded-lg border ${{theme.roleTag}} truncate max-w-[210px]">${{u.role}}</span>
+                      <span class="text-xs font-black px-2.5 py-0.5 rounded-lg border shadow-2xs ${{theme.badgeBg}}">${{u.group}}</span>
+                      <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg border ${{theme.roleTag}}">${{u.role}}</span>
                     </div>
                   </div>
                 </div>
-                <span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 shrink-0">⏳ Chờ nộp</span>
+                <span class="text-xs font-black px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 shrink-0">⏳ Chờ nộp</span>
               </div>
-              <div class="py-10 text-center text-slate-400 text-xs">
-                <span class="text-3xl block mb-2">⏳</span>
-                <p class="font-semibold text-slate-500">Chưa nộp báo cáo ngày này</p>
-                <p class="text-[11px] text-slate-400 mt-1">Hạn nộp báo cáo: trước 17:30 chiều</p>
+              <div class="py-10 text-center text-slate-400">
+                <span class="text-4xl block mb-2">⏳</span>
+                <p class="font-black text-base sm:text-lg text-slate-600">Chưa nộp báo cáo ngày này</p>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Hạn nộp báo cáo: trước 17:30 chiều</p>
               </div>
             </div>
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-              <span>Trạng thái: <strong class="text-amber-600 font-bold">Đang chờ nộp</strong></span>
-              <span class="font-mono">--:--:--</span>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+              <span>Trạng thái: <strong class="text-amber-600 font-black">Đang chờ nộp</strong></span>
+              <span class="font-mono font-bold">--:--:--</span>
             </div>
           `;
         }} else {{
           subCount++;
           const hasDiff = rep.diff && !rep.diff.includes("Không có") && rep.diff !== "-";
-          card.className = `bg-white rounded-3xl border border-slate-200 hover:border-slate-300 ${{theme.borderTop}} p-5 shadow-xs hover:shadow-xl transition-all duration-200 flex flex-col justify-between space-y-4`;
+          card.className = `bg-white rounded-3xl border border-slate-200 hover:border-slate-300 ${{theme.borderTop}} p-4 sm:p-5 shadow-xs hover:shadow-xl transition-all duration-200 flex flex-col justify-between space-y-4`;
           card.innerHTML = `
             <div>
-              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-start justify-between pb-3.5 border-b border-slate-100 gap-2">
                 <div class="flex items-center gap-3 min-w-0">
-                  <div class="w-14 h-14 rounded-2xl ${{theme.avatarBg}} border flex items-center justify-center text-3xl font-bold shadow-2xs shrink-0">${{u.avatar}}</div>
+                  <div class="w-13 h-13 sm:w-15 sm:h-15 rounded-2xl ${{theme.avatarBg}} border flex items-center justify-center text-3xl font-black shadow-2xs shrink-0">${{u.avatar}}</div>
                   <div class="min-w-0">
-                    <h4 class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight">${{u.name}}</h4>
+                    <h4 class="font-black text-slate-900 text-lg sm:text-xl leading-tight tracking-tight">${{u.name}}</h4>
                     <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
-                      <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-lg border shadow-2xs ${{theme.badgeBg}}">${{u.group}}</span>
-                      <span class="text-[11px] font-bold px-2 py-0.5 rounded-lg border ${{theme.roleTag}} truncate max-w-[210px]">${{u.role}}</span>
+                      <span class="text-xs font-black px-2.5 py-0.5 rounded-lg border shadow-2xs ${{theme.badgeBg}}">${{u.group}}</span>
+                      <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg border ${{theme.roleTag}}">${{u.role}}</span>
                     </div>
                   </div>
                 </div>
                 <div class="text-right shrink-0">
-                  <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs">
+                  <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs">
                     🟢 Đúng hạn
                   </span>
-                  <p class="text-[10px] font-mono text-slate-600 font-bold mt-0.5">⏱️ ${{rep.time}}</p>
+                  <p class="text-xs font-mono text-slate-700 font-black mt-1">⏱️ ${{rep.time}}</p>
                 </div>
               </div>
 
-              <div class="mt-3.5 space-y-3">
+              <div class="mt-3.5 space-y-3.5">
                 <div>
-                  <div class="text-[11px] font-extrabold uppercase text-slate-700 flex items-center gap-1.5 mb-1.5">
-                    <span class="text-emerald-600">1️⃣</span> Kết Quả Đạt Được Hôm Nay
+                  <div class="text-xs sm:text-sm font-black uppercase text-slate-800 flex items-center gap-1.5 mb-1.5">
+                    <span class="text-emerald-600 text-base">1️⃣</span> Kết Quả Đạt Được Hôm Nay
                   </div>
-                  <div class="bg-slate-50/80 border border-slate-200 rounded-xl p-3 text-xs leading-relaxed font-medium">
+                  <div class="bg-slate-50 border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 text-sm sm:text-base leading-relaxed font-normal text-slate-900">
                     ${{formatResultsHtml(rep.res)}}
                   </div>
                 </div>
 
                 ${{hasDiff ? `
                 <div>
-                  <div class="text-[11px] font-extrabold uppercase text-amber-800 flex items-center gap-1.5 mb-1">
-                    <span>⚠️</span> Khó Khăn Cần Tháo Gỡ
+                  <div class="text-xs sm:text-sm font-black uppercase text-amber-900 flex items-center gap-1.5 mb-1">
+                    <span class="text-amber-600 text-base">⚠️</span> Khó Khăn Cần Tháo Gỡ
                   </div>
-                  <div class="bg-amber-50/90 border border-amber-300 rounded-xl p-2.5 text-xs text-amber-950 font-medium whitespace-pre-line leading-relaxed">
+                  <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 sm:p-4 text-sm sm:text-base text-amber-950 font-normal whitespace-pre-line leading-relaxed">
                     ${{rep.diff}}
                   </div>
                 </div>
                 ` : `
-                <div class="text-[11px] text-slate-400 italic flex items-center gap-1.5">
-                  <span class="text-emerald-500 font-bold">✓</span> Không phát sinh vướng mắc
+                <div class="text-xs sm:text-sm text-slate-400 italic flex items-center gap-1.5 py-1">
+                  <span class="text-emerald-500 font-black">✓</span> Không phát sinh vướng mắc
                 </div>
                 `}}
 
                 <div>
-                  <div class="text-[11px] font-extrabold uppercase text-sky-800 flex items-center gap-1.5 mb-1.5">
-                    <span>🎯</span> Kế Hoạch Ngày Mai
+                  <div class="text-xs sm:text-sm font-black uppercase text-sky-900 flex items-center gap-1.5 mb-1.5">
+                    <span class="text-sky-600 text-base">🎯</span> Kế Hoạch Ngày Mai
                   </div>
-                  <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-2.5 text-xs text-sky-950 whitespace-pre-line font-medium leading-relaxed">
+                  <div class="bg-sky-50 border border-sky-200 rounded-2xl p-3.5 sm:p-4 text-sm sm:text-base text-sky-950 whitespace-pre-line font-normal leading-relaxed">
                     ${{rep.plan || 'Chưa ghi nhận'}}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-              <div class="text-[11px] text-slate-600 truncate flex items-center gap-1">
-                <span class="text-slate-400">Chỉ đạo:</span>
-                <span class="italic text-slate-800 truncate">${{rep.feedback || 'Chờ duyệt'}}</span>
-              </div>
-              <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${{SHEET_TABS.find(t=>t.key===u.tabName)?.gid || '0'}}" target="_blank" class="shrink-0 text-xs px-2.5 py-1 bg-sky-100 hover:bg-sky-200 text-sky-900 rounded-lg font-bold transition flex items-center gap-1">
-                <span>🟢</span> Xem Sheet
+            <div class="pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+              ${{(rep.feedback && rep.feedback !== 'Chờ duyệt' && rep.feedback !== '-' && rep.feedback.trim() !== '') ? `
+                <div class="text-xs sm:text-sm text-slate-700 flex items-center gap-1.5 bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-200">
+                  <span class="font-black text-blue-900 shrink-0">Chỉ đạo:</span>
+                  <span class="italic text-slate-800 truncate">${{rep.feedback}}</span>
+                </div>
+              ` : `<div></div>`}}
+              <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${{SHEET_TABS.find(t=>t.key===u.tabName)?.gid || '0'}}" target="_blank" class="w-full sm:w-auto text-center text-xs sm:text-sm px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-xl font-black transition flex items-center justify-center gap-1.5 shadow-2xs">
+                <span>🟢</span> Mở Tab Trên Google Sheet
               </a>
             </div>
           `;
