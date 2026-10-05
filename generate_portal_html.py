@@ -45,7 +45,7 @@ html_template = f'''<!DOCTYPE html>
             <h1 class="text-lg sm:text-xl font-bold tracking-tight">KING BLUE MARKETING PORTAL</h1>
             <span class="text-[11px] bg-amber-400 text-slate-950 font-extrabold px-2.5 py-0.5 rounded-full">v2.0 PRO</span>
           </div>
-          <p class="text-blue-200 text-xs mt-0.5">Hệ Thống Báo Cáo Đa Sheet • Tự Động Đồng Bộ Google Sheets & GitHub</p>
+          <p class="text-blue-200 text-xs mt-0.5">Bảng Điều Hành Marketing • Tự Động Đồng Bộ Google Sheets & GitHub</p>
         </div>
       </div>
 
@@ -68,19 +68,22 @@ html_template = f'''<!DOCTYPE html>
       
       <!-- 3 Primary Navigation Buttons -->
       <div class="flex flex-wrap items-center gap-2">
-        <button onclick="switchMainAppTab('sheets')" id="btn-nav-sheets" class="px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs">
-          <span>📑</span> 1. BẢNG TÍNH THEO TỪNG SHEET (11 SHEETS)
+        <button onclick="switchMainAppTab('cards')" id="btn-nav-cards" class="px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs">
+          <span>🗂️</span> 2. THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU) <span class="bg-emerald-400 text-emerald-950 font-bold px-2 py-0.5 rounded-full text-[10px]">Mở tự do</span>
         </button>
-        <button onclick="switchMainAppTab('cards')" id="btn-nav-cards" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
-          <span>🗂️</span> 2. THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU)
+        <button onclick="switchMainAppTab('sheets')" id="btn-nav-sheets" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
+          <span id="icon-lock-sheets">🔒</span> 1. BẢNG TÍNH THEO TỪNG SHEET
         </button>
         <button onclick="switchMainAppTab('submit')" id="btn-nav-submit" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-700 hover:bg-slate-100 border border-transparent">
           <span>✍️</span> 3. KHÔNG GIAN ĐIỀN BÁO CÁO CÁ NHÂN
         </button>
       </div>
 
-      <!-- Live Clock & User Status -->
+      <!-- Live Clock & User Status / Login Button -->
       <div class="flex items-center gap-3 text-xs">
+        <button onclick="openLoginModal()" id="btn-open-login" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-xs">
+          <span>🔑</span> Đăng nhập nội bộ
+        </button>
         <div id="user-info-bar" class="hidden flex items-center gap-2 text-xs">
           <span id="current-user-avatar" class="text-base">👔</span>
           <span id="current-user-name" class="font-bold text-slate-900"></span>
@@ -93,6 +96,44 @@ html_template = f'''<!DOCTYPE html>
 
     </div>
   </nav>
+
+  <!-- ================= POPUP ĐĂNG NHẬP NỘI BỘ (CHO TAB 1 & BẢO MẬT) ================= -->
+  <div id="modal-login" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden transition-all duration-300">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center transform scale-95 transition-all duration-300 animate-in fade-in zoom-in">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🔒</span>
+          <h3 class="text-base font-extrabold text-slate-900 text-left">Đăng Nhập Hệ Thống Nội Bộ</h3>
+        </div>
+        <button onclick="closeLoginModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-sm transition">✕</button>
+      </div>
+
+      <div class="mt-3 text-left">
+        <p class="text-xs text-slate-600 leading-relaxed bg-amber-50 border border-amber-200 p-2.5 rounded-xl">
+          💡 <strong>Tab 2 (Thẻ công việc hôm nay)</strong> được mở tự do không cần mật khẩu. Vui lòng nhập mật khẩu nội bộ để xem <strong>Tab 1 (Bảng tính chi tiết)</strong> hoặc điền báo cáo.
+        </p>
+      </div>
+
+      <form onsubmit="handleModalPasswordSubmit(event)" class="mt-4 text-left space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Mã PIN / Mật khẩu của bạn:</label>
+          <div class="flex gap-2">
+            <input type="password" id="modal-login-password" placeholder="Mã PIN 4 số (VD: 8888, 1001...)" class="flex-1 text-sm p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-mono tracking-widest bg-slate-50 focus:bg-white transition" />
+            <button type="submit" class="px-5 py-3 bg-[#1A365D] hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition shadow-md flex items-center gap-1.5 shrink-0">
+              <span>Đăng nhập</span> ➔
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="mt-4 pt-3 border-t border-slate-100 text-left">
+        <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Hoặc chọn nhanh tài khoản nhân sự:</p>
+        <div id="modal-quick-users-grid" class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= NOTIFICATION TOAST ================= -->
   <div id="toast" class="fixed top-24 right-4 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none max-w-md bg-slate-900 text-white p-4 rounded-2xl shadow-2xl border border-slate-700 flex items-start gap-3">
@@ -146,17 +187,17 @@ html_template = f'''<!DOCTYPE html>
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
     <!-- ===================================================================== -->
-    <!-- CHẾ ĐỘ 1: BẢNG TÍNH THEO TỪNG SHEET (11 SHEETS - THEO ĐÚNG VỊ TRÍ)    -->
+    <!-- CHẾ ĐỘ 1: BẢNG TÍNH THEO TỪNG SHEET (YÊU CẦU ĐĂNG NHẬP NỘI BỘ)         -->
     <!-- ===================================================================== -->
-    <section id="section-sheets-explorer" class="space-y-5">
+    <section id="section-sheets-explorer" class="hidden space-y-5">
       
       <!-- Top Google Sheets Tabs Bar -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-3">
         <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
           <span class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
-            <span>📑</span> VỊ TRÍ 11 SHEET TRONG GOOGLE SPREADSHEET (CLICK ĐỂ XEM BẢNG TƯƠNG ỨNG):
+            <span>📑</span> CÁC SHEET MARKETING TRONG GOOGLE SPREADSHEET (CLICK ĐỂ XEM BẢNG TƯƠNG ỨNG):
           </span>
-          <span class="text-[11px] text-slate-400 hidden sm:inline">Thứ tự khớp 100% vị trí trong Google Sheets</span>
+          <span class="text-[11px] text-slate-400 hidden sm:inline">Khớp chuẩn thứ tự từng sheet trong Google Sheets</span>
         </div>
         <div class="flex items-center gap-1.5 overflow-x-auto pb-1 hide-scrollbar" id="sheet-tabs-container">
           <!-- Populated by JS -->
@@ -176,7 +217,7 @@ html_template = f'''<!DOCTYPE html>
                 Sheet 0
               </span>
             </div>
-            <p id="active-sheet-desc" class="text-xs text-slate-500 mt-0.5">Bảng Tổng Hợp Chi Tiết Tiến Độ Hàng Ngày Của 9 Nhân Sự</p>
+            <p id="active-sheet-desc" class="text-xs text-slate-500 mt-0.5">Bảng Tổng Hợp Chi Tiết Tiến Độ Hàng Ngày Của 7 Nhân Sự Marketing</p>
           </div>
         </div>
 
@@ -211,9 +252,9 @@ html_template = f'''<!DOCTYPE html>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- CHẾ ĐỘ 2: THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU) - EXECUTIVE DASHBOARD    -->
+    <!-- CHẾ ĐỘ 2: THẺ CÔNG VIỆC HÔM NAY (17H CHIỀU) - MỞ TỰ DO KHÔNG CẦN ĐĂNG NHẬP -->
     <!-- ===================================================================== -->
-    <section id="section-cards-dashboard" class="hidden space-y-6">
+    <section id="section-cards-dashboard" class="space-y-6">
 
       <!-- Manager Header Banner -->
       <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] rounded-3xl p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -223,10 +264,10 @@ html_template = f'''<!DOCTYPE html>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h2 class="text-xl font-bold">Marketing Manager</h2>
-              <span class="bg-amber-400 text-slate-950 font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">QUẢN TRỊ VIÊN TOÀN QUYỀN</span>
+              <h2 class="text-xl font-bold">Bảng Điều Hành Tiến Độ Marketing</h2>
+              <span class="bg-emerald-400 text-slate-950 font-extrabold text-[11px] px-2.5 py-0.5 rounded-full">MỞ TỰ DO XEM NHANH</span>
             </div>
-            <p class="text-blue-100 text-xs mt-1">Theo dõi báo cáo 9 nhân sự • Duyệt tiến độ • Xuất báo cáo tổng hợp gửi Ban Lãnh Đạo</p>
+            <p class="text-blue-100 text-xs mt-1">Theo dõi 7 nhân sự Marketing • Duyệt tiến độ • Xuất báo cáo tổng hợp gửi Ban Giám Đốc</p>
           </div>
         </div>
 
@@ -260,7 +301,7 @@ html_template = f'''<!DOCTYPE html>
 
         <div class="flex items-center gap-2 text-xs">
           <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1.5 rounded-xl font-bold">
-            Đã nộp: <span id="m-kpi-sub">4 / 9 (44%)</span>
+            Đã nộp: <span id="m-kpi-sub">4 / 7 (57%)</span>
           </div>
           <div class="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1.5 rounded-xl font-bold">
             Khó khăn: <span id="m-kpi-diff">0 Vấn đề</span>
@@ -268,7 +309,7 @@ html_template = f'''<!DOCTYPE html>
         </div>
       </div>
 
-      <!-- 9 Visual Task Cards Grid -->
+      <!-- 7 Visual Task Cards Grid -->
       <div id="mgr-cards-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         <!-- Populated by JS -->
       </div>
@@ -289,121 +330,124 @@ html_template = f'''<!DOCTYPE html>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- CHẾ ĐỘ 3: KHÔNG GIAN ĐIỀN BÁO CÁO CÁ NHÂN (LOGIN / EMPLOYEE FORM)      -->
+    <!-- CHẾ ĐỘ 3: KHÔNG GIAN ĐIỀN BÁO CÁO CÁ NHÂN (NHÂN SỰ MARKETING)          -->
     <!-- ===================================================================== -->
     <section id="section-personal-submit" class="hidden space-y-6">
 
-      <!-- Login Card (Shown when not logged in) -->
-      <div id="submit-login-box" class="max-w-xl mx-auto my-6 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
-        <div class="bg-gradient-to-r from-[#1A365D] to-[#2B6CB0] p-8 text-white text-center">
-          <div class="w-16 h-16 rounded-2xl bg-amber-400 text-slate-900 mx-auto flex items-center justify-center font-extrabold text-3xl shadow-lg mb-3">
-            KB
-          </div>
-          <h2 class="text-2xl font-bold">Đăng Nhập Nhân Sự</h2>
-          <p class="text-blue-100 text-xs mt-1">Nhập mã PIN hoặc nhấp vào tên của bạn để mở form điền báo cáo</p>
+      <!-- Login Box (Show when unauthenticated) -->
+      <div id="submit-login-box" class="max-w-2xl mx-auto bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-8 text-center space-y-6">
+        <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-900 mx-auto flex items-center justify-center text-3xl font-extrabold shadow-inner">
+          🔐
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-slate-900">Đăng Nhập Điền Báo Cáo Cá Nhân</h3>
+          <p class="text-xs text-slate-500 mt-1">Chọn tài khoản của bạn hoặc nhập mã PIN bí mật được cấp để vào form nộp</p>
         </div>
 
-        <div class="p-8 space-y-6">
-          <form onsubmit="handlePasswordOnlySubmit(event)" class="space-y-4">
-            <div>
-              <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">🔑 Nhập Mã PIN Truy Cập (*)</label>
-              <div class="relative">
-                <input type="password" id="login-password" required placeholder="Nhập PIN (VD: 1001, 1002...) rồi bấm Enter..." class="w-full p-4 pl-11 rounded-2xl border-2 border-slate-300 text-base focus:border-sky-600 focus:ring-4 focus:ring-sky-100 focus:outline-hidden font-mono font-bold tracking-widest bg-slate-50 transition" />
-                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">🔒</span>
-              </div>
-            </div>
-            <button type="submit" class="w-full py-4 bg-[#1A365D] hover:bg-blue-900 text-white font-bold text-sm rounded-2xl transition shadow-lg flex items-center justify-center gap-2">
-              <span>🚀</span> VÀO FORM ĐIỀN BÁO CÁO
-            </button>
-          </form>
-
-          <div class="pt-5 border-t border-slate-100">
-            <p class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-3">Hoặc nhấp 1-Click vào tên bạn:</p>
-            <div class="grid grid-cols-2 gap-2 text-xs" id="quick-users-grid">
-              <!-- Populated by JS -->
-            </div>
+        <!-- Quick 1-Click Select User Grid -->
+        <div class="text-left space-y-2">
+          <label class="block text-xs font-bold text-slate-700">Chọn nhanh tài khoản của bạn:</label>
+          <div id="quick-users-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-1">
+            <!-- Populated by JS -->
           </div>
         </div>
+
+        <div class="relative flex py-2 items-center">
+          <div class="grow border-t border-slate-200"></div>
+          <span class="shrink mx-4 text-xs font-bold text-slate-400 uppercase">Hoặc nhập mật khẩu</span>
+          <div class="grow border-t border-slate-200"></div>
+        </div>
+
+        <!-- Password Only Input -->
+        <form onsubmit="handlePasswordOnlySubmit(event)" class="max-w-sm mx-auto flex gap-2">
+          <input type="password" id="login-password" placeholder="Nhập mã PIN hoặc mật khẩu..." class="flex-1 text-sm p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-mono tracking-widest bg-slate-50 focus:bg-white transition" />
+          <button type="submit" class="px-5 py-3 bg-[#1A365D] hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition shadow flex items-center gap-1.5 shrink-0">
+            <span>Vào</span> ➔
+          </button>
+        </form>
       </div>
 
-      <!-- Employee Report Form (Shown when logged in) -->
-      <div id="submit-form-box" class="hidden space-y-6">
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div class="flex items-center gap-4">
-            <div id="emp-avatar" class="w-16 h-16 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-3xl shadow-xs">
+      <!-- Submission Form Box (Show when authenticated) -->
+      <div id="submit-form-box" class="hidden max-w-3xl mx-auto bg-white rounded-3xl border border-slate-200 shadow-md p-6 sm:p-8 space-y-6">
+        
+        <!-- User Info Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+          <div class="flex items-center gap-3">
+            <div id="emp-avatar" class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center text-3xl font-extrabold shadow-inner">
               ✍️
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <h2 id="emp-name" class="text-xl font-bold text-slate-900">Võ Thị Hoài Thương</h2>
-                <span id="emp-group" class="text-xs bg-sky-100 text-sky-800 px-2.5 py-0.5 rounded-full font-semibold border border-sky-200">Content</span>
+                <h3 id="emp-name" class="text-lg font-bold text-slate-900">Võ Thị Hoài Thương</h3>
+                <span id="emp-group" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Content</span>
               </div>
-              <p id="emp-role" class="text-xs text-slate-600 mt-1 font-medium"></p>
-              <p class="text-[11px] text-slate-400 mt-0.5">Tab Google Sheet: <strong id="emp-tab-name" class="text-sky-700"></strong></p>
+              <p id="emp-role" class="text-xs text-slate-500">Content Marketing & SEO Fanpage/Website</p>
             </div>
           </div>
-          <div class="bg-sky-50 border border-sky-200 rounded-xl p-3 text-xs text-slate-700 space-y-1">
-            <p class="font-bold text-sky-950 flex items-center gap-1.5"><span>⏱️</span> Quy định nộp báo cáo:</p>
-            <p>• Hạn chót: <strong class="text-red-600">Trước 17:30 mỗi ngày</strong>.</p>
-            <p>• <strong>Giờ nộp</strong> hệ thống tự động ghi lại chính xác lúc bấm Gửi.</p>
+
+          <div class="text-right">
+            <span class="text-xs text-slate-500 block">Tab lưu trữ:</span>
+            <span id="emp-tab-name" class="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-200 inline-block mt-0.5">
+              Hoai Thuong - Content
+            </span>
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 max-w-4xl mx-auto">
-          <form id="employee-report-form" onsubmit="handleEmployeeSubmit(event)" class="space-y-4">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
-              <div>
-                <h3 class="text-base font-bold text-slate-900">Điền Báo Cáo Công Việc Hàng Ngày</h3>
-                <p class="text-xs text-slate-500 mt-0.5">Hệ thống luôn tự động lưu và lấy báo cáo mới nhất của bạn</p>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-semibold text-slate-600">Ngày báo cáo:</span>
-                <input type="text" id="emp-form-date" class="text-xs font-bold text-sky-800 bg-sky-50 border border-sky-300 rounded-lg px-2.5 py-1.5" />
-              </div>
+        <!-- Form Body -->
+        <form onsubmit="handleEmployeeSubmit(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">📅 Ngày báo cáo:</label>
+              <input type="text" id="emp-form-date" value="05/10/2026" class="w-full text-xs font-mono font-bold p-3 rounded-xl border border-slate-300 bg-slate-100" readonly />
             </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">⏱️ Giờ ghi nhận:</label>
+              <input type="text" value="Tự động ghi nhận lúc bấm gửi" class="w-full text-xs italic text-slate-500 p-3 rounded-xl border border-slate-200 bg-slate-50" readonly />
+            </div>
+          </div>
 
+          <div>
+            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+              <span>1️⃣</span> KẾT QUẢ ĐẠT ĐƯỢC HÔM NAY (*)
+            </label>
+            <textarea id="emp-res" rows="4" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="• Nhiệm vụ 1: Hoàn thành...&#10;• Nhiệm vụ 2:..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-                <span>1️⃣</span> KẾT QUẢ ĐẠT ĐƯỢC TRONG NGÀY (*)
+                <span>2️⃣</span> KHÓ KHĂN / VƯỚNG MẮC
               </label>
-              <textarea id="emp-res" rows="4" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium leading-relaxed bg-slate-50 focus:bg-white transition" placeholder="• Nhiệm vụ 1: ...&#10;• Nhiệm vụ 2: ..."></textarea>
+              <textarea id="emp-diff" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="Để trống hoặc ghi 'Không có' nếu thuận lợi"></textarea>
             </div>
-
             <div>
               <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-                <span>2️⃣</span> KHÓ KHĂN / VƯỚNG MẮC PHÁT SINH
+                <span>3️⃣</span> BÀI HỌC / ĐỀ XUẤT
               </label>
-              <textarea id="emp-diff" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="Ghi khó khăn nếu có (Nếu không có thì để trống)..."></textarea>
+              <textarea id="emp-lesson" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="Đề xuất cải tiến nếu có..."></textarea>
             </div>
+          </div>
 
-            <div>
-              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-                <span>3️⃣</span> BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
-              </label>
-              <textarea id="emp-lesson" rows="2" class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="Đề xuất cải tiến nếu có..."></textarea>
-            </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+              <span>4️⃣</span> KẾ HOẠCH CÔNG VIỆC NGÀY MAI (*)
+            </label>
+            <textarea id="emp-plan" rows="3" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="• Việc 1:...&#10;• Việc 2:..."></textarea>
+          </div>
 
-            <div>
-              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-                <span>4️⃣</span> KẾ HOẠCH CÔNG VIỆC NGÀY MAI (*)
-              </label>
-              <textarea id="emp-plan" rows="3" required class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" placeholder="• Việc 1:...&#10;• Việc 2:..."></textarea>
-            </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+              <span>🔗</span> LINK SẢN PHẨM / MINH CHỨNG
+            </label>
+            <input type="text" id="emp-link" placeholder="Link drive, bài viết, hoặc file thiết kế..." class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" />
+          </div>
 
-            <div>
-              <label class="block text-xs font-bold text-slate-800 mb-1 flex items-center gap-1.5">
-                <span>🔗</span> LINK SẢN PHẨM / MINH CHỨNG
-              </label>
-              <input type="text" id="emp-link" placeholder="Link drive, bài viết, hoặc file thiết kế..." class="w-full text-xs p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:outline-hidden font-medium bg-slate-50 focus:bg-white transition" />
-            </div>
-
-            <div class="pt-4 border-t border-slate-200 flex justify-end">
-              <button type="submit" id="btn-emp-submit" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
-                <span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="pt-4 border-t border-slate-200 flex justify-end">
+            <button type="submit" id="btn-emp-submit" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
+              <span>🚀</span> LƯU & GỬI BÁO CÁO CÔNG VIỆC
+            </button>
+          </div>
+        </form>
       </div>
 
     </section>
@@ -413,7 +457,7 @@ html_template = f'''<!DOCTYPE html>
   <!-- ================= FOOTER ================= -->
   <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p>🐱 <strong>Xu Xu</strong> - Trợ lý ảo Marketing King Blue • Toàn bộ 11 Sheets Báo Cáo</p>
+      <p>🐱 <strong>Xu Xu</strong> - Trợ lý ảo Marketing King Blue • Toàn bộ Sheet Báo Cáo Marketing</p>
       <div class="flex items-center gap-4">
         <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="text-sky-700 hover:underline font-semibold">Google Sheet Báo Cáo</a>
         <a href="https://github.com/duykoolhp1996/KingBlue-Marketing-System" target="_blank" class="text-slate-600 hover:underline">GitHub Repository</a>
@@ -429,7 +473,7 @@ html_template = f'''<!DOCTYPE html>
       window.ALL_SHEETS_DATA = {json_data_str};
     }}
 
-    // EXACT 11 SHEET TABS ORDER (POSITIONS 0 TO 10)
+    // EXACT MARKETING SHEET TABS ORDER
     const SHEET_TABS = [
       {{ key: 'BAO CAO HOM NAY', icon: '📅', label: '0. BAO CAO HOM NAY', name: 'Bảng Tổng Hợp Hàng Ngày (Master)', gid: '187266668', index: 0, badge: '⭐ Tổng hợp' }},
       {{ key: 'Hoai Thuong - Content', icon: '✍️', label: '1. Hoài Thương', name: 'Võ Thị Hoài Thương - Content Marketing', gid: '169328077', index: 1 }},
@@ -439,12 +483,10 @@ html_template = f'''<!DOCTYPE html>
       {{ key: 'Tu - Media', icon: '📸', label: '5. Tứ', name: 'Tứ - Media & User CRM', gid: '1418274519', index: 5 }},
       {{ key: 'Thuc - San TMDT', icon: '🛒', label: '6. Thức', name: 'Thức - Vận Hành Sàn TMĐT', gid: '1877693997', index: 6, badge: '🟢 Đã nộp 05/10' }},
       {{ key: 'Ngan - San TMDT', icon: '🎧', label: '7. Ngân', name: 'Ngân - CSKH & TikTok Shop', gid: '1804131916', index: 7, badge: '🟢 Đã nộp 05/10' }},
-      {{ key: 'BAO CAO TUAN', icon: '📈', label: '8. BÁO CÁO TUẦN', name: 'Báo Cáo Tiến Độ & KPI Hàng Tuần', gid: '162769722', index: 8, badge: '📊 Báo cáo tuần' }},
-      {{ key: 'Hung - Kho MN', icon: '📦', label: '9. Hùng MN', name: 'Hùng - Đóng Gói Kho Miền Nam', gid: '94289788', index: 9 }},
-      {{ key: 'Hung - Kho MB', icon: '🚚', label: '10. Hùng MB', name: 'Hùng Miền Bắc - Đóng Gói Chi Nhánh HN', gid: '1438923158', index: 10 }}
+      {{ key: 'BAO CAO TUAN', icon: '📈', label: '8. BÁO CÁO TUẦN', name: 'Báo Cáo Tiến Độ & KPI Hàng Tuần', gid: '162769722', index: 8, badge: '📊 Báo cáo tuần' }}
     ];
 
-    // ACCOUNTS DATABASE
+    // ACCOUNTS DATABASE (7 NHÂN SỰ MARKETING + 1 QUẢN LÝ)
     const ACCOUNTS = [
       {{ username: "manager", password: "8888", pin: "8888", name: "Marketing Manager", role: "Trưởng Phòng Marketing", group: "Ban Quản Lý", type: "ADMIN", avatar: "👔", tabName: "BAO CAO HOM NAY" }},
       {{ username: "hoaithuong", password: "1001", pin: "1001", name: "Võ Thị Hoài Thương", role: "Content Marketing & SEO Fanpage/Website", group: "Content", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" }},
@@ -453,17 +495,15 @@ html_template = f'''<!DOCTYPE html>
       {{ username: "thien", password: "1004", pin: "1004", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Design", type: "USER", avatar: "🎨", tabName: "Thien - Design" }},
       {{ username: "tu", password: "1005", pin: "1005", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Media", type: "USER", avatar: "📸", tabName: "Tu - Media" }},
       {{ username: "thuc", password: "1006", pin: "1006", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Sàn TMĐT", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" }},
-      {{ username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" }},
-      {{ username: "hungmn", password: "1008", pin: "1008", name: "Hùng", role: "Đóng Gói & Kho Vận Hàng Hóa Miền Nam", group: "Đóng gói kho", type: "USER", avatar: "📦", tabName: "Hung - Kho MN" }},
-      {{ username: "hungmb", password: "1009", pin: "1009", name: "Hùng Miền Bắc", role: "Đóng Gói & Kho Vận Chi Nhánh Hà Nội", group: "Đóng gói kho", type: "USER", avatar: "🚚", tabName: "Hung - Kho MB" }}
+      {{ username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" }}
     ];
 
-    let currentAppMainTab = 'sheets';
+    let currentAppMainTab = 'cards';
     let currentActiveSheetKey = 'BAO CAO HOM NAY';
     let currentSheetViewFormat = 'html';
     let managerSelectedDate = '05/10/2026';
     let currentUser = null;
-    let reportsStore = {{}};
+    let pendingRedirectTab = null;
 
     window.addEventListener("DOMContentLoaded", () => {{
       renderQuickLoginButtons();
@@ -479,6 +519,9 @@ html_template = f'''<!DOCTYPE html>
           updateUserSessionBar();
         }} catch(e) {{}}
       }}
+
+      // Default to Tab 2: 'cards' (THẺ CÔNG VIỆC HÔM NAY - MỞ TỰ DO KHÔNG CẦN ĐĂNG NHẬP)
+      switchMainAppTab('cards');
     }});
 
     function startLiveClock() {{
@@ -493,6 +536,12 @@ html_template = f'''<!DOCTYPE html>
     // 1. PRIMARY APP MODE SWITCHING
     // ========================================================
     function switchMainAppTab(mode) {{
+      // Tab 1 (Bảng tính chi tiết) requires login
+      if (mode === 'sheets' && !currentUser) {{
+        openLoginModal('sheets');
+        return;
+      }}
+
       currentAppMainTab = mode;
       
       const btnSheets = document.getElementById("btn-nav-sheets");
@@ -508,13 +557,13 @@ html_template = f'''<!DOCTYPE html>
       }});
       [secSheets, secCards, secSubmit].forEach(s => s.classList.add("hidden"));
 
-      if (mode === 'sheets') {{
-        btnSheets.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
-        secSheets.classList.remove("hidden");
-      }} else if (mode === 'cards') {{
+      if (mode === 'cards') {{
         btnCards.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
         secCards.classList.remove("hidden");
         setManagerDate(managerSelectedDate);
+      }} else if (mode === 'sheets') {{
+        btnSheets.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
+        secSheets.classList.remove("hidden");
       }} else if (mode === 'submit') {{
         btnSubmit.className = "px-4 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-2 bg-[#1A365D] text-white shadow-xs";
         secSubmit.classList.remove("hidden");
@@ -522,8 +571,36 @@ html_template = f'''<!DOCTYPE html>
       }}
     }}
 
+    function openLoginModal(targetTab = null) {{
+      pendingRedirectTab = targetTab;
+      const modal = document.getElementById("modal-login");
+      modal.classList.remove("hidden");
+      setTimeout(() => {{
+        const inp = document.getElementById("modal-login-password");
+        if (inp) {{ inp.value = ""; inp.focus(); }}
+      }}, 100);
+    }}
+
+    function closeLoginModal() {{
+      const modal = document.getElementById("modal-login");
+      modal.classList.add("hidden");
+      pendingRedirectTab = null;
+    }}
+
+    function handleModalPasswordSubmit(e) {{
+      e.preventDefault();
+      const val = document.getElementById("modal-login-password").value.trim();
+      if (doLoginByPassword(val)) {{
+        closeLoginModal();
+        if (pendingRedirectTab) {{
+          switchMainAppTab(pendingRedirectTab);
+          pendingRedirectTab = null;
+        }}
+      }}
+    }}
+
     // ========================================================
-    // 2. SHEETS EXPLORER (11 TABS ACCORDING TO SPREADSHEET)
+    // 2. SHEETS EXPLORER (9 TABS ACCORDING TO SPREADSHEET)
     // ========================================================
     function renderSheetTabsBar() {{
       const container = document.getElementById("sheet-tabs-container");
@@ -566,17 +643,16 @@ html_template = f'''<!DOCTYPE html>
 
       // Update Header Info
       document.getElementById("active-sheet-icon").textContent = tabMeta.icon;
-      document.getElementById("active-sheet-title").textContent = tabMeta.key;
-      document.getElementById("active-sheet-badge").textContent = `Vị trí: Sheet ${{tabMeta.index}} / 10 • GID: ${{tabMeta.gid}}`;
+      document.getElementById("active-sheet-title").textContent = tabMeta.label;
+      document.getElementById("active-sheet-badge").textContent = `Vị trí ${{tabMeta.index}} / 8 (gid=${{tabMeta.gid}})`;
       document.getElementById("active-sheet-desc").textContent = tabMeta.name;
-      
-      const directUrl = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${{tabMeta.gid}}`;
-      document.getElementById("active-sheet-direct-link").href = directUrl;
+      document.getElementById("active-sheet-direct-link").href = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=${{tabMeta.gid}}`;
 
-      // Update Iframe src
-      const iframeSrc = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/htmlembed?gid=${{tabMeta.gid}}&widget=true`;
-      document.getElementById("sheet-google-iframe").src = iframeSrc;
+      // Update Iframe URL
+      const iframe = document.getElementById("sheet-google-iframe");
+      iframe.src = `https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/htmlembed?gid=${{tabMeta.gid}}&widget=false&chrome=false`;
 
+      // Render Table Data
       renderActiveSheetHtml(sheetKey);
     }}
 
@@ -584,259 +660,242 @@ html_template = f'''<!DOCTYPE html>
       currentSheetViewFormat = format;
       const btnHtml = document.getElementById("btn-format-html");
       const btnIframe = document.getElementById("btn-format-iframe");
-      const cHtml = document.getElementById("sheet-html-view-container");
-      const cIframe = document.getElementById("sheet-iframe-view-container");
+      const htmlBox = document.getElementById("sheet-html-view-container");
+      const iframeBox = document.getElementById("sheet-iframe-view-container");
 
       if (format === 'html') {{
-        btnHtml.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1 font-bold";
-        btnIframe.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium";
-        cHtml.classList.remove("hidden");
-        cIframe.classList.add("hidden");
+        btnHtml.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1";
+        btnIframe.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1";
+        htmlBox.classList.remove("hidden");
+        iframeBox.classList.add("hidden");
       }} else {{
-        btnIframe.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1 font-bold";
-        btnHtml.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium";
-        cIframe.classList.remove("hidden");
-        cHtml.classList.add("hidden");
+        btnIframe.className = "px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-2xs flex items-center gap-1";
+        btnHtml.className = "px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1";
+        iframeBox.classList.remove("hidden");
+        htmlBox.classList.add("hidden");
       }}
     }}
 
     function renderActiveSheetHtml(sheetKey) {{
       const container = document.getElementById("sheet-html-view-container");
+      container.innerHTML = "";
+
       const sheetData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sheetKey]) ? window.ALL_SHEETS_DATA[sheetKey] : null;
 
-      if (!sheetData) {{
-        container.innerHTML = `<div class="bg-white p-8 rounded-2xl border text-center text-slate-400">Không tìm thấy dữ liệu cho sheet này.</div>`;
+      if (!sheetData || !sheetData.rows || sheetData.rows.length === 0) {{
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400">
+            <span class="text-4xl block mb-2">📂</span>
+            <p class="font-bold text-slate-600">Chưa có dữ liệu cho sheet này</p>
+            <p class="text-xs text-slate-400 mt-1">Dữ liệu sẽ được tự động đồng bộ khi nhân sự nhập vào Google Sheets.</p>
+          </div>
+        `;
         return;
       }}
 
-      const rows = sheetData.rows || [];
+      const rows = sheetData.rows;
 
-      // SPECIAL CASE 1: BAO CAO HOM NAY (INDEX 0)
       if (sheetKey === 'BAO CAO HOM NAY') {{
-        container.innerHTML = renderMasterSheetHtml(rows);
-        return;
+        renderMasterSheetHtml(container, rows);
+      }} else if (sheetKey === 'BAO CAO TUAN') {{
+        renderWeeklySheetHtml(container, rows);
+      }} else {{
+        renderEmployeeSheetHtml(container, rows, sheetKey);
       }}
-
-      // SPECIAL CASE 2: BAO CAO TUAN (INDEX 8)
-      if (sheetKey === 'BAO CAO TUAN') {{
-        container.innerHTML = renderWeeklySheetHtml(rows);
-        return;
-      }}
-
-      // STANDARD CASE: EMPLOYEE DAILY LOG SHEETS (9 SHEETS)
-      container.innerHTML = renderEmployeeSheetTableHtml(sheetKey, rows);
     }}
 
-    function renderMasterSheetHtml(rows) {{
-      return `
-        <!-- KPI Cards -->
+    // Master Dashboard Sheet Renderer
+    function renderMasterSheetHtml(container, rows) {{
+      const wrapper = document.createElement("div");
+      wrapper.className = "space-y-4";
+
+      // Meta Stats Cards
+      wrapper.innerHTML = `
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
-            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tổng Nhân Sự</p>
-            <p class="text-xl font-extrabold text-slate-900 mt-1">9 Người</p>
+            <span class="text-xs text-slate-500 font-semibold block">👥 Tổng Nhân Sự</span>
+            <span class="text-xl font-extrabold text-slate-900 mt-1 block">7 Người</span>
           </div>
-          <div class="bg-white p-4 rounded-2xl border border-emerald-200 shadow-2xs bg-emerald-50/30">
-            <p class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Đã Nộp Hôm Nay</p>
-            <p class="text-xl font-extrabold text-emerald-700 mt-1">4 / 9 (44%)</p>
+          <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 shadow-2xs">
+            <span class="text-xs text-emerald-700 font-semibold block">✅ Đã Nộp Hôm Nay</span>
+            <span class="text-xl font-extrabold text-emerald-800 mt-1 block">4 / 7 (57%)</span>
           </div>
-          <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-2xs bg-amber-50/30">
-            <p class="text-[11px] font-bold text-amber-800 uppercase tracking-wider">Vấn Đề Cần Tháo Gỡ</p>
-            <p class="text-xl font-extrabold text-amber-700 mt-1">0 Vấn Đề</p>
+          <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 shadow-2xs">
+            <span class="text-xs text-amber-700 font-semibold block">⚠️ Vướng Mắc Phát Sinh</span>
+            <span class="text-xl font-extrabold text-amber-800 mt-1 block">0 Vấn đề</span>
           </div>
-          <div class="bg-white p-4 rounded-2xl border border-sky-200 shadow-2xs bg-sky-50/30">
-            <p class="text-[11px] font-bold text-sky-800 uppercase tracking-wider">Còn Chờ Báo Cáo</p>
-            <p class="text-xl font-extrabold text-sky-800 mt-1">5 Người</p>
+          <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200 shadow-2xs">
+            <span class="text-xs text-blue-700 font-semibold block">👔 Trưởng Phòng</span>
+            <span class="text-sm font-extrabold text-blue-900 mt-1.5 block">Marketing Manager</span>
           </div>
         </div>
 
-        <!-- Master Sheet Table -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div class="px-6 py-4 bg-[#1A365D] text-white flex items-center justify-between">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+          <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+            <h3 class="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+              <span>📋</span> BẢNG TỔNG HỢP TIẾN ĐỘ THỰC TẾ TRONG NGÀY (7 NHÂN SỰ)
+            </h3>
+            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full">
+              Dữ liệu chuẩn Google Sheets
+            </span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-700 border-collapse">
+              <thead class="bg-slate-100 text-slate-800 font-bold uppercase text-[11px] border-b border-slate-200">
+                <tr>
+                  <th class="p-3 w-12 text-center">STT</th>
+                  <th class="p-3 w-44">Nhân Sự</th>
+                  <th class="p-3 w-28">Bộ Phận</th>
+                  <th class="p-3 min-w-[280px]">1️⃣ Kết Quả Đạt Được Hôm Nay</th>
+                  <th class="p-3 min-w-[200px]">4️⃣ Kế Hoạch Ngày Mai</th>
+                  <th class="p-3 w-24 text-center">Giờ Nộp</th>
+                  <th class="p-3 w-24 text-center">Trạng Thái</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 font-medium">
+                ${{rows.slice(6).map(r => {{
+                  if (r.length < 2 || !r[1]) return '';
+                  const stt = r[0] || '';
+                  const name = r[1] || '';
+                  const dept = r[2] || '';
+                  const res = r[4] || '';
+                  const plan = r[7] || '';
+                  const time = r[8] || '--:--';
+                  const isSubmitted = res && !res.includes('Chưa nộp') && res.trim() !== '-';
+
+                  return `
+                    <tr class="hover:bg-slate-50/80 transition">
+                      <td class="p-3 text-center font-bold text-slate-400">${{stt}}</td>
+                      <td class="p-3 font-bold text-slate-900">${{name}}</td>
+                      <td class="p-3 text-slate-500"><span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-semibold">${{dept}}</span></td>
+                      <td class="p-3 leading-relaxed whitespace-pre-line">${{formatResultsHtml(res)}}</td>
+                      <td class="p-3 text-slate-600 whitespace-pre-line">${{plan || '-'}}</td>
+                      <td class="p-3 text-center font-mono text-[11px] font-bold text-slate-600">${{time}}</td>
+                      <td class="p-3 text-center">
+                        ${{isSubmitted 
+                          ? '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Đã nộp</span>' 
+                          : '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-500">Chờ nộp</span>'}}
+                      </td>
+                    </tr>
+                  `;
+                }}).join('')}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(wrapper);
+    }}
+
+    // Individual Employee Sheet Renderer
+    function renderEmployeeSheetHtml(container, rows, sheetKey) {{
+      const metaRow = rows[2] || [];
+      const empName = metaRow[2] || sheetKey;
+      const empRole = metaRow[6] || '';
+      const managerName = metaRow[10] || 'Marketing Manager';
+
+      const tableRows = rows.slice(5).filter(r => r.length > 1 && (r[1] || r[3]));
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "space-y-4";
+      wrapper.innerHTML = `
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center text-2xl font-bold shadow-inner">
+              👤
+            </div>
             <div>
-              <h3 class="font-extrabold text-sm tracking-wide">BẢNG TỔNG HỢP BÁO CÁO CÔNG VIỆC HÀNG NGÀY & TIẾN ĐỘ THEO NGÀY</h3>
-              <p class="text-xs text-blue-200 mt-0.5">Ngày hiển thị: 05/10/2026 • 9 nhân sự phòng Marketing King Blue</p>
+              <h3 class="font-extrabold text-slate-900 text-base">${{empName}}</h3>
+              <p class="text-xs text-slate-500">${{empRole}}</p>
             </div>
-            <span class="text-xs font-bold bg-amber-400 text-slate-950 px-3 py-1 rounded-full">Sheet 0 (Master)</span>
           </div>
+          <div class="text-xs text-right">
+            <span class="text-slate-500">Người phê duyệt:</span>
+            <span class="font-bold text-slate-800 block">${{managerName}}</span>
+          </div>
+        </div>
 
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+          <div class="p-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+            <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">
+              Lịch sử các ngày báo cáo trong sheet
+            </h4>
+            <span class="text-[11px] text-slate-500">${{tableRows.length}} ngày được ghi nhận</span>
+          </div>
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-              <thead class="bg-slate-100 text-slate-700 font-extrabold border-b border-slate-200 uppercase text-[11px]">
+            <table class="w-full text-xs text-left text-slate-700 border-collapse">
+              <thead class="bg-slate-100 text-slate-800 font-bold uppercase text-[10px] border-b border-slate-200">
                 <tr>
-                  <th class="px-3 py-3 text-center w-12">STT</th>
-                  <th class="px-4 py-3 min-w-[170px]">Họ và Tên</th>
-                  <th class="px-3 py-3 w-28">Bộ Phận</th>
-                  <th class="px-3 py-3 w-40">Vị Trí Chuyên Môn</th>
-                  <th class="px-4 py-3 min-w-[280px]">1️⃣ Kết Quả Đạt Được</th>
-                  <th class="px-3 py-3 min-w-[150px]">2️⃣ Khó Khăn</th>
-                  <th class="px-3 py-3 min-w-[150px]">3️⃣ Đề Xuất</th>
-                  <th class="px-4 py-3 min-w-[220px]">4️⃣ Kế Hoạch Ngày Mai</th>
-                  <th class="px-3 py-3 text-center w-24">Giờ Nộp</th>
-                  <th class="px-3 py-3 text-center w-24">Tình Trạng</th>
+                  <th class="p-3 w-12 text-center">STT</th>
+                  <th class="p-3 w-28">Ngày Báo Cáo</th>
+                  <th class="p-3 min-w-[280px]">1️⃣ Kết Quả Đạt Được</th>
+                  <th class="p-3 min-w-[180px]">2️⃣ Khó Khăn</th>
+                  <th class="p-3 min-w-[180px]">4️⃣ Kế Hoạch Ngày Mai</th>
+                  <th class="p-3 w-28">Trạng Thái</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-100">
-                ${{renderMasterRowsHtml(rows)}}
+              <tbody class="divide-y divide-slate-100 font-medium">
+                ${{tableRows.map(r => {{
+                  const stt = r[0] || '1';
+                  const date = r[1] || '05/10/2026';
+                  const res = r[3] || 'Chưa có nội dung';
+                  const diff = r[4] || 'Không có';
+                  const plan = r[6] || '-';
+                  const status = (res && res !== 'Chưa có nội dung') ? 'Đã hoàn thành' : 'Đang chờ';
+
+                  return `
+                    <tr class="hover:bg-slate-50 transition">
+                      <td class="p-3 text-center font-bold text-slate-400">${{stt}}</td>
+                      <td class="p-3 font-mono font-bold text-blue-900 whitespace-nowrap">${{date}}</td>
+                      <td class="p-3 leading-relaxed whitespace-pre-line text-slate-900">${{formatResultsHtml(res)}}</td>
+                      <td class="p-3 text-amber-900 leading-relaxed">${{diff || 'Không có'}}</td>
+                      <td class="p-3 text-sky-900 leading-relaxed whitespace-pre-line">${{plan}}</td>
+                      <td class="p-3">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${{status === 'Đã hoàn thành' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'}}">
+                          ${{status}}
+                        </span>
+                      </td>
+                    </tr>
+                  `;
+                }}).join('')}}
               </tbody>
             </table>
           </div>
         </div>
       `;
+
+      container.appendChild(wrapper);
     }}
 
-    function renderMasterRowsHtml(rows) {{
-      const masterRows = rows.slice(7, 16); // Rows 8 to 16
-      if (masterRows.length === 0) return '<tr><td colspan="10" class="p-4 text-center text-slate-400">Không có dữ liệu</td></tr>';
-
-      return masterRows.map((r, idx) => {{
-        const hasSubmitted = r[4] && r[4] !== '⏳ Chưa nộp' && r[4] !== '-';
-        return `
-          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${{hasSubmitted ? 'bg-emerald-50/15' : ''}}">
-            <td class="px-3 py-3.5 text-center font-bold text-slate-500">${{r[0] || (idx + 1)}}</td>
-            <td class="px-4 py-3.5 font-bold text-slate-900">${{r[1] || ''}}</td>
-            <td class="px-3 py-3.5 font-semibold text-slate-600">${{r[2] || ''}}</td>
-            <td class="px-3 py-3.5 text-slate-600 text-[11px]">${{r[3] || ''}}</td>
-            <td class="px-4 py-3.5 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${{r[4] || '⏳ Chưa nộp'}}</td>
-            <td class="px-3 py-3.5 whitespace-pre-line ${{r[5] && !r[5].includes('Không có') && r[5] !== '-' ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-400'}}">${{r[5] || '-'}}</td>
-            <td class="px-3 py-3.5 whitespace-pre-line text-slate-600">${{r[6] || '-'}}</td>
-            <td class="px-4 py-3.5 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${{r[7] || '-'}}</td>
-            <td class="px-3 py-3.5 text-center font-mono font-bold text-slate-700 text-[11px]">${{r[8] || '--:--'}}</td>
-            <td class="px-3 py-3.5 text-center">
-              <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold ${{hasSubmitted ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800'}}">
-                ${{hasSubmitted ? '🟢 Đúng hạn' : '⏳ Chưa nộp'}}
-              </span>
-            </td>
-          </tr>
-        `;
-      }}).join('');
-    }}
-
-    function renderEmployeeSheetTableHtml(sheetKey, rows) {{
-      const titleRow = rows[0] ? rows[0][0] : `NHẬT KÝ BÁO CÁO CÔNG VIỆC - ${{sheetKey}}`;
-      const infoRow = rows[2] || [];
-      const empName = infoRow[2] || sheetKey.split(' - ')[0];
-      const empRole = infoRow[6] || '';
-      const empManager = infoRow[9] || 'Marketing Manager';
-
-      const dataRows = rows.slice(5); // Rows 6 to 20
-
-      return `
-        <!-- Profile Banner of this Sheet -->
-        <div class="bg-gradient-to-r from-slate-900 to-[#1A365D] text-white p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div>
-            <h3 class="font-extrabold text-sm sm:text-base text-amber-300 uppercase tracking-wider">${{titleRow}}</h3>
-            <div class="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-200">
-              <span>👤 <strong>${{empName}}</strong></span>
-              <span>💼 <em>${{empRole}}</em></span>
-              <span>👔 Phê duyệt: <strong>${{empManager}}</strong></span>
-            </div>
-          </div>
-          <span class="text-xs font-bold bg-white/10 border border-white/20 px-3 py-1 rounded-xl">
-            Tab: ${{sheetKey}}
-          </span>
-        </div>
-
-        <!-- Full Table Matching Google Sheets -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-              <thead class="bg-slate-100 text-slate-700 font-extrabold border-b border-slate-200 uppercase text-[11px]">
-                <tr>
-                  <th class="px-3 py-3 text-center w-12">STT</th>
-                  <th class="px-3 py-3 w-28">Ngày Báo Cáo</th>
-                  <th class="px-3 py-3 text-center w-24">Giờ Nộp</th>
-                  <th class="px-5 py-3 min-w-[280px]">1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)</th>
-                  <th class="px-4 py-3 min-w-[180px]">2️⃣ KHÓ KHĂN / VƯỚNG MẮC</th>
-                  <th class="px-4 py-3 min-w-[180px]">3️⃣ BÀI HỌC / ĐỀ XUẤT</th>
-                  <th class="px-4 py-3 min-w-[220px]">4️⃣ KẾ HOẠCH NGÀY MAI</th>
-                  <th class="px-3 py-3 min-w-[130px]">Link Minh Chứng</th>
-                  <th class="px-3 py-3 text-center w-24">Tình Trạng</th>
-                  <th class="px-4 py-3 min-w-[180px]">Quản Lý Duyệt</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-100">
-                ${{renderPersonalRowsHtml(dataRows)}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-    }}
-
-    function renderPersonalRowsHtml(dataRows) {{
-      if (dataRows.length === 0) return '<tr><td colspan="10" class="p-6 text-center text-slate-400">Chưa có dòng dữ liệu nào</td></tr>';
-
-      return dataRows.map((r, idx) => {{
-        const stt = r[0] || (idx + 1);
-        const date = r[1] || '';
-        const time = r[2] || (date ? '17:00:00' : '');
-        const res = r[3] || '';
-        const diff = r[4] || '';
-        const lesson = r[5] || '';
-        const plan = r[6] || '';
-        const link = r[7] || '';
-        const status = r[8] || (date ? 'Đúng hạn' : '');
-        const feedback = r[9] || '';
-
-        const hasData = res.trim().length > 0;
-
-        return `
-          <tr class="hover:bg-slate-50 transition border-b border-slate-100 ${{hasData ? 'bg-blue-50/20' : ''}}">
-            <td class="px-3 py-3 text-center font-bold text-slate-500">${{stt}}</td>
-            <td class="px-3 py-3 font-mono font-bold text-slate-800 text-[11px]">${{date || '<span class="text-slate-300">-</span>'}}</td>
-            <td class="px-3 py-3 text-center font-mono text-slate-600 text-[11px]">${{time || '<span class="text-slate-300">--:--</span>'}}</td>
-            <td class="px-5 py-3 whitespace-pre-line text-slate-800 font-medium leading-relaxed">${{res ? formatResultsHtml(res) : '<span class="text-slate-300">-</span>'}}</td>
-            <td class="px-4 py-3 whitespace-pre-line ${{diff && !diff.includes('Không có') ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-500'}}">${{diff || '<span class="text-slate-300">-</span>'}}</td>
-            <td class="px-4 py-3 whitespace-pre-line text-slate-600">${{lesson || '<span class="text-slate-300">-</span>'}}</td>
-            <td class="px-4 py-3 whitespace-pre-line text-sky-950 font-medium leading-relaxed">${{plan || '<span class="text-slate-300">-</span>'}}</td>
-            <td class="px-3 py-3 text-sky-700">${{link && link !== '-' ? `<a href="${{link}}" target="_blank" class="underline hover:text-sky-900">Xem link</a>` : '<span class="text-slate-300">-</span>'}}</td>
-            <td class="px-3 py-3 text-center">
-              ${{status ? `<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${{status === 'Đúng hạn' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}}">${{status}}</span>` : '<span class="text-slate-300">-</span>'}}
-            </td>
-            <td class="px-4 py-3 italic text-slate-600">${{feedback || '<span class="text-slate-300 font-normal">Chờ duyệt</span>'}}</td>
-          </tr>
-        `;
-      }}).join('');
-    }}
-
-    function renderWeeklySheetHtml(rows) {{
-      return `
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 text-center">
+    // Weekly Sheet Renderer
+    function renderWeeklySheetHtml(container, rows) {{
+      const wrapper = document.createElement("div");
+      wrapper.className = "bg-white rounded-2xl border border-slate-200 shadow-xs p-6";
+      wrapper.innerHTML = `
+        <div class="text-center py-8">
           <span class="text-4xl block mb-2">📈</span>
-          <h3 class="text-base font-extrabold text-slate-900">BẢNG TỔNG HỢP TIẾN ĐỘ & KPI TUẦN (BAO CAO TUAN)</h3>
-          <p class="text-xs text-slate-500 mt-1 max-w-lg mx-auto">Sheet tổng hợp hiệu suất toàn phòng theo tuần. Dữ liệu được tính tự động từ 9 tab báo cáo hàng ngày.</p>
-          <div class="mt-6 flex justify-center">
-            <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit#gid=162769722" target="_blank" class="px-5 py-2.5 bg-blue-900 text-white rounded-xl text-xs font-bold shadow hover:bg-blue-800 transition flex items-center gap-2">
-              <span>🟢</span> Mở Tab BAO CAO TUAN Trên Google Sheets
-            </a>
-          </div>
+          <h3 class="font-extrabold text-base text-slate-900">BÁO CÁO TIẾN ĐỘ TUẦN PHÒNG MARKETING</h3>
+          <p class="text-xs text-slate-500 mt-1">Dữ liệu tổng hợp theo từng tuần hoạt động từ thứ Hai đến thứ Bảy.</p>
         </div>
       `;
+      container.appendChild(wrapper);
     }}
 
-    function formatResultsHtml(raw) {{
-      if (!raw) return '<span class="text-slate-400 italic">-</span>';
-      const lines = raw.split('\\n').map(l => l.trim()).filter(l => l.length > 0);
-      if (lines.length === 0) return '<span class="text-slate-400 italic">-</span>';
-
-      return lines.map(line => {{
-        let clean = line.replace(/^[•\\-\\*]\\s*/, '');
-        return `
-          <div class="flex items-start gap-1.5 py-0.5">
-            <span class="text-emerald-600 font-bold shrink-0">✅</span>
-            <span>${{clean}}</span>
-          </div>
-        `;
-      }}).join('');
+    function formatResultsHtml(text) {{
+      if (!text) return '<span class="text-slate-400 italic">Chưa nộp nội dung</span>';
+      return text.replace(/\\n/g, '<br/>').replace(/•/g, '<span class="text-emerald-600 font-bold">•</span>');
     }}
 
     // ========================================================
-    // 3. CARDS DASHBOARD (17H CHIỀU - VISUAL TASK CARDS)
+    // 3. CARDS DASHBOARD (EXECUTIVE 17H VIEW - MỞ TỰ DO)
     // ========================================================
     function setManagerDate(dateStr) {{
       managerSelectedDate = dateStr;
-      const cal = document.getElementById("mgr-calendar-picker");
-      if (cal) cal.value = dmyToYmd(dateStr);
+      
+      const picker = document.getElementById("mgr-calendar-picker");
+      if (picker) picker.value = dmyToYmd(dateStr);
+
       const textEl = document.getElementById("mgr-date-text");
       if (textEl) textEl.textContent = formatVietnameseFullDate(dateStr);
 
@@ -1017,47 +1076,32 @@ html_template = f'''<!DOCTYPE html>
         container.appendChild(card);
       }});
 
-      document.getElementById("m-kpi-sub").textContent = `${{subCount}} / 9 (${{Math.round(subCount / 9 * 100)}}%)`;
+      document.getElementById("m-kpi-sub").textContent = `${{subCount}} / ${{users.length}} (${{Math.round(subCount / users.length * 100)}}%)`;
     }}
 
     function updateExecutiveReportPreview(dateStr) {{
-      const text = `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+      const text = `BÁO CÁO CÔNG VIỆC NGÀY: [${{dateStr}}]
 Kính gửi Ban Lãnh Đạo,
 
-Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (4/9 nhân sự đã nộp):
+Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (4/7 nhân sự đã nộp):
 
-1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
-• Thương Thương (Content / Trade Marketing):
-  - Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                
-  - Đăng bài trên fanpage: bộ lục giác KL-008
-  - Lên ý tưởng cho các video giới thiệu sản phẩm 
-  - Sắp xếp, chuẩn bị công cụ, kịch bản quay video
-  - Cập nhật thông tin sản phẩm trên website
-• Thiện (Graphic Design):
-  - Lên ý tưởng thiết kế
-  - Thiết kế banner King Blue: Thân máy khoan KM18 (17 tấm), Combo máy khoan KM18 (25 tấm), Banner hít gạch HKE-924 (1 tấm)
-  - Thiết kế banner CKô: Banner giỏ hàng hít gạch HKE-924 (1 tấm)
-  -> Tổng hoàn thành: 44 banner
-• Thức (Sàn TMĐT Shopee & Lazada):
-  - Xử lý in đơn, nhập liệu data, kiểm tra đơn
-  - Theo dõi, cập nhật tồn kho, đề xuất nhập hàng
-  - CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)
-  - Quay video khiếu nại đơn hoàn
-• Ngân (Sàn TMĐT & TikTok Shop):
-  - Xử lý đơn, nhập liệu data
-  - CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)
-  - Hỗ trợ khách bảo hành sản phẩm
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC CHÍNH
+• Thương Thương (Trade Marketing): Giải đáp khách Fanpage & TikTok Ckostore; Đăng bài KL-008; Lên ý tưởng & kịch bản video; Cập nhật website.
+• Thiện (Design): Hoàn thành 44 banner chất lượng cao (KM18 thân & combo, HKE-924...).
+• Thức (Sàn TMĐT): Xử lý in đơn, dữ liệu vận hành Shopee/Lazada, bổ sung kho, khiếu nại đơn hoàn.
+• Ngân (Sàn TMĐT): Vận hành TikTok Shop, trực CSKH, xuất hóa đơn VAT, hỗ trợ bảo hành.
+• Hoài Thương, Kiều Thương, Tứ: Đang trong tiến độ hoàn thiện.
 
 2️⃣ KHÓ KHĂN / VƯỚNG MẮC
-• Toàn phòng hoạt động thuận lợi, không có vướng mắc nghiêm trọng.
+• Toàn phòng hoạt động nhịp nhàng, chưa phát sinh vướng mắc nghiêm trọng.
 
 3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
-• Đang tiếp tục tối ưu các quy trình đóng gói và thiết kế banner theo campaign.
+• Tiếp tục tối ưu hóa chiến dịch banner & video review phục vụ đợt khuyến mãi sắp tới.
 
 4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
 • Thương Thương: Quay video sản phẩm
 • Thiện: Tiếp tục thiết kế banner King Blue & CKô
-• Thức: Xử lý in đơn, nhập liệu data, rà soát tồn kho và trực chat
+• Thức: Xử lý đơn, tồn kho sàn Shopee/Lazada
 • Ngân: Vận hành gian hàng TikTok Shop & CSKH`;
 
       document.getElementById("executive-report-text").textContent = text;
@@ -1075,25 +1119,43 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
     // ========================================================
     function renderQuickLoginButtons() {{
       const grid = document.getElementById("quick-users-grid");
-      if (!grid) return;
-      grid.innerHTML = "";
-      ACCOUNTS.forEach(u => {{
-        const btn = document.createElement("button");
-        btn.onclick = () => doLoginByPassword(u.pin);
-        const isAdmin = u.type === "ADMIN";
-        btn.className = `p-2.5 rounded-xl border text-left transition flex items-center justify-between gap-2 shadow-2xs hover:shadow-xs ${{isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}}`;
-        btn.innerHTML = `
-          <div class="flex items-center gap-2 overflow-hidden">
-            <span class="text-xl">${{u.avatar}}</span>
-            <div class="truncate">
-              <p class="font-bold text-slate-900 truncate">${{u.name}}</p>
-              <p class="text-[10px] text-slate-500 truncate">${{u.role}}</p>
+      const modalGrid = document.getElementById("modal-quick-users-grid");
+
+      const populate = (targetGrid, isModal = false) => {{
+        if (!targetGrid) return;
+        targetGrid.innerHTML = "";
+        ACCOUNTS.forEach(u => {{
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.onclick = () => {{
+            if (doLoginByPassword(u.pin)) {{
+              if (isModal) {{
+                closeLoginModal();
+                if (pendingRedirectTab) {{
+                  switchMainAppTab(pendingRedirectTab);
+                  pendingRedirectTab = null;
+                }}
+              }}
+            }}
+          }};
+          const isAdmin = u.type === "ADMIN";
+          btn.className = `p-2 rounded-xl border text-left transition flex items-center justify-between gap-1.5 shadow-2xs hover:shadow-xs ${{isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}}`;
+          btn.innerHTML = `
+            <div class="flex items-center gap-1.5 overflow-hidden">
+              <span class="text-base">${{u.avatar}}</span>
+              <div class="truncate">
+                <p class="font-bold text-slate-900 text-xs truncate">${{u.name}}</p>
+                <p class="text-[9px] text-slate-500 truncate">${{u.role}}</p>
+              </div>
             </div>
-          </div>
-          <span class="text-[11px] font-mono px-2 py-0.5 rounded-md font-bold ${{isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}}">Mã: ${{u.pin}}</span>
-        `;
-        grid.appendChild(btn);
-      }});
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded font-bold shrink-0 ${{isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}}">PIN: ${{u.pin}}</span>
+          `;
+          targetGrid.appendChild(btn);
+        }});
+      }};
+
+      populate(grid, false);
+      populate(modalGrid, true);
     }}
 
     function handlePasswordOnlySubmit(e) {{
@@ -1103,7 +1165,7 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
     }}
 
     function doLoginByPassword(pass) {{
-      if (!pass) return;
+      if (!pass) return false;
       const clean = pass.toLowerCase();
       const user = ACCOUNTS.find(a => a.password.toLowerCase() === clean || a.pin.toLowerCase() === clean || a.username.toLowerCase() === clean);
       if (user) {{
@@ -1112,27 +1174,37 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
         showToast("Đăng nhập thành công!", `Chào mừng ${{user.name}}`, "success");
         updateUserSessionBar();
         renderSubmitSpace();
+        return true;
       }} else {{
         showToast("Mật khẩu không đúng!", "Vui lòng nhập đúng mã PIN được cấp.", "error");
+        return false;
       }}
     }}
 
     function handleLogout() {{
       currentUser = null;
       localStorage.removeItem("kingblue_user");
-      showToast("Đã đăng xuất", "Hẹn gặp lại bạn!", "info");
+      showToast("Đã đăng xuất", "Quay về Thẻ công việc hôm nay", "info");
       updateUserSessionBar();
       renderSubmitSpace();
+      switchMainAppTab('cards');
     }}
 
     function updateUserSessionBar() {{
       const bar = document.getElementById("user-info-bar");
+      const btnLogin = document.getElementById("btn-open-login");
+      const iconLockSheets = document.getElementById("icon-lock-sheets");
+
       if (currentUser) {{
         bar.classList.remove("hidden");
+        if (btnLogin) btnLogin.classList.add("hidden");
         document.getElementById("current-user-name").textContent = currentUser.name;
         document.getElementById("current-user-avatar").textContent = currentUser.avatar;
+        if (iconLockSheets) iconLockSheets.textContent = "📑";
       }} else {{
         bar.classList.add("hidden");
+        if (btnLogin) btnLogin.classList.remove("hidden");
+        if (iconLockSheets) iconLockSheets.textContent = "🔒";
       }}
     }}
 

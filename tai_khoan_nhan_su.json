@@ -102,31 +102,5 @@
     "avatar": "🎧",
     "tabName": "Ngan - San TMDT",
     "crmRole": "E-Commerce / CSKH User"
-  },
-  {
-    "username": "hungmn",
-    "password": "1008",
-    "pin": "1008",
-    "alt_pass": "hungmn",
-    "name": "Hùng",
-    "role": "Đóng Gói & Kho Vận Hàng Hóa Miền Nam",
-    "group": "Đóng gói kho",
-    "type": "USER",
-    "avatar": "📦",
-    "tabName": "Hung - Kho MN",
-    "crmRole": "Warehouse User"
-  },
-  {
-    "username": "hungmb",
-    "password": "1009",
-    "pin": "1009",
-    "alt_pass": "hungmb",
-    "name": "Hùng Miền Bắc",
-    "role": "Đóng Gói & Kho Vận Chi Nhánh Hà Nội",
-    "group": "Đóng gói kho",
-    "type": "USER",
-    "avatar": "🚚",
-    "tabName": "Hung - Kho MB",
-    "crmRole": "Warehouse User"
   }
 ]
