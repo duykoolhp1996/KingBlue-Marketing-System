@@ -943,6 +943,46 @@ html_template = f'''<!DOCTYPE html>
       return `${{days[dt.getDay()] || 'Thứ'}}, ${{dmy}}`;
     }}
 
+    function getRoleColorTheme(group) {{
+      switch(group) {{
+        case "Content":
+          return {{
+            borderTop: "border-t-4 border-t-indigo-500",
+            avatarBg: "bg-indigo-50 text-indigo-700 border-indigo-200",
+            badgeBg: "bg-indigo-100 text-indigo-800 border-indigo-200 font-extrabold",
+            roleTag: "text-indigo-900 bg-indigo-50 border border-indigo-200 font-bold"
+          }};
+        case "Design":
+          return {{
+            borderTop: "border-t-4 border-t-pink-500",
+            avatarBg: "bg-pink-50 text-pink-700 border-pink-200",
+            badgeBg: "bg-pink-100 text-pink-800 border-pink-200 font-extrabold",
+            roleTag: "text-pink-900 bg-pink-50 border border-pink-200 font-bold"
+          }};
+        case "Media":
+          return {{
+            borderTop: "border-t-4 border-t-amber-500",
+            avatarBg: "bg-amber-50 text-amber-800 border-amber-200",
+            badgeBg: "bg-amber-100 text-amber-900 border-amber-300 font-extrabold",
+            roleTag: "text-amber-900 bg-amber-50 border border-amber-200 font-bold"
+          }};
+        case "Sàn TMĐT":
+          return {{
+            borderTop: "border-t-4 border-t-emerald-500",
+            avatarBg: "bg-emerald-50 text-emerald-800 border-emerald-200",
+            badgeBg: "bg-emerald-100 text-emerald-800 border-emerald-200 font-extrabold",
+            roleTag: "text-emerald-900 bg-emerald-50 border border-emerald-200 font-bold"
+          }};
+        default:
+          return {{
+            borderTop: "border-t-4 border-t-blue-500",
+            avatarBg: "bg-blue-50 text-blue-800 border-blue-200",
+            badgeBg: "bg-blue-100 text-blue-800 border-blue-200 font-extrabold",
+            roleTag: "text-blue-900 bg-blue-50 border border-blue-200 font-bold"
+          }};
+      }}
+    }}
+
     function renderManagerCards(dateStr) {{
       const container = document.getElementById("mgr-cards-container");
       container.innerHTML = "";
@@ -951,6 +991,8 @@ html_template = f'''<!DOCTYPE html>
       let subCount = 0;
 
       users.forEach(u => {{
+        const theme = getRoleColorTheme(u.group);
+
         // Get data from sheets_data
         const sKey = u.tabName;
         const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[sKey]) ? window.ALL_SHEETS_DATA[sKey] : null;
@@ -976,18 +1018,21 @@ html_template = f'''<!DOCTYPE html>
         const card = document.createElement("div");
 
         if (!rep) {{
-          card.className = "bg-white rounded-2xl border-2 border-dashed border-slate-200 p-5 shadow-2xs flex flex-col justify-between";
+          card.className = `bg-white/95 rounded-3xl border-2 border-dashed border-slate-200 ${{theme.borderTop}} p-5 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between`;
           card.innerHTML = `
             <div>
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-2xl font-bold shadow-2xs">${{u.avatar}}</div>
-                  <div>
-                    <h4 class="font-bold text-slate-900 text-sm">${{u.name}}</h4>
-                    <p class="text-[11px] text-slate-500">${{u.role}}</p>
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-14 h-14 rounded-2xl ${{theme.avatarBg}} border opacity-85 flex items-center justify-center text-3xl font-bold shadow-2xs shrink-0">${{u.avatar}}</div>
+                  <div class="min-w-0">
+                    <h4 class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight">${{u.name}}</h4>
+                    <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
+                      <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-lg border shadow-2xs ${{theme.badgeBg}}">${{u.group}}</span>
+                      <span class="text-[11px] font-bold px-2 py-0.5 rounded-lg border ${{theme.roleTag}} truncate max-w-[210px]">${{u.role}}</span>
+                    </div>
                   </div>
                 </div>
-                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">${{u.group}}</span>
+                <span class="text-[10px] font-bold px-2 py-1 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 shrink-0">⏳ Chờ nộp</span>
               </div>
               <div class="py-10 text-center text-slate-400 text-xs">
                 <span class="text-3xl block mb-2">⏳</span>
@@ -996,29 +1041,29 @@ html_template = f'''<!DOCTYPE html>
               </div>
             </div>
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-              <span>Trạng thái: <strong class="text-amber-600">Đang chờ nộp</strong></span>
+              <span>Trạng thái: <strong class="text-amber-600 font-bold">Đang chờ nộp</strong></span>
               <span class="font-mono">--:--:--</span>
             </div>
           `;
         }} else {{
           subCount++;
           const hasDiff = rep.diff && !rep.diff.includes("Không có") && rep.diff !== "-";
-          card.className = "bg-white rounded-2xl border border-slate-200 hover:border-blue-400 p-5 shadow-xs hover:shadow-md transition flex flex-col justify-between space-y-4";
+          card.className = `bg-white rounded-3xl border border-slate-200 hover:border-slate-300 ${{theme.borderTop}} p-5 shadow-xs hover:shadow-xl transition-all duration-200 flex flex-col justify-between space-y-4`;
           card.innerHTML = `
             <div>
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 border border-blue-200 flex items-center justify-center text-2xl shadow-2xs">${{u.avatar}}</div>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <h4 class="font-bold text-slate-900 text-sm">${{u.name}}</h4>
-                      <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">${{u.group}}</span>
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-14 h-14 rounded-2xl ${{theme.avatarBg}} border flex items-center justify-center text-3xl font-bold shadow-2xs shrink-0">${{u.avatar}}</div>
+                  <div class="min-w-0">
+                    <h4 class="font-extrabold text-slate-900 text-lg leading-tight tracking-tight">${{u.name}}</h4>
+                    <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
+                      <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-lg border shadow-2xs ${{theme.badgeBg}}">${{u.group}}</span>
+                      <span class="text-[11px] font-bold px-2 py-0.5 rounded-lg border ${{theme.roleTag}} truncate max-w-[210px]">${{u.role}}</span>
                     </div>
-                    <p class="text-[11px] text-slate-500">${{u.role}}</p>
                   </div>
                 </div>
-                <div class="text-right">
-                  <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                <div class="text-right shrink-0">
+                  <span class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs">
                     🟢 Đúng hạn
                   </span>
                   <p class="text-[10px] font-mono text-slate-600 font-bold mt-0.5">⏱️ ${{rep.time}}</p>
@@ -1125,6 +1170,7 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
         if (!targetGrid) return;
         targetGrid.innerHTML = "";
         ACCOUNTS.forEach(u => {{
+          const theme = getRoleColorTheme(u.group);
           const btn = document.createElement("button");
           btn.type = "button";
           btn.onclick = () => {{
@@ -1139,16 +1185,19 @@ Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp côn
             }}
           }};
           const isAdmin = u.type === "ADMIN";
-          btn.className = `p-2 rounded-xl border text-left transition flex items-center justify-between gap-1.5 shadow-2xs hover:shadow-xs ${{isAdmin ? 'bg-amber-50/80 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'}}`;
+          btn.className = `p-2.5 rounded-2xl border text-left transition flex items-center justify-between gap-2 shadow-2xs hover:shadow-xs ${{isAdmin ? 'bg-amber-50 border-amber-300 hover:bg-amber-100 col-span-2' : 'bg-white hover:bg-slate-50 border-slate-200'}}`;
           btn.innerHTML = `
-            <div class="flex items-center gap-1.5 overflow-hidden">
-              <span class="text-base">${{u.avatar}}</span>
+            <div class="flex items-center gap-2.5 overflow-hidden">
+              <span class="text-xl ${{theme.avatarBg}} w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 shadow-2xs">${{u.avatar}}</span>
               <div class="truncate">
-                <p class="font-bold text-slate-900 text-xs truncate">${{u.name}}</p>
-                <p class="text-[9px] text-slate-500 truncate">${{u.role}}</p>
+                <p class="font-extrabold text-slate-900 text-xs sm:text-sm truncate">${{u.name}}</p>
+                <div class="flex items-center gap-1 mt-0.5">
+                  <span class="text-[9px] px-1.5 py-0.2 rounded font-extrabold ${{theme.badgeBg}}">${{u.group}}</span>
+                  <span class="text-[9px] text-slate-500 truncate">${{u.role}}</span>
+                </div>
               </div>
             </div>
-            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded font-bold shrink-0 ${{isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}}">PIN: ${{u.pin}}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-lg font-bold shrink-0 ${{isAdmin ? 'bg-amber-200 text-amber-900' : 'bg-slate-100 text-slate-700 border border-slate-200'}}">PIN: ${{u.pin}}</span>
           `;
           targetGrid.appendChild(btn);
         }});
