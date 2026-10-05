@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>King Blue - Hệ Thống Quản Lý, Báo Cáo & Sơ Đồ Tổ Chức Marketing</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .tab-btn.active {
+      background-color: #1A365D;
+      color: #ffffff;
+      border-color: #1A365D;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-6 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Top Header -->
+    <header class="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900 text-white rounded-2xl p-6 shadow-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="text-3xl">🐱</span>
+          <h1 class="text-2xl font-bold tracking-tight">KING BLUE - PHÒNG MARKETING & TRUYỀN THÔNG</h1>
+        </div>
+        <p class="text-blue-200 text-sm mt-1">Cơ cấu tổ chức nhân sự • Quản lý công việc • Báo cáo hiệu suất (Google Sheets & Excel)</p>
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <a href="website_tong_hop_bao_cao.html" class="bg-amber-400 hover:bg-amber-500 text-slate-900 px-3 py-2 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+          🌐 Web Tổng Hợp Theo Ngày
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="bg-emerald-400 hover:bg-emerald-500 text-slate-900 px-3 py-2 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+          🟢 Google Sheet Báo Cáo
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1CmcmBFP4jjdV1jrnNNWwXkc1foxa4j6asaOhI0qg7u8/edit" target="_blank" class="bg-sky-400 hover:bg-sky-500 text-slate-900 px-3 py-2 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+          🟢 Google Sheet Quản Lý
+        </a>
+        <a href="https://drive.google.com/drive/folders/1e6BtoJ8BwmpIlJGhr_OMJND7rfuPqT_j" target="_blank" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-3 py-2 rounded-lg font-medium transition flex items-center gap-1.5">
+          📁 Folder Drive
+        </a>
+        <a href="Bao_Cao_Cong_Viec_KingBlue.xlsx" download class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-3 py-2 rounded-lg font-medium transition flex items-center gap-1.5">
+          📑 Tải .xlsx Báo Cáo
+        </a>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-3">
+      <button onclick="switchTab('tab-org')" id="btn-tab-org" class="tab-btn active px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white transition hover:bg-slate-100 flex items-center gap-1.5">
+        👥 1. Sơ Đồ Tổ Chức
+      </button>
+      <button onclick="switchTab('tab-daily')" id="btn-tab-daily" class="tab-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white transition hover:bg-slate-100 flex items-center gap-1.5">
+        ⏰ 2. Báo Cáo Hàng Ngày (Daily Log)
+      </button>
+      <button onclick="switchTab('tab-dash')" id="btn-tab-dash" class="tab-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white transition hover:bg-slate-100 flex items-center gap-1.5">
+        📊 3. Dashboard Tiến Độ
+      </button>
+      <button onclick="switchTab('tab-tasks')" id="btn-tab-tasks" class="tab-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white transition hover:bg-slate-100 flex items-center gap-1.5">
+        📝 4. Danh Sách Task
+      </button>
+      <button onclick="switchTab('tab-weekly')" id="btn-tab-weekly" class="tab-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white transition hover:bg-slate-100 flex items-center gap-1.5">
+        📅 5. Báo Cáo Tuần
+      </button>
+      <button onclick="switchTab('tab-metrics')" id="btn-tab-metrics" class="tab-btn px-4 py-2 text-sm font-semibold rounded-lg border border-slate-300 bg-white transition hover:bg-slate-100 flex items-center gap-1.5">
+        📈 6. Chỉ Số Đo Lường Đa Kênh
+      </button>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: ORG CHART (SƠ ĐỒ TỔ CHỨC) -->
+    <!-- ========================================== -->
+    <div id="tab-org" class="tab-content space-y-6">
+      <!-- Admin / Leader banner -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <div class="text-center max-w-md mx-auto mb-8">
+          <div class="inline-block bg-[#1A365D] text-white px-6 py-3 rounded-xl shadow-md font-bold text-base">
+            👔 Marketing Manager (Trưởng Phòng Marketing)
+          </div>
+          <div class="w-0.5 h-6 bg-slate-300 mx-auto"></div>
+          <div class="w-full h-0.5 bg-slate-300"></div>
+        </div>
+
+        <!-- 5 Functional Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+          
+          <!-- Pillar 1: Content -->
+          <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3 pb-2 border-b border-sky-200">
+                <span class="text-xl">✍️</span>
+                <h3 class="font-bold text-sky-950 text-sm">VỊ TRÍ CONTENT</h3>
+              </div>
+              <p class="text-xs text-slate-500 mb-3 font-medium">3 Nhân sự phụ trách nội dung:</p>
+              <div class="space-y-2">
+                <div class="bg-white p-2.5 rounded-lg border border-sky-100 shadow-2xs">
+                  <p class="font-bold text-sky-900 text-xs">Hoài Thương</p>
+                  <p class="text-[11px] text-slate-500">Facebook Fanpage & Web SEO</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-sky-100 shadow-2xs">
+                  <p class="font-bold text-sky-900 text-xs">Kiều Thương</p>
+                  <p class="text-[11px] text-slate-500">Kịch bản Video & KOC Review</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-sky-100 shadow-2xs">
+                  <p class="font-bold text-sky-900 text-xs">Thụy Thương</p>
+                  <p class="text-[11px] text-slate-500">Trade MKT & Chính sách đại lý</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-2 border-t border-sky-200/60 text-[11px] text-sky-800 font-medium">
+              Chỉ tiêu: 16 bài FB + kịch bản video
+            </div>
+          </div>
+
+          <!-- Pillar 2: Design -->
+          <div class="bg-purple-50/70 border border-purple-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3 pb-2 border-b border-purple-200">
+                <span class="text-xl">🎨</span>
+                <h3 class="font-bold text-purple-950 text-sm">VỊ TRÍ DESIGN</h3>
+              </div>
+              <p class="text-xs text-slate-500 mb-3 font-medium">1 Nhân sự thiết kế:</p>
+              <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-2xs">
+                <p class="font-bold text-purple-900 text-xs">Thiện</p>
+                <p class="text-[11px] text-slate-500 mt-1">• Thiết kế 3D/2D quầy kệ POSM</p>
+                <p class="text-[11px] text-slate-500">• Banner triển lãm Vietbuild</p>
+                <p class="text-[11px] text-slate-500">• Khung hình sàn TMĐT & bao bì</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-2 border-t border-purple-200/60 text-[11px] text-purple-800 font-medium">
+              Chỉ tiêu: Nhận diện Vietbuild + POSM
+            </div>
+          </div>
+
+          <!-- Pillar 3: Media -->
+          <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3 pb-2 border-b border-emerald-200">
+                <span class="text-xl">🎬</span>
+                <h3 class="font-bold text-emerald-950 text-sm">VỊ TRÍ MEDIA</h3>
+              </div>
+              <p class="text-xs text-slate-500 mb-3 font-medium">1 Nhân sự quay chụp:</p>
+              <div class="bg-white p-3 rounded-lg border border-emerald-100 shadow-2xs">
+                <p class="font-bold text-emerald-900 text-xs">Tứ</p>
+                <p class="text-[11px] text-slate-500 mt-1">• Quay video test tải máy khoan/mài</p>
+                <p class="text-[11px] text-slate-500">• Chụp ảnh sản phẩm chi tiết</p>
+                <p class="text-[11px] text-slate-500">• Hậu kỳ dựng video YouTube/TikTok</p>
+                <span class="inline-block mt-1 text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">User Photographer CRM</span>
+              </div>
+            </div>
+            <div class="mt-4 pt-2 border-t border-emerald-200/60 text-[11px] text-emerald-800 font-medium">
+              Chỉ tiêu: 4 video YT + bộ ảnh sản phẩm
+            </div>
+          </div>
+
+          <!-- Pillar 4: Sàn TMĐT -->
+          <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3 pb-2 border-b border-amber-200">
+                <span class="text-xl">🛒</span>
+                <h3 class="font-bold text-amber-950 text-sm">VỊ TRÍ SÀN TMĐT</h3>
+              </div>
+              <p class="text-xs text-slate-500 mb-3 font-medium">2 Nhân sự vận hành:</p>
+              <div class="space-y-2">
+                <div class="bg-white p-2.5 rounded-lg border border-amber-100 shadow-2xs">
+                  <p class="font-bold text-amber-900 text-xs">Thức</p>
+                  <p class="text-[11px] text-slate-500">Vận hành Shopee Mall, Lazada & kingtools.vn</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-amber-100 shadow-2xs">
+                  <p class="font-bold text-amber-900 text-xs">Ngân</p>
+                  <p class="text-[11px] text-slate-500">CSKH sàn, Đánh giá 5 sao & TikTok Shop</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-2 border-t border-amber-200/60 text-[11px] text-amber-800 font-medium">
+              Chỉ tiêu: Tăng trưởng doanh thu sàn & chat 95%
+            </div>
+          </div>
+
+          <!-- Pillar 5: Đóng Gói -->
+          <div class="bg-orange-50/70 border border-orange-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-3 pb-2 border-b border-orange-200">
+                <span class="text-xl">📦</span>
+                <h3 class="font-bold text-orange-950 text-sm">ĐÓNG GÓI HÀNG HÓA</h3>
+              </div>
+              <p class="text-xs text-slate-500 mb-3 font-medium">2 Nhân sự kho bãi:</p>
+              <div class="space-y-2">
+                <div class="bg-white p-2.5 rounded-lg border border-orange-100 shadow-2xs">
+                  <p class="font-bold text-orange-900 text-xs">Hùng</p>
+                  <p class="text-[11px] text-slate-500">Đóng gói hàng hóa Tổng kho (Miền Nam)</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-orange-100 shadow-2xs">
+                  <p class="font-bold text-orange-900 text-xs">Hùng (Miền Bắc)</p>
+                  <p class="text-[11px] text-slate-500">Đóng gói hàng hóa kho Miền Bắc (Hà Nội)</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-2 border-t border-orange-200/60 text-[11px] text-orange-800 font-medium">
+              Chỉ tiêu: Bàn giao vận chuyển 100% trong ngày
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: BAO CAO HANG NGAY (DAILY LOG) -->
+    <!-- ========================================== -->
+    <div id="tab-daily" class="tab-content hidden space-y-6">
+      <!-- 4 Quick Daily KPIs -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white border border-blue-100 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-slate-500 uppercase">Ngày Báo Cáo</p>
+          <p class="text-2xl font-extrabold text-blue-900 mt-1">05/10/2026</p>
+          <span class="text-[11px] text-slate-400">Hôm nay (Thứ 2)</span>
+        </div>
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-emerald-700 uppercase">Đã Nộp Báo Cáo</p>
+          <p class="text-2xl font-extrabold text-emerald-700 mt-1">9 / 9</p>
+          <span class="text-[11px] text-emerald-600 font-medium">100% Đúng giờ</span>
+        </div>
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-blue-700 uppercase">Hoàn Thành 100%</p>
+          <p class="text-2xl font-extrabold text-blue-700 mt-1">7 Việc</p>
+          <span class="text-[11px] text-blue-600 font-medium">Đạt mục tiêu ngày</span>
+        </div>
+        <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-amber-700 uppercase">Đang Xử Lý Tiếp</p>
+          <p class="text-2xl font-extrabold text-amber-700 mt-1">2 Việc</p>
+          <span class="text-[11px] text-amber-600 font-medium">Chờ mặt bằng & thông số</span>
+        </div>
+      </div>
+
+            <!-- Interactive Form Generator Box -->
+      <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-xl p-5 shadow-md">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4">
+          <div>
+            <h4 class="font-bold text-base flex items-center gap-2">
+              <span>📋</span> BIỂU MẪU SOẠN & COPY BÁO CÁO NHANH (GỬI ZALO / TELEGRAM / EMAIL)
+            </h4>
+            <p class="text-xs text-blue-200 mt-0.5">Chọn nhân sự để xem mẫu báo cáo chuẩn 4 phần hoặc sao chép nhanh chỉ với 1 click.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="staffSelect" onchange="loadStaffReport(this.value)" class="bg-white/10 border border-white/30 text-white text-xs rounded-lg px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="hoai_thuong" class="text-slate-800" selected>Võ Thị Hoài Thương – Nhân viên MKT</option>
+              <option value="kieu_thuong" class="text-slate-800">Kiều Thương – Nhân viên MKT (Kịch bản/KOC)</option>
+              <option value="thuy_thuong" class="text-slate-800">Thụy Thương – Nhân viên MKT (Trade/Đại lý)</option>
+              <option value="thien" class="text-slate-800">Thiện – Nhân viên Graphic Design</option>
+              <option value="tu" class="text-slate-800">Tứ – Nhân viên Media / Photographer</option>
+              <option value="thuc" class="text-slate-800">Thức – Nhân viên Sàn TMĐT</option>
+              <option value="ngan" class="text-slate-800">Ngân – Nhân viên Sàn TMĐT</option>
+              <option value="hung" class="text-slate-800">Hùng – Nhân viên Đóng gói (Kho Nam)</option>
+              <option value="hung_mb" class="text-slate-800">Hùng Miền Bắc – Nhân viên Đóng gói (Kho Bắc)</option>
+            </select>
+            <button onclick="copyDailyReport()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-4 py-2 rounded-lg text-xs transition flex items-center gap-1.5 shadow-sm">
+              <span id="copyIcon">📋</span> <span id="copyText">Sao Chép Báo Cáo</span>
+            </button>
+          </div>
+        </div>
+        <textarea id="dailyReportText" rows="11" readonly class="w-full bg-slate-950/60 border border-white/15 rounded-lg p-3.5 text-xs text-blue-100 font-mono leading-relaxed focus:outline-none"></textarea>
+      </div>
+
+      <!-- Daily Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-x-auto">
+        <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Bảng Tổng Hợp Báo Cáo Hàng Ngày Theo 4 Đề Mục Chuẩn</h3>
+            <p class="text-xs text-slate-500">Đầy đủ 4 phần: 1️⃣ Kết Quả Đạt Được • 2️⃣ Khó Khăn/Vướng Mắc • 3️⃣ Bài Học/Đề Xuất • 4️⃣ Kế Hoạch Ngày Mai</p>
+          </div>
+          <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">Đã duyệt 9/9 Báo cáo</span>
+        </div>
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#1A365D] text-white uppercase font-semibold">
+            <tr>
+              <th class="px-3 py-3 text-center">STT</th>
+              <th class="px-3 py-3 whitespace-nowrap">Họ và Tên Nhân Sự</th>
+              <th class="px-3 py-3 whitespace-nowrap">Vị trí</th>
+              <th class="px-4 py-3 min-w-[280px]">1️⃣ KẾT QUẢ ĐẠT ĐƯỢC</th>
+              <th class="px-3 py-3 min-w-[200px]">2️⃣ KHÓ KHĂN / VƯỚNG MẮC</th>
+              <th class="px-3 py-3 min-w-[220px]">3️⃣ BÀI HỌC / ĐỀ XUẤT</th>
+              <th class="px-3 py-3 min-w-[220px]">4️⃣ KẾ HOẠCH NGÀY MAI</th>
+              <th class="px-3 py-3 text-center whitespace-nowrap">Tình trạng</th>
+              <th class="px-3 py-3 min-w-[180px]">Marketing Manager Phản Hồi</th>
+              <th class="px-3 py-3 text-center whitespace-nowrap">Giờ nộp</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 align-top">
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">1</td>
+              <td class="px-3 py-3 font-bold text-sky-900 bg-sky-50/40 whitespace-nowrap">Võ Thị Hoài Thương</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên MKT</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Đề xuất hàng mẫu, liên hệ gặp KH</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Tổng hợp thông tin chính sách, thông tin sản phẩm gửi KHM</p>
+                <p>• <strong>Nhiệm vụ 3</strong>: Đi công tác: Đồng Nai, HCM</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">Đại lý Đồng Nai phân vân giữa kệ 2 tầng và 3 tầng do diện tích mặt bằng hẹp</td>
+              <td class="px-3 py-3 text-slate-700">Đề xuất Design (Thiện) dựng thêm 1 phương án kệ module đứng tiết kiệm diện tích cho cửa hàng nhỏ</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Viết bài Fanpage máy mài góc mới</p>
+                <p>• Theo dõi phản hồi của 3 KHM sau buổi gặp</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Đạt - Đã duyệt đề xuất kệ module</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:15</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">2</td>
+              <td class="px-3 py-3 font-bold text-sky-900 bg-sky-50/40 whitespace-nowrap">Kiều Thương</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên MKT</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Hoàn thiện kịch bản test máy khoan pin KM18QE</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Gửi brief kịch bản cho KOC review cờ lê lực</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">KOC phản hồi chậm 1 ngày do bận lịch quay ngoại cảnh</td>
+              <td class="px-3 py-3 text-slate-700">Nên gửi brief kịch bản trước 3 ngày để KOC sắp xếp lịch quay</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Chuẩn bị đạo cụ quay cùng Tứ tại xưởng</p>
+                <p>• Chốt lịch test máy thứ 4</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-blue-700 bg-blue-50/30">Tốt - Nhắc KOC chốt lịch sớm</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:20</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">3</td>
+              <td class="px-3 py-3 font-bold text-sky-900 bg-sky-50/40 whitespace-nowrap">Thụy Thương</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên MKT</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Rà soát danh mục máy pin làm catalogue Vietbuild</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Lập bảng giá chiết khấu cho đại lý cấp 1</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">Chưa có thông số lực siết chuẩn cho dòng máy khoan rút lõi</td>
+              <td class="px-3 py-3 text-slate-700">Cần bộ phận kỹ thuật cung cấp bảng thông số chính xác để in ấn</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Hoàn thiện mục thiết bị đo laser</p>
+                <p>• Soạn thể lệ minigame đại lý</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800 whitespace-nowrap">Đang làm (70%)</span></td>
+              <td class="px-3 py-3 font-bold text-slate-700">Đạt tiến độ - Sẽ gửi thông số</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:22</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">4</td>
+              <td class="px-3 py-3 font-bold text-purple-900 bg-purple-50/40 whitespace-nowrap">Thiện</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên Design</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Thiết kế visual bài viết FB đá cắt King Blue</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Dựng phối cảnh 3D quầy kệ trưng bày đại lý</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">Chờ kích thước mặt bằng chính xác của đại lý Đồng Nai</td>
+              <td class="px-3 py-3 text-slate-700">Nên dựng sẵn thư viện 3D các model máy King Blue để render nhanh</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Dựng phối cảnh kệ module đứng</p>
+                <p>• Thiết kế poster triển lãm Vietbuild</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800 whitespace-nowrap">Đang làm (75%)</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Tốt - Phối cảnh đẹp mắt</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:28</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">5</td>
+              <td class="px-3 py-3 font-bold text-emerald-900 bg-emerald-50/40 whitespace-nowrap">Tứ</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên Media</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Chụp và retouch 8 ảnh thùng đồ nghề KHD4233</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Chuẩn bị máy móc, pin sạc để quay test</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">Thiếu phôi bê tông đá mác cao để test lực búa máy khoan</td>
+              <td class="px-3 py-3 text-slate-700">Nên mượn xưởng đối tác để có đủ máy móc đo tải Ampe và lực siết Nm</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• 08h30: Bấm máy quay video test máy KM18QE</p>
+                <p>• Buổi chiều: Dựng bản nháp Reels</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Xuất sắc - Ảnh rất nét</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:10</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">6</td>
+              <td class="px-3 py-3 font-bold text-amber-900 bg-amber-50/40 whitespace-nowrap">Thức</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên Sàn TMĐT</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Cập nhật giá khuyến mãi tháng 10 lên kingtools.vn</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Rà soát tồn kho và setup deal Flash Sale Shopee</p>
+              </td>
+              <td class="px-3 py-3 text-slate-400">Không có khó khăn</td>
+              <td class="px-3 py-3 text-slate-700">Nên đẩy mạnh combo máy pin kèm đầu bắn vít chống trượt vì khách mua kèm cao</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Theo dõi doanh số khung Flash Sale 12h</p>
+                <p>• Phối hợp Ngân tối ưu SEO sàn</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Đạt - Đã duyệt giá sàn</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:25</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">7</td>
+              <td class="px-3 py-3 font-bold text-amber-900 bg-amber-50/40 whitespace-nowrap">Ngân</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên Sàn TMĐT</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Trực chat tư vấn sàn Shopee (35 đơn thành công)</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Chuẩn bị kịch bản livestream TikTok Shop 10/10</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">Khách hỏi nhiều về tương thích chân pin Makita</td>
+              <td class="px-3 py-3 text-slate-700">Nên làm bảng so sánh chân pin ghim vào bài viết sản phẩm</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Hỗ trợ Thức setup deal Flash Sale</p>
+                <p>• Lên kịch bản mini livestream</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Rất tốt - Chăm sóc chu đáo</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">17:18</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">8</td>
+              <td class="px-3 py-3 font-bold text-orange-900 bg-orange-50/40 whitespace-nowrap">Hùng</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên Đóng gói</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Đóng gói và dán tem 42 đơn hàng Shopee/Lazada</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Bàn giao hàng hóa cho bưu cục SPX & GHTK</p>
+              </td>
+              <td class="px-3 py-3 text-slate-400">Không có khó khăn</td>
+              <td class="px-3 py-3 text-slate-700">Đề xuất cấp thêm 2 cuộn xốp bóng khí chuẩn bị Mega Sale 10/10</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Đóng gói 20 kiện hàng gửi đại lý miền Tây</p>
+                <p>• Kiểm kê thùng carton 30x20x15</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Đạt chỉ tiêu đóng gói</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">16:45</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-3 text-center font-bold text-slate-500">9</td>
+              <td class="px-3 py-3 font-bold text-orange-900 bg-orange-50/40 whitespace-nowrap">Hùng Miền Bắc</td>
+              <td class="px-3 py-3 text-slate-500 whitespace-nowrap">Nhân viên Đóng gói MB</td>
+              <td class="px-4 py-3 font-medium text-slate-800">
+                <p>• <strong>Nhiệm vụ 1</strong>: Tiếp nhận và đóng gói 18 kiện đại lý Hà Nội</p>
+                <p>• <strong>Nhiệm vụ 2</strong>: Kiểm kê kho bao bì và màng co tại chi nhánh</p>
+              </td>
+              <td class="px-3 py-3 text-amber-800">Sắp hết màng quấn PE và băng keo King Blue</td>
+              <td class="px-3 py-3 text-slate-700">Nên đặt in băng keo in logo King Blue số lượng lớn để tối ưu chi phí</td>
+              <td class="px-3 py-3 text-slate-700">
+                <p>• Đóng đơn phát sinh sáng mai</p>
+                <p>• Làm đề xuất cấp vật tư đóng gói</p>
+              </td>
+              <td class="px-3 py-3 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">Hoàn thành 100%</span></td>
+              <td class="px-3 py-3 font-bold text-emerald-700 bg-emerald-50/30">Đạt - Sẽ duyệt mua băng keo</td>
+              <td class="px-3 py-3 text-center font-semibold text-slate-500 whitespace-nowrap">16:50</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: DASHBOARD -->
+    <!-- ========================================== -->
+    <div id="tab-dash" class="tab-content hidden space-y-6">
+      <!-- 6 KPI Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-white border border-blue-100 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-slate-500 uppercase">Tổng số công việc</p>
+          <p class="text-3xl font-extrabold text-blue-900 mt-1">12</p>
+          <span class="text-[11px] text-slate-400">9 Nhân sự theo dõi</span>
+        </div>
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-emerald-700 uppercase">Hoàn thành</p>
+          <p class="text-3xl font-extrabold text-emerald-700 mt-1">3</p>
+          <span class="text-[11px] text-emerald-600 font-medium">Đã nghiệm thu</span>
+        </div>
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-blue-700 uppercase">Đang thực hiện</p>
+          <p class="text-3xl font-extrabold text-blue-700 mt-1">8</p>
+          <span class="text-[11px] text-blue-600 font-medium">Đang chạy</span>
+        </div>
+        <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-amber-700 uppercase">Đang duyệt / Chờ</p>
+          <p class="text-3xl font-extrabold text-amber-700 mt-1">1</p>
+          <span class="text-[11px] text-amber-600 font-medium">Chờ duyệt giá</span>
+        </div>
+        <div class="bg-rose-50/70 border border-rose-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-rose-700 uppercase">Quá hạn</p>
+          <p class="text-3xl font-extrabold text-rose-700 mt-1">0</p>
+          <span class="text-[11px] text-emerald-600 font-medium">Kiểm soát tốt</span>
+        </div>
+        <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-4 shadow-sm text-center">
+          <p class="text-xs font-bold text-indigo-700 uppercase">Tỷ lệ hoàn thành</p>
+          <p class="text-3xl font-extrabold text-indigo-700 mt-1">25.0%</p>
+          <span class="text-[11px] text-indigo-600 font-medium">Hàm tự động</span>
+        </div>
+      </div>
+
+      <!-- Personnel Distribution Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Team Members Tracker -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+            <h3 class="font-bold text-slate-800 text-sm">Tiến Độ Theo Nhân Sự Thực Tế (9 Nhân Sự)</h3>
+            <span class="text-xs text-blue-700 font-bold">Hàm =COUNTIF()</span>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-600 uppercase border-b">
+              <tr>
+                <th class="px-3 py-2.5">Nhân sự</th>
+                <th class="px-3 py-2.5">Vị trí</th>
+                <th class="px-3 py-2.5 text-center">Giao việc</th>
+                <th class="px-3 py-2.5 text-center">Đã xong</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Hoài Thương</td><td class="text-slate-500">Content Fanpage/Web</td><td class="text-center font-bold">2</td><td class="text-center text-emerald-600 font-bold">1</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Kiều Thương</td><td class="text-slate-500">Content Video/KOC</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Thụy Thương</td><td class="text-slate-500">Content Trade/Đại lý</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Thiện</td><td class="text-slate-500">Designer (POSM/3D)</td><td class="text-center font-bold">2</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Tứ</td><td class="text-slate-500">Media / Photo</td><td class="text-center font-bold">2</td><td class="text-center text-emerald-600 font-bold">1</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Thức</td><td class="text-slate-500">Sàn TMĐT</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Ngân</td><td class="text-slate-500">Sàn & TikTok Shop</td><td class="text-center font-bold">1</td><td class="text-center text-emerald-600 font-bold">1</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Hùng</td><td class="text-slate-500">Đóng gói (Kho Nam)</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-bold text-slate-800">Hùng Miền Bắc</td><td class="text-slate-500">Đóng gói (Kho Bắc)</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Channel Tracker -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+            <h3 class="font-bold text-slate-800 text-sm">Theo Kênh & Hạng Mục Hoạt Động</h3>
+            <span class="text-xs text-blue-700 font-bold">Hàm =COUNTIFS()</span>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-600 uppercase border-b">
+              <tr>
+                <th class="px-3 py-2.5">Kênh / Hạng mục</th>
+                <th class="px-3 py-2.5 text-center">Tổng việc</th>
+                <th class="px-3 py-2.5 text-center">Đã xong</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr><td class="px-3 py-2 font-medium">Website & SEO</td><td class="text-center font-bold">1</td><td class="text-center text-emerald-600 font-bold">1</td></tr>
+              <tr><td class="px-3 py-2 font-medium">Facebook Fanpage</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-medium">YouTube / Video</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-medium">TikTok & KOC</td><td class="text-center font-bold">1</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-medium">Trade & POSM Đại lý</td><td class="text-center font-bold">3</td><td class="text-center text-slate-400">0</td></tr>
+              <tr><td class="px-3 py-2 font-medium">Sàn TMĐT (Shopee/Lazada)</td><td class="text-center font-bold">4</td><td class="text-center text-emerald-600 font-bold">1</td></tr>
+              <tr><td class="px-3 py-2 font-medium">Thiết kế & Media</td><td class="text-center font-bold">1</td><td class="text-center text-emerald-600 font-bold">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: TASK TRACKER -->
+    <!-- ========================================== -->
+    <div id="tab-tasks" class="tab-content hidden space-y-4">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-x-auto">
+        <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Danh Sách Công Việc Giao Cho Từng Nhân Sự</h3>
+            <p class="text-xs text-slate-500">Ánh xạ chính xác các vị trí Content (Hoài Thương, Kiều Thương, Thụy Thương), Design (Thiện), Media (Tứ), Sàn (Thức, Ngân), Đóng gói (Hùng, Hùng MB)</p>
+          </div>
+          <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">12 Công việc</span>
+        </div>
+        <table class="w-full text-xs text-left whitespace-nowrap">
+          <thead class="bg-[#1A365D] text-white uppercase font-semibold">
+            <tr>
+              <th class="px-3 py-3 text-center">Mã</th>
+              <th class="px-3 py-3">Tên công việc</th>
+              <th class="px-3 py-3">Kênh</th>
+              <th class="px-3 py-3 font-bold text-amber-300">Phụ trách</th>
+              <th class="px-3 py-3">Phối hợp</th>
+              <th class="px-3 py-3 text-center">Deadline</th>
+              <th class="px-3 py-3 text-center">Trạng thái</th>
+              <th class="px-3 py-3 text-center">Tiến độ</th>
+              <th class="px-3 py-3 text-center">Tình trạng hạn</th>
+              <th class="px-3 py-3 text-center">Độ ưu tiên</th>
+              <th class="px-3 py-3">Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-01</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Quay video test tải máy khoan pin KM18QE</td>
+              <td class="px-3 py-2.5">YouTube / Video</td>
+              <td class="px-3 py-2.5 font-bold text-blue-900 bg-blue-50/50">Tứ (Media)</td>
+              <td class="px-3 py-2.5 text-slate-500">Kiều Thương</td>
+              <td class="px-3 py-2.5 text-center font-medium">07/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">60%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-600 font-bold">Sắp đến hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-700 font-bold">Cao</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Chuẩn bị mẫu bê tông và đá mài</td>
+            </tr>
+            <tr class="hover:bg-slate-50 bg-emerald-50/20">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-02</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Chụp ảnh sản phẩm thùng đồ nghề KHD4233</td>
+              <td class="px-3 py-2.5">Thiết kế & Media</td>
+              <td class="px-3 py-2.5 font-bold text-blue-900 bg-blue-50/50">Tứ (Media)</td>
+              <td class="px-3 py-2.5 text-slate-500">Thiện</td>
+              <td class="px-3 py-2.5 text-center font-medium">04/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800">Hoàn thành</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-emerald-700">100%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đã xong</span></td>
+              <td class="px-3 py-2.5 text-center text-slate-600">Trung bình</td>
+              <td class="px-3 py-2.5 text-slate-500">Đã retouched xong 8 góc ảnh</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-03</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Thiết kế banner & poster sự kiện triển lãm Vietbuild</td>
+              <td class="px-3 py-2.5">Trade & POSM</td>
+              <td class="px-3 py-2.5 font-bold text-purple-900 bg-purple-50/50">Thiện (Design)</td>
+              <td class="px-3 py-2.5 text-slate-500">Thụy Thương</td>
+              <td class="px-3 py-2.5 text-center font-medium">09/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">40%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đúng hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 bg-rose-100 text-rose-700 font-bold rounded">Khẩn cấp</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Đang duyệt layout 3 phương án</td>
+            </tr>
+            <tr class="hover:bg-slate-50 bg-emerald-50/20">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-04</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Viết bài chuẩn SEO giới thiệu công nghệ Brushless Motor</td>
+              <td class="px-3 py-2.5">Website & SEO</td>
+              <td class="px-3 py-2.5 font-bold text-sky-900 bg-sky-50/50">Hoài Thương</td>
+              <td class="px-3 py-2.5 text-slate-500">Admin</td>
+              <td class="px-3 py-2.5 text-center font-medium">03/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800">Hoàn thành</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-emerald-700">100%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đã xong</span></td>
+              <td class="px-3 py-2.5 text-center text-slate-600">Trung bình</td>
+              <td class="px-3 py-2.5 text-slate-500">Đã index Google</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-05</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Lên kịch bản & liên hệ KOC test cờ lê lực King Blue</td>
+              <td class="px-3 py-2.5">TikTok & KOC</td>
+              <td class="px-3 py-2.5 font-bold text-sky-900 bg-sky-50/50">Kiều Thương</td>
+              <td class="px-3 py-2.5 text-slate-500">Tứ</td>
+              <td class="px-3 py-2.5 text-center font-medium">10/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">30%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đúng hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-700 font-bold">Cao</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Đã gửi tin nhắn cho 3 KOC ngành cơ khí</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-06</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Cập nhật giá niêm yết và khuyến mãi đại lý lên kingtools.vn</td>
+              <td class="px-3 py-2.5">Sàn TMĐT</td>
+              <td class="px-3 py-2.5 font-bold text-amber-900 bg-amber-50/50">Thức (Sàn)</td>
+              <td class="px-3 py-2.5 text-slate-500">Ngân</td>
+              <td class="px-3 py-2.5 text-center font-medium">06/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-amber-100 text-amber-800">Đang duyệt</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-amber-700">90%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-600 font-bold">Sắp đến hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-700 font-bold">Cao</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Chờ Giám đốc ký duyệt chính sách</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-07</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Thiết kế quầy kệ trưng bày POSM nhận diện cho Đại lý Cấp 1</td>
+              <td class="px-3 py-2.5">Trade & POSM</td>
+              <td class="px-3 py-2.5 font-bold text-purple-900 bg-purple-50/50">Thiện (Design)</td>
+              <td class="px-3 py-2.5 text-slate-500">Thức</td>
+              <td class="px-3 py-2.5 text-center font-medium">12/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">50%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đúng hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 bg-rose-100 text-rose-700 font-bold rounded">Khẩn cấp</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Xưởng đang gửi báo giá đóng kệ</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-08</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Đăng bài Fanpage: Mẹo sử dụng đá cắt an toàn & voucher</td>
+              <td class="px-3 py-2.5">Facebook Fanpage</td>
+              <td class="px-3 py-2.5 font-bold text-sky-900 bg-sky-50/50">Hoài Thương</td>
+              <td class="px-3 py-2.5 text-slate-500">Thiện</td>
+              <td class="px-3 py-2.5 text-center font-medium">06/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">50%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-600 font-bold">Sắp đến hạn</span></td>
+              <td class="px-3 py-2.5 text-center text-slate-600">Trung bình</td>
+              <td class="px-3 py-2.5 text-slate-500">Đã xong visual, chờ giờ vàng lên bài</td>
+            </tr>
+            <tr class="hover:bg-slate-50 bg-emerald-50/20">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-09</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Trực chat sàn & tối ưu giỏ hàng TikTok Shop</td>
+              <td class="px-3 py-2.5">Sàn TMĐT</td>
+              <td class="px-3 py-2.5 font-bold text-amber-900 bg-amber-50/50">Ngân (Sàn)</td>
+              <td class="px-3 py-2.5 text-slate-500">Thức</td>
+              <td class="px-3 py-2.5 text-center font-medium">04/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800">Hoàn thành</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-emerald-700">100%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đã xong</span></td>
+              <td class="px-3 py-2.5 text-center text-slate-600">Trung bình</td>
+              <td class="px-3 py-2.5 text-slate-500">Tỷ lệ phản hồi chat đạt 98%</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-10</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Soạn nội dung cẩm nang sản phẩm & chính sách đại lý</td>
+              <td class="px-3 py-2.5">Trade & POSM</td>
+              <td class="px-3 py-2.5 font-bold text-sky-900 bg-sky-50/50">Thụy Thương</td>
+              <td class="px-3 py-2.5 text-slate-500">Hoài Thương</td>
+              <td class="px-3 py-2.5 text-center font-medium">08/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">70%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đúng hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-700 font-bold">Cao</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Đang rà soát danh mục máy pin</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-11</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Đóng gói 50 đơn hàng combo máy pin ra mắt (Kho Nam)</td>
+              <td class="px-3 py-2.5">Sàn TMĐT</td>
+              <td class="px-3 py-2.5 font-bold text-orange-900 bg-orange-50/50">Hùng</td>
+              <td class="px-3 py-2.5 text-slate-500">Thức</td>
+              <td class="px-3 py-2.5 text-center font-medium">06/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">40%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-600 font-bold">Sắp đến hạn</span></td>
+              <td class="px-3 py-2.5 text-center"><span class="text-amber-700 font-bold">Cao</span></td>
+              <td class="px-3 py-2.5 text-slate-500">Đã dán tem bảo hành và đóng thùng</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+              <td class="px-3 py-2.5 text-center font-bold text-slate-600">KB-MKT-12</td>
+              <td class="px-3 py-2.5 font-semibold text-slate-800">Kiểm kê vật tư bao bì & đóng gói hàng kho Miền Bắc</td>
+              <td class="px-3 py-2.5">Sàn TMĐT</td>
+              <td class="px-3 py-2.5 font-bold text-orange-900 bg-orange-50/50">Hùng Miền Bắc</td>
+              <td class="px-3 py-2.5 text-slate-500">Ngân</td>
+              <td class="px-3 py-2.5 text-center font-medium">07/10/2026</td>
+              <td class="px-3 py-2.5 text-center"><span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">Đang làm</span></td>
+              <td class="px-3 py-2.5 text-center font-bold text-blue-700">50%</td>
+              <td class="px-3 py-2.5 text-center"><span class="text-emerald-600 font-bold">Đúng hạn</span></td>
+              <td class="px-3 py-2.5 text-center text-slate-600">Trung bình</td>
+              <td class="px-3 py-2.5 text-slate-500">Bổ sung thùng carton cỡ M & màng co</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: WEEKLY REPORT -->
+    <!-- ========================================== -->
+    <div id="tab-weekly" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+        <div class="border-b border-slate-200 pb-4 mb-4">
+          <h2 class="text-lg font-bold text-blue-900">Báo Cáo Tiến Độ Tuần - Phòng Marketing King Blue</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3 text-xs">
+            <div><span class="text-slate-400 block">Điều phối tổng hợp:</span> <strong class="text-slate-700 text-sm">Marketing Manager</strong></div>
+            <div><span class="text-slate-400 block">Nhân sự tham gia:</span> <strong class="text-slate-700 text-sm">9 Nhân sự (5 vị trí)</strong></div>
+            <div><span class="text-slate-400 block">Tuần:</span> <strong class="text-slate-700 text-sm">Tuần 41 (Tháng 10/2026)</strong></div>
+            <div><span class="text-slate-400 block">Thời gian:</span> <strong class="text-slate-700 text-sm">05/10/2026 - 10/10/2026</strong></div>
+          </div>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="mb-6">
+          <h4 class="font-bold text-blue-950 text-sm mb-2 flex items-center gap-2">
+            <span class="bg-blue-900 text-white w-5 h-5 rounded flex items-center justify-center text-xs">I</span>
+            CÔNG VIỆC ĐÃ HOÀN THÀNH THEO NHÂN SỰ
+          </h4>
+          <div class="border rounded-lg overflow-hidden text-xs">
+            <table class="w-full text-left">
+              <thead class="bg-slate-100 text-slate-600 border-b">
+                <tr><th class="p-2.5">Nhân sự</th><th class="p-2.5">Công việc</th><th class="p-2.5">Kết quả đầu ra</th><th class="p-2.5 text-center">Tiến độ</th><th class="p-2.5 text-center">Đánh giá</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="p-2.5 font-bold text-blue-900">Tứ (Media)</td><td class="p-2.5 font-medium">Chụp ảnh bộ thùng đựng đồ nghề KHD4233</td><td class="p-2.5 text-slate-700">Hoàn thành 8 ảnh chuẩn sàn TMĐT & Banner</td><td class="p-2.5 text-center font-bold text-emerald-600">100%</td><td class="p-2.5 text-center"><span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold">Đạt chuẩn</span></td></tr>
+                <tr><td class="p-2.5 font-bold text-sky-900">Hoài Thương</td><td class="p-2.5 font-medium">Viết bài chuẩn SEO công nghệ Brushless</td><td class="p-2.5 text-slate-700">Đã xuất bản bài viết lên kingblue.vn/tin-tuc</td><td class="p-2.5 text-center font-bold text-emerald-600">100%</td><td class="p-2.5 text-center"><span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold">Tốt</span></td></tr>
+                <tr><td class="p-2.5 font-bold text-amber-900">Ngân (Sàn)</td><td class="p-2.5 font-medium">Trực chat tư vấn sàn Shopee & TikTok</td><td class="p-2.5 text-slate-700">Tỷ lệ phản hồi 98%, giải đáp 120 lượt hỏi sản phẩm</td><td class="p-2.5 text-center font-bold text-emerald-600">100%</td><td class="p-2.5 text-center"><span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold">Xuất sắc</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="mb-6">
+          <h4 class="font-bold text-blue-950 text-sm mb-2 flex items-center gap-2">
+            <span class="bg-amber-600 text-white w-5 h-5 rounded flex items-center justify-center text-xs">II</span>
+            CÔNG VIỆC TỒN ĐỌNG & PHỐI HỢP XỬ LÝ
+          </h4>
+          <div class="border rounded-lg overflow-hidden text-xs">
+            <table class="w-full text-left">
+              <thead class="bg-amber-50 text-amber-900 border-b border-amber-200">
+                <tr><th class="p-2.5">Nhân sự</th><th class="p-2.5">Việc tồn đọng</th><th class="p-2.5 text-center">Tiến độ</th><th class="p-2.5">Nguyên nhân</th><th class="p-2.5">Giải pháp</th><th class="p-2.5 text-center">Hạn mới</th></tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><td class="p-2.5 font-bold">Thiện</td><td class="p-2.5 font-medium">Bản vẽ 3D quầy kệ POSM đại lý</td><td class="p-2.5 text-center font-bold text-amber-700">50%</td><td class="p-2.5 text-slate-600">Chờ kích thước đo đạc từ Đại lý Cấp 1</td><td class="p-2.5 text-slate-600">Thức & Sales gửi kích thước mặt bằng</td><td class="p-2.5 text-center font-semibold text-rose-600">12/10</td></tr>
+                <tr><td class="p-2.5 font-bold">Kiều Thương & Tứ</td><td class="p-2.5 font-medium">Video review cờ lê lực cùng KOC</td><td class="p-2.5 text-center font-bold text-amber-700">30%</td><td class="p-2.5 text-slate-600">KOC dời lịch quay ngoại cảnh</td><td class="p-2.5 text-slate-600">Chuyển sang bối cảnh xưởng thợ nội bộ</td><td class="p-2.5 text-center font-semibold text-rose-600">15/10</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 3 & 4 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <h4 class="font-bold text-blue-950 text-sm mb-2">III. MỤC TIÊU TRỌNG TÂM TUẦN TỚI</h4>
+            <ul class="text-xs space-y-2 text-slate-700 list-disc list-inside">
+              <li><strong>Tứ & Kiều Thương</strong>: Bấm máy quay video test máy khoan bê tông KM18QF (Hạn: 12/10).</li>
+              <li><strong>Thiện & Thụy Thương</strong>: Chốt 100% layout thiết kế gian hàng triển lãm Vietbuild (Hạn: 14/10).</li>
+              <li><strong>Thức & Hùng (Kho Nam/Bắc)</strong>: Chuẩn bị tồn kho và đóng gói sẵn cho đợt Mega Sale 10/10.</li>
+            </ul>
+          </div>
+          <div class="bg-blue-50/50 border border-blue-200 rounded-xl p-4">
+            <h4 class="font-bold text-blue-950 text-sm mb-2">IV. ĐỀ XUẤT BAN GIÁM ĐỐC</h4>
+            <p class="text-xs text-slate-700 leading-relaxed">
+              1. Cấp ngân sách quảng cáo 5.000.000 VNĐ cho chiến dịch ra mắt dòng máy pin thế hệ mới.<br>
+              2. Đề xuất bộ phận Kỹ thuật cử 01 chuyên viên đi cùng Tứ & Kiều Thương trong buổi quay video test máy để thuyết minh thông số lực siết (Nm).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: MARKETING METRICS -->
+    <!-- ========================================== -->
+    <div id="tab-metrics" class="tab-content hidden space-y-4">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Bảng Theo Dõi Chỉ Số Đo Lường Đa Kênh</h3>
+            <p class="text-xs text-slate-500">Đo lường định lượng KPI Facebook, YouTube, TikTok, Website, Đại lý & POSM</p>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">Đạt 9/10 Chỉ tiêu</span>
+        </div>
+        <table class="w-full text-xs text-left">
+          <thead class="bg-[#1A365D] text-white uppercase font-semibold">
+            <tr>
+              <th class="p-3">Kênh truyền thông</th>
+              <th class="p-3">Chỉ số đo lường (Metric)</th>
+              <th class="p-3 text-center">ĐVT</th>
+              <th class="p-3 text-right">Mục tiêu</th>
+              <th class="p-3 text-right">Thực tế</th>
+              <th class="p-3 text-center">Tỷ lệ đạt</th>
+              <th class="p-3 text-center">Tăng trưởng</th>
+              <th class="p-3">Phụ trách</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="p-3 font-semibold text-blue-900">Facebook Fanpage</td><td class="p-3">Số lượng bài đăng mới</td><td class="p-3 text-center text-slate-500">Bài</td><td class="p-3 text-right font-medium">16</td><td class="p-3 text-right font-bold text-blue-700">18</td><td class="p-3 text-center font-bold text-emerald-600">112.5%</td><td class="p-3 text-center text-emerald-600 font-semibold">+12.5%</td><td class="p-3 text-slate-600">Hoài Thương</td></tr>
+            <tr><td class="p-3 font-semibold text-blue-900">Facebook Fanpage</td><td class="p-3">Lượt tiếp cận (Reach)</td><td class="p-3 text-center text-slate-500">Người</td><td class="p-3 text-right font-medium">50.000</td><td class="p-3 text-right font-bold text-blue-700">58.400</td><td class="p-3 text-center font-bold text-emerald-600">116.8%</td><td class="p-3 text-center text-emerald-600 font-semibold">+16.8%</td><td class="p-3 text-slate-600">Hoài Thương</td></tr>
+            <tr><td class="p-3 font-semibold text-blue-900">Facebook Fanpage</td><td class="p-3">Số tin nhắn hỏi làm Đại lý</td><td class="p-3 text-center text-slate-500">Inquiry</td><td class="p-3 text-right font-medium">25</td><td class="p-3 text-right font-bold text-blue-700">29</td><td class="p-3 text-center font-bold text-emerald-600">116.0%</td><td class="p-3 text-center text-emerald-600 font-semibold">+20.0%</td><td class="p-3 text-slate-600">Thụy Thương & Sales</td></tr>
+            <tr><td class="p-3 font-semibold text-rose-900">YouTube Channel</td><td class="p-3">Số video mới xuất bản</td><td class="p-3 text-center text-slate-500">Video</td><td class="p-3 text-right font-medium">4</td><td class="p-3 text-right font-bold text-amber-700">3</td><td class="p-3 text-center font-bold text-amber-600">75.0%</td><td class="p-3 text-center text-rose-600 font-semibold">-25.0%</td><td class="p-3 text-slate-600">Tứ & Kiều Thương</td></tr>
+            <tr><td class="p-3 font-semibold text-rose-900">YouTube Channel</td><td class="p-3">Lượt xem video (Views)</td><td class="p-3 text-center text-slate-500">Lượt</td><td class="p-3 text-right font-medium">15.000</td><td class="p-3 text-right font-bold text-blue-700">18.200</td><td class="p-3 text-center font-bold text-emerald-600">121.3%</td><td class="p-3 text-center text-emerald-600 font-semibold">+21.3%</td><td class="p-3 text-slate-600">Tứ & Kiều Thương</td></tr>
+            <tr><td class="p-3 font-semibold text-slate-900">TikTok & KOC</td><td class="p-3">Lượt nhắc tên (#kingblue)</td><td class="p-3 text-center text-slate-500">Views</td><td class="p-3 text-right font-medium">100.000</td><td class="p-3 text-right font-bold text-blue-700">142.000</td><td class="p-3 text-center font-bold text-emerald-600">142.0%</td><td class="p-3 text-center text-emerald-600 font-semibold">+42.0%</td><td class="p-3 text-slate-600">Kiều Thương & Ngân</td></tr>
+            <tr><td class="p-3 font-semibold text-indigo-900">Website (kingblue.vn)</td><td class="p-3">Lượt truy cập (Sessions)</td><td class="p-3 text-center text-slate-500">Truy cập</td><td class="p-3 text-right font-medium">12.000</td><td class="p-3 text-right font-bold text-blue-700">13.500</td><td class="p-3 text-center font-bold text-emerald-600">112.5%</td><td class="p-3 text-center text-emerald-600 font-semibold">+12.5%</td><td class="p-3 text-slate-600">Hoài Thương</td></tr>
+            <tr><td class="p-3 font-semibold text-indigo-900">Sàn TMĐT & Kho</td><td class="p-3">Đơn hàng đóng gói & xuất bán</td><td class="p-3 text-center text-slate-500">Đơn</td><td class="p-3 text-right font-medium">500</td><td class="p-3 text-right font-bold text-blue-700">560</td><td class="p-3 text-center font-bold text-emerald-600">112.0%</td><td class="p-3 text-center text-emerald-600 font-semibold">+15.0%</td><td class="p-3 text-slate-600">Thức, Hùng, Hùng MB</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
+      
+      const btn = document.getElementById('btn-' + tabId);
+      if (btn) btn.classList.add('active');
+    }
+  
+    const reportData = {
+      hoai_thuong: `BÁO CÁO CÔNG VIỆC NGÀY: [03/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Võ Thị Hoài Thương – Nhân viên MKT xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Đề xuất hàng mẫu, liên hệ gặp KH
+  - Đã lên danh sách 5 mẫu máy pin chủ lực và liên hệ hẹn lịch gặp 3 đại lý tại TP.HCM.
+• Nhiệm vụ 2: Tổng hợp thông tin chính sách, thông tin sản phẩm gửi KHM
+  - Hoàn thiện file PDF chính sách chiết khấu và catalogue sản phẩm gửi qua Zalo cho đối tác.
+• Nhiệm vụ 3: Đi công tác: Đồng Nai, HCM
+  - Trực tiếp khảo sát vị trí lắp đặt quầy kệ POSM tại 2 đại lý ở Biên Hòa (Đồng Nai).
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Đại lý tại Đồng Nai đang phân vân giữa kệ 2 tầng và kệ 3 tầng do diện tích mặt bằng hẹp.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Đề xuất Design (Thiện) dựng thêm 1 phương án kệ module đứng tiết kiệm diện tích cho các cửa hàng nhỏ.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Viết bài đăng Fanpage King Blue Tools giới thiệu dòng máy mài góc mới.
+• Theo dõi phản hồi của 3 khách hàng mới sau buổi gặp hôm nay.`,
+
+      kieu_thuong: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Kiều Thương – Nhân viên MKT (Kịch bản/KOC) xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Hoàn thiện kịch bản test máy khoan pin KM18QE
+  - Kịch bản chi tiết 3 phần (Mở hộp, Test tải bê tông, Đánh giá độ bền) gửi Tứ.
+• Nhiệm vụ 2: Gửi brief kịch bản cho KOC review cờ lê lực King Blue
+  - Đã gửi kịch bản mẫu cho 3 KOC cơ khí.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• KOC phản hồi chậm 1 ngày do đang bận lịch quay ngoại cảnh.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Nên gửi brief kịch bản trước 3 ngày để KOC sắp xếp lịch quay thuận tiện hơn.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Chuẩn bị đạo cụ quay cùng Tứ tại xưởng nội bộ.
+• Chốt lịch quay với KOC vào thứ 4 tới.`,
+
+      thuy_thuong: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Thụy Thương – Nhân viên MKT (Trade/Đại lý) xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Rà soát danh mục máy pin làm catalogue triển lãm Vietbuild
+  - Hoàn thiện 70% danh mục máy khoan và máy mài góc.
+• Nhiệm vụ 2: Lập bảng giá chiết khấu cho Đại lý Cấp 1
+  - Đã xong khung chính sách giá sỉ theo số lượng.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Chưa có thông số lực siết chuẩn cho dòng máy khoan rút lõi để in ấn.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Cần bộ phận kỹ thuật cung cấp bảng thông số chính xác để duyệt in catalogue.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Hoàn thiện mục thiết bị đo laser & cưa xích.
+• Soạn thể lệ minigame tri ân đại lý.`,
+
+      thien: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Thiện – Nhân viên Graphic Design xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Thiết kế visual bài viết Fanpage đá cắt King Blue
+  - Đã xuất file PNG chuẩn tỉ lệ 1:1 giao Hoài Thương đăng bài lúc 11h30.
+• Nhiệm vụ 2: Dựng phối cảnh 3D quầy kệ trưng bày POSM cho đại lý
+  - Hoàn thành 50% khung kệ sắt màu xanh thương hiệu King Blue.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Đang chờ kích thước chính xác của showroom đại lý Biên Hòa để chốt chiều cao kệ.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Nên làm sẵn thư viện 3D các dòng máy King Blue để render phối cảnh nhanh hơn.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Hoàn thiện bản vẽ 3D quầy kệ module đứng gửi xưởng mộc báo giá.
+• Lên layout banner poster cho sự kiện triển lãm Vietbuild sắp tới.`,
+
+      tu: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Tứ – Nhân viên Media / Photo xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Chụp ảnh sản phẩm bộ thùng đựng đồ nghề KHD4233
+  - Hoàn thành chụp 12 ảnh gốc và retouched 8 góc ảnh nền trắng chuẩn sàn TMĐT Shopee.
+• Nhiệm vụ 2: Chuẩn bị máy móc & bối cảnh quay video test máy khoan pin KM18QE
+  - Đã sạc đầy 3 khối pin 21V, chuẩn bị mũi khoan đa năng King Blue và đá cắt sắt.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Cần thêm phôi bê tông đá mác cao để test lực đập thực tế chân thực hơn.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Đề xuất mượn xưởng cơ khí đối tác vào sáng thứ 4 để có đủ máy móc đo tải Ampe và lực siết Nm.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• 08h30 - 11h30: Bấm máy quay video test thực tế máy khoan KM18QE cùng Kiều Thương.
+• Buổi chiều: Dựng thô clip ngắn (Reels/TikTok) bàn giao cho Marketing Manager xem trước.`,
+
+      thuc: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Thức – Nhân viên Vận hành Sàn TMĐT xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Cập nhật giá niêm yết và chương trình khuyến mãi tháng 10 lên kingtools.vn
+  - Cập nhật xong 15 SKU máy pin và banner Flash Sale.
+• Nhiệm vụ 2: Rà soát tồn kho và setup deal Flash Sale Shopee Mall 10/10
+  - Cài đặt voucher giảm 10% cho nhóm phụ kiện mũi khoan & đá cắt.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Một số model máy rửa xe tạm thời hết hàng sẵn tại kho để chạy số lượng lớn.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Đề xuất đẩy mạnh combo máy khoan pin kèm bộ đầu bắt vít chống trượt vì tệp khách hàng mua kèm rất cao.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Theo dõi doanh thu phiên Flash Sale khung 12h00 - 14h00.
+• Phối hợp Ngân tối ưu từ khóa SEO cho 10 sản phẩm bán chạy.`,
+
+      ngan: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Ngân – Nhân viên Sàn TMĐT xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Trực chat tư vấn khách hàng sàn Shopee & TikTok Shop
+  - Trả lời 100% tin nhắn khách hàng (phát sinh 35 đơn hàng thành công).
+• Nhiệm vụ 2: Chuẩn bị kịch bản livestream TikTok Shop đợt 10/10
+  - Lên danh sách 10 mã giảm giá và quà tặng tặng kèm thước cuộn King Blue.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Nhiều khách hỏi về độ tương thích của pin King Blue với các dòng máy Makita, Bosch.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Nên làm một infographic so sánh chuẩn chân pin phổ thông để gửi nhanh cho khách qua khung chat.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Hỗ trợ anh Thức setup chương trình Flash Sale.
+• Lên kịch bản mini livestream thử nghiệm vào buổi trưa.`,
+
+      hung: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Hùng – Nhân viên Đóng gói & Kho xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Đóng gói và kiểm tra quà tặng cho 42 đơn hàng Shopee/Lazada
+  - Dán tem vỡ bảo hành 100% thân máy và pin, bọc chống sốc 3 lớp.
+• Nhiệm vụ 2: Bàn giao hàng hóa cho bưu cục vận chuyển
+  - SPX lấy 25 đơn lúc 14h30, GHTK lấy 17 đơn lúc 16h30, không có đơn tồn đọng.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Không có khó khăn, các đơn vị vận chuyển lấy hàng đúng giờ.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Đề xuất bổ sung thêm 2 cuộn màng xốp khí bóng khí lớn để chuẩn bị cho đợt Mega Sale 10/10.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Chuẩn bị đóng gói 20 kiện hàng gửi cho các đại lý khu vực miền Tây.
+• Kiểm kê lại số lượng thùng carton kích thước 30x20x15cm.`,
+
+      hung_mb: `BÁO CÁO CÔNG VIỆC NGÀY: [05/10/2026]
+Kính gửi Ban Lãnh Đạo & Marketing Manager,
+
+Hùng Miền Bắc – Nhân viên Đóng gói (Kho Bắc) xin báo cáo công việc trong ngày như sau:
+
+1️⃣ KẾT QUẢ ĐẠT ĐƯỢC
+• Nhiệm vụ 1: Tiếp nhận và đóng gói 18 kiện hàng gửi đại lý Hà Nội & phụ cận
+  - Đã bàn giao đủ 18 kiện cho đơn vị Viettel Post trước 16h00.
+• Nhiệm vụ 2: Kiểm kê tồn kho vật tư bao bì tại kho chi nhánh Miền Bắc
+  - Thùng carton cỡ nhỏ còn 150 hộp, cỡ vừa còn 250 hộp.
+
+2️⃣ KHÓ KHĂN / VƯỚNG MẮC
+• Màng quấn PE và băng keo dán King Blue sắp hết tại kho Hà Nội.
+
+3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT
+• Đề xuất đặt in băng keo in logo King Blue số lượng lớn để tối ưu chi phí vận chuyển.
+
+4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI
+• Tiếp tục đóng gói đơn hàng phát sinh sáng mai.
+• Lập danh sách vật tư cần bổ sung gửi Marketing Manager phê duyệt.`
+    };
+
+    function loadStaffReport(staffKey) {
+      const textarea = document.getElementById('dailyReportText');
+      if (textarea && reportData[staffKey]) {
+        textarea.value = reportData[staffKey];
+      }
+    }
+
+    function copyDailyReport() {
+      const textarea = document.getElementById('dailyReportText');
+      if (textarea) {
+        navigator.clipboard.writeText(textarea.value).then(() => {
+          const btnText = document.getElementById('copyText');
+          const btnIcon = document.getElementById('copyIcon');
+          btnText.innerText = "Đã Sao Chép!";
+          btnIcon.innerText = "✅";
+          setTimeout(() => {
+            btnText.innerText = "Sao Chép Báo Cáo";
+            btnIcon.innerText = "📋";
+          }, 2000);
+        });
+      }
+    }
+
+    // Auto load on init
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStaffReport('hoai_thuong');
+    });
+
+</script>
+</body>
+</html>
