@@ -44,6 +44,31 @@ def save_reports_store(store):
     except Exception as e:
         print(f"Lỗi lưu store: {e}")
 
+def normalize_date(d_str, default_year=None):
+    if not d_str:
+        return ""
+    if not default_year:
+        default_year = str(datetime.datetime.now().year)
+    d_str = str(d_str).strip()
+    if "/" in d_str:
+        parts = d_str.split("/")
+        if len(parts) == 2:
+            try:
+                return f"{int(parts[0]):02d}/{int(parts[1]):02d}/{default_year}"
+            except Exception:
+                return d_str
+        elif len(parts) == 3:
+            try:
+                y = parts[2] if len(parts[2]) == 4 else f"20{parts[2]}"
+                return f"{int(parts[0]):02d}/{int(parts[1]):02d}/{y}"
+            except Exception:
+                return d_str
+    elif "-" in d_str and len(d_str) == 10:
+        parts = d_str.split("-")
+        if len(parts[0]) == 4:
+            return f"{parts[2]}/{parts[1]}/{parts[0]}"
+    return d_str
+
 class KingBlueHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
@@ -68,12 +93,8 @@ class KingBlueHandler(SimpleHTTPRequestHandler):
     def handle_get_reports(self, parsed):
         query = urllib.parse.parse_qs(parsed.query)
         now = datetime.datetime.now()
-        date_str = query.get("date", [now.strftime("%d/%m/%Y")])[0].strip()
-        # Convert YYYY-MM-DD to DD/MM/YYYY if needed
-        if "-" in date_str and len(date_str) == 10:
-            parts = date_str.split("-")
-            if len(parts[0]) == 4:
-                date_str = f"{parts[2]}/{parts[1]}/{parts[0]}"
+        raw_date = query.get("date", [now.strftime("%d/%m/%Y")])[0].strip()
+        date_str = normalize_date(raw_date, default_year=str(now.year))
         
         store = load_reports_store()
         reports = {}
@@ -84,30 +105,74 @@ class KingBlueHandler(SimpleHTTPRequestHandler):
         sheets_service = get_sheets_service()
         if sheets_service:
             try:
-                ranges = [f"'{u['tabName']}'!A6:J50" for u in users]
-                res = sheets_service.spreadsheets().values().batchGet(
+                # 1. Đọc trực tiếp từ master sheet BAO CAO HOM NAY
+                res_master = sheets_service.spreadsheets().values().get(
                     spreadsheetId=SPREADSHEET_ID,
-                    ranges=ranges
+                    range="'BAO CAO HOM NAY'!C3:K16",
+                    valueRenderOption="FORMATTED_VALUE"
                 ).execute()
-                for u, vr in zip(users, res.get("valueRanges", [])):
-                    rows = vr.get("values", [])
-                    for r in rows:
-                        if len(r) > 1 and r[1].strip() == date_str:
+                master_vals = res_master.get("values", [])
+                
+                c3_date = master_vals[0][0].strip() if len(master_vals) > 0 and len(master_vals[0]) > 0 else ""
+                c3_norm = normalize_date(c3_date, default_year=str(now.year))
+
+                if c3_norm == date_str and len(master_vals) >= 14:
+                    user_rows = master_vals[5:14]
+                    for u, r in zip(users, user_rows):
+                        res_work = r[2] if len(r) > 2 else "" # Col E
+                        if res_work and res_work != "⏳ Chưa nộp" and res_work != "-":
+                            t_val = r[6] if len(r) > 6 and r[6] not in ["--:--", "00:00:00", ""] else "17:00:00" # Col I
+                            st_val = r[7] if len(r) > 7 and r[7].strip() and r[7] != "Chưa nộp" else "Đúng hạn" # Col J
                             rep = {
-                                "time": r[2] if len(r) > 2 else "--:--",
-                                "res": r[3] if len(r) > 3 else "",
-                                "diff": r[4] if len(r) > 4 else "• Không có",
-                                "lesson": r[5] if len(r) > 5 else "• Không có",
-                                "plan": r[6] if len(r) > 6 else "",
-                                "link": r[7] if len(r) > 7 else "-",
-                                "status": r[8] if len(r) > 8 else "Đúng hạn",
-                                "feedback": r[9] if len(r) > 9 else ""
+                                "time": t_val,
+                                "res": res_work,
+                                "diff": r[3] if len(r) > 3 and r[3].strip() else "• Không có", # Col F
+                                "lesson": r[4] if len(r) > 4 and r[4].strip() else "• Không có", # Col G
+                                "plan": r[5] if len(r) > 5 else "", # Col H
+                                "link": "-",
+                                "status": st_val,
+                                "feedback": r[8] if len(r) > 8 else "" # Col K
                             }
                             reports[u["username"]] = rep
                             if u["username"] not in store:
                                 store[u["username"]] = {}
                             store[u["username"]][date_str] = rep
-                            break
+
+                # 2. Đọc từng tab cá nhân nếu còn nhân sự nào chưa lấy được
+                for u in users:
+                    if reports.get(u["username"]) is None:
+                        try:
+                            tab_res = sheets_service.spreadsheets().values().get(
+                                spreadsheetId=SPREADSHEET_ID,
+                                range=f"'{u['tabName']}'!A6:J50",
+                                valueRenderOption="FORMATTED_VALUE"
+                            ).execute()
+                            for r in tab_res.get("values", []):
+                                if len(r) > 1:
+                                    row_date = normalize_date(r[1], default_year=str(now.year))
+                                    if row_date == date_str:
+                                        res_text = r[3] if len(r) > 3 else ""
+                                        if res_text and res_text != "⏳ Chưa nộp" and res_text != "-":
+                                            t_val = r[2] if len(r) > 2 and r[2] not in ["--:--", "00:00:00", ""] else "17:00:00"
+                                            st_val = r[8] if len(r) > 8 and r[8].strip() and r[8] != "Chưa nộp" else "Đúng hạn"
+                                            rep = {
+                                                "time": t_val,
+                                                "res": res_text,
+                                                "diff": r[4] if len(r) > 4 and r[4].strip() else "• Không có",
+                                                "lesson": r[5] if len(r) > 5 and r[5].strip() else "• Không có",
+                                                "plan": r[6] if len(r) > 6 else "",
+                                                "link": r[7] if len(r) > 7 else "-",
+                                                "status": st_val,
+                                                "feedback": r[9] if len(r) > 9 else ""
+                                            }
+                                            reports[u["username"]] = rep
+                                            if u["username"] not in store:
+                                                store[u["username"]] = {}
+                                            store[u["username"]][date_str] = rep
+                                            break
+                        except Exception as e_user:
+                            pass
+
                 save_reports_store(store)
             except Exception as e:
                 print(f"Sheets live fetch error: {e}")
@@ -162,7 +227,8 @@ class KingBlueHandler(SimpleHTTPRequestHandler):
     def handle_submit(self, body):
         now = datetime.datetime.now()
         submit_time = now.strftime("%H:%M:%S")
-        date_str = body.get("date", now.strftime("%d/%m/%Y")).strip()
+        raw_date = body.get("date", now.strftime("%d/%m/%Y")).strip()
+        date_str = normalize_date(raw_date, default_year=str(now.year))
         
         is_on_time = (now.hour < 17) or (now.hour == 17 and now.minute <= 30)
         status = "Đúng hạn" if is_on_time else "Nộp muộn"
@@ -211,11 +277,11 @@ class KingBlueHandler(SimpleHTTPRequestHandler):
                     spreadsheetId=SPREADSHEET_ID,
                     range=f"'{tab_name}'!B6:B50"
                 ).execute()
-                dates_list = [row[0] if row else "" for row in res_dates.get("values", [])]
+                dates_list = [normalize_date(row[0], default_year=str(now.year)) if row else "" for row in res_dates.get("values", [])]
 
                 target_row = None
                 for idx, d in enumerate(dates_list, start=6):
-                    if d.strip() == date_str:
+                    if d == date_str:
                         target_row = idx
                         break
 
@@ -256,7 +322,9 @@ class KingBlueHandler(SimpleHTTPRequestHandler):
 
     def handle_feedback(self, body):
         username = body.get("username", "").strip()
-        date_str = body.get("date", "").strip()
+        now = datetime.datetime.now()
+        raw_date = body.get("date", "").strip()
+        date_str = normalize_date(raw_date, default_year=str(now.year))
         feedback = body.get("feedback", "").strip()
 
         accounts = load_accounts()
@@ -281,9 +349,9 @@ class KingBlueHandler(SimpleHTTPRequestHandler):
                     spreadsheetId=SPREADSHEET_ID,
                     range=f"'{tab_name}'!B6:B50"
                 ).execute()
-                dates_list = [row[0] if row else "" for row in res_dates.get("values", [])]
+                dates_list = [normalize_date(row[0], default_year=str(now.year)) if row else "" for row in res_dates.get("values", [])]
                 for idx, d in enumerate(dates_list, start=6):
-                    if d.strip() == date_str:
+                    if d == date_str:
                         sheets_service.spreadsheets().values().update(
                             spreadsheetId=SPREADSHEET_ID,
                             range=f"'{tab_name}'!J{idx}",
