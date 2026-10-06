@@ -72,23 +72,32 @@ python3 server.py
 ```
 Server sẽ chạy tại: **`http://localhost:8080`**
 
-### 4. Truy cập giao diện
-Mở trình duyệt và truy cập:
-👉 **[http://localhost:8080/website_tong_hop_bao_cao.html](http://localhost:8080/website_tong_hop_bao_cao.html)**
+### 4. Truy cập giao diện các ứng dụng
+1. 📋 **App Quản Lý Công Việc & Tiến Độ (Database Google Sheets 2 Chiều)**:  
+   👉 **[http://localhost:8080/quan_ly_cong_viec.html](http://localhost:8080/quan_ly_cong_viec.html)**  
+   - 4 Chế độ xem: **Kanban Board**, **Danh Sách Chi Tiết (Table)**, **Dashboard & KPI Analytics**, **Hạn Chót Focus (Deadline)**.
+   - Kết nối trực tiếp Google Sheet: `Quản Lý Công Việc - King Blue Marketing` (ID: `1CmcmBFP4jjdV1jrnNNWwXkc1foxa4j6asaOhI0qg7u8`).
+   - Hỗ trợ đầy đủ: Tạo việc mới (+), Kéo/chuyển trạng thái, Cập nhật % tiến độ, Lọc "Việc của tôi".
+
+2. 📊 **Hệ Thống Báo Cáo Công Việc Hàng Ngày (17:30)**:  
+   👉 **[http://localhost:8080/website_tong_hop_bao_cao.html](http://localhost:8080/website_tong_hop_bao_cao.html)**  
+   - Dành cho nộp báo cáo Standup hàng ngày và duyệt báo cáo chiều.
 
 ---
 
 ## 📁 Cấu Trúc Thư Mục Dự Án
 
 ```
-├── website_tong_hop_bao_cao.html     # Giao diện Web Portal chính (SPA Tailwind CSS)
-├── server.py                         # Backend Server (Python HTTP + Google Sheets API)
+├── quan_ly_cong_viec.html            # Web App Quản lý công việc (Kanban, Table, Dashboard, CRUD)
+├── website_tong_hop_bao_cao.html     # Web App Báo cáo hàng ngày 17:30
+├── index.html                        # Trang chủ điều hướng hệ thống
+├── server.py                         # Backend Server (Python REST API + Google Sheets API v4)
 ├── tai_khoan_nhan_su.json            # Cơ sở dữ liệu tài khoản & mã PIN 10 nhân sự
-├── bao_cao_store.json                # Bộ nhớ cache báo cáo cục bộ
-├── Bao_Cao_Cong_Viec_KingBlue.xlsx   # Bảng tính Excel chuẩn 11 sheet offline
-├── API/                              # Chứa cấu hình OAuth Google API
-│   ├── client_secret_*.json
-│   └── token.json
+├── quan_ly_cong_viec_store.json      # Bộ nhớ đệm cache công việc cục bộ
+├── bao_cao_store.json                # Bộ nhớ cache báo cáo hàng ngày
+├── Quan_Ly_Cong_Viec_KingBlue.xlsx   # Bảng tính Excel quản lý công việc offline
+├── Bao_Cao_Cong_Viec_KingBlue.xlsx   # Bảng tính Excel báo cáo offline
+├── API/                              # Chứa cấu hình OAuth Google API (token.json)
 ├── org_chart_marketing_kingblue.md   # Sơ đồ tổ chức & quy định phân quyền CRM
 ├── mau_bao_cao_hang_ngay.md          # Quy chuẩn mẫu báo cáo hàng ngày
 └── README.md                         # Tài liệu hướng dẫn sử dụng dự án
