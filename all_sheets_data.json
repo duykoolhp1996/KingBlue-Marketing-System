@@ -4,15 +4,17 @@
     "index": 0,
     "rows": [
       [
-        "BẢNG TỔNG HỢP BÁO CÁO CÔNG VIỆC HÀNG NGÀY & THEO DÕI TIẾN ĐỘ THEO NGÀY - PHÒNG MARKETING KING BLUE"
-      ],
-      [],
-      [
         "",
         "📅 NGÀY XEM BÁO CÁO:",
         "09/10/2026",
         "(💡 Nhấp đúp vào ô C3 để mở lịch chọn ngày, hoặc gõ =TODAY() để luôn xem hôm nay)",
-        "Thứ Sáu, 09/10/2026"
+        "Thứ Sáu, 09/10/2026",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "",
@@ -24,7 +26,8 @@
         "",
         "TÌNH TRẠNG NỘP",
         "",
-        "TRƯỞNG PHÒNG"
+        "TRƯỞNG PHÒNG",
+        ""
       ],
       [
         "",
@@ -34,13 +37,13 @@
         "",
         "0 Vấn đề",
         "",
-        "Còn 9 chưa nộp",
+        "Còn 2 chưa nộp",
         "",
-        "Marketing Manager"
+        "Marketing Manager",
+        ""
       ],
-      [],
       [
-        "STT",
+        "",
         "Nhân Sự",
         "Bộ Phận",
         "Vị Trí Chuyên Môn",
@@ -57,117 +60,91 @@
         "Võ Thị Hoài Thương",
         "Content",
         "Content Marketing & SEO Fanpage/Website",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1:\n-Hỗ trợ điều chỉnh giá sàn\nNhiệm vụ 2:\nTìm kiếm, tổng hợp thông tin KH tiềm năng\nNhiệm vụ 3:\nĐề xuất chi phí quảng cáo sàn TMĐT\nNhiệm vụ 4: \nTrao đổi, kí xác nhận với Kho tất cả đơn hàng kí gửi",
+        "",
+        "",
+        "",
+        "00:00:00",
+        "",
+        ""
       ],
       [
         "2",
         "Kiều Thương",
         "Content",
         "Content Video & Hợp Tác KOC/Reviewer",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1: \n- Viết content và đăng bài Fanpage/Tiktok King Blue (SL: 1, SP: KB-05XS)\n- Rep cmt và tư vấn khách trên kênh Fanpage/TikTok King Blue.\nNhiệm vụ 2: \n- Làm voice AI + brief dựng video King Blue (SL: 1, SP: KM08AI)\nNhiệm vụ 3: \n- Báo cáo doanh thu KOL năm 2026 (Tiktok, Shopee)",
+        "",
+        "",
+        "",
+        "00:00:00",
+        "Hoàn thành",
+        ""
       ],
       [
         "3",
         "Thương Thương",
         "Content",
-        "Trade Marketing & Chính Sách Điểm Bán",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Content Video & Hợp Tác KOC/Reviewer",
+        "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: Máy hút chân không KB-2.5CFM\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Hoàn thành kịch bản review sản phẩm SL: 2\n- Đăng bài tiktok: đèn LED500\n",
+        "",
+        "",
+        "",
+        "00:00:00",
+        "",
+        ""
       ],
       [
         "4",
         "Thiện",
         "Design",
         "Graphic Designer (2D, POSM & Banner)",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "• Nhiệm vụ 1: \n- Lên ý tưởng thiết kế\n• Nhiệm vụ 2: Thiết kế King Blue\n- Avatar nhân viên mới ( 2 Tấm )\n\n• Nhiệm vụ 3: Thiết kế banner Ckô Store\n- Banner content máy hút chân không (4 Tấm)",
+        "",
+        "",
+        "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
+        "00:00:00",
+        "Hoàn thành ",
+        ""
       ],
       [
         "5",
         "Tứ",
         "Media",
         "Media / Photographer (Hình Ảnh, Video & User CRM)",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1: Dựng video đèn LED500 King Blue ",
+        "",
+        "",
+        "",
+        "00:00:00",
+        "Hoàn thành ",
+        ""
       ],
       [
         "6",
         "Thức",
         "Sàn TMĐT",
         "Vận Hành Sàn TMĐT (Shopee & Lazada)",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Chỉnh giá sản phẩm",
+        "",
+        "",
+        "",
+        "00:00:00",
+        "",
+        ""
       ],
       [
         "7",
         "Ngân",
         "Sàn TMĐT",
         "CSKH & Quản Trị Gian Hàng TikTok Shop",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
-      ],
-      [
-        "8",
-        "Hùng",
-        "Đóng gói kho",
-        "Đóng Gói & Kho Vận Hàng Hóa Miền Nam",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
-      ],
-      [
-        "9",
-        "Hùng Miền Bắc",
-        "Đóng gói kho",
-        "Đóng Gói & Kho Vận Chi Nhánh Hà Nội",
-        "⏳ Chưa nộp",
-        "-",
-        "-",
-        "-",
-        "--:--",
-        "Chưa nộp",
-        "-"
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Nhập đơn hoàn\nNhiệm vụ 4:\n- Chỉnh giá sản phẩm",
+        "",
+        "",
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng",
+        "00:00:00",
+        "",
+        ""
       ]
     ]
   },
@@ -176,87 +153,184 @@
     "index": 1,
     "rows": [
       [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - VÕ THỊ HOÀI THƯƠNG"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Võ Thị Hoài Thương",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Content Marketing & SEO Fanpage/Website",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
-      [
         "",
         "05/10/2026",
         "",
-        "Nhiệm vụ 1:\nHỗ trợ tư vấn chính sách, sản phẩm cho đại lý mới: Công Trí Tools, Điện Cơ Hoà Chẩy, Điện máy cầm tay Phước Lai\nNhiệm vụ 2:\nCập nhật thông tin đơn nhập hàng của đại lý Công Trí Tools \nNhiệm vụ 3:\nTrao đổi thông tin, cập nhật danh sách sản phẩm kí gửi\nThế giới đồ nghề, Điện Cơ Hoà Chẩy\nNhiệm vụ 4:\nChỉnh sửa tờ trình chính sách cho các đại lý mới\nNhiệm vụ 5:\nLiên hệ, hẹn gặp khách hàng mới\nNhiệm vụ 6:\nĐiều chỉnh bảng báo giá sàn TMĐT (Máy pin)"
+        "Nhiệm vụ 1:\nHỗ trợ tư vấn chính sách, sản phẩm cho đại lý mới: Công Trí Tools, Điện Cơ Hoà Chẩy, Điện máy cầm tay Phước Lai\nNhiệm vụ 2:\nCập nhật thông tin đơn nhập hàng của đại lý Công Trí Tools \nNhiệm vụ 3:\nTrao đổi thông tin, cập nhật danh sách sản phẩm kí gửi\nThế giới đồ nghề, Điện Cơ Hoà Chẩy\nNhiệm vụ 4:\nChỉnh sửa tờ trình chính sách cho các đại lý mới\nNhiệm vụ 5:\nLiên hệ, hẹn gặp khách hàng mới\nNhiệm vụ 6:\nĐiều chỉnh bảng báo giá sàn TMĐT (Máy pin)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "2",
         "6/10/2026",
         "",
-        "Nhiệm vụ 1:\nĐề xuất hàng mẫu gặp khách hàng\nNhiệm vụ 2:\nĐi công tác: Công cụ cầm tay Lê Đính (Bà Rịa) \nNhiệm vụ 3:\nHoàn thành điều chỉnh bảng báo giá sàn TMĐT "
+        "Nhiệm vụ 1:\nĐề xuất hàng mẫu gặp khách hàng\nNhiệm vụ 2:\nĐi công tác: Công cụ cầm tay Lê Đính (Bà Rịa) \nNhiệm vụ 3:\nHoàn thành điều chỉnh bảng báo giá sàn TMĐT ",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "3",
         "8/10/2026",
         "",
-        "Nhiệm vụ 1:\nChỉnh sửa tờ trình chính sách Đại Lý\nNhiệm vụ 2:\nTư vấn hỗ trợ khách hàng (Đại lý, khách lẻ)\nNhiệm vụ 3:\nĐiều chỉnh bảng giá chương trình khuyến mãi máy pin chân Bosch\nNhiệm vụ 4:\nTìm hiểu, tổng hợp thông tin các khách hàng mới tiềm năng\nNhiệm vụ 5: \nHọp MKT"
+        "Nhiệm vụ 1:\nChỉnh sửa tờ trình chính sách Đại Lý\nNhiệm vụ 2:\nTư vấn hỗ trợ khách hàng (Đại lý, khách lẻ)\nNhiệm vụ 3:\nĐiều chỉnh bảng giá chương trình khuyến mãi máy pin chân Bosch\nNhiệm vụ 4:\nTìm hiểu, tổng hợp thông tin các khách hàng mới tiềm năng\nNhiệm vụ 5: \nHọp MKT",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "4"
+        "4",
+        "9/10/2026",
+        "",
+        "Nhiệm vụ 1:\n-Hỗ trợ điều chỉnh giá sàn\nNhiệm vụ 2:\nTìm kiếm, tổng hợp thông tin KH tiềm năng\nNhiệm vụ 3:\nĐề xuất chi phí quảng cáo sàn TMĐT\nNhiệm vụ 4: \nTrao đổi, kí xác nhận với Kho tất cả đơn hàng kí gửi",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "5"
+        "5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -264,35 +338,6 @@
     "sheetId": 1499171949,
     "index": 2,
     "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - KIỀU THƯƠNG"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Kiều Thương",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Content Video & Hợp Tác KOC/Reviewer",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
       [
         "1",
         "05/10/2026",
@@ -302,7 +347,24 @@
         "",
         "- Viết content và đăng bài Fanpage King Blue.\n- Lên kịch bản và brief cho media dựng video\n- Order thiết kế.",
         "",
-        "Hoàn thành"
+        "Hoàn thành",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "2",
@@ -313,7 +375,24 @@
         "",
         "- Viết content và đăng bài Fanpage King Blue.\n- Lên kịch bản và brief cho media dựng video\n- Order thiết kế.",
         "",
-        "Hoàn thành"
+        "Hoàn thành",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "3",
@@ -324,7 +403,24 @@
         "",
         "- Viết content và đăng bài Fanpage King Blue.\n- Lên kịch bản và brief cho media dựng video\n- Order thiết kế.",
         "",
-        "Hoàn thành"
+        "Hoàn thành",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "4",
@@ -335,40 +431,332 @@
         "",
         "- Viết content và đăng bài Fanpage King Blue.\n- Lên kịch bản và brief cho media dựng video\n- Order thiết kế.\n- Lập kế hoạch content King Blue",
         "",
-        "Hoàn thành"
+        "Hoàn thành",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "5"
+        "5",
+        "09/10/2026",
+        "",
+        "Nhiệm vụ 1: \n- Viết content và đăng bài Fanpage/Tiktok King Blue (SL: 1, SP: KB-05XS)\n- Rep cmt và tư vấn khách trên kênh Fanpage/TikTok King Blue.\nNhiệm vụ 2: \n- Làm voice AI + brief dựng video King Blue (SL: 1, SP: KM08AI)\nNhiệm vụ 3: \n- Báo cáo doanh thu KOL năm 2026 (Tiktok, Shopee)",
+        "",
+        "",
+        "",
+        "",
+        "Hoàn thành",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -376,35 +764,6 @@
     "sheetId": 967400572,
     "index": 3,
     "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THƯƠNG THƯƠNG"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Thương Thương",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Trade Marketing & Chính Sách Điểm Bán",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
       [
         "1",
         "5/10/2026",
@@ -414,7 +773,8 @@
         "",
         "Quay video sản phẩm",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "2",
@@ -425,7 +785,8 @@
         "",
         "Lên ý tưởng, viết kịch bản giới thiệu sản phẩm",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "3",
@@ -436,43 +797,152 @@
         "",
         "Lên ý tưởng, viết kịch bản giới thiệu sản phẩm",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
-        "4"
+        "4",
+        "9/10/2026",
+        "",
+        "Nhiệm vụ 1:\n- Giải đáp thắc mắc khách hàng trên fanpage và tiktok Ckostore                                \n- Đăng bài trên fanpage: Máy hút chân không KB-2.5CFM\nNhiệm vụ 2 :    \n- Lên ý tưởng cho các video giới thiệu sản phẩm \n- Hoàn thành kịch bản review sản phẩm SL: 2\n- Đăng bài tiktok: đèn LED500\n",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "5"
+        "5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -480,35 +950,6 @@
     "sheetId": 1434158092,
     "index": 4,
     "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THIỆN"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Thiện",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Graphic Designer (2D, POSM & Banner)",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
       [
         "1",
         "5/10",
@@ -518,7 +959,8 @@
         "",
         "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "2",
@@ -529,7 +971,8 @@
         "",
         "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "3",
@@ -540,7 +983,8 @@
         "",
         "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "4",
@@ -551,40 +995,140 @@
         "",
         "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
-        "5"
+        "5",
+        "9/10",
+        "",
+        "• Nhiệm vụ 1: \n- Lên ý tưởng thiết kế\n• Nhiệm vụ 2: Thiết kế King Blue\n- Avatar nhân viên mới ( 2 Tấm )\n\n• Nhiệm vụ 3: Thiết kế banner Ckô Store\n- Banner content máy hút chân không (4 Tấm)",
+        "",
+        "",
+        "• Thiết kế banner Kingblue\r\n• Thiết kế banner Ckô",
+        "",
+        "Hoàn thành ",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -592,35 +1136,6 @@
     "sheetId": 1418274519,
     "index": 5,
     "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - TỨ"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Tứ",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Media / Photographer (Hình Ảnh, Video & User CRM)",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
       [
         "1",
         "05/10/2026",
@@ -630,7 +1145,8 @@
         "",
         "Quay CkO ",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "2",
@@ -641,7 +1157,8 @@
         "",
         "",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "3",
@@ -652,7 +1169,8 @@
         "",
         "",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "4",
@@ -663,40 +1181,140 @@
         "",
         "",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
-        "5"
+        "5",
+        "09/10/2026",
+        "",
+        "Nhiệm vụ 1: Dựng video đèn LED500 King Blue ",
+        "",
+        "",
+        "",
+        "",
+        "Hoàn thành ",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -704,35 +1322,6 @@
     "sheetId": 1877693997,
     "index": 6,
     "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - THỨC"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Thức",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Vận Hành Sàn TMĐT (Shopee & Lazada)",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
       [
         "1",
         "05/10/2026",
@@ -742,7 +1331,8 @@
         "",
         "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: Mua hàng",
         "",
-        "Hoàn thành "
+        "Hoàn thành ",
+        ""
       ],
       [
         "2",
@@ -751,7 +1341,10 @@
         "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: Mua hàng",
         "",
         "",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: \nChỉnh sửa giá sản phẩm "
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: \nChỉnh sửa giá sản phẩm ",
+        "",
+        "",
+        ""
       ],
       [
         "3",
@@ -760,7 +1353,10 @@
         "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: \nChỉnh sửa giá sản phẩm ",
         "",
         "",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn) "
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn) ",
+        "",
+        "",
+        ""
       ],
       [
         "4",
@@ -769,40 +1365,142 @@
         "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4: \nMua hàng",
         "",
         "",
-        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)"
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)",
+        "",
+        "",
+        ""
       ],
       [
-        "5"
+        "5",
+        "09/10/2026",
+        "",
+        "Nhiệm vụ 1:\n- Xử lý in đơn, nhập liệu data, kiểm tra\nNhiệm vụ 2:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng\nNhiệm vụ 3:\n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn)\nNhiệm vụ 4:\n- Chỉnh giá sản phẩm",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -811,92 +1509,184 @@
     "index": 7,
     "rows": [
       [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - NGÂN"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Ngân",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "CSKH & Quản Trị Gian Hàng TikTok Shop",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
-      [
         "1",
         "05/10",
         "",
-        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm"
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Hỗ trợ khách bảo hành sản phẩm",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "2",
         "06/10",
         "",
         "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Nhập đơn hoàn",
-        " "
+        " ",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "3",
         "07/10",
         "",
         "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Nhập đơn hoàn",
-        " "
+        " ",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
         "4",
         "08/10",
         "",
-        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Nhập đơn hoàn"
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Nhập đơn hoàn",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "5"
+        "5",
+        "09/10",
+        "",
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3: \n- Nhập đơn hoàn\nNhiệm vụ 4:\n- Chỉnh giá sản phẩm",
+        "",
+        "",
+        "Nhiệm vụ 1: \n- Xử lý đơn, nhập liệu data\nNhiệm vụ 2: \n- CSKH (trả lời tin nhắn, hỗ trợ - tư vấn - lấy thông tin xuất hóa đơn)\nNhiệm vụ 3:\n- Theo dõi, cập nhật tồn kho, đề xuất nhập hàng",
+        "",
+        "",
+        ""
       ],
       [
-        "6"
+        "6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "7"
+        "7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "8"
+        "8",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "9"
+        "9",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "10"
+        "10",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "11"
+        "11",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "12"
+        "12",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "13"
+        "13",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "14"
+        "14",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
       [
-        "15"
+        "15",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     ]
   },
@@ -905,10 +1695,15 @@
     "index": 8,
     "rows": [
       [
-        "BÁO CÁO TỔNG KẾT TUẦN - PHÒNG MARKETING KING BLUE"
+        "BÁO CÁO TỔNG KẾT TUẦN - PHÒNG MARKETING KING BLUE",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ],
-      [],
-      [],
       [
         "STT",
         "Họ và Tên",
@@ -918,166 +1713,6 @@
         "Vấn Đề Tồn Đọng",
         "Kế Hoạch Tuần Tới",
         "Marketing Manager Đánh Giá"
-      ]
-    ]
-  },
-  "Hung - Kho MN": {
-    "sheetId": 94289788,
-    "index": 9,
-    "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Hùng",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Đóng Gói & Kho Vận Hàng Hóa Miền Nam",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
-      [
-        "1"
-      ],
-      [
-        "2"
-      ],
-      [
-        "3"
-      ],
-      [
-        "4"
-      ],
-      [
-        "5"
-      ],
-      [
-        "6"
-      ],
-      [
-        "7"
-      ],
-      [
-        "8"
-      ],
-      [
-        "9"
-      ],
-      [
-        "10"
-      ],
-      [
-        "11"
-      ],
-      [
-        "12"
-      ],
-      [
-        "13"
-      ],
-      [
-        "14"
-      ],
-      [
-        "15"
-      ]
-    ]
-  },
-  "Hung - Kho MB": {
-    "sheetId": 1438923158,
-    "index": 10,
-    "rows": [
-      [
-        "NHẬT KÝ BÁO CÁO CÔNG VIỆC HÀNG NGÀY - HÙNG MIỀN BẮC"
-      ],
-      [],
-      [
-        "Họ và Tên:",
-        "",
-        "Hùng Miền Bắc",
-        "",
-        "Vị trí chuyên môn:",
-        "",
-        "Đóng Gói & Kho Vận Chi Nhánh Hà Nội",
-        "",
-        "Quản lý duyệt:",
-        "Marketing Manager"
-      ],
-      [],
-      [
-        "STT",
-        "Ngày Báo Cáo",
-        "Giờ Nộp",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC (Nhiệm vụ 1, 2, 3...)",
-        "2️⃣ KHÓ KHĂN / VƯỚNG MẮC",
-        "3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT",
-        "4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI",
-        "Link Minh Chứng",
-        "Tình Trạng",
-        "Marketing Manager Phê Duyệt & Phản Hồi"
-      ],
-      [
-        "1"
-      ],
-      [
-        "2"
-      ],
-      [
-        "3"
-      ],
-      [
-        "4"
-      ],
-      [
-        "5"
-      ],
-      [
-        "6"
-      ],
-      [
-        "7"
-      ],
-      [
-        "8"
-      ],
-      [
-        "9"
-      ],
-      [
-        "10"
-      ],
-      [
-        "11"
-      ],
-      [
-        "12"
-      ],
-      [
-        "13"
-      ],
-      [
-        "14"
-      ],
-      [
-        "15"
       ]
     ]
   }

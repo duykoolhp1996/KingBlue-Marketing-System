@@ -743,6 +743,16 @@ html_template = f'''<!DOCTYPE html>
 
     // Master Dashboard Sheet Renderer
     function renderMasterSheetHtml(container, rows) {{
+      const userAccounts = ACCOUNTS.filter(a => a.type === "USER");
+      const staffRows = rows.filter(r => r && r.length > 2 && r[1] && userAccounts.some(u => r[1].includes(u.name) || u.name.includes(r[1])));
+      const totalStaff = userAccounts.length;
+      const submittedRows = staffRows.filter(r => {{
+        const res = r[4] || '';
+        return res && !res.includes('Chưa nộp') && res.trim() !== '-' && res !== '⏳ Chưa nộp';
+      }});
+      const subCount = submittedRows.length;
+      const subPercent = totalStaff > 0 ? Math.round((subCount / totalStaff) * 100) : 0;
+
       const wrapper = document.createElement("div");
       wrapper.className = "space-y-4";
 
@@ -751,11 +761,11 @@ html_template = f'''<!DOCTYPE html>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
             <span class="text-xs text-slate-500 font-semibold block">👥 Tổng Nhân Sự</span>
-            <span class="text-xl font-extrabold text-slate-900 mt-1 block">7 Người</span>
+            <span class="text-xl font-extrabold text-slate-900 mt-1 block">${{totalStaff}} Người</span>
           </div>
           <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 shadow-2xs">
             <span class="text-xs text-emerald-700 font-semibold block">✅ Đã Nộp Hôm Nay</span>
-            <span class="text-xl font-extrabold text-emerald-800 mt-1 block">4 / 7 (57%)</span>
+            <span class="text-xl font-extrabold text-emerald-800 mt-1 block">${{subCount}} / ${{totalStaff}} (${{subPercent}}%)</span>
           </div>
           <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 shadow-2xs">
             <span class="text-xs text-amber-700 font-semibold block">⚠️ Vướng Mắc Phát Sinh</span>
@@ -770,7 +780,7 @@ html_template = f'''<!DOCTYPE html>
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
           <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
             <h3 class="font-extrabold text-slate-900 text-sm flex items-center gap-2">
-              <span>📋</span> BẢNG TỔNG HỢP TIẾN ĐỘ THỰC TẾ TRONG NGÀY (7 NHÂN SỰ)
+              <span>📋</span> BẢNG TỔNG HỢP TIẾN ĐỘ THỰC TẾ TRONG NGÀY (${{totalStaff}} NHÂN SỰ)
             </h3>
             <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full">
               Dữ liệu chuẩn Google Sheets
@@ -790,15 +800,14 @@ html_template = f'''<!DOCTYPE html>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 font-medium">
-                ${{rows.slice(6).map(r => {{
-                  if (r.length < 2 || !r[1]) return '';
-                  const stt = r[0] || '';
+                ${{staffRows.map((r, idx) => {{
+                  const stt = r[0] || (idx + 1);
                   const name = r[1] || '';
                   const dept = r[2] || '';
                   const res = r[4] || '';
                   const plan = r[7] || '';
-                  const time = r[8] || '--:--';
-                  const isSubmitted = res && !res.includes('Chưa nộp') && res.trim() !== '-';
+                  const time = (r[8] && r[8] !== '--:--' && r[8] !== '00:00:00') ? r[8] : '17:00:00';
+                  const isSubmitted = res && !res.includes('Chưa nộp') && res.trim() !== '-' && res !== '⏳ Chưa nộp';
 
                   return `
                     <tr class="hover:bg-slate-50/80 transition">
@@ -997,10 +1006,14 @@ html_template = f'''<!DOCTYPE html>
       }});
 
       const masterData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA['BAO CAO HOM NAY']) ? window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] : null;
-      if (masterData && masterData.rows && masterData.rows[2]) {{
-        masterData.rows[2].forEach(cell => {{
-          if (isDateString(cell)) datesSet.add(normalizeDateStr(cell));
-        }});
+      if (masterData && masterData.rows) {{
+        for (let rIdx = 0; rIdx < Math.min(masterData.rows.length, 4); rIdx++) {{
+          const r = masterData.rows[rIdx];
+          if (!r) continue;
+          r.forEach(cell => {{
+            if (cell && isDateString(cell)) datesSet.add(normalizeDateStr(cell));
+          }});
+        }}
       }}
 
       // Add today
@@ -1201,13 +1214,16 @@ html_template = f'''<!DOCTYPE html>
       const masterData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA['BAO CAO HOM NAY']) ? window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] : null;
       if (masterData && masterData.rows && Array.isArray(masterData.rows)) {{
         let masterDate = '';
-        if (masterData.rows[2]) {{
-          for (const cell of masterData.rows[2]) {{
+        for (let rIdx = 0; rIdx < Math.min(masterData.rows.length, 4); rIdx++) {{
+          const r = masterData.rows[rIdx];
+          if (!r) continue;
+          for (const cell of r) {{
             if (cell && isDateString(cell)) {{
               masterDate = cell;
               break;
             }}
           }}
+          if (masterDate) break;
         }}
         const masterDateNorm = normalizeDateStr(masterDate);
         if (masterDateNorm && masterDateNorm === targetNorm) {{
@@ -1416,6 +1432,48 @@ html_template = f'''<!DOCTYPE html>
     const SPREADSHEET_ID = "1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo";
     let isLiveSyncing = false;
 
+    function fetchGvizJsonp(gid) {{
+      return new Promise((resolve, reject) => {{
+        const cbName = 'gviz_jsonp_' + gid + '_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+        const script = document.createElement('script');
+        let done = false;
+
+        const timeout = setTimeout(() => {{
+          if (!done) {{
+            done = true;
+            cleanup();
+            reject(new Error('JSONP timeout gid ' + gid));
+          }}
+        }}, 12000);
+
+        function cleanup() {{
+          try {{ delete window[cbName]; }} catch(e) {{}}
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }}
+
+        window[cbName] = function(data) {{
+          if (!done) {{
+            done = true;
+            clearTimeout(timeout);
+            cleanup();
+            resolve(data);
+          }}
+        }};
+
+        script.onerror = function(err) {{
+          if (!done) {{
+            done = true;
+            clearTimeout(timeout);
+            cleanup();
+            reject(err);
+          }}
+        }};
+
+        script.src = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=responseHandler:${{cbName}}&gid=${{gid}}&t=${{Date.now()}}`;
+        document.head.appendChild(script);
+      }});
+    }}
+
     async function autoSyncLiveGoogleSheets(silent = true) {{
       if (isLiveSyncing) return;
       isLiveSyncing = true;
@@ -1426,29 +1484,22 @@ html_template = f'''<!DOCTYPE html>
       }}
 
       try {{
-        // 1. Fetch Master sheet BAO CAO HOM NAY live
-        const masterUrl = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=out:json&gid=187266668&t=${{Date.now()}}`;
-        const res = await fetch(masterUrl);
-        const text = await res.text();
-        const jsonMatch = text.match(/google\\.visualization\\.Query\\.setResponse\\(([\\s\\S]*)\\);/);
+        // 1. Fetch Master sheet BAO CAO HOM NAY live via JSONP (Bypasses CORS completely on GitHub Pages)
+        const masterJson = await fetchGvizJsonp('187266668');
+        if (masterJson && masterJson.table && masterJson.table.rows) {{
+          const parsedRows = masterJson.table.rows.map(r => {{
+            return r.c ? r.c.map(cell => (cell ? (cell.f !== undefined ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : "")) : "")) : [];
+          }});
 
-        if (jsonMatch && jsonMatch[1]) {{
-          const data = JSON.parse(jsonMatch[1]);
-          if (data.table && data.table.rows) {{
-            const parsedRows = data.table.rows.map(r => {{
-              return r.c ? r.c.map(cell => (cell ? (cell.f !== undefined ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : "")) : "")) : [];
-            }});
-
-            if (!window.ALL_SHEETS_DATA) window.ALL_SHEETS_DATA = {{}};
-            window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] = {{
-              sheetId: 187266668,
-              index: 0,
-              rows: parsedRows
-            }};
-          }}
+          if (!window.ALL_SHEETS_DATA) window.ALL_SHEETS_DATA = {{}};
+          window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] = {{
+            sheetId: 187266668,
+            index: 0,
+            rows: parsedRows
+          }};
         }}
 
-        // 2. Fetch all staff individual tabs asynchronously in parallel
+        // 2. Fetch all staff individual tabs asynchronously in parallel via JSONP
         await syncAllStaffTabsLive();
 
         // 3. Re-render views with freshest live data
@@ -1481,22 +1532,16 @@ html_template = f'''<!DOCTYPE html>
     async function syncAllStaffTabsLive() {{
       const promises = SHEET_TABS.filter(t => t.key !== 'BAO CAO HOM NAY' && t.key !== 'BAO CAO TUAN').map(async (tab) => {{
         try {{
-          const url = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=out:json&gid=${{tab.gid}}&t=${{Date.now()}}`;
-          const res = await fetch(url);
-          const text = await res.text();
-          const m = text.match(/google\\.visualization\\.Query\\.setResponse\\(([\\s\\S]*)\\);/);
-          if (m && m[1]) {{
-            const parsed = JSON.parse(m[1]);
-            if (parsed.table && parsed.table.rows) {{
-              const rows = parsed.table.rows.map(r => {{
-                return r.c ? r.c.map(cell => (cell ? (cell.f !== undefined ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : "")) : "")) : [];
-              }});
-              window.ALL_SHEETS_DATA[tab.key] = {{
-                sheetId: parseInt(tab.gid),
-                index: tab.index,
-                rows: rows
-              }};
-            }}
+          const data = await fetchGvizJsonp(tab.gid);
+          if (data && data.table && data.table.rows) {{
+            const rows = data.table.rows.map(r => {{
+              return r.c ? r.c.map(cell => (cell ? (cell.f !== undefined ? cell.f : (cell.v !== undefined && cell.v !== null ? String(cell.v) : "")) : "")) : [];
+            }});
+            window.ALL_SHEETS_DATA[tab.key] = {{
+              sheetId: parseInt(tab.gid),
+              index: tab.index,
+              rows: rows
+            }};
           }}
         }} catch(e) {{
           // Silent fallback to existing cache
