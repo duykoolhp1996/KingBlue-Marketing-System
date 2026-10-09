@@ -487,12 +487,10 @@ html_template = f'''<!DOCTYPE html>
   </footer>
 
   <!-- SCRIPT DATA & APP LOGIC -->
-  <script src="sheets_data.js"></script>
+  <script src="sheets_data.js?v=20261009_2025"></script>
   <script>
-    // Embedded Data fallback in case sheets_data.js is blocked
-    if (!window.ALL_SHEETS_DATA) {{
-      window.ALL_SHEETS_DATA = {json_data_str};
-    }}
+    // Fresh Snapshot Data embedded directly (always prioritized)
+    window.ALL_SHEETS_DATA = {json_data_str};
 
     // EXACT MARKETING SHEET TABS ORDER
     const SHEET_TABS = [
@@ -522,7 +520,7 @@ html_template = f'''<!DOCTYPE html>
     let currentAppMainTab = 'cards';
     let currentActiveSheetKey = 'BAO CAO HOM NAY';
     let currentSheetViewFormat = 'html';
-    let managerSelectedDate = '05/10/2026';
+    let managerSelectedDate = formatDateDMY(new Date());
     let currentUser = null;
     let pendingRedirectTab = null;
 
@@ -946,8 +944,8 @@ html_template = f'''<!DOCTYPE html>
       const s = String(str).trim();
       if (s.includes('Ngày') || s.includes('NGÀY') || s.includes('STT') || s.includes('Họ và Tên') || s.includes('Nhân Sự')) return false;
       if (/^Date\\(\\d+\\s*,\\s*\\d+\\s*,\\s*\\d+\\)/.test(s)) return true;
-      if (/^\\d{1,2}\\/\\d{1,2}(\\/\\d{2,4})?$/.test(s)) return true;
-      if (/^\\d{4}-\\d{1,2}-\\d{1,2}$/.test(s)) return true;
+      if (/^\\d{{1,2}}\\/\\d{{1,2}}(\\/\\d{{2,4}})?$/.test(s)) return true;
+      if (/^\\d{{4}}-\\d{{1,2}}-\\d{{1,2}}$/.test(s)) return true;
       return false;
     }}
 
