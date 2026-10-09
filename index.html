@@ -328,19 +328,6 @@
         <!-- Populated by JS -->
       </div>
 
-      <!-- Executive Report Preview Box -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
-          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-            <span>👑</span> Bản Xem Trước Báo Cáo Gửi Ban Giám Đốc (Marketing Manager Export)
-          </h3>
-          <button onclick="copyExecutiveSummaryReport()" class="text-xs font-bold text-sky-700 hover:text-sky-800 flex items-center gap-1">
-            <span>📋</span> Sao chép văn bản
-          </button>
-        </div>
-        <pre id="executive-report-text" class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-xs font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto"></pre>
-      </div>
-
     </section>
 
     <!-- ===================================================================== -->
@@ -1056,7 +1043,6 @@
 
       renderQuickDateChips();
       renderManagerCards(managerSelectedDate);
-      updateExecutiveReportPreview(managerSelectedDate);
       fetchBackendReportsForDate(managerSelectedDate);
     }
 
@@ -1114,7 +1100,6 @@
             window.REPORTS_CACHE[targetNorm] = data.reports;
             if (normalizeDateStr(managerSelectedDate) === targetNorm) {
               renderManagerCards(managerSelectedDate);
-              updateExecutiveReportPreview(managerSelectedDate);
             }
           }
         }
@@ -1362,61 +1347,6 @@
       document.getElementById("m-kpi-sub").textContent = `${subCount} / ${users.length} (${Math.round(subCount / users.length * 100)}%)`;
     }
 
-    function updateExecutiveReportPreview(dateStr) {
-      const users = ACCOUNTS.filter(a => a.type === "USER");
-      let subCount = 0;
-      const reports = [];
-
-      users.forEach(u => {
-        const rep = findReportForUser(u, dateStr);
-        if (rep) {
-          subCount++;
-          reports.push({ user: u, rep: rep });
-        }
-      });
-
-      const nl = String.fromCharCode(10);
-      const lines = [
-        "BÁO CÁO CÔNG VIỆC NGÀY: [" + dateStr + "]",
-        "Kính gửi Ban Lãnh Đạo,",
-        "",
-        "Marketing Manager – Trưởng Phòng Marketing xin báo cáo tổng hợp công việc phòng trong ngày (" + subCount + "/" + users.length + " nhân sự đã nộp):",
-        "",
-        "1️⃣ KẾT QUẢ ĐẠT ĐƯỢC CHÍNH:"
-      ];
-
-      reports.forEach(item => {
-        const meaningfulLines = item.rep.res.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\s*Nhiệm vụ \d+:?$/i));
-        const cleanRes = (meaningfulLines.length > 0 ? meaningfulLines : item.rep.res.split(nl).map(s => s.trim()).filter(Boolean)).slice(0, 2).join('; ');
-        lines.push("• " + item.user.name + " (" + item.user.group + "): " + cleanRes);
-      });
-
-      const unsubmitted = users.filter(u => !reports.some(r => r.user.username === u.username));
-      if (unsubmitted.length > 0) {
-        lines.push("• Chưa nộp: " + unsubmitted.map(u => u.name).join(', '));
-      }
-
-      lines.push("");
-      lines.push("2️⃣ KHÓ KHĂN / VƯỚNG MẮC:");
-      lines.push("• Toàn phòng hoạt động nhịp nhàng, chưa phát sinh vướng mắc nghiêm trọng.");
-      lines.push("");
-      lines.push("3️⃣ BÀI HỌC KINH NGHIỆM / ĐỀ XUẤT:");
-      lines.push("• Tiếp tục tối ưu hóa chiến dịch banner & video review phục vụ đợt khuyến mãi sắp tới.");
-      lines.push("");
-      lines.push("4️⃣ KẾ HOẠCH CÔNG VIỆC NGÀY MAI:");
-
-      reports.forEach(item => {
-        if (item.rep.plan) {
-          const meaningfulPlanLines = item.rep.plan.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\s*Nhiệm vụ \d+:?$/i));
-          const cleanPlan = (meaningfulPlanLines.length > 0 ? meaningfulPlanLines[0] : item.rep.plan.split(nl).map(s => s.trim()).filter(Boolean)[0]) || 'Tiếp tục triển khai công việc';
-          lines.push("• " + item.user.name + ": " + cleanPlan);
-        }
-      });
-
-      const el = document.getElementById("executive-report-text");
-      if (el) el.textContent = lines.join(nl);
-    }
-
     // ========================================================
     // AUTO LIVE SYNC ENGINE (CLIENT-SIDE DIRECT GOOGLE SHEETS)
     // ========================================================
@@ -1497,7 +1427,6 @@
         renderQuickDateChips();
         if (currentAppMainTab === 'cards') {
           renderManagerCards(managerSelectedDate);
-          updateExecutiveReportPreview(managerSelectedDate);
         } else if (currentAppMainTab === 'sheets') {
           renderActiveSheetHtml(currentActiveSheetKey);
         }
@@ -1540,13 +1469,6 @@
       });
 
       await Promise.all(promises);
-    }
-
-    function copyExecutiveSummaryReport() {
-      const text = document.getElementById("executive-report-text").textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        showToast("Đã sao chép báo cáo!", "Báo cáo tổng hợp toàn phòng đã sẵn sàng gửi Ban Giám Đốc.", "success");
-      });
     }
 
     // ========================================================
