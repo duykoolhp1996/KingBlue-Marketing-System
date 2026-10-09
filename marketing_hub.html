@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketing Hub - Đầu Mối Thông Tin King Blue & CKÔ Store</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#F0F5FF',
+              100: '#E0EBFF',
+              500: '#2563EB',
+              600: '#1D4ED8',
+              700: '#1E40AF',
+              800: '#1E3A8A',
+              900: '#0F1E3D',
+              950: '#0A1329',
+            },
+            navy: {
+              800: '#1E293B',
+              900: '#0F172A',
+              950: '#020617'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .hub-card {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hub-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.06);
+    }
+    
+    .toast-animate {
+      animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- ================= TOP APP HEADER ================= -->
+  <header class="bg-[#1A365D] text-white border-b-4 border-amber-400 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Hub Title -->
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="index.html" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-xl shadow-inner shrink-0 hover:opacity-90 transition">
+          KB
+        </a>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-black tracking-tight truncate">MARKETING HUB</h1>
+            <span class="text-[10px] sm:text-xs bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full shrink-0">ĐẦU MỐI THÔNG TIN</span>
+          </div>
+          <p class="text-blue-200 text-xs truncate">DASH BOARD PHÒNG MARKETING - KING BLUE & CKÔ STORE</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Navigation -->
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="customer_dashboard.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 transition shadow-xs">
+          <span>👥</span>
+          <span class="hidden md:inline">Khách Hàng & Doanh Số</span>
+        </a>
+        <a href="quan_ly_cong_viec.html" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 transition">
+          <i data-lucide="check-square" class="w-4 h-4 text-amber-300"></i>
+          <span class="hidden md:inline">Quản Lý Công Việc</span>
+        </a>
+        <a href="website_tong_hop_bao_cao.html" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 transition">
+          <i data-lucide="calendar" class="w-4 h-4 text-emerald-300"></i>
+          <span class="hidden md:inline">Báo Cáo Ngày</span>
+        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1mg8M-6c93weG6S2S9LAtkqN-GX1De8_UOVfMhnv4crE/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition shadow-sm">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+          <span>Sheet Gốc</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= SUB HEADER / STATS & SEARCH BAR ================= -->
+  <section class="bg-white border-b border-slate-200 sticky top-[69px] z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+        
+        <!-- Live Search Box -->
+        <div class="relative flex-1 max-w-xl">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </div>
+          <input 
+            type="text" 
+            id="hubSearchInput" 
+            oninput="handleSearch(this.value)"
+            placeholder="Tìm kiếm nội dung (ví dụ: kế hoạch, video, tồn kho, sàn, kol...)" 
+            class="w-full pl-10 pr-10 py-2.5 bg-slate-100 hover:bg-slate-50 focus:bg-white border border-slate-200 focus:border-brand-500 rounded-xl text-xs sm:text-sm font-medium focus:ring-2 focus:ring-brand-500/20 outline-none transition"
+          >
+          <button 
+            id="clearSearchBtn" 
+            onclick="clearSearch()" 
+            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Filter Tags & View Switcher -->
+        <div class="flex items-center justify-between lg:justify-end gap-2 overflow-x-auto hide-scrollbar">
+          
+          <!-- Category Filter Pills -->
+          <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold shrink-0">
+            <button onclick="setFilter('ALL')" id="filter-ALL" class="filter-btn px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs font-bold transition">
+              Tất Cả (<span id="count-ALL">20</span>)
+            </button>
+            <button onclick="setFilter('DASHBOARD')" id="filter-DASHBOARD" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
+              📊 DASH BOARD (<span id="count-DASHBOARD">16</span>)
+            </button>
+            <button onclick="setFilter('ECOM')" id="filter-ECOM" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
+              🛒 VẬN HÀNH SÀN (<span id="count-ECOM">4</span>)
+            </button>
+          </div>
+
+          <!-- Type Filters -->
+          <div class="hidden sm:flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs font-semibold shrink-0">
+            <button onclick="setTypeFilter('SHEETS')" id="type-SHEETS" class="type-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-emerald-700 transition flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Sheets
+            </button>
+            <button onclick="setTypeFilter('DRIVE')" id="type-DRIVE" class="type-btn px-2.5 py-1.5 rounded-lg text-slate-600 hover:text-blue-700 transition flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span> Drive
+            </button>
+          </div>
+
+          <!-- View Toggle: Cards vs Table -->
+          <div class="flex items-center bg-slate-100 p-1 rounded-xl shrink-0">
+            <button onclick="setViewMode('cards')" id="view-cards-btn" title="Chế độ Thẻ (Cards)" class="p-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition">
+              <i data-lucide="layout-grid" class="w-4 h-4"></i>
+            </button>
+            <button onclick="setViewMode('table')" id="view-table-btn" title="Chế độ Bảng Nguyên Bản (Table)" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 transition">
+              <i data-lucide="table" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+
+    <!-- Source Sheet Info Banner -->
+    <div class="mb-6 bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-blue-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-start sm:items-center gap-3.5">
+        <div class="w-12 h-12 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-black text-2xl shadow-md shrink-0">
+          📌
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-xs uppercase tracking-wider font-extrabold bg-blue-800/80 text-amber-300 px-2.5 py-0.5 rounded-md border border-blue-700">DỮ LIỆU CHUẨN GỐC 100%</span>
+            <span class="text-xs text-blue-200">Không chỉnh sửa nội dung • Cập nhật trực tiếp</span>
+          </div>
+          <h2 class="text-lg sm:text-xl font-black text-white mt-0.5">DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN</h2>
+          <p class="text-xs text-blue-200 mt-0.5">Phân loại 2 phần: <span class="font-bold text-white">I. Dashboard Tổng Hợp (16 mục)</span> và <span class="font-bold text-white">II. Vận Hành Sàn (4 mục)</span>.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+        <button onclick="copyAllLinks()" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span>Sao Chép Tất Cả Link</span>
+        </button>
+        <a href="https://docs.google.com/spreadsheets/d/1mg8M-6c93weG6S2S9LAtkqN-GX1De8_UOVfMhnv4crE/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 transition shadow-sm">
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+          <span>Mở Google Sheet</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Active Filters Summary (Shown when filtered) -->
+    <div id="filterSummaryBar" class="hidden mb-4 flex items-center justify-between text-xs bg-amber-50 text-amber-900 border border-amber-200 px-3.5 py-2 rounded-xl">
+      <span id="filterSummaryText">Đang lọc kết quả...</span>
+      <button onclick="resetAllFilters()" class="text-amber-800 font-bold hover:underline">Xóa bộ lọc</button>
+    </div>
+
+    <!-- ================= VIEW 1: CARDS VIEW ================= -->
+    <div id="cardsViewContainer" class="space-y-8">
+      
+      <!-- Section A: DASH BOARD PHÒNG MARKETING -->
+      <section id="section-dashboard" class="space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-[#1A365D] rounded-full"></span>
+            <h3 class="text-base sm:text-lg font-black text-slate-900 tracking-tight">DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN</h3>
+            <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-0.5 rounded-full" id="badge-count-dashboard">16 mục</span>
+          </div>
+        </div>
+
+        <div id="cardsGridDashboard" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Dynamic Cards injected via JS -->
+        </div>
+      </section>
+
+      <!-- Section B: VẬN HÀNH SÀN -->
+      <section id="section-ecom" class="space-y-4 pt-4">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-6 bg-amber-500 rounded-full"></span>
+            <h3 class="text-base sm:text-lg font-black text-slate-900 tracking-tight">VẬN HÀNH SÀN</h3>
+            <span class="text-xs bg-amber-100 text-amber-900 font-bold px-2.5 py-0.5 rounded-full" id="badge-count-ecom">4 mục</span>
+          </div>
+        </div>
+
+        <div id="cardsGridEcom" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Dynamic Cards injected via JS -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================= VIEW 2: ORIGINAL TABLE VIEW ================= -->
+    <div id="tableViewContainer" class="hidden space-y-8">
+      
+      <!-- Table 1: DASH BOARD PHÒNG MARKETING -->
+      <section class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="text-amber-400 font-black">📊</span>
+            <h3 class="font-black text-sm sm:text-base">DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN</h3>
+          </div>
+          <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700">16 DÒNG CHUẨN</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 uppercase font-bold border-b border-slate-200 tracking-wider">
+                <th class="py-3 px-4 w-16 text-center">STT</th>
+                <th class="py-3 px-4 min-w-[240px]">NỘI DUNG</th>
+                <th class="py-3 px-4 min-w-[320px]">LINK TRACKING</th>
+                <th class="py-3 px-4 w-32 text-center">LOẠI LINK</th>
+                <th class="py-3 px-4 w-36 text-center">THAO TÁC</th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyDashboard" class="divide-y divide-slate-100">
+              <!-- Dynamic Rows injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Table 2: VẬN HÀNH SÀN -->
+      <section class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+        <div class="bg-amber-600 text-white px-5 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="text-white font-black">🛒</span>
+            <h3 class="font-black text-sm sm:text-base">VẬN HÀNH SÀN</h3>
+          </div>
+          <span class="text-xs bg-amber-700 text-amber-100 px-2.5 py-1 rounded-lg border border-amber-500">4 DÒNG CHUẨN</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-amber-50/70 text-slate-700 uppercase font-bold border-b border-amber-200 tracking-wider">
+                <th class="py-3 px-4 w-16 text-center">STT</th>
+                <th class="py-3 px-4 min-w-[240px]">NỘI DUNG</th>
+                <th class="py-3 px-4 min-w-[320px]">LINK TRACKING</th>
+                <th class="py-3 px-4 w-32 text-center">LOẠI LINK</th>
+                <th class="py-3 px-4 w-36 text-center">THAO TÁC</th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyEcom" class="divide-y divide-slate-100">
+              <!-- Dynamic Rows injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Empty State (When search returns 0) -->
+    <div id="emptyState" class="hidden py-16 text-center">
+      <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center">
+        <i data-lucide="search-x" class="w-8 h-8"></i>
+      </div>
+      <h3 class="text-base font-bold text-slate-700">Không tìm thấy nội dung phù hợp</h3>
+      <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Vui lòng thử tìm kiếm bằng từ khóa khác hoặc bấm nút bên dưới để xem toàn bộ danh sách.</p>
+      <button onclick="resetAllFilters()" class="mt-4 px-4 py-2 bg-[#1A365D] text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition">
+        Xem tất cả 20 mục
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-amber-400 text-slate-900 flex items-center justify-center font-black text-xs">KB</span>
+        <span>Marketing Hub — Phòng Marketing King Blue & CKÔ Store</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="kpi_phong_marketing_cu.md" class="hover:text-brand-600 transition">Tài liệu KPI Cũ T7/2026</a>
+        <a href="org_chart_marketing_kingblue.md" class="hover:text-brand-600 transition">Sơ đồ tổ chức</a>
+        <a href="quan_ly_cong_viec.html" class="hover:text-brand-600 transition font-bold text-brand-600">Quản Lý Công Việc</a>
+      </div>
+      <div>
+        <span>Vận hành & Hỗ trợ bởi Trợ lý ảo AI 🐱 <strong>Xu Xu</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= TOAST NOTIFICATION ================= -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-700 text-xs font-medium toast-animate">
+      <div class="w-6 h-6 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs shrink-0">
+        ✓
+      </div>
+      <span id="toastMessage">Đã sao chép liên kết vào clipboard!</span>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // DỮ LIỆU NGUYÊN BẢN 100% TỪ GOOGLE SHEET "THÔNG TIN MKT"
+    // KHÔNG THAY ĐỔI, KHÔNG SỬA BẤT CỨ TỪ NÀO!
+    const RAW_MARKETING_HUB_DATA = [
+      // BẢNG 1: DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "1",
+        noiDung: "KẾ HOẠCH THÁNG",
+        link: "https://docs.google.com/spreadsheets/d/1nANIq8swbo_Pu8j_Q0zouqZUGXsW0_9YqnrtlRcaof8/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "2",
+        noiDung: "BẢNG CHẤM CÔNG",
+        link: "https://docs.google.com/spreadsheets/d/1uKeMQeOq-kIH58AFkiRviyaNUPzbrFBdt9OgOauRqGo/edit?gid=8752095#gid=8752095",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "3",
+        noiDung: "ODER HÌNH ẢNH MKT",
+        link: "https://docs.google.com/spreadsheets/d/1GFT8gVWmbUwZMygqr4pD8cLWWx8BTCj9o58K1UwG4uA/edit?gid=1935964250#gid=1935964250",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "4",
+        noiDung: "ODER VIDEO MKT",
+        link: "https://docs.google.com/spreadsheets/d/1jUV0kmvW3c5luh1-tLIkCnVGK1OQTcXb0bWwCFqrC50/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: "Tracking: Tháng 4, Tháng 5, Tháng 6 • Tổng View • Số lượng video"
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "5",
+        noiDung: "TỒN KHO CKO",
+        link: "https://docs.google.com/spreadsheets/d/1GksRrqvgvFXXMSbRomWq0zFHswYLpQ7qvKLL0zNu8PY/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: "Tracking: Tên Tiktoker"
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "6",
+        noiDung: "PLAN CONTENT KINGBLUE TOOL",
+        link: "https://docs.google.com/spreadsheets/d/1FNbaSqEEmeqbHQVmbfrMt94Eh5r_iKQyVgrWTnQCz2s/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "7",
+        noiDung: "PLAN CONTENT CKÔ STORE",
+        link: "https://docs.google.com/spreadsheets/d/1fGJKl2KOfY_6Nv0IkR7fzph93fuqaRukECZqDiccxtQ/edit?gid=163082230#gid=163082230",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "8",
+        noiDung: "THÔNG TIN SẢN PHẨM KINGBLUE",
+        link: "https://docs.google.com/spreadsheets/d/1qXZz12R76xxwwCfl_aA16piQxm3UvFsL2GEzZOVHUzs/edit?gid=1749698373#gid=1749698373",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "9",
+        noiDung: "VIDEO CKO STORE",
+        link: "https://drive.google.com/drive/folders/1pojaTzvjcU43ssGZeQHlN2UWYeTG_vh_?usp=sharing",
+        type: "DRIVE",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "10",
+        noiDung: "DRIVE HÌNH ẢNH KINGBLUE",
+        link: "https://drive.google.com/drive/folders/1oI2fzF74dEp-5h0Z_PwvuV5vHtcSGl5e?usp=sharing",
+        type: "DRIVE",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "11",
+        noiDung: "DRIVE VIDEO KINGBLUE",
+        link: "https://drive.google.com/drive/folders/17m5CJKcRBmXJn4LFma-5MhFy_WxO0qVk?usp=share_link",
+        type: "DRIVE",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "12",
+        noiDung: "BẢNG SỈ LẺ KINGBLUE",
+        link: "https://drive.google.com/drive/folders/1NWSbIQizPxG1QIl-Uxv-GuMYmziv8dlZ?usp=sharing",
+        type: "DRIVE",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "13",
+        noiDung: "TỔNG HỢP KOL HỢP TÁC",
+        link: "https://docs.google.com/spreadsheets/d/146sJ4vdXZqQypTuZmUz6FFI5IWxG-ToVzR5v7fcWWg0/edit?usp=sharing",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "14",
+        noiDung: "DANH SÁCH SẢN PHẨM BÁN CHẠY",
+        link: "https://docs.google.com/spreadsheets/d/1n8Ynr7arEMJLXziPGXMwduzJV14ur8HAU0TlAuQd35Q/edit?usp=sharing",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "16", // Giữ nguyên STT 16 đúng theo bảng tính gốc
+        noiDung: "ĐÁNH GIÁ KPI TEAM MKT",
+        link: "https://docs.google.com/spreadsheets/d/1VtGpM3NvUX6l1n0gUdciNeCb0ezymGeDOzoudOQD35U/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "DASHBOARD",
+        sectionTitle: "DASH BOARD PHÒNG MARKETING - ĐẦU MỐI THÔNG TIN",
+        stt: "17",
+        noiDung: "WEBSITE",
+        link: "https://search.google.com/search-console/performance/insights?resource_id=https%3A%2F%2Fkingblue.vn%2F",
+        type: "CONSOLE",
+        note: "Google Search Console Performance Insights"
+      },
+
+      // BẢNG 2: VẬN HÀNH SÀN
+      {
+        section: "ECOM",
+        sectionTitle: "VẬN HÀNH SÀN",
+        stt: "1",
+        noiDung: "LINK VẬN HÀNH SÀN",
+        link: "https://docs.google.com/spreadsheets/d/1XkR8bfwL4uM_7_26gdfF20gOOFrzhUaSZKlLJkqbu1Y/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "ECOM",
+        sectionTitle: "VẬN HÀNH SÀN",
+        stt: "2",
+        noiDung: "PNL SẢN PHẨM",
+        link: "https://docs.google.com/spreadsheets/d/1GmxsK5W-Ji1PQRF7Z3Xl2kHONM6Xzd4nccE3pL1kXZA/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "ECOM",
+        sectionTitle: "VẬN HÀNH SÀN",
+        stt: "3",
+        noiDung: "TỒN KHO ECOM",
+        link: "https://docs.google.com/spreadsheets/d/1Ynj6JNtJ9jHahbaDxXwE_fFBzMzBRxpZDLRoAesPeeA/edit?gid=0#gid=0",
+        type: "SHEETS",
+        note: ""
+      },
+      {
+        section: "ECOM",
+        sectionTitle: "VẬN HÀNH SÀN",
+        stt: "4",
+        noiDung: "QUY TRÌNH VẬN HÀNH",
+        link: "https://drive.google.com/drive/folders/1gi9vbNdxHh3KVpSwSVoUAHOrVVtSm6Mk",
+        type: "DRIVE",
+        note: "Google Drive Quy trình SOP vận hành"
+      }
+    ];
+
+    // State Variables
+    let currentFilter = 'ALL';
+    let currentTypeFilter = 'ALL';
+    let currentSearchTerm = '';
+    let currentViewMode = 'cards'; // 'cards' | 'table'
+
+    // Helper: getTypeBadgeInfo
+    function getTypeBadge(type) {
+      if (type === 'SHEETS') {
+        return {
+          label: 'Google Sheets',
+          bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          dot: 'bg-emerald-500',
+          icon: 'file-spreadsheet'
+        };
+      } else if (type === 'DRIVE') {
+        return {
+          label: 'Google Drive',
+          bg: 'bg-blue-50 text-blue-700 border-blue-200',
+          dot: 'bg-blue-500',
+          icon: 'folder'
+        };
+      } else {
+        return {
+          label: 'Search Console',
+          bg: 'bg-purple-50 text-purple-700 border-purple-200',
+          dot: 'bg-purple-500',
+          icon: 'globe'
+        };
+      }
+    }
+
+    // Helper: Icon for Item Title
+    function getItemIcon(title) {
+      const t = title.toUpperCase();
+      if (t.includes('VIDEO')) return 'video';
+      if (t.includes('HÌNH ẢNH')) return 'image';
+      if (t.includes('CHẤM CÔNG')) return 'clock';
+      if (t.includes('KẾ HOẠCH') || t.includes('PLAN')) return 'calendar';
+      if (t.includes('TỒN KHO')) return 'boxes';
+      if (t.includes('SẢN PHẨM')) return 'tag';
+      if (t.includes('SỈ LẺ')) return 'banknote';
+      if (t.includes('KOL')) return 'users';
+      if (t.includes('KPI')) return 'award';
+      if (t.includes('WEBSITE')) return 'globe';
+      if (t.includes('SÀN')) return 'shopping-cart';
+      if (t.includes('PNL')) return 'calculator';
+      if (t.includes('QUY TRÌNH')) return 'book-open';
+      return 'link-2';
+    }
+
+    // Filter Logic
+    function getFilteredData() {
+      return RAW_MARKETING_HUB_DATA.filter(item => {
+        // Section Filter
+        if (currentFilter !== 'ALL' && item.section !== currentFilter) {
+          return false;
+        }
+        // Type Filter
+        if (currentTypeFilter !== 'ALL' && item.type !== currentTypeFilter) {
+          return false;
+        }
+        // Search Term
+        if (currentSearchTerm.trim()) {
+          const q = currentSearchTerm.toLowerCase();
+          const matchTitle = item.noiDung.toLowerCase().includes(q);
+          const matchSTT = item.stt.toLowerCase().includes(q);
+          const matchNote = item.note.toLowerCase().includes(q);
+          const matchLink = item.link.toLowerCase().includes(q);
+          return matchTitle || matchSTT || matchNote || matchLink;
+        }
+        return true;
+      });
+    }
+
+    // Render Cards View
+    function renderCards(data) {
+      const dashGrid = document.getElementById('cardsGridDashboard');
+      const ecomGrid = document.getElementById('cardsGridEcom');
+      const secDash = document.getElementById('section-dashboard');
+      const secEcom = document.getElementById('section-ecom');
+
+      dashGrid.innerHTML = '';
+      ecomGrid.innerHTML = '';
+
+      const dashItems = data.filter(d => d.section === 'DASHBOARD');
+      const ecomItems = data.filter(d => d.section === 'ECOM');
+
+      document.getElementById('badge-count-dashboard').innerText = `${dashItems.length} mục`;
+      document.getElementById('badge-count-ecom').innerText = `${ecomItems.length} mục`;
+
+      secDash.style.display = dashItems.length > 0 ? 'block' : 'none';
+      secEcom.style.display = ecomItems.length > 0 ? 'block' : 'none';
+
+      const createCardHtml = (item) => {
+        const badge = getTypeBadge(item.type);
+        const iconName = getItemIcon(item.noiDung);
+        const isEcom = item.section === 'ECOM';
+
+        return `
+          <div class="hub-card bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-xs flex flex-col justify-between hover:border-brand-500/50 group">
+            <div>
+              <!-- Top Row: STT & Type Badge -->
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="inline-flex items-center justify-center font-mono font-black text-xs px-2.5 py-1 rounded-lg ${isEcom ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-800'}">
+                  #${item.stt}
+                </span>
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded-md border ${badge.bg}">
+                  <span class="w-1.5 h-1.5 rounded-full ${badge.dot}"></span>
+                  ${badge.label}
+                </span>
+              </div>
+
+              <!-- Content Title -->
+              <div class="flex items-start gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-xl ${isEcom ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-brand-600'} flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="${iconName}" class="w-4 h-4"></i>
+                </div>
+                <h4 class="font-extrabold text-sm text-slate-900 group-hover:text-brand-600 transition leading-snug">
+                  ${item.noiDung}
+                </h4>
+              </div>
+
+              <!-- Note / Tracking Subtext (if any) -->
+              ${item.note ? `
+                <div class="mt-2 mb-3 p-2 bg-slate-50 border border-slate-100 rounded-xl text-[11px] text-slate-600 font-medium leading-relaxed">
+                  <span class="font-bold text-slate-700">📌 Ghi chú:</span> ${item.note}
+                </div>
+              ` : ''}
+
+              <!-- URL preview truncate -->
+              <div class="mt-2 text-[11px] text-slate-400 font-mono truncate select-all bg-slate-50/70 p-1.5 rounded-lg border border-slate-100">
+                ${item.link}
+              </div>
+            </div>
+
+            <!-- Action Buttons Footer -->
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+              <button 
+                onclick="copyToClipboard('${item.link}', '${item.noiDung}')" 
+                title="Sao chép đường dẫn"
+                class="px-2.5 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-semibold text-xs flex items-center gap-1 transition"
+              >
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span class="hidden xs:inline">Copy</span>
+              </button>
+              
+              <a 
+                href="${item.link}" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="flex-1 py-1.5 px-3 rounded-xl ${isEcom ? 'bg-amber-400 hover:bg-amber-500 text-slate-950 font-black' : 'bg-[#1A365D] hover:bg-slate-800 text-white font-bold'} text-xs flex items-center justify-center gap-1.5 transition shadow-xs"
+              >
+                <span>Mở Ngay</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        `;
+      };
+
+      dashItems.forEach(item => {
+        dashGrid.innerHTML += createCardHtml(item);
+      });
+      ecomItems.forEach(item => {
+        ecomGrid.innerHTML += createCardHtml(item);
+      });
+    }
+
+    // Render Table View
+    function renderTable(data) {
+      const tbDash = document.getElementById('tableBodyDashboard');
+      const tbEcom = document.getElementById('tableBodyEcom');
+
+      tbDash.innerHTML = '';
+      tbEcom.innerHTML = '';
+
+      const dashItems = data.filter(d => d.section === 'DASHBOARD');
+      const ecomItems = data.filter(d => d.section === 'ECOM');
+
+      const createRowHtml = (item) => {
+        const badge = getTypeBadge(item.type);
+        const iconName = getItemIcon(item.noiDung);
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3 px-4 text-center font-mono font-bold text-slate-600 bg-slate-50/50">
+              #${item.stt}
+            </td>
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="${iconName}" class="w-4 h-4 text-slate-500 shrink-0"></i>
+                <div>
+                  <span class="font-extrabold text-slate-900">${item.noiDung}</span>
+                  ${item.note ? `<p class="text-[11px] text-amber-700 font-medium mt-0.5">${item.note}</p>` : ''}
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-4 font-mono text-[11px] text-brand-600">
+              <div class="max-w-md truncate" title="${item.link}">
+                <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="hover:underline">
+                  ${item.link}
+                </a>
+              </div>
+            </td>
+            <td class="py-3 px-4 text-center">
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md border ${badge.bg}">
+                <span class="w-1.5 h-1.5 rounded-full ${badge.dot}"></span>
+                ${badge.label}
+              </span>
+            </td>
+            <td class="py-3 px-4 text-center">
+              <div class="flex items-center justify-center gap-1.5">
+                <button 
+                  onclick="copyToClipboard('${item.link}', '${item.noiDung}')" 
+                  title="Sao chép link"
+                  class="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition"
+                >
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                </button>
+                <a 
+                  href="${item.link}" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="Mở tab mới"
+                  class="px-2.5 py-1.5 rounded-lg bg-[#1A365D] hover:bg-slate-800 text-white font-bold text-[11px] flex items-center gap-1 transition"
+                >
+                  <span>Mở</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+        `;
+      };
+
+      dashItems.forEach(item => {
+        tbDash.innerHTML += createRowHtml(item);
+      });
+      ecomItems.forEach(item => {
+        tbEcom.innerHTML += createRowHtml(item);
+      });
+    }
+
+    // Refresh Current UI
+    function render() {
+      const filtered = getFilteredData();
+      const empty = document.getElementById('emptyState');
+      const cardsCont = document.getElementById('cardsViewContainer');
+      const tableCont = document.getElementById('tableViewContainer');
+
+      if (filtered.length === 0) {
+        empty.classList.remove('hidden');
+        cardsCont.classList.add('hidden');
+        tableCont.classList.add('hidden');
+      } else {
+        empty.classList.add('hidden');
+        if (currentViewMode === 'cards') {
+          cardsCont.classList.remove('hidden');
+          tableCont.classList.add('hidden');
+          renderCards(filtered);
+        } else {
+          cardsCont.classList.add('hidden');
+          tableCont.classList.remove('hidden');
+          renderTable(filtered);
+        }
+      }
+
+      // Update Filter Summary Bar
+      const summaryBar = document.getElementById('filterSummaryBar');
+      const summaryText = document.getElementById('filterSummaryText');
+      if (currentFilter !== 'ALL' || currentTypeFilter !== 'ALL' || currentSearchTerm.trim()) {
+        summaryBar.classList.remove('hidden');
+        let txt = `Hiển thị ${filtered.length} / ${RAW_MARKETING_HUB_DATA.length} mục`;
+        if (currentSearchTerm.trim()) txt += ` • Từ khóa: "${currentSearchTerm}"`;
+        if (currentFilter !== 'ALL') txt += ` • Danh mục: ${currentFilter === 'DASHBOARD' ? 'DASH BOARD' : 'VẬN HÀNH SÀN'}`;
+        if (currentTypeFilter !== 'ALL') txt += ` • Loại: ${currentTypeFilter}`;
+        summaryText.innerText = txt;
+      } else {
+        summaryBar.classList.add('hidden');
+      }
+
+      // Refresh Lucide Icons
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    // Filter Controls
+    function setFilter(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+        btn.classList.add('text-slate-600');
+      });
+      const activeBtn = document.getElementById(`filter-${cat}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-600');
+        activeBtn.classList.add('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+      }
+      render();
+    }
+
+    function setTypeFilter(t) {
+      if (currentTypeFilter === t) {
+        currentTypeFilter = 'ALL';
+      } else {
+        currentTypeFilter = t;
+      }
+      document.querySelectorAll('.type-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+      });
+      if (currentTypeFilter !== 'ALL') {
+        const btn = document.getElementById(`type-${currentTypeFilter}`);
+        if (btn) btn.classList.add('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+      }
+      render();
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      const cardsBtn = document.getElementById('view-cards-btn');
+      const tableBtn = document.getElementById('view-table-btn');
+
+      if (mode === 'cards') {
+        cardsBtn.className = 'p-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition';
+        tableBtn.className = 'p-1.5 rounded-lg text-slate-500 hover:text-slate-900 transition';
+      } else {
+        tableBtn.className = 'p-1.5 rounded-lg bg-white text-slate-900 shadow-xs transition';
+        cardsBtn.className = 'p-1.5 rounded-lg text-slate-500 hover:text-slate-900 transition';
+      }
+      render();
+    }
+
+    function handleSearch(val) {
+      currentSearchTerm = val;
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (val.trim()) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      render();
+    }
+
+    function clearSearch() {
+      document.getElementById('hubSearchInput').value = '';
+      currentSearchTerm = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      render();
+    }
+
+    function resetAllFilters() {
+      currentFilter = 'ALL';
+      currentTypeFilter = 'ALL';
+      currentSearchTerm = '';
+      document.getElementById('hubSearchInput').value = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+        btn.classList.add('text-slate-600');
+      });
+      document.getElementById('filter-ALL').classList.add('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+      
+      document.querySelectorAll('.type-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-slate-900', 'shadow-xs', 'font-bold');
+      });
+
+      render();
+    }
+
+    // Copy to Clipboard with Toast
+    function copyToClipboard(text, title) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Đã sao chép link: "${title}"`);
+      }).catch(err => {
+        prompt('Vui lòng sao chép liên kết:', text);
+      });
+    }
+
+    function copyAllLinks() {
+      const allText = RAW_MARKETING_HUB_DATA.map(i => `${i.stt}. ${i.noiDung}: ${i.link}`).join('\n');
+      navigator.clipboard.writeText(allText).then(() => {
+        showToast(`Đã sao chép toàn bộ 20 liên kết vào bộ nhớ tạm!`);
+      });
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.innerText = msg;
+      toast.classList.remove('hidden');
+      
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2500);
+    }
+
+    // Initial Execution
+    document.addEventListener('DOMContentLoaded', () => {
+      // Calculate initial counts
+      const dashCount = RAW_MARKETING_HUB_DATA.filter(d => d.section === 'DASHBOARD').length;
+      const ecomCount = RAW_MARKETING_HUB_DATA.filter(d => d.section === 'ECOM').length;
+      document.getElementById('count-ALL').innerText = RAW_MARKETING_HUB_DATA.length;
+      document.getElementById('count-DASHBOARD').innerText = dashCount;
+      document.getElementById('count-ECOM').innerText = ecomCount;
+
+      render();
+    });
+  </script>
+</body>
+</html>

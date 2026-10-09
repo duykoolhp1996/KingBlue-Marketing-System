@@ -83,11 +83,58 @@ Server sẽ chạy tại: **`http://localhost:8080`**
    👉 **[http://localhost:8080/website_tong_hop_bao_cao.html](http://localhost:8080/website_tong_hop_bao_cao.html)**  
    - Dành cho nộp báo cáo Standup hàng ngày và duyệt báo cáo chiều.
 
+3. 🗂️ **Marketing Hub - Đầu Mối Thông Tin Toàn Bộ Phòng MKT**:  
+   👉 **[http://localhost:8080/marketing_hub.html](http://localhost:8080/marketing_hub.html)**  
+   - Tổng hợp nguyên bản 20 liên kết vận hành (Kế hoạch, Bảng chấm công, Order Media/Video, Drive KingBlue/CKO, Bảng sỉ lẻ, KOL, P&L sàn, Tồn kho Ecom, SOP Quy trình).
+   - Tích hợp Live Search, bộ lọc loại file (Sheets / Drive / Console), chế độ xem Thẻ (Cards) & Bảng nguyên bản (Table).
+
+---
+
+---
+
+## 🆕 Google Sheet Quản Lý Công Việc — Mỗi Người 1 Tab + 1 Tab Tổng Hợp
+
+Script `tao_sheet_cong_viec_moi.py` tạo một Google Spreadsheet gồm **12 tab**:
+
+| Nhóm | Tab |
+|:---|:---|
+| **10 tab cá nhân** | `Marketing Manager` · `Hoai Thuong` · `Kieu Thuong` · `Thuy Thuong` · `Thien` · `Tu` · `Thuc` · `Ngan` · `Hung MN` · `Hung MB` |
+| **Tab tổng hợp** | `TONG HOP` — tự động gộp công việc của **tất cả** mọi người |
+| **Tab cấu hình** | `CAU HINH` — danh mục nuôi dropdown (trạng thái, ưu tiên, nhóm việc, người phối hợp) |
+
+### Cơ chế tự động
+
+- **Trong mỗi tab cá nhân** (14 cột, tiêu đề dòng 4, dữ liệu từ dòng 5):
+  - `STT` tự đánh số theo số dòng có dữ liệu.
+  - `Người thực hiện` tự điền sẵn tên của người đó.
+  - `Trạng thái hạn` tự tính: *Quá hạn / Sắp đến hạn / Đúng hạn / Đã xong*.
+  - Dropdown cho *Nhóm công việc*, *Người phối hợp*, *Trạng thái*, *Độ ưu tiên*.
+- **Tab `TONG HOP`** tự động kéo toàn bộ công việc của 10 tab cá nhân về một chỗ
+  (công thức `QUERY` gộp mảng), kèm 6 thẻ thống kê: Tổng số việc · Hoàn thành ·
+  Đang làm · Đang duyệt · Quá hạn · Sắp đến hạn.
+
+> Nhập việc ở tab của mình → tab `TONG HOP` tự cập nhật, không cần copy tay.
+
+### Cách tạo
+
+```bash
+# Cách 1 — Tạo trực tiếp trên Google Drive (cần mạng + API/token.json hợp lệ)
+python3 tao_sheet_cong_viec_moi.py
+
+# Cách 2 — Xuất file .xlsx rồi tự upload lên Drive (không cần mạng)
+python3 tao_sheet_cong_viec_moi.py --xlsx
+```
+
+Với cách 1, script in ra link Google Sheet và lưu ID vào `cong_viec_config.json`.
+Với cách 2, vào Drive → kéo thả file `.xlsx` → chuột phải → *Mở bằng* → *Google Trang tính* → *Tệp* → *Lưu thành Google Trang tính*.
+
 ---
 
 ## 📁 Cấu Trúc Thư Mục Dự Án
 
 ```
+├── tao_sheet_cong_viec_moi.py        # Script tạo Google Sheet Quản lý công việc MỚI
+├── marketing_hub.html                # Web App Đầu mối thông tin Marketing Hub (20 liên kết)
 ├── quan_ly_cong_viec.html            # Web App Quản lý công việc (Kanban, Table, Dashboard, CRUD)
 ├── website_tong_hop_bao_cao.html     # Web App Báo cáo hàng ngày 17:30
 ├── index.html                        # Trang chủ điều hướng hệ thống
@@ -100,8 +147,11 @@ Server sẽ chạy tại: **`http://localhost:8080`**
 ├── API/                              # Chứa cấu hình OAuth Google API (token.json)
 ├── org_chart_marketing_kingblue.md   # Sơ đồ tổ chức & quy định phân quyền CRM
 ├── mau_bao_cao_hang_ngay.md          # Quy chuẩn mẫu báo cáo hàng ngày
+├── kpi_phong_marketing_cu.md         # Bảng tổng hợp KPI cũ Tháng 7/2026 (7 nhân sự)
+├── thong_tin_dau_moi_marketing.md    # Dashboard đầu mối 20 liên kết thông tin & tài nguyên MKT
 └── README.md                         # Tài liệu hướng dẫn sử dụng dự án
 ```
 
 ---
 *Phát triển bởi đội ngũ Marketing King Blue & Trợ lý ảo AI 🐱 Xu Xu.*
+

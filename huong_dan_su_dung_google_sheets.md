@@ -10,6 +10,8 @@ Tài khoản kết nối: **Duykoolhp1996@gmail.com** (Đã đồng bộ và ph�
 * 📁 **Thư mục Google Drive tổng**: [King Blue - Quản Lý Marketing](https://drive.google.com/drive/folders/1e6BtoJ8BwmpIlJGhr_OMJND7rfuPqT_j)
 * 📊 **Google Sheet Báo Cáo Công Việc Hàng Ngày**: [Báo Cáo Công Việc Hàng Ngày - King Blue Marketing](https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit)
 * 📈 **Google Sheet Quản Lý Giao Việc & Tiến Độ**: [Quản Lý Công Việc - King Blue Marketing](https://docs.google.com/spreadsheets/d/1CmcmBFP4jjdV1jrnNNWwXkc1foxa4j6asaOhI0qg7u8/edit)
+* 📝 **Google Sheet Quản Lý Content Đa Kênh**: [Quản Lý Content - King Blue Marketing](https://docs.google.com/spreadsheets/d/1GXwbgdXawpK9MFvsK1HNZx1EX29ZGWrCIEi6p4yANCU/edit)
+* 🎯 **Google Sheet Kế Hoạch Chạy Quảng Cáo B2B**: [Kế Hoạch Chạy Quảng Cáo B2B - King Blue Marketing](https://docs.google.com/spreadsheets/d/16FVWHNIJz5C2FOaB09P9eoFMfzW2mbyOqehtDxtZIoE/edit)
 
 ---
 

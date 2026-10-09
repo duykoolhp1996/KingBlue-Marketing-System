@@ -302,6 +302,14 @@ html_template = f'''<!DOCTYPE html>
           </div>
         </div>
 
+        <!-- Quick Day Chips Row -->
+        <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100">
+          <span class="text-[11px] font-black text-slate-500 uppercase tracking-wider mr-1">Các ngày có báo cáo:</span>
+          <div id="mgr-quick-date-chips" class="flex flex-wrap items-center gap-1.5">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
         <!-- Bottom Row: KPIs & Live Auto-Sync Status -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100 items-center">
           <div class="bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-2 rounded-xl font-black text-xs sm:text-sm text-center flex items-center justify-center gap-1.5">
@@ -532,6 +540,17 @@ html_template = f'''<!DOCTYPE html>
           updateUserSessionBar();
         }} catch(e) {{}}
       }}
+
+      // Tự động nhận diện ngày mới nhất có báo cáo (hoặc hôm nay nếu chưa có)
+      const availDates = getAvailableReportDates();
+      if (availDates && availDates.length > 0) {{
+        managerSelectedDate = availDates[0];
+      }} else {{
+        managerSelectedDate = formatDateDMY(new Date());
+      }}
+
+      const formDateEl = document.getElementById("emp-form-date");
+      if (formDateEl) formDateEl.value = formatDateDMY(new Date());
 
       // Default to Tab 2: 'cards' (THẺ CÔNG VIỆC HÔM NAY - MỞ TỰ DO KHÔNG CẦN ĐĂNG NHẬP)
       switchMainAppTab('cards');
@@ -813,7 +832,8 @@ html_template = f'''<!DOCTYPE html>
       const empRole = metaRow[6] || '';
       const managerName = metaRow[10] || 'Marketing Manager';
 
-      const tableRows = rows.slice(5).filter(r => r.length > 1 && (r[1] || r[3]));
+      // Lọc các dòng dữ liệu báo cáo thật sự (nhận diện qua ngày tháng ở cột B hoặc A)
+      const tableRows = rows.filter(r => r && r.length > 1 && isDateString(r[1] || r[0]));
 
       const wrapper = document.createElement("div");
       wrapper.className = "space-y-4";
@@ -854,13 +874,13 @@ html_template = f'''<!DOCTYPE html>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 font-medium">
-                ${{tableRows.map(r => {{
-                  const stt = r[0] || '1';
-                  const date = r[1] || '05/10/2026';
-                  const res = r[3] || 'Chưa có nội dung';
+                ${{tableRows.map((r, rIdx) => {{
+                  const stt = (r[0] && !isDateString(r[0])) ? r[0] : String(rIdx + 1);
+                  const date = isDateString(r[1]) ? normalizeDateStr(r[1]) : (isDateString(r[0]) ? normalizeDateStr(r[0]) : '05/10/2026');
+                  const res = r[3] || r[2] || 'Chưa có nội dung';
                   const diff = r[4] || 'Không có';
                   const plan = r[6] || '-';
-                  const status = (res && res !== 'Chưa có nội dung') ? 'Đã hoàn thành' : 'Đang chờ';
+                  const status = (res && res !== 'Chưa có nội dung' && !res.includes('Chưa nộp')) ? 'Đã hoàn thành' : 'Đang chờ';
 
                   return `
                     <tr class="hover:bg-slate-50 transition">
@@ -906,23 +926,134 @@ html_template = f'''<!DOCTYPE html>
       return clean
         .replace(/\\n/g, '<br/>')
         .replace(/•/g, '<span class="text-emerald-600 font-black inline-block mr-1">•</span>')
-        .replace(/-\s+/g, '<span class="text-emerald-500 font-bold inline-block mr-1">- </span>');
+        .replace(/-\\s+/g, '<span class="text-emerald-500 font-bold inline-block mr-1">- </span>');
     }}
 
     // ========================================================
     // 3. CARDS DASHBOARD (EXECUTIVE 17H VIEW - MỞ TỰ DO)
     // ========================================================
+    function isDateString(str) {{
+      if (!str) return false;
+      const s = String(str).trim();
+      if (s.includes('Ngày') || s.includes('NGÀY') || s.includes('STT') || s.includes('Họ và Tên') || s.includes('Nhân Sự')) return false;
+      if (/^Date\\(\\d+\\s*,\\s*\\d+\\s*,\\s*\\d+\\)/.test(s)) return true;
+      if (/^\\d{1,2}\\/\\d{1,2}(\\/\\d{2,4})?$/.test(s)) return true;
+      if (/^\\d{4}-\\d{1,2}-\\d{1,2}$/.test(s)) return true;
+      return false;
+    }}
+
+    function normalizeDateStr(dStr, defaultYear = 2026) {{
+      if (!dStr) return '';
+      let s = String(dStr).trim();
+      const gvizMatch = s.match(/Date\\((\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)\\)/);
+      if (gvizMatch) {{
+        const y = gvizMatch[1];
+        const m = String(parseInt(gvizMatch[2]) + 1).padStart(2, '0');
+        const d = String(parseInt(gvizMatch[3])).padStart(2, '0');
+        return `${{d}}/${{m}}/${{y}}`;
+      }}
+      if (s.includes('/')) {{
+        const parts = s.split('/');
+        if (parts.length === 2) {{
+          const d = String(parseInt(parts[0])).padStart(2, '0');
+          const m = String(parseInt(parts[1])).padStart(2, '0');
+          return `${{d}}/${{m}}/${{defaultYear}}`;
+        }} else if (parts.length === 3) {{
+          const d = String(parseInt(parts[0])).padStart(2, '0');
+          const m = String(parseInt(parts[1])).padStart(2, '0');
+          let y = parts[2].trim();
+          if (y.length === 2) y = '20' + y;
+          return `${{d}}/${{m}}/${{y}}`;
+        }}
+      }}
+      if (s.includes('-')) {{
+        const parts = s.split('-');
+        if (parts.length === 3 && parts[0].length === 4) {{
+          const y = parts[0];
+          const m = String(parseInt(parts[1])).padStart(2, '0');
+          const d = String(parseInt(parts[2])).padStart(2, '0');
+          return `${{d}}/${{m}}/${{y}}`;
+        }}
+      }}
+      return s;
+    }}
+
+    function getAvailableReportDates() {{
+      const datesSet = new Set();
+      const users = ACCOUNTS.filter(a => a.type === "USER");
+      
+      users.forEach(u => {{
+        const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[u.tabName]) ? window.ALL_SHEETS_DATA[u.tabName] : null;
+        if (sData && sData.rows) {{
+          sData.rows.forEach(r => {{
+            if (r && r.length > 1) {{
+              const c1 = String(r[1] || '').trim();
+              const c0 = String(r[0] || '').trim();
+              if (isDateString(c1)) datesSet.add(normalizeDateStr(c1));
+              else if (isDateString(c0)) datesSet.add(normalizeDateStr(c0));
+            }}
+          }});
+        }}
+      }});
+
+      const masterData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA['BAO CAO HOM NAY']) ? window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] : null;
+      if (masterData && masterData.rows && masterData.rows[2]) {{
+        masterData.rows[2].forEach(cell => {{
+          if (isDateString(cell)) datesSet.add(normalizeDateStr(cell));
+        }});
+      }}
+
+      // Add today
+      datesSet.add(formatDateDMY(new Date()));
+
+      const list = Array.from(datesSet);
+      list.sort((a, b) => {{
+        const dtA = parseDMYDate(a);
+        const dtB = parseDMYDate(b);
+        return dtB - dtA; // Newest first
+      }});
+      return list;
+    }}
+
+    function renderQuickDateChips() {{
+      const container = document.getElementById("mgr-quick-date-chips");
+      if (!container) return;
+      container.innerHTML = "";
+
+      const dates = getAvailableReportDates();
+      const recentDates = dates.slice(0, 6);
+
+      recentDates.forEach(d => {{
+        const btn = document.createElement("button");
+        const isSelected = (normalizeDateStr(managerSelectedDate) === normalizeDateStr(d));
+        btn.type = "button";
+        btn.onclick = () => setManagerDate(d);
+        btn.className = isSelected 
+          ? "px-2.5 py-1 rounded-xl text-xs font-black bg-blue-700 text-white shadow-2xs border border-blue-800 transition flex items-center gap-1"
+          : "px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition flex items-center gap-1";
+        
+        const todayStr = formatDateDMY(new Date());
+        let label = d.substring(0, 5);
+        if (d === todayStr) label = "Hôm nay (" + label + ")";
+        
+        btn.innerHTML = `<span>📅</span> <span>${{label}}</span>`;
+        container.appendChild(btn);
+      }});
+    }}
+
     function setManagerDate(dateStr) {{
-      managerSelectedDate = dateStr;
+      managerSelectedDate = normalizeDateStr(dateStr) || dateStr;
       
       const picker = document.getElementById("mgr-calendar-picker");
-      if (picker) picker.value = dmyToYmd(dateStr);
+      if (picker) picker.value = dmyToYmd(managerSelectedDate);
 
       const textEl = document.getElementById("mgr-date-text");
-      if (textEl) textEl.textContent = formatVietnameseFullDate(dateStr);
+      if (textEl) textEl.textContent = formatVietnameseFullDate(managerSelectedDate);
 
-      renderManagerCards(dateStr);
-      updateExecutiveReportPreview(dateStr);
+      renderQuickDateChips();
+      renderManagerCards(managerSelectedDate);
+      updateExecutiveReportPreview(managerSelectedDate);
+      fetchBackendReportsForDate(managerSelectedDate);
     }}
 
     function jumpManagerDay(offset) {{
@@ -932,7 +1063,8 @@ html_template = f'''<!DOCTYPE html>
     }}
 
     function setManagerToToday() {{
-      setManagerDate('05/10/2026');
+      const today = formatDateDMY(new Date());
+      setManagerDate(today);
     }}
 
     function onManagerCalendarChange(ymd) {{
@@ -963,6 +1095,26 @@ html_template = f'''<!DOCTYPE html>
       const dt = parseDMYDate(dmy);
       const days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
       return `${{days[dt.getDay()] || 'Thứ'}}, ${{dmy}}`;
+    }}
+
+    async function fetchBackendReportsForDate(dateStr) {{
+      const targetNorm = normalizeDateStr(dateStr);
+      if (!targetNorm) return;
+      if (!window.REPORTS_CACHE) window.REPORTS_CACHE = {{}};
+      
+      try {{
+        const res = await fetch(`/api/reports?date=${{encodeURIComponent(targetNorm)}}`);
+        if (res.ok) {{
+          const data = await res.json();
+          if (data && data.success && data.reports) {{
+            window.REPORTS_CACHE[targetNorm] = data.reports;
+            if (normalizeDateStr(managerSelectedDate) === targetNorm) {{
+              renderManagerCards(managerSelectedDate);
+              updateExecutiveReportPreview(managerSelectedDate);
+            }}
+          }}
+        }}
+      }} catch (e) {{}}
     }}
 
     function getRoleColorTheme(group) {{
@@ -1006,34 +1158,38 @@ html_template = f'''<!DOCTYPE html>
     }}
 
     function findReportForUser(u, dateStr) {{
-      const dParts = dateStr.split('/');
-      const day = parseInt(dParts[0]);
-      const month = parseInt(dParts[1]);
-      const year = dParts[2] || '2026';
-      const patterns = [
-        `${{day}}/${{month}}/${{year}}`,
-        `${{String(day).padStart(2, '0')}}/${{String(month).padStart(2, '0')}}/${{year}}`,
-        `${{day}}/${{month}}`,
-        `${{String(day).padStart(2, '0')}}/${{String(month).padStart(2, '0')}}`
-      ];
+      if (!u || !dateStr) return null;
+      const targetNorm = normalizeDateStr(dateStr);
+      if (!targetNorm) return null;
 
-      // Strategy 1: Check individual staff tab (window.ALL_SHEETS_DATA[u.tabName])
+      // 1. Check runtime memory cache (từ backend API nếu có)
+      if (window.REPORTS_CACHE && window.REPORTS_CACHE[targetNorm] && window.REPORTS_CACHE[targetNorm][u.username]) {{
+        return window.REPORTS_CACHE[targetNorm][u.username];
+      }}
+
+      // 2. Check individual staff tab (window.ALL_SHEETS_DATA[u.tabName])
       const sData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA[u.tabName]) ? window.ALL_SHEETS_DATA[u.tabName] : null;
-      if (sData && sData.rows) {{
-        for (const r of sData.rows.slice(2)) {{
-          if (r && r.length > 2) {{
-            const cellDate = String(r[1] || r[0] || '').trim();
-            const isDateMatch = patterns.some(p => cellDate.includes(p));
+      if (sData && sData.rows && Array.isArray(sData.rows)) {{
+        for (const r of sData.rows) {{
+          if (!r || !Array.isArray(r) || r.length < 2) continue;
+          
+          const c1 = String(r[1] || '').trim();
+          const c0 = String(r[0] || '').trim();
+          
+          const norm1 = isDateString(c1) ? normalizeDateStr(c1) : '';
+          const norm0 = isDateString(c0) ? normalizeDateStr(c0) : '';
+          
+          if (norm1 === targetNorm || norm0 === targetNorm) {{
             const resText = String(r[3] || r[2] || '').trim();
-            
-            if (isDateMatch && resText && !resText.includes('Chưa nộp') && resText !== '-') {{
+            if (resText && !resText.includes('Chưa nộp') && resText !== '-' && resText !== '⏳ Chưa nộp') {{
               return {{
-                time: (r[2] && r[2] !== '--:--' && r[2] !== '00:00:00') ? r[2] : '17:00:00',
+                time: (r[2] && r[2] !== '--:--' && r[2] !== '00:00:00' && r[2].includes(':')) ? r[2] : '17:00:00',
                 res: resText,
-                diff: r[4] || '• Không có',
-                lesson: r[5] || '• Không có',
+                diff: (r[4] && r[4].trim()) ? r[4] : '• Không có',
+                lesson: (r[5] && r[5].trim()) ? r[5] : '• Không có',
                 plan: r[6] || '',
-                status: 'Đúng hạn',
+                link: r[7] || '-',
+                status: (r[8] && r[8].trim() && r[8] !== 'Chưa nộp') ? r[8] : 'Đúng hạn',
                 feedback: (r[9] && r[9] !== 'Chờ duyệt') ? r[9] : ''
               }};
             }}
@@ -1041,22 +1197,35 @@ html_template = f'''<!DOCTYPE html>
         }}
       }}
 
-      // Strategy 2: Check Master sheet 'BAO CAO HOM NAY'
+      // 3. Check Master sheet 'BAO CAO HOM NAY' - CHỈ KHI ngày của Master sheet khớp chính xác targetNorm!
       const masterData = (window.ALL_SHEETS_DATA && window.ALL_SHEETS_DATA['BAO CAO HOM NAY']) ? window.ALL_SHEETS_DATA['BAO CAO HOM NAY'] : null;
-      if (masterData && masterData.rows) {{
-        for (const r of masterData.rows) {{
-          if (r && r.length > 4 && r[1] && (r[1].includes(u.name) || u.name.includes(r[1]))) {{
-            const resText = String(r[4] || '').trim();
-            if (resText && !resText.includes('Chưa nộp') && resText !== '-') {{
-              return {{
-                time: (r[8] && r[8] !== '--:--' && r[8] !== '00:00:00') ? r[8] : '17:00:00',
-                res: resText,
-                diff: r[5] || '• Không có',
-                lesson: r[6] || '• Không có',
-                plan: r[7] || '',
-                status: 'Đúng hạn',
-                feedback: (r[10] && r[10] !== 'Chờ duyệt') ? r[10] : ''
-              }};
+      if (masterData && masterData.rows && Array.isArray(masterData.rows)) {{
+        let masterDate = '';
+        if (masterData.rows[2]) {{
+          for (const cell of masterData.rows[2]) {{
+            if (cell && isDateString(cell)) {{
+              masterDate = cell;
+              break;
+            }}
+          }}
+        }}
+        const masterDateNorm = normalizeDateStr(masterDate);
+        if (masterDateNorm && masterDateNorm === targetNorm) {{
+          for (const r of masterData.rows) {{
+            if (r && r.length > 4 && r[1] && (r[1].includes(u.name) || u.name.includes(r[1]))) {{
+              const resText = String(r[4] || '').trim();
+              if (resText && !resText.includes('Chưa nộp') && resText !== '-' && resText !== '⏳ Chưa nộp') {{
+                return {{
+                  time: (r[8] && r[8] !== '--:--' && r[8] !== '00:00:00') ? r[8] : '17:00:00',
+                  res: resText,
+                  diff: (r[5] && r[5].trim()) ? r[5] : '• Không có',
+                  lesson: (r[6] && r[6].trim()) ? r[6] : '• Không có',
+                  plan: r[7] || '',
+                  link: '-',
+                  status: (r[9] && r[9].trim() && r[9] !== 'Chưa nộp') ? r[9] : 'Đúng hạn',
+                  feedback: (r[10] && r[10] !== 'Chờ duyệt') ? r[10] : ''
+                }};
+              }}
             }}
           }}
         }}
@@ -1210,7 +1379,7 @@ html_template = f'''<!DOCTYPE html>
       ];
 
       reports.forEach(item => {{
-        const meaningfulLines = item.rep.res.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\s*Nhiệm vụ \d+:?$/i));
+        const meaningfulLines = item.rep.res.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\\s*Nhiệm vụ \\d+:?$/i));
         const cleanRes = (meaningfulLines.length > 0 ? meaningfulLines : item.rep.res.split(nl).map(s => s.trim()).filter(Boolean)).slice(0, 2).join('; ');
         lines.push("• " + item.user.name + " (" + item.user.group + "): " + cleanRes);
       }});
@@ -1231,7 +1400,7 @@ html_template = f'''<!DOCTYPE html>
 
       reports.forEach(item => {{
         if (item.rep.plan) {{
-          const meaningfulPlanLines = item.rep.plan.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\s*Nhiệm vụ \d+:?$/i));
+          const meaningfulPlanLines = item.rep.plan.split(nl).map(s => s.trim()).filter(s => s && !s.match(/^•?\\s*Nhiệm vụ \\d+:?$/i));
           const cleanPlan = (meaningfulPlanLines.length > 0 ? meaningfulPlanLines[0] : item.rep.plan.split(nl).map(s => s.trim()).filter(Boolean)[0]) || 'Tiếp tục triển khai công việc';
           lines.push("• " + item.user.name + ": " + cleanPlan);
         }}
@@ -1261,7 +1430,7 @@ html_template = f'''<!DOCTYPE html>
         const masterUrl = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=out:json&gid=187266668&t=${{Date.now()}}`;
         const res = await fetch(masterUrl);
         const text = await res.text();
-        const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+        const jsonMatch = text.match(/google\\.visualization\\.Query\\.setResponse\\(([\\s\\S]*)\\);/);
 
         if (jsonMatch && jsonMatch[1]) {{
           const data = JSON.parse(jsonMatch[1]);
@@ -1283,6 +1452,7 @@ html_template = f'''<!DOCTYPE html>
         await syncAllStaffTabsLive();
 
         // 3. Re-render views with freshest live data
+        renderQuickDateChips();
         if (currentAppMainTab === 'cards') {{
           renderManagerCards(managerSelectedDate);
           updateExecutiveReportPreview(managerSelectedDate);
@@ -1314,7 +1484,7 @@ html_template = f'''<!DOCTYPE html>
           const url = `https://docs.google.com/spreadsheets/d/${{SPREADSHEET_ID}}/gviz/tq?tqx=out:json&gid=${{tab.gid}}&t=${{Date.now()}}`;
           const res = await fetch(url);
           const text = await res.text();
-          const m = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+          const m = text.match(/google\\.visualization\\.Query\\.setResponse\\(([\\s\\S]*)\\);/);
           if (m && m[1]) {{
             const parsed = JSON.parse(m[1]);
             if (parsed.table && parsed.table.rows) {{
