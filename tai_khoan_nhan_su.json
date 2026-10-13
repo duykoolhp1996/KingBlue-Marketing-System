@@ -18,12 +18,12 @@
     "pin": "1001",
     "alt_pass": "hoaithuong",
     "name": "Võ Thị Hoài Thương",
-    "role": "Content Marketing & SEO Fanpage/Website",
-    "group": "Content",
+    "role": "Phụ trách Brand Ckô Store (SEO, Website & Chiến dịch Ecom)",
+    "group": "Brand CKO",
     "type": "USER",
     "avatar": "✍️",
-    "tabName": "Hoai Thuong - Content",
-    "crmRole": "Marketing User"
+    "tabName": "Hoai Thuong - CKO",
+    "crmRole": "Brand CKO Leader"
   },
   {
     "username": "kieuthuong",
@@ -31,25 +31,25 @@
     "pin": "1002",
     "alt_pass": "kieuthuong",
     "name": "Kiều Thương",
-    "role": "Content Video & Hợp Tác KOC/Reviewer",
-    "group": "Content",
+    "role": "Quản lý Brand King Blue (Content, Video, KOC & Ads B2B)",
+    "group": "Brand King Blue",
     "type": "USER",
-    "avatar": "🎬",
-    "tabName": "Kieu Thuong - Content",
-    "crmRole": "Marketing User"
+    "avatar": "👑",
+    "tabName": "Kieu Thuong - King Blue",
+    "crmRole": "Brand Manager King Blue"
   },
   {
     "username": "thuythuong",
     "password": "1003",
     "pin": "1003",
-    "alt_pass": "thuythuong",
+    "alt_pass": "thuongthuong",
     "name": "Thương Thương",
-    "role": "Trade Marketing & Chính Sách Điểm Bán",
-    "group": "Content",
+    "role": "Phụ trách Brand Ckô Store (Social, Trade MKT & Review)",
+    "group": "Brand CKO",
     "type": "USER",
     "avatar": "📑",
-    "tabName": "Thuong Thuong - Content",
-    "crmRole": "Marketing User"
+    "tabName": "Thuong Thuong - CKO",
+    "crmRole": "Brand CKO Specialist"
   },
   {
     "username": "thien",

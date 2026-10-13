@@ -28,3 +28,16 @@ env/
 # Google OAuth Credentials & Tokens (Security Protection for Public Repos)
 API/token.json
 API/client_secret*.json
+
+# Lark API Scratch & Diagnostic Scripts
+*lark*.py
+inspect_*.py
+test_*.py
+check_*.py
+clean_*.py
+deploy_*.py
+read_*.py
+sync_*.py
+update_lark*.py
+update_word*.py
+

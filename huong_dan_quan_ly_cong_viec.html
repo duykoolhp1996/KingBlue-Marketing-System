@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cẩm Nang Động: Hướng Dẫn Sử Dụng Quản Lý Công Việc Marketing - King Blue & CKÔ Store</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9KQYN3R3X2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9KQYN3R3X2');
+  </script>
+
+  <!-- Hotjar Tracking Code -->
+  <script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:6791459,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#F0F7FF',
+              100: '#E0EFFF',
+              500: '#2563EB',
+              600: '#1D4ED8',
+              700: '#1E40AF',
+              800: '#1E3A8A',
+              900: '#0F1E3D',
+              950: '#0A1329',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col">
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700">
+    <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+    <span id="toast-text" class="text-sm font-medium">Đã sao chép liên kết!</span>
+  </div>
+
+  <!-- HEADER BANNER -->
+  <header class="bg-gradient-to-r from-brand-950 via-brand-900 to-slate-900 text-white border-b border-brand-800/50 shadow-xl sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/20 text-white font-black text-xl tracking-wider">
+          KB
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2">
+              Cẩm Nang Quản Lý Công Việc Marketing
+            </h1>
+            <span class="badge-pill bg-blue-500/20 text-blue-300 border border-blue-400/30">Lark Bitable</span>
+          </div>
+          <p class="text-xs text-slate-300 flex items-center gap-2 mt-0.5">
+            <span>Công ty TNHH SX & TM King Blue & CKÔ Store</span>
+            <span class="w-1 h-1 rounded-full bg-slate-500"></span>
+            <span class="text-amber-300 font-medium">🐱 Trợ lý ảo Xu Xu</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblyFlKjRPSDs4yB&view=vewNAtd7Xv" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 flex items-center gap-1.5 transition-all">
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+          <span>Mở Lark Marketing</span>
+        </a>
+        <a href="https://ijphpnip01ra.jp.larksuite.com/base/TL5UbuehuaeDDEsk5zHjTWE6ppf" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition-all">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
+          <span>Content King Blue</span>
+        </a>
+        <a href="https://ijphpnip01ra.jp.larksuite.com/base/E3eabTsQ2abDs8sTEWFjGd53p6c" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium flex items-center gap-1.5 transition-all">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>Content CKÔ Store</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    
+    <!-- STATS OVERVIEW CARDS -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">
+          <i data-lucide="layout-grid" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-slate-900">8 Phân Hệ</div>
+          <div class="text-xs text-slate-500 font-medium">Bảng nghiệp vụ số hóa</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">
+          <i data-lucide="users" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-slate-900">183 Creator</div>
+          <div class="text-xs text-slate-500 font-medium">Danh bạ KOL/KOC cơ khí</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
+          <i data-lucide="package-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-slate-900">77 Đơn Mẫu</div>
+          <div class="text-xs text-slate-500 font-medium">Gửi test & thu hồi mượn</div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+          <i data-lucide="trending-up" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-slate-900">45 Báo Cáo</div>
+          <div class="text-xs text-slate-500 font-medium">Đo lường GMV & ROI video</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN TABS CONTROL -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-1.5 mb-8 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <button onclick="switchTab('system-map')" id="tab-btn-system-map" class="tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all bg-blue-600 text-white shadow-sm">
+          <i data-lucide="map" class="w-4 h-4"></i>
+          <span>Bản Đồ 8 Phân Hệ</span>
+        </button>
+
+        <button onclick="switchTab('roles')" id="tab-btn-roles" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+          <i data-lucide="user-check" class="w-4 h-4"></i>
+          <span>Cẩm Nang Từng Nhân Sự</span>
+        </button>
+
+        <button onclick="switchTab('sop')" id="tab-btn-sop" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+          <i data-lucide="git-merge" class="w-4 h-4"></i>
+          <span>Quy Trình 5 Bước (SOP)</span>
+        </button>
+
+        <button onclick="switchTab('checklist')" id="tab-btn-checklist" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+          <i data-lucide="check-square" class="w-4 h-4"></i>
+          <span>Checklist & Mẹo Vận Hành</span>
+        </button>
+      </div>
+
+      <!-- Quick Search input -->
+      <div class="relative w-full sm:w-64 pr-1">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+        <input type="text" id="searchInput" oninput="filterCards()" placeholder="Tìm bảng, nhân sự, task..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all">
+      </div>
+    </div>
+
+    <!-- ==================== TAB 1: BẢN ĐỒ 8 PHÂN HỆ ==================== -->
+    <div id="content-system-map" class="tab-content block space-y-6">
+      
+      <div class="flex items-center justify-between mb-2">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <span>🗺️ Danh Sách 8 Bảng Nghiệp Vụ Cốt Lõi</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">Nhấp vào thẻ hoặc nút liên kết để truy cập trực tiếp vào hệ thống dữ liệu trên Lark Bitable</p>
+        </div>
+        <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2.5 py-1 rounded-md border border-slate-200" id="filter-count">Hiển thị 8/8 bảng</span>
+      </div>
+
+      <!-- CARDS GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="modules-grid">
+
+        <!-- 1. Quản lý công việc MKT -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="quản lý công việc marketing nhiệm vụ task deadline ưu tiên admin manager toàn phòng mkt">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-blue-100 text-blue-700">Bảng 1 • Trung Tâm</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">tblyFlKjRPSDs4yB</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>📋 Quản Lý Công Việc MKT</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Theo dõi toàn bộ nhiệm vụ phòng MKT: phân loại kênh, độ ưu tiên, deadline, % tiến độ và KPI đầu ra.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Phụ trách:</span> <span class="font-semibold text-slate-700">Toàn bộ phòng Marketing</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Trường cốt lõi:</span> <span class="text-slate-700">Trạng thái, Kênh, Deadline, KPI</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số cột chuẩn:</span> <span class="font-semibold text-blue-600">10 Cột</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblyFlKjRPSDs4yB&view=vewNAtd7Xv" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Bảng Lark</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblyFlKjRPSDs4yB&view=vewNAtd7Xv')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Graphic Design -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="graphic design thiết kế banner poster ấn phẩm kpi thiện designer ảnh preview demo figma">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-purple-100 text-purple-700">Bảng 2 • Design & KPI</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">tbloyf3pUlIrwjnX</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>🎨 Quản Lý Số Lượng Graphic Design</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Theo dõi sản lượng thiết kế, phân loại độ phức tạp (1đ - 5đ), kéo thả ảnh demo trực tiếp và tính điểm KPI.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Phụ trách:</span> <span class="font-semibold text-purple-700">Thiện (Graphic Design)</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Trường cốt lõi:</span> <span class="text-slate-700">Độ phức tạp, Ảnh demo, Link Drive/Figma</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số cột chuẩn:</span> <span class="font-semibold text-purple-600">10 Cột</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tbloyf3pUlIrwjnX&view=vewlpNCHMX" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Bảng Lark</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tbloyf3pUlIrwjnX&view=vewlpNCHMX')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Quản lý KOL / KOC -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="kol koc danh bạ creator tiktok youtube thợ cơ khí máy pin thợ mộc 183 creator hoài thương kiều thương">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-amber-100 text-amber-700">Bảng 3 • Danh Bạ Creator</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">tblBzivUa5mTjdTp</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>🌟 Quản Lý KOL / KOC King Blue</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Tổng hợp 183 Creator chuyên ngành cơ khí, thợ mộc & DIY kèm ID TikTok, Followers, SĐT/Zalo và địa chỉ gửi mẫu.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Phụ trách:</span> <span class="font-semibold text-amber-700">Nhóm Content & Booking</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Quy mô:</span> <span class="font-semibold text-slate-700">183 Creator đối tác</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số cột chuẩn:</span> <span class="font-semibold text-amber-600">11 Cột</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblBzivUa5mTjdTp&view=vew0kiphd9" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Bảng Lark</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblBzivUa5mTjdTp&view=vew0kiphd9')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. Hàng Mẫu & Thu Hồi -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="hàng mẫu tặng mượn thu hồi kho xuất kho máy pin kéo cắt cành súng ghim hùng thủ kho">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-cyan-100 text-cyan-800">Bảng 4 • Kho Hàng Mẫu</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">tblOnN8Na0RlHrjE</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>📦 Quản Lý Hàng Mẫu & Thu Hồi</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Theo dõi xuất nhập 77 gói hàng mẫu gửi KOC, phân biệt rõ hàng Tặng và Cho mượn (phải thu hồi nhập kho sau review).
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Phụ trách:</span> <span class="font-semibold text-cyan-800">Thủ kho (Hùng) & Content</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Trường cốt lõi:</span> <span class="text-slate-700">Tặng/Mượn, Tình trạng kho, Đơn giá sỉ</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số bản ghi:</span> <span class="font-semibold text-cyan-700">77 Gói hàng mẫu</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblOnN8Na0RlHrjE&view=vewoj7d6TW" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-cyan-700 hover:bg-cyan-600 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Bảng Lark</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblOnN8Na0RlHrjE&view=vewoj7d6TW')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. Hiệu Suất & Doanh Số KOL -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="hiệu suất doanh số gmv kol koc views tương tác roi affiliate tiktok shop thức ngân">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-emerald-100 text-emerald-800">Bảng 5 • Báo Cáo GMV</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">tblKUtAPXEvxv7W0</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>📈 Báo Cáo Hiệu Suất & Doanh Số KOL</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Tổng kết lượt view, lượt tương tác, số đơn hàng và doanh số GMV thực tế từ video/livestream của Creator.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Phụ trách:</span> <span class="font-semibold text-emerald-800">Manager & Sàn TMĐT</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Chỉ số đo:</span> <span class="text-slate-700">Views, GMV (VNĐ), Đơn bán, ROI</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số bản ghi:</span> <span class="font-semibold text-emerald-700">45 Báo cáo chiến dịch</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblKUtAPXEvxv7W0&view=vewh45tRUY" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Bảng Lark</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblKUtAPXEvxv7W0&view=vewh45tRUY')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Nhật Ký Tương Tác -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="nhật ký tương tác log crm cuộc gọi zalo tiktok tin nhắn chăm sóc creator hoài thương kiều thương">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-rose-100 text-rose-700">Bảng 6 • CRM Activity Log</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">tblIthrMW5hkxswn</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>💬 Nhật Ký Tương Tác KOL KOC</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Nhật ký chi tiết các cuộc gọi, tin nhắn Zalo, chăm sóc KOC, thỏa thuận kịch bản và kế hoạch hành động tiếp theo.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Phụ trách:</span> <span class="font-semibold text-rose-700">Nhóm Content & Booking</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Trường cốt lõi:</span> <span class="text-slate-700">Hình thức, Mục đích, Next Action, Hạn xử lý</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Dữ liệu mẫu:</span> <span class="font-semibold text-rose-600">Đã nạp 5 Log thực tế</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblIthrMW5hkxswn&view=vewtSpLfDO" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Bảng Lark</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblIthrMW5hkxswn&view=vewtSpLfDO')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 7. Base Content King Blue -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="base content king blue kế hoạch bài đăng tiktok youtube shorts fanpage website seo kịch bản">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-blue-100 text-blue-800">Base Độc Lập • Brand 1</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">TL5UbuehuaeDDEsk5zHjTWE6ppf</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>🛠️ Content KING BLUE</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Kế hoạch nội dung máy pin, dụng cụ cầm tay, đá cắt kim khí: Fanpage B2B, TikTok review thợ máy & bài viết SEO.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Thương hiệu:</span> <span class="font-semibold text-blue-700">King Blue (KingBlue Tools)</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Đặc trưng:</span> <span class="text-slate-700">Test tải nặng bu lông, đá cắt, đo laser</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số cột chuẩn:</span> <span class="font-semibold text-blue-600">15 Cột Quản Trị</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/base/TL5UbuehuaeDDEsk5zHjTWE6ppf" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-blue-800 hover:bg-blue-700 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Base King Blue</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/base/TL5UbuehuaeDDEsk5zHjTWE6ppf')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 8. Base Content CKO Store -->
+        <div class="module-card bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-search="base content cko store ckô quạt sò lạnh mini gia dụng tiện ích tiktok shop shopee minigame">
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="badge-pill bg-cyan-100 text-cyan-800">Base Độc Lập • Brand 2</span>
+              <span class="badge-pill bg-slate-100 text-slate-600 font-mono text-[11px]">E3eabTsQ2abDs8sTEWFjGd53p6c</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>🌬️ Content CKÔ STORE</span>
+            </h3>
+            <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+              Kế hoạch nội dung quạt sò lạnh, đồ gia dụng tiện ích gia đình: đẩy mạnh giỏ hàng TikTok Shop, Minigame & sàn TMĐT.
+            </p>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs space-y-1.5 mb-4">
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Thương hiệu:</span> <span class="font-semibold text-cyan-700">CKÔ Store</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Đặc trưng:</span> <span class="text-slate-700">Quạt sò lạnh 5s đóng băng, đồ tiện ích</span></div>
+              <div class="flex justify-between text-slate-600"><span class="font-medium text-slate-400">Số cột chuẩn:</span> <span class="font-semibold text-cyan-600">15 Cột Quản Trị</span></div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+            <a href="https://ijphpnip01ra.jp.larksuite.com/base/E3eabTsQ2abDs8sTEWFjGd53p6c" target="_blank" class="flex-1 py-2 px-3 rounded-xl bg-cyan-700 hover:bg-cyan-600 text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Mở Base CKÔ Store</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="copyLink('https://ijphpnip01ra.jp.larksuite.com/base/E3eabTsQ2abDs8sTEWFjGd53p6c')" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors" title="Sao chép link">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: CẨM NĂNG TỪNG NHÂN SỰ ==================== -->
+    <div id="content-roles" class="tab-content hidden space-y-6">
+      
+      <!-- Sub tab selector for roles -->
+      <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
+        <button onclick="switchRole('manager')" id="role-btn-manager" class="role-sub-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white">👑 Marketing Manager</button>
+        <button onclick="switchRole('content')" id="role-btn-content" class="role-sub-btn px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">✍️ Nhóm Content (Thương)</button>
+        <button onclick="switchRole('design')" id="role-btn-design" class="role-sub-btn px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">🎨 Graphic Designer (Thiện)</button>
+        <button onclick="switchRole('media')" id="role-btn-media" class="role-sub-btn px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">📸 Photographer (Tứ - User CRM)</button>
+        <button onclick="switchRole('sales')" id="role-btn-sales" class="role-sub-btn px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">🛒 Sàn & Sales (Thức, Ngân)</button>
+        <button onclick="switchRole('warehouse')" id="role-btn-warehouse" class="role-sub-btn px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">📦 Thủ Kho (Hùng)</button>
+      </div>
+
+      <!-- Role 1: Manager -->
+      <div id="role-panel-manager" class="role-panel block bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-amber-400 flex items-center justify-center font-bold text-lg">👑</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Trưởng Phòng Marketing / Admin</h3>
+            <p class="text-xs text-slate-500">Phụ trách điều phối toàn diện, phê duyệt kịch bản, quản lý ngân sách booking & đối soát GMV</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <h4 class="text-xs font-bold text-slate-900 mb-2 flex items-center gap-1.5 text-blue-600">
+              <i data-lucide="sun" class="w-4 h-4"></i>
+              <span>Đầu Ngày (08h00 - 08h30)</span>
+            </h4>
+            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>Mở <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblyFlKjRPSDs4yB&view=vewNAtd7Xv" target="_blank" class="text-blue-600 underline font-medium">Bảng Quản Lý Công Việc</a> kiểm tra task có độ ưu tiên <b>Khẩn cấp</b>.</li>
+              <li>Kiểm duyệt các kịch bản video hoặc ấn phẩm đang ở trạng thái <code>Chờ duyệt</code>.</li>
+            </ul>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <h4 class="text-xs font-bold text-slate-900 mb-2 flex items-center gap-1.5 text-amber-600">
+              <i data-lucide="activity" class="w-4 h-4"></i>
+              <span>Trong Ngày</span>
+            </h4>
+            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>Duyệt chi phí booking KOL/KOC trong <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblIthrMW5hkxswn&view=vewtSpLfDO" target="_blank" class="text-amber-600 underline font-medium">Nhật Ký Tương Tác</a>.</li>
+              <li>Giải quyết phát sinh giữa Content và Kho (xuất máy mẫu mượn).</li>
+            </ul>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <h4 class="text-xs font-bold text-slate-900 mb-2 flex items-center gap-1.5 text-emerald-600">
+              <i data-lucide="calendar" class="w-4 h-4"></i>
+              <span>Cuối Tuần / Cuối Tháng</span>
+            </h4>
+            <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+              <li>Đối soát tổng GMV trong <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblKUtAPXEvxv7W0&view=vewh45tRUY" target="_blank" class="text-emerald-600 underline font-medium">Bảng Hiệu Suất KOL</a>.</li>
+              <li>Xem tổng điểm KPI thiết kế của Thiện trong Bảng Graphic Design để tính thưởng.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 2: Content -->
+      <div id="role-panel-content" class="role-panel hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">✍️</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Nhóm Content Marketing (Hoài Thương, Kiều Thương, Thụy Thương)</h3>
+            <p class="text-xs text-slate-500">Chủ trì lịch biên tập King Blue & CKÔ Store, viết kịch bản, booking KOC và nhập nhật ký tương tác</p>
+          </div>
+        </div>
+        <div class="space-y-3 pt-2 text-xs text-slate-600">
+          <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-100">
+            <span class="font-bold text-blue-900">1. Quy trình lên lịch bài đăng:</span>
+            <p class="mt-1">Thứ 6 hàng tuần, lên toàn bộ danh sách bài viết/video cho tuần tới trên 2 Base: <a href="https://ijphpnip01ra.jp.larksuite.com/base/TL5UbuehuaeDDEsk5zHjTWE6ppf" target="_blank" class="text-blue-600 font-semibold underline">Base King Blue</a> và <a href="https://ijphpnip01ra.jp.larksuite.com/base/E3eabTsQ2abDs8sTEWFjGd53p6c" target="_blank" class="text-cyan-600 font-semibold underline">Base CKÔ Store</a>. Điền đầy đủ Kênh, Định dạng, Khung giờ vàng và link Drive kịch bản.</p>
+          </div>
+          <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+            <span class="font-bold text-amber-900">2. Quy trình booking & chăm sóc KOC:</span>
+            <p class="mt-1">Sau mỗi cuộc gọi hoặc nhắn tin Zalo với Creator: Tạo ngay 1 dòng vào <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblIthrMW5hkxswn&view=vewtSpLfDO" target="_blank" class="text-amber-700 font-semibold underline">Nhật Ký Tương Tác</a>. Ghi rõ Next Action và Hạn xử lý để hệ thống nhắc việc. Khi KOC đồng ý nhận mẫu, tạo đơn trên Bảng Hàng Mẫu để kho xuất hàng.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role 3: Design -->
+      <div id="role-panel-design" class="role-panel hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">🎨</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Graphic Designer (Thiện)</h3>
+            <p class="text-xs text-slate-500">Tiếp nhận brief ấn phẩm, thiết kế banner sàn, bao bì, kéo thả demo và tích lũy điểm KPI</p>
+          </div>
+        </div>
+        <div class="space-y-3 pt-2 text-xs text-slate-600">
+          <p class="p-3 bg-purple-50/50 rounded-xl border border-purple-100">
+            <b>Các bước thực hiện mỗi ngày:</b><br>
+            1. Mở <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tbloyf3pUlIrwjnX&view=vewlpNCHMX" target="_blank" class="text-purple-700 font-semibold underline">Bảng Quản Lý Graphic Design</a>, kiểm tra các task mới giao.<br>
+            2. Chuyển trạng thái sang <code>Đang thiết kế</code>.<br>
+            3. Thiết kế xong: Kéo thả file ảnh xuất trực tiếp vào cột <b>Ảnh preview / File đính kèm</b> và dán link folder chứa file gốc AI/PSD vào cột <b>Link File / Drive / Figma</b>.<br>
+            4. Đổi trạng thái sang <code>Chờ duyệt / Feedback</code>. Điểm số (1đ - 5đ) sẽ tự động cộng vào KPI tháng.
+          </p>
+        </div>
+      </div>
+
+      <!-- Role 4: Media -->
+      <div id="role-panel-media" class="role-panel hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">📸</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Photographer / Media (Tứ - User CRM)</h3>
+            <p class="text-xs text-slate-500">Nhận brief video/ảnh máy thực tế, quay test tải nặng tại xưởng, bàn giao video hoàn thiện</p>
+          </div>
+        </div>
+        <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 text-xs text-slate-600 space-y-1.5">
+          <p><b>Quy tắc CRM:</b> Nhân sự Photographer là User trong hệ thống do Admin cấp tài khoản đăng nhập.</p>
+          <p>• Nhận máy mẫu từ kho để tiến hành quay test tải nặng (cắt sắt, siết bu lông 24mm, khoan rút lõi).</p>
+          <p>• Quay dựng xong: Tải lên Google Drive Video King Blue, dán link vào cột <b>Link kịch bản / Drive tài liệu</b> trên Base Content và chuyển trạng thái sang <code>Chờ duyệt</code>.</p>
+        </div>
+      </div>
+
+      <!-- Role 5: Sales / Ecom -->
+      <div id="role-panel-sales" class="role-panel hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-700 flex items-center justify-center font-bold text-lg">🛒</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Nhóm Sàn TMĐT & Sales (Thức, Ngân - User CRM)</h3>
+            <p class="text-xs text-slate-500">Quản trị link gian hàng Shopee, TikTok Shop, gắn giỏ hàng chuyển đổi và đối soát doanh số GMV Affiliate</p>
+          </div>
+        </div>
+        <div class="p-3 bg-cyan-50/50 rounded-xl border border-cyan-100 text-xs text-slate-600 space-y-1.5">
+          <p>• Trước khi video KOC lên sóng: Gắn mã giỏ hàng TikTok Shop hoặc set voucher độc quyền.</p>
+          <p>• Sau 3 - 7 ngày: Trích xuất số liệu GMV và số lượng sản phẩm bán ra từ TikTok Shop / Shopee, nhập vào <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblKUtAPXEvxv7W0&view=vewh45tRUY" target="_blank" class="text-cyan-800 font-semibold underline">Bảng Báo Cáo Hiệu Suất KOL</a>.</p>
+        </div>
+      </div>
+
+      <!-- Role 6: Warehouse -->
+      <div id="role-panel-warehouse" class="role-panel hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-lg">📦</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Nhóm Đóng Gói & Thủ Kho (Hùng)</h3>
+            <p class="text-xs text-slate-500">Xuất hàng mẫu theo đơn trên Lark Bitable, gửi chuyển phát bưu cục và kiểm tra thu hồi máy mượn</p>
+          </div>
+        </div>
+        <div class="p-3 bg-amber-50/50 rounded-xl border border-amber-100 text-xs text-slate-600 space-y-1.5">
+          <p>• Kiểm tra <a href="https://ijphpnip01ra.jp.larksuite.com/wiki/RaSAwxuvpib9lAkL0FMjA5Tvpgb?table=tblOnN8Na0RlHrjE&view=vewoj7d6TW" target="_blank" class="text-amber-800 font-semibold underline">Bảng Hàng Mẫu & Thu Hồi</a> các dòng ở trạng thái <code>Đã xuất kho / Đang gửi</code> để đóng gói gửi đi.</p>
+          <p>• Khi Creator gửi trả máy pin mượn về: Kiểm tra nguyên vẹn phụ kiện/sạc, chuyển trạng thái sang <code>Đã trả - Nhập kho</code>.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 3: QUY TRÌNH 5 BƯỚC ==================== -->
+    <div id="content-sop" class="tab-content hidden space-y-6">
+      
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="text-base font-bold text-slate-900 mb-2">🔄 Quy Trình Chuẩn 5 Bước Phối Hợp Marketing (SOP)</h3>
+        <p class="text-xs text-slate-500 mb-6">Bấm vào từng bước bên dưới để xem chi tiết danh mục hành động và bộ phận phụ trách</p>
+
+        <!-- STEP TIMELINE BUTTONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-6">
+          <button onclick="showStep(1)" id="step-btn-1" class="step-btn active p-3 rounded-xl border-2 border-blue-600 bg-blue-50 text-left transition-all">
+            <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wider block">Bước 1</span>
+            <span class="text-xs font-bold text-slate-900 block mt-0.5">Tạo Task & Brief</span>
+          </button>
+          <button onclick="showStep(2)" id="step-btn-2" class="step-btn p-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left transition-all">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Bước 2</span>
+            <span class="text-xs font-bold text-slate-900 block mt-0.5">Phối Hợp Sản Xuất</span>
+          </button>
+          <button onclick="showStep(3)" id="step-btn-3" class="step-btn p-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left transition-all">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Bước 3</span>
+            <span class="text-xs font-bold text-slate-900 block mt-0.5">Cập Nhật Tiến Độ</span>
+          </button>
+          <button onclick="showStep(4)" id="step-btn-4" class="step-btn p-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left transition-all">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Bước 4</span>
+            <span class="text-xs font-bold text-slate-900 block mt-0.5">Duyệt & Đăng Bài</span>
+          </button>
+          <button onclick="showStep(5)" id="step-btn-5" class="step-btn p-3 rounded-xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left transition-all">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Bước 5</span>
+            <span class="text-xs font-bold text-slate-900 block mt-0.5">Nghiệm Thu & ROI</span>
+          </button>
+        </div>
+
+        <!-- STEP DETAILS PANEL -->
+        <div id="step-detail-box" class="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs leading-relaxed space-y-2">
+          <!-- Dynamically filled by JS -->
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 4: CHECKLIST & MẸO VẬN HÀNH ==================== -->
+    <div id="content-checklist" class="tab-content hidden space-y-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Interactive Checklist -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>
+              <span>Checklist Công Việc Hàng Ngày</span>
+            </h3>
+            <span class="text-xs font-bold text-blue-600" id="checklist-progress">0% Hoàn thành</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div id="progress-bar-fill" class="bg-emerald-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <div class="space-y-2.5 pt-2 text-xs" id="checklist-items">
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-slate-100 cursor-pointer">
+              <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 w-4 h-4 text-blue-600 rounded">
+              <span><b>08h30:</b> Mở Bảng Quản lý công việc lọc task Khẩn cấp trong ngày</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-slate-100 cursor-pointer">
+              <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 w-4 h-4 text-blue-600 rounded">
+              <span><b>10h00:</b> Kiểm tra phản hồi Creator và ghi 1 dòng vào Bảng Nhật Ký Tương Tác</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-slate-100 cursor-pointer">
+              <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 w-4 h-4 text-blue-600 rounded">
+              <span><b>11h30:</b> Kiểm tra và đăng bài khung giờ vàng trưa trên Fanpage/TikTok</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-slate-100 cursor-pointer">
+              <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 w-4 h-4 text-blue-600 rounded">
+              <span><b>14h30:</b> Đối soát đơn hàng mẫu với Kho & cập nhật tình trạng trả máy</span>
+            </label>
+            <label class="flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-slate-100 cursor-pointer">
+              <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 w-4 h-4 text-blue-600 rounded">
+              <span><b>17h00:</b> Cập nhật % tiến độ các task và chuyển trạng thái Chờ duyệt nếu xong</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Mẹo Sử Dụng Bitable -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="lightbulb" class="w-5 h-5 text-amber-500"></i>
+            <span>3 Mẹo Vận Hành Nhanh Trên Lark</span>
+          </h3>
+
+          <div class="space-y-3 text-xs text-slate-600">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <b class="text-slate-900 flex items-center gap-1.5 mb-1">
+                <i data-lucide="filter" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span>1. Tạo View Cá Nhân (My Tasks)</span>
+              </b>
+              <p>Bấm dấu <b>+</b> ở thanh tab View ➔ Chọn Grid ➔ Bấm <b>Filter</b> ➔ Chọn <code>Người phụ trách = Tên bạn</code>. Giúp bạn chỉ thấy việc của mình mà không bị ngập trong task của người khác.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <b class="text-slate-900 flex items-center gap-1.5 mb-1">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-purple-600"></i>
+                <span>2. Đổi Sang View Xem Dạng Lịch (Calendar View)</span>
+              </b>
+              <p>Trên 2 Base Content, bấm tạo View dạng <b>Calendar</b> theo cột <code>Ngày đăng dự kiến</code>. Bạn sẽ thấy bài đăng xếp theo từng ô ngày như một cuốn sổ lịch biên tập chuyên nghiệp.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+              <b class="text-slate-900 flex items-center gap-1.5 mb-1">
+                <i data-lucide="bell" class="w-3.5 h-3.5 text-emerald-600"></i>
+                <span>3. Tự Động Nhắc Việc (Automation Rule)</span>
+              </b>
+              <p>Cài đặt Automation trên Lark Bitable: Khi đến hạn chót (Deadline) mà trạng thái chưa phải Hoàn thành ➔ Lark Bot tự động gửi thông báo nhắc việc trực tiếp vào tin nhắn riêng của bạn.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 space-y-1">
+      <p class="font-medium text-slate-700">Hệ Thống Quản Trị Marketing King Blue & CKÔ Store • Xây dựng trên nền tảng Lark OpenAPI MCP</p>
+      <p>© 2026 King Blue Tools. Vận hành bởi Trợ lý ảo AI 🐱 <b>Xu Xu</b>.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-blue-600', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100');
+      });
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+        content.classList.remove('block');
+      });
+
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      const activeContent = document.getElementById('content-' + tabId);
+      
+      if (activeBtn && activeContent) {
+        activeBtn.classList.add('active', 'bg-blue-600', 'text-white', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100');
+        activeContent.classList.remove('hidden');
+        activeContent.classList.add('block');
+      }
+    }
+
+    // Role Sub-tab Switcher
+    function switchRole(roleId) {
+      document.querySelectorAll('.role-sub-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-slate-900', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
+      });
+      document.querySelectorAll('.role-panel').forEach(panel => {
+        panel.classList.add('hidden');
+        panel.classList.remove('block');
+      });
+
+      const activeBtn = document.getElementById('role-btn-' + roleId);
+      const activePanel = document.getElementById('role-panel-' + roleId);
+      if (activeBtn && activePanel) {
+        activeBtn.classList.add('active', 'bg-slate-900', 'text-white');
+        activeBtn.classList.remove('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
+        activePanel.classList.remove('hidden');
+        activePanel.classList.add('block');
+      }
+    }
+
+    // SOP Step Switcher
+    const stepData = {
+      1: {
+        title: "Bước 1: Tiếp Nhận & Tạo Task Mới (Task Creation)",
+        responsible: "Content Marketing / Marketing Manager",
+        content: "Content hoặc Trưởng phòng tạo task trên <b>Bảng Quản Lý Công Việc</b> hoặc <b>Base Content</b>.<br>• Xác định rõ: Tên nhiệm vụ, Kênh đăng, Dòng sản phẩm, Người phụ trách và Hạn chót (Deadline).<br>• Gán mức độ ưu tiên: Khẩn cấp (Đỏ) cho các bài mở bán/sự kiện, Cao (Cam) cho bài lịch tuần thông thường."
+      },
+      2: {
+        title: "Bước 2: Phối Hợp Liên Bộ Phận (Media & Design & Kho)",
+        responsible: "Content, Graphic Design (Thiện), Media (Tứ), Kho (Hùng)",
+        content: "• Content chuyển Brief kịch bản cho <b>Tứ (Media)</b> để quay dựng máy thực tế.<br>• Content chuyển Brief ảnh/banner cho <b>Thiện (Design)</b> trên Bảng Graphic Design.<br>• Nếu cần gửi máy KOC test: Tạo đơn trên <b>Bảng Hàng Mẫu & Thu Hồi</b> để Thủ kho Hùng xuất gửi bưu cục."
+      },
+      3: {
+        title: "Bước 3: Cập Nhật Tiến Độ & Nhật Ký Tương Tác Hàng Ngày",
+        responsible: "Toàn bộ nhân sự thực hiện",
+        content: "• Cập nhật % tiến độ định kỳ vào Bảng Quản lý công việc (0% ➔ 50% ➔ 100%).<br>• Mọi cuộc gọi, tin nhắn Zalo chăm sóc Creator: Ghi ngay 1 dòng log vào <b>Bảng Nhật Ký Tương Tác</b> kèm Next Action và Hạn xử lý.<br>• Designer kéo thả ảnh demo hoàn thiện vào Bảng Graphic Design."
+      },
+      4: {
+        title: "Bước 4: Kiểm Duyệt & Đăng Bài Khung Giờ Vàng",
+        responsible: "Marketing Manager & Content",
+        content: "• Trưởng phòng Marketing kiểm duyệt nội dung, chuyển trạng thái sang <code>Sẵn sàng đăng</code>.<br>• Nhân sự trực tiếp đăng bài đúng khung giờ vàng (11h30 - 12h30 hoặc 19h30 - 20h30).<br>• Dán link bài viết/video thực tế vào cột <b>Link bài đăng thực tế (Live URL)</b> và chuyển trạng thái sang <code>Đã đăng</code>."
+      },
+      5: {
+        title: "Bước 5: Nghiệm Thu Hiệu Quả & Đo Lường ROI (GMV)",
+        responsible: "Nhóm Sàn TMĐT, Content & Manager",
+        content: "• Sau 24h - 48h: Điền Lượt Views, Lượt tương tác vào Base Content.<br>• Định kỳ 3 - 7 ngày: Trích xuất doanh số GMV Affiliate từ giỏ hàng TikTok Shop / Shopee và cập nhật vào <b>Bảng Báo Cáo Hiệu Suất KOL</b>.<br>• Đánh giá hiệu suất: Bùng nổ doanh số, Đạt mục tiêu, hoặc Cần cải thiện."
+      }
+    };
+
+    function showStep(num) {
+      document.querySelectorAll('.step-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-blue-600', 'bg-blue-50');
+        btn.classList.add('border-slate-200', 'bg-white');
+      });
+      const activeBtn = document.getElementById('step-btn-' + num);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'border-blue-600', 'bg-blue-50');
+        activeBtn.classList.remove('border-slate-200', 'bg-white');
+      }
+
+      const box = document.getElementById('step-detail-box');
+      const d = stepData[num];
+      box.innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-200/80 pb-2">
+          <span class="font-bold text-slate-900 text-sm">${d.title}</span>
+          <span class="badge-pill bg-blue-100 text-blue-700">Phụ trách: ${d.responsible}</span>
+        </div>
+        <p class="text-slate-700 pt-1">${d.content}</p>
+      `;
+    }
+    showStep(1);
+
+    // Search filter
+    function filterCards() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.module-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const text = card.getAttribute('data-search') || '';
+        if (text.includes(q)) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.getElementById('filter-count').innerText = `Hiển thị ${visible}/${cards.length} bảng`;
+    }
+
+    // Copy Link with Toast
+    function copyLink(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+          toast.classList.remove('translate-y-0', 'opacity-100');
+        }, 2500);
+      });
+    }
+
+    // Interactive Checklist
+    function updateChecklist() {
+      const checkboxes = document.querySelectorAll('#checklist-items input[type="checkbox"]');
+      const total = checkboxes.length;
+      let checked = 0;
+      checkboxes.forEach(cb => { if (cb.checked) checked++; });
+      const percent = Math.round((checked / total) * 100);
+      document.getElementById('checklist-progress').innerText = `${percent}% Hoàn thành`;
+      document.getElementById('progress-bar-fill').style.width = percent + '%';
+    }
+  </script>
+</body>
+</html>

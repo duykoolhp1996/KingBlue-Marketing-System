@@ -30,28 +30,37 @@ Hệ thống được xây dựng nhằm giải quyết bài toán quản trị 
 
 Hệ thống phân quyền chuẩn CRM, toàn bộ nhân sự Marketing, Sàn TMĐT, Kho Vận và Photographer đều là các User độc lập do Admin quản lý:
 
-| STT | Họ và Tên | Vai Trò Chuyên Môn | Bộ Phận | Mã PIN | Quyền CRM | Tab Google Sheets |
+| STT | Họ và Tên | Vai Trò Chuyên Môn | Bộ Phận / Brand | Mã PIN | Quyền CRM | Tab Google Sheets |
 |:---:|:---|:---|:---:|:---:|:---:|:---|
 | 👑 | **Marketing Manager** | Trưởng Phòng Marketing | Ban Quản Lý | `8888` | **Admin / Quản Trị** | `BAO CAO HOM NAY` |
-| 1 | **Võ Thị Hoài Thương** | Content Marketing & SEO Fanpage/Website | Content | `1001` | User | `Hoai Thuong - Content` |
-| 2 | **Kiều Thương** | Content Video & Hợp Tác KOC/Reviewer | Content | `1002` | User | `Kieu Thuong - Content` |
-| 3 | **Thụy Thương** | Trade Marketing & Chính Sách Điểm Bán | Content | `1003` | User | `Thuy Thuong - Content` |
-| 4 | **Thiện** | Graphic Designer (2D/3D, POSM & Banner) | Design | `1004` | User | `Thien - Design` |
-| 5 | **Tứ** | Media / Photographer (Hình Ảnh & User CRM) | Media | `1005` | User | `Tu - Media` |
-| 6 | **Thức** | Vận Hành Sàn TMĐT (Shopee & Lazada) | Sàn TMĐT | `1006` | User | `Thuc - San TMDT` |
-| 7 | **Ngân** | CSKH & Quản Trị Gian Hàng TikTok Shop | Sàn TMĐT | `1007` | User | `Ngan - San TMDT` |
-| 8 | **Hùng** | Đóng Gói & Kho Vận Hàng Hóa Miền Nam | Đóng gói kho | `1008` | User | `Hung - Kho MN` |
-| 9 | **Hùng Miền Bắc** | Đóng Gói & Kho Vận Chi Nhánh Hà Nội | Đóng gói kho | `1009` | User | `Hung - Kho MB` |
+| 1 | **Kiều Thương** | Quản lý Brand King Blue (Content, Video, KOC & Ads B2B) | **Brand King Blue** | `1002` | Brand Manager King Blue | `Kieu Thuong - King Blue` |
+| 2 | **Võ Thị Hoài Thương** | Phụ trách Brand Ckô Store (SEO, Website & Chiến dịch Ecom) | **Brand CKO** | `1001` | Brand CKO Leader | `Hoai Thuong - CKO` |
+| 3 | **Thương Thương** | Phụ trách Brand Ckô Store (Social, Trade MKT & Review) | **Brand CKO** | `1003` | Brand CKO Specialist | `Thuong Thuong - CKO` |
+| 4 | **Thiện** | Graphic Designer (2D/3D, POSM & Banner) | Shared Service (Design) | `1004` | User | `Thien - Design` |
+| 5 | **Tứ** | Media / Photographer (Hình Ảnh & User CRM) | Shared Service (Media) | `1005` | User | `Tu - Media` |
+| 6 | **Thức** | Vận Hành Sàn TMĐT (Shopee & Lazada) | Shared Service (Sàn TMĐT) | `1006` | User | `Thuc - San TMDT` |
+| 7 | **Ngân** | CSKH & Quản Trị Gian Hàng TikTok Shop | Shared Service (Sàn TMĐT) | `1007` | User | `Ngan - San TMDT` |
+| 8 | **Hùng** | Đóng Gói & Kho Vận Hàng Hóa Miền Nam | Shared Service (Kho vận) | `1008` | User | `Hung - Kho MN` |
+| 9 | **Hùng Miền Bắc** | Đóng Gói & Kho Vận Chi Nhánh Hà Nội | Shared Service (Kho vận) | `1009` | User | `Hung - Kho MB` |
 
 ---
 
 ## 🏗️ Cấu Trúc Hệ Thống & Google Sheets
 
+- **Lark Sheet (Trang Tính Trực Tuyến)**:
+  - 📗 **[Báo Cáo Tổng Quan & Phân Bổ Brand - King Blue (Lark Sheet)](https://ijphpnip01ra.jp.larksuite.com/sheets/BXOjs1mJ5hDXwltkM2kj2NuHpkb)**: Trang tính spreadsheet chuẩn gồm 3 tab (*1. Tổng Quan & Đánh Giá*, *2. Phân Công Brand & Nhân Sự*, *3. Kế Hoạch & Giao Việc Tuần*).
+- **Lark Base (Cơ Sở Dữ Liệu Trực Tuyến)**:
+  - 📊 **[Báo Cáo Bitable - King Blue (Lark Base)](https://ijphpnip01ra.jp.larksuite.com/base/NsOibhWx1aECklsG0r3jGYrTpuh)**: Gồm 3 bảng dữ liệu đa chiều.
 - **File Google Sheets Trực Tuyến**:
   - `BAO CAO HOM NAY` (Sheet 1 - Master Dashboard): Tự động nhận diện `=TODAY()`, tích hợp lịch Date Picker nhấp đúp chọn ngày, công thức `XLOOKUP` kéo việc của 9 nhân sự.
   - 9 Sheet cá nhân riêng biệt cho 9 bạn nhân sự lưu lịch sử báo cáo.
   - `BAO CAO TUAN`: Sheet tổng hợp KPI và tiến độ hàng tuần.
-- **File Excel Offline**: `Bao_Cao_Cong_Viec_KingBlue.xlsx` (Cấu trúc 11 sheet đồng bộ chuẩn).
+- **Dashboard Báo Cáo Chuyên Sâu**:
+  - 🎵 **[Dashboard Báo Cáo Hiệu Quả TikTok Cko Store (Q3/2026)](file:///Users/Admin/Documents/KIng%20BLue/dashboard_tiktok_cko.html)** (`dashboard_tiktok_cko.html`): Phân tích toàn diện 68 video, 173K+ views, tỷ lệ tương tác ER, biểu đồ tăng trưởng, top viral & kế hoạch nội dung Tháng 11.
+- **File Excel Báo Cáo Offline**:
+  - [Bao_Cao_Tong_Quan_Va_Phan_Bo_Brand_KingBlue.xlsx](file:///Users/Admin/Documents/KIng%20BLue/Bao_Cao_Tong_Quan_Va_Phan_Bo_Brand_KingBlue.xlsx)
+  - `Bao_Cao_Cong_Viec_KingBlue.xlsx` (Cấu trúc 11 sheet đồng bộ chuẩn).
+  - `cko_tiktok.xlsx` (Dữ liệu gốc 68 video TikTok Cko Store Quý 3).
 
 ---
 

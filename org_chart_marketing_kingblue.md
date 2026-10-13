@@ -1,83 +1,72 @@
-# SƠ ĐỒ TỔ CHỨC (ORG CHART) PHÒNG MARKETING - KING BLUE
+# 🏢 SƠ ĐỒ TỔ CHỨC & PHÂN BỔ BRAND MARKETING (KING BLUE & CKO STORE)
 
-Tài liệu chuẩn hóa cơ cấu tổ chức, phân công nhiệm vụ và ánh xạ tài khoản phân quyền người dùng (User CRM/Task) cho Phòng Marketing thương hiệu **King Blue**.
+> 📌 **Mô hình Quản trị theo Thương hiệu (Brand Ownership)**:  
+> - **Brand King Blue**: **Kiều Thương** quản lý toàn diện.  
+> - **Brand CKO (Ckô Store)**: **Hoài Thương** và **Thương Thương** (đính chính tên chuẩn: Thương Thương) cùng phụ trách.  
+> - **Khối Dịch vụ Dùng chung (Shared Services)**: Design (Thiện), Media (Tứ), Sàn TMĐT (Thức, Ngân), Kho vận (Hùng MN, Hùng MB) hỗ trợ cả 2 Brand.  
+> - **Ban Quản Lý (Marketing Manager)**: Điều phối ngân sách, phê duyệt kế hoạch và chỉ đạo chiến lược.
 
 ---
 
-## 1. Sơ Đồ Cấu Trúc Nhân Sự (Visual Org Chart)
+## 1. Sơ Đồ Cấu Trúc Nhân Sự Theo Brand (Visual Org Chart)
 
 ```mermaid
 flowchart TD
-    MM["Marketing Manager (Trưởng Phòng Marketing)"]
+    MM["👑 Marketing Manager (Trưởng Phòng Marketing)<br/>Điều phối chung & Duyệt ngân sách"]
     
-    MM --> B_CONTENT["Bộ Phận Content"]
-    MM --> B_DESIGN["Bộ Phận Design"]
-    MM --> B_MEDIA["Bộ Phận Media"]
-    MM --> B_ECOM["Bộ Phận Sàn TMĐT"]
-    MM --> B_FULFILL["Bộ Phận Đóng Gói"]
+    MM --> BRAND_KB["🔵 KHỐI BRAND KING BLUE"]
+    MM --> BRAND_CKO["🟠 KHỐI BRAND CKO STORE"]
+    MM --> SHARED["⚙️ KHỐI DỊCH VỤ DÙNG CHUNG (SHARED SERVICES)"]
 
-    subgraph Content ["Vị Trí Content (3 Nhân sự)"]
-        HT["Hoài Thương<br/>(Fanpage & Bài viết SEO)"]
-        KT["Kiều Thương<br/>(Kịch bản Video & KOC)"]
-        TT["Thụy Thương<br/>(Chiến dịch & Trade MKT)"]
+    subgraph BrandKingBlue ["🔵 Brand King Blue (Quản lý: Kiều Thương)"]
+        KT["👑 Kiều Thương<br/><b>Brand Manager King Blue</b><br/>• Quản trị nội dung Fanpage/TikTok King Blue<br/>• Chiến lược KOC/Reviewer & Kịch bản Video<br/>• Kế hoạch & Thực thi Test Ads Facebook B2B"]
     end
 
-    subgraph Design ["Vị Trí Design (1 Nhân sự)"]
-        THIEN["Thiện<br/>(Thiết kế 2D/3D POSM, Banner, Bao bì)"]
+    subgraph BrandCKO ["🟠 Brand CKO Store (Hoài Thương & Thương Thương)"]
+        HT["✍️ Võ Thị Hoài Thương<br/><b>Brand CKO Leader (SEO & Ecom)</b><br/>• Phụ trách Website ckostore & Chuẩn SEO<br/>• Chiến lược Khuyến mãi & Kết nối Sàn TMĐT<br/>• Phân tích Tệp khách hàng & Tối ưu Deal"]
+        TT["📑 Thương Thương<br/><b>Brand CKO Specialist (Social & Trade)</b><br/>• Quản trị Fanpage & TikTok Ckô Store<br/>• Kịch bản Video Review, Unboxing Ckô<br/>• Trade MKT, Mini-game & CSKH tương tác Ckô"]
     end
 
-    subgraph Media ["Vị Trí Media (1 Nhân sự)"]
-        TU["Tứ<br/>(Quay dựng Video, Chụp ảnh sản phẩm, Test máy)"]
+    subgraph SharedServices ["⚙️ Khối Dịch Vụ Hỗ Trợ 2 Brand (Shared Resources)"]
+        THIEN["🎨 Thiện - Graphic Designer<br/>• Thiết kế 2D/3D POSM, Banner, Bao bì cho cả KB & CKO"]
+        TU["📸 Tứ - Media / Photographer<br/>• Chụp ảnh sản phẩm, bấm máy & dựng video cho cả KB & CKO"]
+        ECOM["🛒 Thức & Ngân - Vận Hành Sàn TMĐT<br/>• Quản trị gian hàng Shopee, Lazada, TikTok Shop KB & CKO"]
+        KHO["📦 Hùng (MN) & Hùng Miền Bắc (MB)<br/>• Đóng gói, kiểm soát xuất nhập tồn kho cả 2 Brand"]
     end
 
-    subgraph Ecom ["Vị Trí Sàn TMĐT (2 Nhân sự)"]
-        THUC["Thức<br/>(Vận hành gian hàng Shopee/Lazada/Kingtools)"]
-        NGAN["Ngân<br/>(CSKH Sàn, Tối ưu SEO Sàn & TikTok Shop)"]
-    end
-
-    subgraph Fulfill ["Vị Trí Đóng Gói Hàng Hóa (2 Nhân sự)"]
-        HUNG_MN["Hùng<br/>(Đóng gói & Kho Tổng Miền Nam)"]
-        HUNG_MB["Hùng Miền Bắc<br/>(Đóng gói & Kho Chi nhánh Miền Bắc)"]
-    end
-
-    B_CONTENT --> HT
-    B_CONTENT --> KT
-    B_CONTENT --> TT
-    B_DESIGN --> THIEN
-    B_MEDIA --> TU
-    B_ECOM --> THUC
-    B_ECOM --> NGAN
-    B_FULFILL --> HUNG_MN
-    B_FULFILL --> HUNG_MB
+    BRAND_KB --> KT
+    BRAND_CKO --> HT
+    BRAND_CKO --> TT
+    SHARED --> THIEN
+    SHARED --> TU
+    SHARED --> ECOM
+    SHARED --> KHO
 ```
 
 ---
 
-## 2. Phân Công Trách Nhiệm Chi Tiết (RACI & Job Matrix)
+## 2. Ma Trận Phân Công Trách Nhiệm Chi Tiết (Brand RACI Matrix)
 
-| Nhóm chức năng | Nhân sự | Vai trò & Trách nhiệm chính | Sản phẩm đầu ra (Deliverables) |
+| Nhóm / Brand | Nhân sự phụ trách | Vai trò & Trách nhiệm trọng tâm | Sản phẩm đầu ra (Deliverables) |
 | :--- | :--- | :--- | :--- |
-| **Content Marketing** | **Hoài Thương** | - Quản trị nội dung Fanpage Facebook King Blue Tools.<br>- Viết bài tin tức, cẩm nang cơ khí, bài chuẩn SEO cho website `kingblue.vn`. | - 3 - 4 bài viết/tuần trên Fanpage.<br>- Bài viết tin tức kỹ thuật trên web. |
-| **Content Marketing** | **Kiều Thương** | - Lên kịch bản video test máy pin, unboxing, mẹo thợ cho YouTube và TikTok.<br>- Soạn kịch bản và liên hệ làm việc với các KOC review đồ nghề. | - Kịch bản quay video chi tiết.<br>- Lời thoại, thông số lực siết, tính năng nổi bật. |
-| **Content Marketing** | **Thụy Thương** | - Viết nội dung thông điệp Trade Marketing, catalogue đại lý, tài liệu hội chợ Vietbuild.<br>- Lên ý tưởng các chương trình khuyến mãi, mini-game, tri ân đại lý. | - Nội dung Catalogue, Profile công ty.<br>- Kế hoạch & thể lệ minigame. |
-| **Graphic Design** | **Thiện** | - Phụ trách toàn bộ thiết kế hình ảnh 2D, đồ họa ấn phẩm và layout 3D quầy kệ POSM.<br>- Thiết kế banner sàn Shopee, poster triển lãm Vietbuild, bao bì thùng đồ nghề, vỉ sản phẩm. | - File thiết kế in ấn (AI, Photoshop).<br>- Banner chuẩn kích thước web/app. |
-| **Media / Photo** | **Tứ** | - Chụp ảnh sản phẩm chuyên nghiệp (tách nền, ảnh bối cảnh xưởng thợ, góc chi tiết).<br>- Bấm máy quay video test thực tế động cơ Brushless, thước laser, súng bắn đinh.<br>- Dựng hậu kỳ video ngắn (Reels/TikTok) và video dài YouTube. | - Bộ ảnh sản phẩm nét căng đã retouch.<br>- Video thành phẩm đạt chuẩn Full HD/4K. |
-| **Sàn TMĐT** | **Thức** | - Quản trị và tối ưu các gian hàng Shopee Mall, Lazada và website phân phối `kingtools.vn`.<br>- Cài đặt chương trình khuyến mại Mega Sale, Flash Sale, đồng bộ tồn kho. | - Doanh số bán hàng sàn.<br>- Báo cáo lượng truy cập, tỷ lệ chuyển đổi. |
-| **Sàn TMĐT** | **Ngân** | - Trực chat tư vấn khách hàng trên sàn, xử lý khiếu nại, đánh giá 5 sao.<br>- Quản lý gian hàng TikTok Shop, hỗ trợ phiên Livestream bán hàng. | - Tỷ lệ phản hồi chat > 95%.<br>- Đơn hàng phát sinh từ TikTok Shop. |
-| **Đóng gói & Vận hành** | **Hùng** | - Tiếp nhận đơn hàng xuất bán online & đại lý khu vực Miền Nam.<br>- Đóng gói hàng hóa chống sốc cẩn thận, in phiếu xuất, bàn giao đơn vị vận chuyển. | - Hàng đóng gói đúng quy cách, an toàn.<br>- Bàn giao đúng giờ lấy hàng. |
-| **Đóng gói & Vận hành** | **Hùng Miền Bắc** | - Tiếp nhận và đóng gói các đơn hàng thuộc kho trung chuyển Miền Bắc (Hà Nội).<br>- Quản lý lưu kho bao bì, phụ kiện tiêu hao phục vụ thị trường phía Bắc. | - Đơn hàng xuất kho miền Bắc nhanh chóng.<br>- Kiểm kê vật tư đóng gói định kỳ. |
+| **🔵 Brand King Blue** | **Kiều Thương** *(Brand Manager)* | - Quản trị toàn diện hình ảnh và sự phát triển của thương hiệu cốt lõi **King Blue**.<br>- Kịch bản video test máy pin, unboxing, mẹo thợ trên TikTok/YouTube King Blue.<br>- Chủ trì chiến dịch Booking KOC/KOL/Reviewer đồ nghề kim khí chuyên nghiệp.<br>- Lên kế hoạch và thực thi chiến dịch chạy Ads Facebook B2B tìm kiếm đại lý mở điểm bán. | - 100% nội dung & kịch bản kênh King Blue.<br>- Hợp đồng & video nghiệm thu KOC.<br>- Báo cáo CPL, số lượng đại lý phát sinh từ Ads B2B. |
+| **🟠 Brand CKO Store** | **Võ Thị Hoài Thương** *(Lead SEO & Ecom)* | - Quản trị và phát triển nội dung số cho thương hiệu bán lẻ **Ckô Store**.<br>- Viết bài chuẩn SEO, cẩm nang người tiêu dùng trên hệ thống website Ckô.<br>- Phối hợp với team Sàn TMĐT lên chiến lược giá, combo quà tặng và deal Flash Sale.<br>- Rà soát danh mục khách hàng tiềm năng và đề xuất ngân sách marketing sàn. | - Bài viết chuẩn SEO website Ckô.<br>- Bảng kế hoạch deal & chương trình khuyến mãi tháng.<br>- Đề xuất chi phí ads sàn TMĐT tối ưu ROI. |
+| **🟠 Brand CKO Store** | **Thương Thương** *(Social & Trade MKT)* | - Quản trị trực tiếp Fanpage và TikTok **Ckô Store** (đăng bài, minigame, tương tác).<br>- Lên ý tưởng và viết kịch bản video review các dòng máy, thiết bị tiêu dùng Ckô.<br>- Trực tiếp giải đáp thắc mắc, tư vấn khách hàng trên các kênh mạng xã hội Ckô.<br>- Order hình ảnh, banner sản phẩm từ Designer để phục vụ đăng bài. | - Lịch bài đăng đều đặn hàng ngày trên MXH Ckô.<br>- Kịch bản chi tiết 2-3 video review/tuần.<br>- Tỷ lệ phản hồi tin nhắn khách hàng đạt > 95%. |
+| **⚙️ Shared Service: Design** | **Thiện** *(Graphic Designer)* | - Tiếp nhận Order thiết kế từ Kiều Thương (King Blue) và Hoài Thương/Thương Thương (CKO).<br>- Thiết kế banner sàn TMĐT, hình ảnh bài viết MXH, poster triển lãm Vietbuild, bao bì, nhãn vỉ. | - File in ấn chuẩn kỹ thuật (AI/Photoshop).<br>- Bộ banner sản phẩm đúng kích thước & nhận diện từng Brand. |
+| **⚙️ Shared Service: Media** | **Tứ** *(Photographer/Video)* | - Tiếp nhận Order quay chụp sản phẩm mới cho cả King Blue và Ckô Store.<br>- Chụp ảnh sản phẩm nét cao (tách nền, bối cảnh xưởng), quay video test máy thực tế.<br>- Dựng hậu kỳ video ngắn (Reels/TikTok) và video dài YouTube theo kịch bản của các Brand Manager. | - Kho ảnh raw & ảnh đã retouch trên Google Drive.<br>- Video thành phẩm Full HD/4K đúng deadline task. |
+| **⚙️ Shared Service: Ecom** | **Thức & Ngân** *(Vận hành Sàn)* | - Quản trị gian hàng chính hãng King Blue & Ckô Store trên Shopee Mall, Lazada, TikTok Shop.<br>- Cài đặt chương trình Mega Sale theo chỉ đạo của Brand Manager, in đơn, nhập liệu, CSKH sàn. | - Doanh thu sàn TMĐT đạt chỉ tiêu.<br>- Đơn hàng xử lý trong ngày, tỷ lệ phản hồi chat > 95%. |
+| **⚙️ Shared Service: Kho vận** | **Hùng (MN) & Hùng MB** *(Fulfillment)* | - Tiếp nhận đơn hàng xuất bán của cả King Blue và Ckô Store.<br>- Đóng gói chống va đập đúng quy cách, bàn giao đơn vị vận chuyển đúng giờ, báo cáo xuất nhập tồn. | - Đơn hàng giao vận đúng hạn, không bể vỡ.<br>- Báo cáo sản lượng đóng gói & kiểm kê tồn kho. |
 
 ---
 
-## 3. Quy Tắc Phân Quyền Tài Khoản Người Dùng (CRM & Hệ Thống Quản Trị)
+## 3. Cơ Chế Phối Hợp & Quy Trình Đặt Hàng Nội Bộ (Internal SLA)
 
-Theo chuẩn nghiệp vụ quản trị hệ thống của King Blue:
-1. **Admin / Leader**: Cấp phát tài khoản đăng nhập (Username & Password) cho từng nhân sự.
-2. **Nhóm Sales & Sàn (Thức, Ngân)**:
-   - Quyền hạn: Quản trị đơn hàng, dữ liệu khách hàng lẻ & thông tin hỏi làm đại lý, xem báo cáo doanh thu.
-3. **Nhóm Media / Photographer (Tứ)**:
-   - Quyền hạn: User tải lên dữ liệu ảnh gốc (Raw), video thành phẩm, cập nhật tiến độ buổi quay chụp vào task dự án.
-4. **Nhóm Content & Design (Hoài Thương, Kiều Thương, Thụy Thương, Thiện)**:
-   - Quyền hạn: User nhận task giao việc, cập nhật link sản phẩm bàn giao, tải tài liệu duyệt từ Admin.
-5. **Nhóm Đóng gói (Hùng, Hùng Miền Bắc)**:
-   - Quyền hạn: User xác nhận trạng thái "Đã đóng gói" và "Đã giao vận chuyển" trên hệ thống quản lý đơn.
+1. **Quy trình Order Design & Media**:
+   - Khi Brand King Blue (Kiều Thương) hoặc Brand CKO (Hoài Thương / Thương Thương) cần làm banner hoặc video sản phẩm mới:
+     - Tạo task trực tiếp trên hệ thống [Quản Lý Công Việc](file:///Users/Admin/Documents/KIng%20BLue/quan_ly_cong_viec.html).
+     - Gắn người thực hiện (**Thiện** cho Design, **Tứ** cho Media) kèm brief kịch bản/yêu cầu cụ thể và deadline rõ ràng.
+2. **Quy trình Phân Bổ Ngân Sách**:
+   - Mỗi Brand được phân bổ ngân sách marketing độc lập hàng tháng (chi phí Ads, chi phí KOC, quà tặng minigame).
+   - Brand Manager chịu trách nhiệm về ROI (Hiệu quả chuyển đổi trên chi phí) của thương hiệu mình quản lý.
+3. **Quy Tắc Tên Gọi & Tài Khoản Nội Bộ**:
+   - Nhân sự phụ trách Brand CKO là **Thương Thương** (Mã PIN: `1003`), thống nhất trên mọi văn bản, báo cáo và hệ thống CRM (không sử dụng tên cũ Thụy Thương).

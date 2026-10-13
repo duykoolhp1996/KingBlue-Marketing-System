@@ -103,9 +103,9 @@ DEFAULT_TASK_CONFIG = {
     ],
     "assignees": [
         {"name": "Marketing Manager", "role": "Trưởng Phòng Marketing", "group": "Ban Quản Lý"},
-        {"name": "Hoài Thương", "role": "Content Marketing & SEO Fanpage/Website", "group": "Content"},
-        {"name": "Kiều Thương", "role": "Content Video & Hợp Tác KOC/Reviewer", "group": "Content"},
-        {"name": "Thụy Thương", "role": "Trade Marketing & Chính Sách Điểm Bán", "group": "Content"},
+        {"name": "Kiều Thương", "role": "Quản lý Brand King Blue (Content, Video, KOC & Ads B2B)", "group": "Brand King Blue"},
+        {"name": "Hoài Thương", "role": "Phụ trách Brand Ckô Store (SEO, Website & Chiến dịch Ecom)", "group": "Brand CKO"},
+        {"name": "Thương Thương", "role": "Phụ trách Brand Ckô Store (Social, Trade MKT & Review)", "group": "Brand CKO"},
         {"name": "Thiện", "role": "Graphic Designer (2D/3D, POSM & Banner)", "group": "Design"},
         {"name": "Tứ", "role": "Media / Photographer (Hình Ảnh, Video & CRM User)", "group": "Media"},
         {"name": "Thức", "role": "Vận Hành Sàn TMĐT (Shopee & Lazada)", "group": "Sàn TMĐT"},

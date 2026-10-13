@@ -44,6 +44,9 @@
 
       <!-- Quick Action Links -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <a href="dashboard_tiktok_cko.html" target="_blank" class="bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-black text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 transition shadow-xs">
+          <span>🎵</span> <span class="hidden sm:inline">Dashboard TikTok</span><span class="sm:hidden">TikTok</span>
+        </a>
         <a href="https://docs.google.com/spreadsheets/d/1_kID0uhutS6Ky_zpB2yW_AQXN2aUKKCKo_6tqZL1kbo/edit" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl flex items-center gap-1 transition shadow-xs">
           <span>📊</span> <span class="hidden sm:inline">Google Sheet Gốc</span><span class="sm:hidden">Sheet</span>
         </a>
@@ -488,13 +491,13 @@
     // ACCOUNTS DATABASE (7 NHÂN SỰ MARKETING + 1 QUẢN LÝ)
     const ACCOUNTS = [
       { username: "manager", password: "8888", pin: "8888", name: "Marketing Manager", role: "Trưởng Phòng Marketing", group: "Ban Quản Lý", type: "ADMIN", avatar: "👔", tabName: "BAO CAO HOM NAY" },
-      { username: "hoaithuong", password: "1001", pin: "1001", name: "Võ Thị Hoài Thương", role: "Content Marketing & SEO Fanpage/Website", group: "Content", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" },
-      { username: "kieuthuong", password: "1002", pin: "1002", name: "Kiều Thương", role: "Content Video & Hợp Tác KOC/Reviewer", group: "Content", type: "USER", avatar: "🎬", tabName: "Kieu Thuong - Content" },
-      { username: "thuythuong", password: "1003", pin: "1003", name: "Thương Thương", role: "Trade Marketing & Chính Sách Điểm Bán", group: "Content", type: "USER", avatar: "📑", tabName: "Thuong Thuong - Content" },
-      { username: "thien", password: "1004", pin: "1004", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Design", type: "USER", avatar: "🎨", tabName: "Thien - Design" },
-      { username: "tu", password: "1005", pin: "1005", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Media", type: "USER", avatar: "📸", tabName: "Tu - Media" },
-      { username: "thuc", password: "1006", pin: "1006", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Sàn TMĐT", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" },
-      { username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Sàn TMĐT", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" }
+      { username: "kieuthuong", password: "1002", pin: "1002", name: "Kiều Thương", role: "Quản lý Brand King Blue (Content, KOC & Ads B2B)", group: "Brand King Blue", type: "USER", avatar: "👑", tabName: "Kieu Thuong - Content" },
+      { username: "hoaithuong", password: "1001", pin: "1001", name: "Võ Thị Hoài Thương", role: "Phụ trách Brand Ckô Store (SEO, Web & Ecom)", group: "Brand CKO", type: "USER", avatar: "✍️", tabName: "Hoai Thuong - Content" },
+      { username: "thuythuong", password: "1003", pin: "1003", name: "Thương Thương", role: "Phụ trách Brand Ckô Store (Social, Trade & Review)", group: "Brand CKO", type: "USER", avatar: "📑", tabName: "Thuong Thuong - Content" },
+      { username: "thien", password: "1004", pin: "1004", name: "Thiện", role: "Graphic Designer (2D/3D, POSM & Banner)", group: "Shared (Design)", type: "USER", avatar: "🎨", tabName: "Thien - Design" },
+      { username: "tu", password: "1005", pin: "1005", name: "Tứ", role: "Media / Photographer (Hình Ảnh & User CRM)", group: "Shared (Media)", type: "USER", avatar: "📸", tabName: "Tu - Media" },
+      { username: "thuc", password: "1006", pin: "1006", name: "Thức", role: "Vận Hành Sàn TMĐT (Shopee & Lazada)", group: "Shared (Sàn TMĐT)", type: "USER", avatar: "🛒", tabName: "Thuc - San TMDT" },
+      { username: "ngan", password: "1007", pin: "1007", name: "Ngân", role: "CSKH & Quản Trị Gian Hàng TikTok Shop", group: "Shared (Sàn TMĐT)", type: "USER", avatar: "🎧", tabName: "Ngan - San TMDT" }
     ];
 
     let currentAppMainTab = 'cards';

@@ -65,7 +65,8 @@ Theo chuẩn nghiệp vụ quản trị King Blue, toàn bộ đầu mối thôn
 | Bộ Phận / Nhóm Tài Khoản | Nhân Sự Chịu Trách Nhiệm | Phạm Vi Quyền Hạn & Đầu Mối Trọng Tâm |
 | :--- | :--- | :--- |
 | 👑 **Admin / Quản Lý** | **Marketing Manager** | Toàn quyền kiểm soát tất cả 20 đầu mối thông tin, phê duyệt kế hoạch, ngân sách & KPI. |
-| ✍️ **Nhóm Content** | Hoài Thương, Kiều Thương, Thụy Thương | Chủ trì Kế hoạch nội dung King Blue & CKO, Booking KOL/KOC, tạo yêu cầu (Order) Ảnh/Video. |
+| 🔵 **Brand King Blue** | **Kiều Thương** *(Brand Manager)* | Quản trị toàn diện thương hiệu King Blue, Kế hoạch nội dung, Booking KOL/KOC, Chạy Ads B2B. |
+| 🟠 **Brand CKO Store** | **Hoài Thương & Thương Thương** | Quản trị thương hiệu CKO Store (Hoài Thương: SEO, Web & Ecom; Thương Thương: Social, Trade & Review). |
 | 🎨 **Nhóm Graphic Design** | Thiện | Tiếp nhận Order hình ảnh, thiết kế bao bì, banner sàn, cập nhật Drive Hình ảnh. |
 | 📸 **Nhóm Media / Photographer** | Tứ *(User CRM do Admin cấp)* | Tiếp nhận Order video/ảnh chụp máy thực tế, quay dựng video test sản phẩm, quản trị Drive Video. |
 | 🛒 **Nhóm Sàn TMĐT & Sales** | Thức, Ngân *(User CRM do Admin cấp)* | Quản trị Link vận hành sàn, PNL sản phẩm sàn, tồn kho Ecom & cập nhật sản phẩm bán chạy. |
