@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KingBlue - Hệ Thống Giám Sát Giá Sàn TMĐT & Quản Lý Đại Lý</title>
+  <!-- Google Fonts & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            kb: {
+              dark: '#0f2347',
+              primary: '#1B365D',
+              blue: '#2E75B6',
+              light: '#EBF4FC',
+              accent: '#E65100',
+              gold: '#D97706'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; color: #1E293B; }
+    .badge-pha-gia { background-color: #FEE2E2; color: #991B1B; border: 1px solid #F87171; }
+    .badge-tuan-thu { background-color: #DCFCE7; color: #166534; border: 1px solid #4ADE80; }
+    .badge-vuot-gia { background-color: #FEF3C7; color: #92400E; border: 1px solid #FBBF24; }
+    .badge-chua-kt { background-color: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+    .tab-active { background-color: #1B365D; color: #FFFFFF; font-weight: 600; }
+    .tab-inactive { background-color: #F1F5F9; color: #475569; font-weight: 500; }
+    .tab-inactive:hover { background-color: #E2E8F0; color: #1E293B; }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-kb-primary text-white sticky top-0 z-40 shadow-lg border-b border-kb-blue/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center border border-white/20 shadow-inner">
+            <i class="fa-solid fa-shield-halved text-amber-400 text-xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-extrabold text-lg tracking-wide uppercase">KING BLUE</span>
+              <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/40">E-COMMERCE AUDIT</span>
+            </div>
+            <p class="text-xs text-blue-200">Hệ Thống Giám Sát Giá Bán Sàn TMĐT & Quản Lý Đại Lý</p>
+          </div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <!-- Google Sheets Live Indicator -->
+          <div class="hidden md:flex items-center space-x-2 bg-emerald-950/40 border border-emerald-500/40 px-3 py-1.5 rounded-lg">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-xs text-emerald-300 font-medium">Google Sheet Connected</span>
+          </div>
+
+          <!-- Sync Button -->
+          <button onclick="syncFromGoogleSheet()" id="btn-sync" class="bg-kb-blue hover:bg-blue-600 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1.5 shadow transition">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span class="hidden sm:inline">Đồng Bộ Sheet</span>
+          </button>
+
+          <!-- Open Sheet Link -->
+          <a href="https://docs.google.com/spreadsheets/d/1jeCjM87kVfyJKJqIDMnYf6KUnlmonQ5Ct6hhNfRaDEY/edit" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1.5 shadow transition">
+            <i class="fa-solid fa-table"></i>
+            <span class="hidden sm:inline">Mở Google Sheet</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="bg-white border-b border-slate-200 sticky top-16 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex space-x-2 py-2.5 overflow-x-auto">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="tab-active text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Dashboard Tổng Quan</span>
+        </button>
+        <button onclick="switchTab('audit')" id="nav-audit" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap">
+          <i class="fa-solid fa-magnifying-glass-dollar"></i>
+          <span>Giám Sát & Bắt Lỗi Giá Sàn (3,292 SP)</span>
+        </button>
+        <button onclick="switchTab('dealers')" id="nav-dealers" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap">
+          <i class="fa-solid fa-store"></i>
+          <span>Danh Sách 32 Đại Lý & Link Sàn</span>
+        </button>
+        <button onclick="switchTab('catalog')" id="nav-catalog" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Bảng Báo Giá Gốc PDF 10.10.2026</span>
+        </button>
+      </div>
+    </div>
+          <button onclick="switchTab('ai')" id="nav-ai" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 font-bold">
+          <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i>
+          <span>AI Phân Tích Tuần</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: DASHBOARD TỔNG QUAN -->
+    <!-- ================================================================= -->
+    <section id="tab-dashboard" class="space-y-6">
+      
+      <!-- KPI Metric Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tổng Đại Lý / Gian Hàng</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-kb-primary mt-1" id="kpi-dealers">32</p>
+            <p class="text-xs text-slate-400 mt-1">Toàn quốc (Shopee, TikTok, Web)</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-kb-blue flex items-center justify-center text-xl">
+            <i class="fa-solid fa-shop"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tổng Sản Phẩm Quản Lý</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1" id="kpi-products">3,292</p>
+            <p class="text-xs text-slate-400 mt-1">Lượt nhập hàng thực tế</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Đã Khảo Sát Giá Sàn</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1" id="kpi-checked">0</p>
+            <p class="text-xs text-slate-400 mt-1">Sản phẩm đã điền giá bán</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-clipboard-check"></i>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Phát Hiện Bán Phá Giá</p>
+            <p class="text-2xl sm:text-3xl font-extrabold text-rose-600 mt-1" id="kpi-pha-gia">0</p>
+            <p class="text-xs text-slate-400 mt-1">Vi phạm dưới giá sàn TMĐT</p>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Banner & Notice -->
+      <div class="bg-gradient-to-r from-kb-primary to-kb-blue text-white p-5 rounded-xl shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center space-x-2">
+            <span class="bg-amber-400 text-kb-dark text-xs font-bold px-2 py-0.5 rounded">CHUẨN BẢNG GIÁ 10.10.2026</span>
+            <h3 class="font-bold text-base sm:text-lg">Thước Đo Kiểm Tra: Cột "GIÁ SÀN TMĐT QUY ĐỊNH"</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-blue-100">
+            Hãng KingBlue đã quy định rõ mức giá sàn tối thiểu được phép bán trên sàn TMĐT. Mọi gian hàng bán dưới mức này đều là <strong>Bán phá giá</strong> và cần được xử lý ngay.
+          </p>
+        </div>
+        <button onclick="switchTab('audit')" class="bg-white text-kb-primary hover:bg-slate-100 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-lg shadow whitespace-nowrap transition flex items-center space-x-2">
+          <span>Tiến Hành Khảo Sát Giá</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Dealer Breakdown Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Bảng Tổng Hợp 32 Đại Lý & Tình Trạng Rà Soát</h3>
+            <p class="text-xs text-slate-500">Nhân viên phụ trách & link gian hàng sàn TMĐT trực tiếp</p>
+          </div>
+          <div class="text-xs text-slate-500">
+            Hiển thị <strong>32</strong> đơn vị kinh doanh
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead class="bg-slate-50 text-slate-700 uppercase font-bold text-[11px] border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-4">Mã ĐL</th>
+                <th class="py-3 px-4">Tên Đại Lý / NPP</th>
+                <th class="py-3 px-4">Khu Vực</th>
+                <th class="py-3 px-4">NV Phụ Trách</th>
+                <th class="py-3 px-4">Sàn TMĐT</th>
+                <th class="py-3 px-4 text-right">Tổng Mã Nhập</th>
+                <th class="py-3 px-4 text-center">Đã Khảo Sát</th>
+                <th class="py-3 px-4 text-center">Phát Hiện Phá Giá</th>
+                <th class="py-3 px-4 text-center">Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="dashboard-dealers-tbody" class="divide-y divide-slate-100">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: GIÁM SÁT & BẮT LỖI GIÁ SÀN (AUDIT 3,292 SẢN PHẨM) -->
+    <!-- ================================================================= -->
+    <section id="tab-audit" class="hidden space-y-4">
+      
+      <!-- Filter Bar -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          
+          <!-- Search Input -->
+          <div class="relative lg:col-span-2">
+            <i class="fa-solid fa-search absolute left-3 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="filter-search" oninput="applyFilters()" placeholder="Tìm tên sản phẩm, mã SP, tên đại lý..." class="w-full pl-8 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue">
+          </div>
+
+          <!-- Dealer Filter -->
+          <div>
+            <select id="filter-dealer" onchange="applyFilters()" class="w-full py-2 px-3 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue">
+              <option value="">-- Tất Cả Đại Lý (32) --</option>
+            </select>
+          </div>
+
+          <!-- Status Filter -->
+          <div>
+            <select id="filter-status" onchange="applyFilters()" class="w-full py-2 px-3 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue font-medium">
+              <option value="">-- Tất Cả Trạng Thái --</option>
+              <option value="PHA_GIA">🔴 Chỉ Xem Bán Phá Giá</option>
+              <option value="TUAN_THU">🟢 Đúng Giá Sàn TMĐT</option>
+              <option value="VUOT_GIA">🔵 Bán Cao Hơn</option>
+              <option value="CHUA_KIEM_TRA">⚪ Chưa Khảo Sát Giá</option>
+            </select>
+          </div>
+
+          <!-- Employee Filter -->
+          <div>
+            <select id="filter-employee" onchange="applyFilters()" class="w-full py-2 px-3 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue">
+              <option value="">-- Nhân Viên Phụ Trách --</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100">
+          <div>
+            Tìm thấy <strong class="text-kb-primary" id="audit-count">0</strong> sản phẩm
+          </div>
+          <div class="flex items-center space-x-2">
+            <span>Hiển thị mỗi trang:</span>
+            <select id="filter-limit" onchange="applyFilters()" class="text-xs border border-slate-300 rounded px-2 py-1">
+              <option value="30">30</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Products Table -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-kb-primary text-white uppercase font-bold text-[11px] tracking-wider">
+              <tr>
+                <th class="py-3 px-3 text-center">STT</th>
+                <th class="py-3 px-3">Đại Lý & Sàn</th>
+                <th class="py-3 px-3">Mã SP</th>
+                <th class="py-3 px-4">Tên Sản Phẩm</th>
+                <th class="py-3 px-3 text-right">Giá Sỉ</th>
+                <th class="py-3 px-3 text-right">Giá Lẻ</th>
+                <th class="py-3 px-3 text-right bg-amber-600 text-amber-50 font-extrabold">Giá Sàn TMĐT</th>
+                <th class="py-3 px-3 text-right bg-blue-900/50">Giá Khảo Sát</th>
+                <th class="py-3 px-3 text-right">% Lệch</th>
+                <th class="py-3 px-3 text-center">Kết Luận Tuân Thủ</th>
+                <th class="py-3 px-3 text-center">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody id="audit-products-tbody" class="divide-y divide-slate-100 font-medium">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+          <span class="text-xs text-slate-500" id="pagination-info">Trang 1 / 1</span>
+          <div class="flex space-x-1" id="pagination-controls">
+            <!-- Buttons rendered via JS -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: DANH SÁCH 32 ĐẠI LÝ & LINK GIAN HÀNG THỰC TẾ -->
+    <!-- ================================================================= -->
+    <section id="tab-dealers" class="hidden space-y-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-slate-800 text-base">Danh Sách 32 Đại Lý & Nhà Phân Phối KingBlue</h3>
+          <p class="text-xs text-slate-500">Bấm trực tiếp vào link để mở gian hàng Shopee, TikTok Shop, Website khảo sát giá</p>
+        </div>
+        <div class="text-xs bg-blue-50 text-kb-blue font-bold px-3 py-1.5 rounded-lg border border-blue-200">
+          32 Gian hàng đang theo dõi
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="dealers-cards-container">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: BẢNG BÁO GIÁ GỐC PDF (1,289 SẢN PHẨM) -->
+    <!-- ================================================================= -->
+    <section id="tab-catalog" class="hidden space-y-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 class="font-bold text-slate-800 text-base">Bảng Báo Giá Gốc KingBlue 10.10.2026 (SALE)</h3>
+          <p class="text-xs text-slate-500">Bóc tách toàn bộ 1,289 sản phẩm từ file PDF chính thức của công ty</p>
+        </div>
+        <div class="relative w-full sm:w-72">
+          <i class="fa-solid fa-search absolute left-3 top-3 text-slate-400 text-xs"></i>
+          <input type="text" id="catalog-search" oninput="searchCatalog()" placeholder="Tìm kiếm trong bảng giá PDF..." class="w-full pl-8 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue">
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-700 text-white uppercase font-bold text-[11px]">
+              <tr>
+                <th class="py-3 px-3 text-center">STT</th>
+                <th class="py-3 px-3 text-center">Trang PDF</th>
+                <th class="py-3 px-4">Tên / Quy Cách Sản Phẩm</th>
+                <th class="py-3 px-3 text-center">ĐVT</th>
+                <th class="py-3 px-3 text-right">GIÁ SỈ (VNĐ)</th>
+                <th class="py-3 px-3 text-right">GIÁ LẺ (VNĐ)</th>
+                <th class="py-3 px-3 text-right bg-amber-600 text-white font-extrabold">GIÁ SÀN TMĐT (VNĐ)</th>
+                <th class="py-3 px-4">Ghi Chú</th>
+              </tr>
+            </thead>
+            <tbody id="catalog-tbody" class="divide-y divide-slate-100">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  
+    <!-- ================================================================= -->
+    <!-- TAB 5: AI PHÂN TÍCH HÀNG TUẦN (AI WEEKLY ANALYSIS ENGINE) -->
+    <!-- ================================================================= -->
+    <section id="tab-ai" class="hidden space-y-6">
+      
+      <!-- AI Hub Banner -->
+      <div class="bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 text-white p-6 rounded-2xl shadow-xl border border-purple-500/30 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2.5">
+              <span class="bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 text-xs font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">KINGBLUE AI INTELLIGENCE</span>
+              <span class="bg-purple-500/30 text-purple-200 text-xs px-2.5 py-0.5 rounded-full border border-purple-400/30">Auto Weekly Engine</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">Hệ Thống Phân Tích Tuân Thủ Giá & Rủi Ro Thị Trường Hàng Tuần</h2>
+            <p class="text-xs sm:text-sm text-purple-200 max-w-2xl leading-relaxed">
+              Trí tuệ nhân tạo tự động tổng hợp dữ liệu từ 32 đại lý, 3,292 sản phẩm và Bảng giá sàn 10.10.2026; phát hiện xu hướng bán phá giá, cảnh báo đại lý nguy cơ cao và đề xuất chỉ đạo hành động cụ thể cho từng Sales.
+            </p>
+          </div>
+
+          <!-- Run Analysis Button -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+            <button onclick="runAiAnalysis()" id="btn-run-ai" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-lg transition flex items-center justify-center space-x-2 whitespace-nowrap">
+              <i class="fa-solid fa-bolt text-sm"></i>
+              <span>Chạy Phân Tích Tuần Mới</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls & History Selector -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center space-x-3">
+          <label class="text-xs font-bold text-slate-700 flex items-center space-x-1.5">
+            <i class="fa-solid fa-clock-rotate-left text-slate-400"></i>
+            <span>Kỳ Báo Cáo:</span>
+          </label>
+          <select id="select-weekly-report" onchange="loadSelectedReport()" class="text-xs font-bold border border-slate-300 rounded-lg px-3 py-2 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div class="flex items-center space-x-2 text-xs">
+          <span class="text-slate-400">Lịch định kỳ: <strong>08:00 Thứ Hai hàng tuần</strong></span>
+          <button onclick="printAiReport()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-lg border border-slate-200 transition flex items-center space-x-1.5">
+            <i class="fa-solid fa-print"></i>
+            <span>In / Lưu PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- AI Report Container -->
+      <div id="ai-report-container" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+        <div id="ai-report-body" class="prose max-w-none text-slate-800 text-xs sm:text-sm leading-relaxed">
+          <!-- Rendered Markdown via JS -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================================================================= -->
+  <!-- MODAL KHẢO SÁT & BẮT LỖI GIÁ SÀN -->
+  <!-- ================================================================= -->
+  <div id="modal-audit" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in duration-200">
+      
+      <!-- Modal Header -->
+      <div class="bg-kb-primary text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-gavel text-amber-400 text-lg"></i>
+          <h3 class="font-bold text-sm sm:text-base">Ghi Nhận Khảo Sát Giá Bán Sàn TMĐT</h3>
+        </div>
+        <button onclick="closeModal()" class="text-slate-300 hover:text-white transition">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <form id="audit-form" onsubmit="submitAudit(event)" class="p-5 space-y-4 text-xs">
+        <input type="hidden" id="modal-product-id">
+        
+        <!-- Info Box -->
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500 font-medium">Đại lý:</span>
+            <span class="font-bold text-slate-800" id="modal-dealer-name">--</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500 font-medium">Sản phẩm:</span>
+            <span class="font-bold text-kb-blue" id="modal-prod-name">--</span>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-200">
+            <span class="text-slate-500 font-medium">Giá Sàn TMĐT Quy Định:</span>
+            <span class="font-extrabold text-amber-600 text-sm" id="modal-gia-san">--</span>
+          </div>
+        </div>
+
+        <!-- Price Input -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">
+            Giá Bán Thực Tế Đại Lý Đang Đăng Trên Sàn (VNĐ) <span class="text-rose-500">*</span>
+          </label>
+          <div class="relative">
+            <input type="number" id="modal-selling-price" oninput="calculatePreview()" required placeholder="Ví dụ: 135000" class="w-full pl-3 pr-10 py-2.5 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue font-bold">
+            <span class="absolute right-3 top-2.5 text-slate-400 font-medium text-xs">VNĐ</span>
+          </div>
+        </div>
+
+        <!-- Live Calculation Preview -->
+        <div id="modal-preview-box" class="p-3 rounded-lg border hidden space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold">Chênh lệch tiền:</span>
+            <span class="font-bold" id="modal-preview-diff">0 đ</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold">Tỷ lệ % lệch:</span>
+            <span class="font-bold" id="modal-preview-pct">0.0%</span>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-current/20">
+            <span class="text-xs font-bold uppercase">Kết luận:</span>
+            <span class="font-extrabold text-xs" id="modal-preview-conclusion">--</span>
+          </div>
+        </div>
+
+        <!-- Evidence Link -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Link Sản Phẩm Trên Sàn / Bằng Chứng Ảnh</label>
+          <input type="url" id="modal-evidence" placeholder="https://shopee.vn/product/..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue text-xs">
+        </div>
+
+        <!-- Action Plan -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Hướng Xử Lý Đề Xuất</label>
+          <select id="modal-action" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue text-xs">
+            <option value="Nhắc nhở qua Zalo/Điện thoại đại lý">Nhắc nhở qua Zalo/Điện thoại đại lý</option>
+            <option value="Gửi công văn cảnh cáo yêu cầu sửa giá trong 24h">Gửi công văn cảnh cáo yêu cầu sửa giá trong 24h</option>
+            <option value="Tạm cắt chiết khấu tháng">Tạm cắt chiết khấu tháng</option>
+            <option value="Dừng cấp hàng toàn diện">Dừng cấp hàng toàn diện</option>
+            <option value="Đúng giá niêm yết - Duy trì tuân thủ">Đúng giá niêm yết - Duy trì tuân thủ</option>
+          </select>
+        </div>
+
+        <!-- Auditor Name -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Người Đi Khảo Sát</label>
+          <input type="text" id="modal-auditor" value="Admin / Sales" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-kb-blue text-xs">
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition font-medium">Hủy</button>
+          <button type="submit" id="btn-save-audit" class="px-5 py-2 bg-kb-primary hover:bg-kb-blue text-white rounded-lg shadow font-bold transition flex items-center space-x-1.5">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>Lưu Khảo Sát</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-4 border-t border-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        © 2026 <strong>KingBlue Tools</strong> - Hệ Thống Giám Sát Tuân Thủ Giá Sàn TMĐT.
+      </div>
+      <div class="flex items-center space-x-4">
+        <span>Nguồn dữ liệu: <strong>Google Sheets Database</strong></span>
+        <span>Báo giá: <strong>10.10.2026 (SALE).pdf</strong></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APPLICATION LOGIC JS -->
+  <script>
+    let globalStore = { dealers: [], products: [], pdf_catalog: [] };
+    let currentTab = 'dashboard';
+    let currentPage = 1;
+    let currentLimit = 50;
+    let currentProductForAudit = null;
+
+    // Format tiền VNĐ
+    function formatMoney(amount) {
+      if (!amount && amount !== 0) return '--';
+      return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
+    }
+
+    // Switch Tabs
+    function switchTab(tabId) {
+      currentTab = tabId;
+      ['dashboard', 'audit', 'dealers', 'catalog'].forEach(t => {
+        const section = document.getElementById('tab-' + t);
+        const nav = document.getElementById('nav-' + t);
+        if (t === tabId) {
+          section.classList.remove('hidden');
+          nav.classList.add('tab-active');
+          nav.classList.remove('tab-inactive');
+        } else {
+          section.classList.add('hidden');
+          nav.classList.remove('tab-active');
+          nav.classList.add('tab-inactive');
+        }
+      });
+      if (tabId === 'audit') applyFilters();
+      if (tabId === 'catalog') renderCatalog();
+    }
+
+    // Load initial data
+    async function loadData() {
+      try {
+        const [statsRes, dealersRes] = await Promise.all([
+          fetch('/api/stats').then(r => r.json()),
+          fetch('/api/dealers').then(r => r.json())
+        ]);
+
+        globalStore.dealers = dealersRes;
+        renderDashboard(statsRes);
+        populateFilterDropdowns();
+        renderDealersCards();
+        applyFilters();
+      } catch (err) {
+        console.error("Lỗi nạp dữ liệu:", err);
+      }
+    }
+
+    // Render Dashboard
+    function renderDashboard(stats) {
+      document.getElementById('kpi-dealers').textContent = stats.total_dealers;
+      document.getElementById('kpi-products').textContent = stats.total_products.toLocaleString();
+      document.getElementById('kpi-checked').textContent = stats.total_checked.toLocaleString();
+      document.getElementById('kpi-pha-gia').textContent = stats.total_pha_gia.toLocaleString();
+
+      const tbody = document.getElementById('dashboard-dealers-tbody');
+      tbody.innerHTML = '';
+
+      (stats.dealer_breakdown || []).forEach(d => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50/80 transition";
+        
+        let statusBadge = '<span class="text-slate-400 text-xs">Chưa khảo sát</span>';
+        if (d.checked_count > 0) {
+          if (d.pha_gia_count > 0) {
+            statusBadge = `<span class="badge-pha-gia px-2 py-0.5 rounded font-bold text-xs">Phát hiện ${d.pha_gia_count} SP phá giá</span>`;
+          } else {
+            statusBadge = `<span class="badge-tuan-thu px-2 py-0.5 rounded font-bold text-xs">100% Đúng giá sàn</span>`;
+          }
+        }
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-bold text-kb-primary">${d.code}</td>
+          <td class="py-3 px-4 font-semibold text-slate-800">${d.name}</td>
+          <td class="py-3 px-4 text-slate-500">${d.platform.includes('HCM') ? 'HCM' : 'Toàn quốc'}</td>
+          <td class="py-3 px-4 text-slate-600 font-medium">${d.employee || '--'}</td>
+          <td class="py-3 px-4"><span class="bg-blue-50 text-kb-blue border border-blue-200 px-2 py-0.5 rounded font-medium text-xs">${d.platform}</span></td>
+          <td class="py-3 px-4 text-right font-extrabold text-slate-700">${d.total_prods}</td>
+          <td class="py-3 px-4 text-center font-bold text-slate-600">${d.checked_count}</td>
+          <td class="py-3 px-4 text-center">${statusBadge}</td>
+          <td class="py-3 px-4 text-center">
+            <button onclick="filterByDealer(${d.id})" class="bg-kb-primary hover:bg-kb-blue text-white text-xs px-2.5 py-1 rounded transition font-medium">
+              Khảo sát SP
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Populate Filters
+    function populateFilterDropdowns() {
+      const dSelect = document.getElementById('filter-dealer');
+      const eSelect = document.getElementById('filter-employee');
+      
+      const employees = new Set();
+      globalStore.dealers.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.id;
+        opt.textContent = `${d.code} - ${d.name} (${d.products_count} SP)`;
+        dSelect.appendChild(opt);
+
+        if (d.employee) employees.add(d.employee);
+      });
+
+      employees.forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e;
+        opt.textContent = e;
+        eSelect.appendChild(opt);
+      });
+    }
+
+    // Filter by dealer from dashboard button
+    function filterByDealer(dealerId) {
+      document.getElementById('filter-dealer').value = dealerId;
+      switchTab('audit');
+    }
+
+    // Apply Filters & Fetch Products
+    async function applyFilters(page = 1) {
+      currentPage = page;
+      currentLimit = parseInt(document.getElementById('filter-limit').value || '50');
+
+      const search = document.getElementById('filter-search').value;
+      const dealer = document.getElementById('filter-dealer').value;
+      const status = document.getElementById('filter-status').value;
+      const emp = document.getElementById('filter-employee').value;
+
+      const params = new URLSearchParams();
+      if (search) params.append('search', search);
+      if (dealer) params.append('dealer_id', dealer);
+      if (status) params.append('status', status);
+      if (emp) params.append('employee', emp);
+      params.append('page', page);
+      params.append('limit', currentLimit);
+
+      try {
+        const res = await fetch('/api/products?' + params.toString()).then(r => r.json());
+        renderProducts(res);
+      } catch (err) {
+        console.error("Lỗi nạp sản phẩm:", err);
+      }
+    }
+
+    // Render Products Table
+    function renderProducts(data) {
+      document.getElementById('audit-count').textContent = data.total.toLocaleString();
+      document.getElementById('pagination-info').textContent = `Trang ${data.page} / ${data.total_pages || 1} (Tổng: ${data.total.toLocaleString()} SP)`;
+
+      const tbody = document.getElementById('audit-products-tbody');
+      tbody.innerHTML = '';
+
+      if (!data.items || data.items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" class="py-8 text-center text-slate-400">Không tìm thấy sản phẩm nào phù hợp.</td></tr>`;
+        return;
+      }
+
+      data.items.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+
+        let statusBadge = '<span class="badge-chua-kt px-2 py-0.5 rounded text-[11px]">Chưa kiểm tra</span>';
+        if (p.tinh_trang === 'PHA_GIA') {
+          statusBadge = '<span class="badge-pha-gia px-2 py-0.5 rounded font-extrabold text-[11px] animate-pulse">🔴 Bán phá giá sàn</span>';
+        } else if (p.tinh_trang === 'TUAN_THU') {
+          statusBadge = '<span class="badge-tuan-thu px-2 py-0.5 rounded font-bold text-[11px]">🟢 Đúng giá sàn</span>';
+        } else if (p.tinh_trang === 'VUOT_GIA') {
+          statusBadge = '<span class="badge-vuot-gia px-2 py-0.5 rounded font-bold text-[11px]">🔵 Bán cao hơn</span>';
+        }
+
+        const diffPctStr = p.phan_tram_lech !== null && p.phan_tram_lech !== undefined 
+          ? (p.phan_tram_lech > 0 ? `+${(p.phan_tram_lech*100).toFixed(1)}%` : `${(p.phan_tram_lech*100).toFixed(1)}%`)
+          : '--';
+
+        const sellingPriceStr = p.gia_ban_thuc_te ? formatMoney(p.gia_ban_thuc_te) : '<span class="text-slate-300 italic">Chưa nhập</span>';
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-center text-slate-400">${(data.page - 1) * data.limit + idx + 1}</td>
+          <td class="py-2.5 px-3">
+            <div class="font-bold text-slate-800 text-xs">${p.dealer_name}</div>
+            <div class="text-[10px] text-slate-400">${p.platform} - NV: ${p.employee || '--'}</div>
+          </td>
+          <td class="py-2.5 px-3 font-mono font-bold text-kb-blue">${p.product_code}</td>
+          <td class="py-2.5 px-4 font-semibold text-slate-800">${p.product_name}</td>
+          <td class="py-2.5 px-3 text-right text-slate-500">${formatMoney(p.gia_si)}</td>
+          <td class="py-2.5 px-3 text-right text-slate-600">${formatMoney(p.gia_le)}</td>
+          <td class="py-2.5 px-3 text-right font-extrabold text-amber-700 bg-amber-50/60">${formatMoney(p.gia_san_tmdt)}</td>
+          <td class="py-2.5 px-3 text-right font-bold text-blue-900">${sellingPriceStr}</td>
+          <td class="py-2.5 px-3 text-right font-bold ${p.phan_tram_lech < -0.02 ? 'text-rose-600' : 'text-slate-600'}">${diffPctStr}</td>
+          <td class="py-2.5 px-3 text-center">${statusBadge}</td>
+          <td class="py-2.5 px-3 text-center">
+            <button onclick="openAuditModal(${p.id})" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1 rounded shadow text-xs transition">
+              <i class="fa-solid fa-pen-to-square"></i> Khảo Sát
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      renderPagination(data);
+    }
+
+    // Pagination buttons
+    function renderPagination(data) {
+      const controls = document.getElementById('pagination-controls');
+      controls.innerHTML = '';
+
+      if (data.total_pages <= 1) return;
+
+      const prevBtn = document.createElement('button');
+      prevBtn.className = `px-2 py-1 text-xs border rounded ${data.page > 1 ? 'hover:bg-slate-100 text-slate-700' : 'text-slate-300 cursor-not-allowed'}`;
+      prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+      prevBtn.disabled = data.page <= 1;
+      prevBtn.onclick = () => applyFilters(data.page - 1);
+      controls.appendChild(prevBtn);
+
+      const nextBtn = document.createElement('button');
+      nextBtn.className = `px-2 py-1 text-xs border rounded ${data.page < data.total_pages ? 'hover:bg-slate-100 text-slate-700' : 'text-slate-300 cursor-not-allowed'}`;
+      nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+      nextBtn.disabled = data.page >= data.total_pages;
+      nextBtn.onclick = () => applyFilters(data.page + 1);
+      controls.appendChild(nextBtn);
+    }
+
+    // Render Dealers Cards
+    function renderDealersCards() {
+      const container = document.getElementById('dealers-cards-container');
+      container.innerHTML = '';
+
+      globalStore.dealers.forEach(d => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+
+        let linksHtml = '';
+        if (d.store_links && Object.keys(d.store_links).length > 0) {
+          for (const [platform, url] of Object.entries(d.store_links)) {
+            linksHtml += `
+              <a href="${url}" target="_blank" class="inline-flex items-center space-x-1.5 text-xs text-kb-blue hover:underline bg-blue-50 px-2 py-1 rounded border border-blue-200">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                <span class="font-bold">${platform}:</span>
+                <span class="truncate max-w-[150px]">${url}</span>
+              </a>
+            `;
+          }
+        } else {
+          linksHtml = `<span class="text-xs text-slate-400 italic">Chưa có link trực tiếp</span>`;
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="font-extrabold text-xs text-kb-primary">${d.code}</span>
+              <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded">${d.province || 'Toàn quốc'}</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-sm mt-1">${d.name}</h4>
+            <p class="text-xs text-slate-500 mt-0.5">NV phụ trách: <strong>${d.employee || '--'}</strong></p>
+            <div class="mt-3 space-y-1.5">
+              ${linksHtml}
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs text-slate-500">Mã hàng đã nhập: <strong class="text-slate-800">${d.products_count} SP</strong></span>
+            <button onclick="filterByDealer(${d.id})" class="text-xs bg-kb-primary text-white font-bold px-2.5 py-1 rounded hover:bg-kb-blue transition">
+              Khảo sát giá
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Modal Handling
+    async function openAuditModal(productId) {
+      try {
+        const res = await fetch(`/api/products?search=&page=1&limit=1`).then(r => r.json());
+        // fetch specific product
+        const storeRes = await fetch('/api/products?limit=3500').then(r => r.json());
+        const prod = storeRes.items.find(p => p.id === productId);
+        if (!prod) return;
+
+        currentProductForAudit = prod;
+        document.getElementById('modal-product-id').value = prod.id;
+        document.getElementById('modal-dealer-name').textContent = `${prod.dealer_code} - ${prod.dealer_name}`;
+        document.getElementById('modal-prod-name').textContent = `[${prod.product_code}] ${prod.product_name}`;
+        document.getElementById('modal-gia-san').textContent = formatMoney(prod.gia_san_tmdt);
+        document.getElementById('modal-selling-price').value = prod.gia_ban_thuc_te || '';
+        document.getElementById('modal-evidence').value = prod.link_bang_chung || '';
+        document.getElementById('modal-action').value = prod.huong_xu_ly || 'Nhắc nhở qua Zalo/Điện thoại đại lý';
+        document.getElementById('modal-auditor').value = prod.nguoi_kiem_tra || 'Admin / Sales';
+
+        calculatePreview();
+        document.getElementById('modal-audit').classList.remove('hidden');
+      } catch (err) {
+        console.error("Lỗi mở modal:", err);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modal-audit').classList.add('hidden');
+    }
+
+    function calculatePreview() {
+      if (!currentProductForAudit) return;
+      const inputVal = parseFloat(document.getElementById('modal-selling-price').value);
+      const giaSan = currentProductForAudit.gia_san_tmdt || currentProductForAudit.gia_le;
+      const box = document.getElementById('modal-preview-box');
+
+      if (!inputVal || !giaSan) {
+        box.classList.add('hidden');
+        return;
+      }
+
+      box.classList.remove('hidden');
+      const diff = inputVal - giaSan;
+      const pct = (diff / giaSan) * 100;
+
+      document.getElementById('modal-preview-diff').textContent = (diff > 0 ? '+' : '') + formatMoney(diff);
+      document.getElementById('modal-preview-pct').textContent = (pct > 0 ? '+' : '') + pct.toFixed(1) + '%';
+
+      const conclusion = document.getElementById('modal-preview-conclusion');
+      if (pct < -2) {
+        box.className = "p-3 rounded-lg border bg-rose-50 border-rose-200 text-rose-800 space-y-1";
+        conclusion.textContent = "🔴 CẢNH BÁO: BÁN PHÁ GIÁ SÀN TMĐT!";
+      } else if (pct > 5) {
+        box.className = "p-3 rounded-lg border bg-amber-50 border-amber-200 text-amber-800 space-y-1";
+        conclusion.textContent = "🔵 BÁN CAO HƠN GIÁ SÀN";
+      } else {
+        box.className = "p-3 rounded-lg border bg-emerald-50 border-emerald-200 text-emerald-800 space-y-1";
+        conclusion.textContent = "🟢 HỢP LỆ: TUÂN THỦ ĐÚNG GIÁ SÀN TMĐT";
+      }
+    }
+
+    async function submitAudit(e) {
+      e.preventDefault();
+      const pId = document.getElementById('modal-product-id').value;
+      const sellingPrice = document.getElementById('modal-selling-price').value;
+      const evidence = document.getElementById('modal-evidence').value;
+      const action = document.getElementById('modal-action').value;
+      const auditor = document.getElementById('modal-auditor').value;
+
+      try {
+        const res = await fetch('/api/audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product_id: pId,
+            gia_ban_thuc_te: sellingPrice,
+            link_bang_chung: evidence,
+            huong_xu_ly: action,
+            nguoi_kiem_tra: auditor
+          })
+        }).then(r => r.json());
+
+        if (res.status === 'success') {
+          closeModal();
+          await loadData();
+          alert("✅ Đã lưu kết quả khảo sát thành công!");
+        } else {
+          alert("❌ Lỗi: " + (res.error || "Không thể lưu"));
+        }
+      } catch (err) {
+        alert("❌ Lỗi kết nối máy chủ: " + err);
+      }
+    }
+
+    // Catalog search
+    async function searchCatalog() {
+      const q = document.getElementById('catalog-search').value;
+      const res = await fetch('/api/catalog?search=' + encodeURIComponent(q)).then(r => r.json());
+      renderCatalog(res);
+    }
+
+    async function renderCatalog(items) {
+      if (!items) {
+        items = await fetch('/api/catalog').then(r => r.json());
+      }
+      const tbody = document.getElementById('catalog-tbody');
+      tbody.innerHTML = '';
+      items.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+        tr.innerHTML = `
+          <td class="py-2 px-3 text-center text-slate-400">${idx + 1}</td>
+          <td class="py-2 px-3 text-center text-slate-400">Trang ${p.page || '--'}</td>
+          <td class="py-2 px-4 font-semibold text-slate-800">${p.item_desc}</td>
+          <td class="py-2 px-3 text-center text-slate-500">${p.dvt || 'Cái'}</td>
+          <td class="py-2 px-3 text-right text-slate-600">${formatMoney(p.gia_si)}</td>
+          <td class="py-2 px-3 text-right text-slate-700 font-medium">${formatMoney(p.gia_le)}</td>
+          <td class="py-2 px-3 text-right font-extrabold text-amber-700 bg-amber-50">${formatMoney(p.gia_san_tmdt)}</td>
+          <td class="py-2 px-4 text-slate-400 text-xs">${p.suffix || '--'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Sync from Google Sheet
+    async function syncFromGoogleSheet() {
+      const btn = document.getElementById('btn-sync');
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Đang đồng bộ...';
+      try {
+        const res = await fetch('/api/sync-from-sheet', { method: 'POST' }).then(r => r.json());
+        alert("✅ " + res.message);
+        await loadData();
+      } catch (err) {
+        alert("❌ Lỗi đồng bộ: " + err);
+      } finally {
+        btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> <span class="hidden sm:inline">Đồng Bộ Sheet</span>';
+      }
+    }
+
+    // Init
+    
+    // Switch Tabs helper update
+    const origSwitchTab = switchTab;
+    switchTab = function(tabId) {
+      currentTab = tabId;
+      ['dashboard', 'audit', 'dealers', 'catalog', 'ai'].forEach(t => {
+        const section = document.getElementById('tab-' + t);
+        const nav = document.getElementById('nav-' + t);
+        if (section && nav) {
+          if (t === tabId) {
+            section.classList.remove('hidden');
+            nav.classList.add('tab-active');
+            nav.classList.remove('tab-inactive');
+          } else {
+            section.classList.add('hidden');
+            nav.classList.remove('tab-active');
+            nav.classList.add('tab-inactive');
+          }
+        }
+      });
+      if (tabId === 'audit') applyFilters();
+      if (tabId === 'catalog') renderCatalog();
+      if (tabId === 'ai') loadWeeklyReports();
+    };
+
+    let weeklyReports = [];
+
+    async function loadWeeklyReports() {
+      try {
+        const res = await fetch('/api/weekly-reports').then(r => r.json());
+        weeklyReports = res;
+        const selector = document.getElementById('select-weekly-report');
+        selector.innerHTML = '';
+
+        if (!res || res.length === 0) {
+          selector.innerHTML = '<option value="">Chưa có báo cáo nào</option>';
+          document.getElementById('ai-report-body').innerHTML = '<div class="py-12 text-center text-slate-400">Bấm nút "Chạy Phân Tích Tuần Mới" ở trên để khởi tạo báo cáo AI đầu tiên.</div>';
+          return;
+        }
+
+        res.forEach((r, idx) => {
+          const opt = document.createElement('option');
+          opt.value = r.id;
+          opt.textContent = `Tuần ${r.week}/${r.year} (${r.created_at}) - ${r.title}`;
+          selector.appendChild(opt);
+        });
+
+        loadSelectedReport();
+      } catch (err) {
+        console.error("Lỗi nạp báo cáo tuần:", err);
+      }
+    }
+
+    function loadSelectedReport() {
+      const selectedId = document.getElementById('select-weekly-report').value;
+      const report = weeklyReports.find(r => r.id === selectedId) || weeklyReports[0];
+      if (!report) return;
+
+      const bodyDiv = document.getElementById('ai-report-body');
+      if (window.marked) {
+        bodyDiv.innerHTML = marked.parse(report.markdown_content);
+      } else {
+        bodyDiv.textContent = report.markdown_content;
+      }
+    }
+
+    async function runAiAnalysis() {
+      const btn = document.getElementById('btn-run-ai');
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Đang Phân Tích Dữ Liệu...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/run-weekly-analysis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ year: 2026 })
+        }).then(r => r.json());
+
+        if (res.status === 'success') {
+          alert("🎉 AI đã hoàn tất phân tích tuần mới thành công!");
+          await loadWeeklyReports();
+        } else {
+          alert("❌ Lỗi phân tích: " + (res.error || "Không thể chạy"));
+        }
+      } catch (err) {
+        alert("❌ Lỗi kết nối: " + err);
+      } finally {
+        btn.innerHTML = '<i class="fa-solid fa-bolt text-sm"></i> <span>Chạy Phân Tích Tuần Mới</span>';
+        btn.disabled = false;
+      }
+    }
+
+    function printAiReport() {
+      window.print();
+    }
+
+    window.onload = loadData;
+  </script>
+</body>
+</html>

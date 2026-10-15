@@ -41,3 +41,4 @@ sync_*.py
 update_lark*.py
 update_word*.py
 
+print_*.py
