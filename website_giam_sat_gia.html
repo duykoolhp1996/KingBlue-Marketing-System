@@ -118,9 +118,11 @@
           <i class="fa-solid fa-book-open"></i>
           <span>Bảng Báo Giá Gốc PDF 10.10.2026</span>
         </button>
-      </div>
-    </div>
-          <button onclick="switchTab('ai')" id="nav-ai" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 font-bold">
+        <button onclick="switchTab('shopee')" id="nav-shopee" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-200 font-bold">
+          <i class="fa-solid fa-bolt text-orange-500"></i>
+          <span>Quét Giá Shopee (Apify)</span>
+        </button>
+        <button onclick="switchTab('ai')" id="nav-ai" class="tab-inactive text-xs sm:text-sm px-4 py-2 rounded-lg flex items-center space-x-2 transition whitespace-nowrap bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 font-bold">
           <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i>
           <span>AI Phân Tích Tuần</span>
         </button>
@@ -522,6 +524,155 @@
 
     </section>
 
+    <!-- ================================================================= -->
+    <!-- TAB 6: QUÉT GIÁ SHOPEE TỰ ĐỘNG (APIFY SHOP SCANNER) -->
+    <!-- ================================================================= -->
+    <section id="tab-shopee" class="hidden space-y-6">
+      
+      <!-- Shopee Header Banner -->
+      <div class="bg-gradient-to-r from-orange-600 via-amber-600 to-rose-600 text-white p-6 sm:p-8 rounded-2xl shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-black/20 text-xs font-semibold backdrop-blur-md border border-white/20">
+              <i class="fa-solid fa-bolt text-yellow-300"></i>
+              <span>Tích hợp Apify Shopee Scraper trực tiếp</span>
+            </div>
+            <h2 class="text-xl sm:text-3xl font-black tracking-tight">Quét & Đối Soát Giá Bán Thực Tế Trên Shopee</h2>
+            <p class="text-xs sm:text-sm text-orange-100 max-w-2xl leading-relaxed">
+              Tự động cào dữ liệu thời gian thực từ các gian hàng bán sản phẩm King Blue trên Shopee, đối chiếu với Bảng giá sàn TMĐT niêm yết trong Catalog PDF và lập tức cảnh báo hành vi phá giá.
+            </p>
+          </div>
+          
+          <div class="flex items-center space-x-3 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+            <i class="fa-solid fa-store text-3xl text-yellow-300"></i>
+            <div>
+              <div class="text-xs text-orange-100 font-medium">Bảo vệ hệ thống đại lý</div>
+              <div class="text-sm font-extrabold text-white">Kiểm Tra Giá Toàn Diện</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shopee Search & Filter Controls -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="flex-1 relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input type="text" id="shopee-search-keyword" value="king blue" placeholder="Nhập từ khóa hoặc mã sản phẩm (VD: king blue, v65r, kbh2f, khd4233)..." 
+              class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium">
+          </div>
+          
+          <select id="shopee-search-limit" class="px-3 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500">
+            <option value="10">Quét 10 sản phẩm</option>
+            <option value="20" selected>Quét 20 sản phẩm</option>
+            <option value="50">Quét 50 sản phẩm</option>
+          </select>
+
+          <button onclick="triggerShopeeScan()" id="btn-shopee-scan" class="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-md transition flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer">
+            <i class="fa-solid fa-satellite-dish"></i>
+            <span>Bắt Đầu Quét Shopee</span>
+          </button>
+        </div>
+
+        <!-- Quick filter chips -->
+        <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs text-slate-500">
+          <span class="font-bold text-slate-700"><i class="fa-solid fa-tags text-orange-500 mr-1"></i>Từ khóa gợi ý:</span>
+          <button onclick="quickScan('king blue v65r')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Mũi vít V65R</button>
+          <button onclick="quickScan('king blue kbh2f')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Mũi khoan KBH2F</button>
+          <button onclick="quickScan('thùng đựng đồ nghề king blue')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Thùng đựng đồ nghề</button>
+          <button onclick="quickScan('mũi khoan không tắc kê king blue')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Khoan không tắc kê KBLJ</button>
+          <button onclick="quickScan('mũi khoan bê tông king blue')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Khoan bê tông KBL2</button>
+        </div>
+      </div>
+
+      <!-- Shopee Stats Bar -->
+      <div id="shopee-stats-container" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <div class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Tổng Đã Quét</div>
+            <div class="text-xl font-black text-slate-800" id="shopee-stat-total">0</div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-rose-200 shadow-xs flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <div class="text-[11px] font-medium text-rose-600 uppercase tracking-wider">Phát Hiện Phá Giá</div>
+            <div class="text-xl font-black text-rose-600" id="shopee-stat-pha-gia">0</div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-xs flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div>
+            <div class="text-[11px] font-medium text-emerald-600 uppercase tracking-wider">Tuân Thủ Giá Sàn</div>
+            <div class="text-xl font-black text-emerald-600" id="shopee-stat-tuan-thu">0</div>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-xs flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-circle-question"></i>
+          </div>
+          <div>
+            <div class="text-[11px] font-medium text-amber-600 uppercase tracking-wider">Chưa Đối Chiếu</div>
+            <div class="text-xl font-black text-amber-600" id="shopee-stat-chua-doi-chieu">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shopee Results Table Container -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center space-x-2">
+              <i class="fa-solid fa-list-check text-orange-500"></i>
+              <span>Danh Sách Sản Phẩm Shopee Của Các Nhà Bán Hàng</span>
+            </h3>
+            <p class="text-xs text-slate-500">Dữ liệu được cập nhật tự động trực tiếp từ nền tảng Shopee qua Apify</p>
+          </div>
+          <div id="shopee-scan-status-text" class="text-xs text-slate-500 font-medium italic">
+            Chưa quét dữ liệu
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[10px] font-extrabold tracking-wider">
+              <tr>
+                <th class="py-3 px-4">Sản Phẩm Trên Shopee</th>
+                <th class="py-3 px-4">Nhà Bán Hàng / Shop ID</th>
+                <th class="py-3 px-4 text-right">Giá Bán Shopee</th>
+                <th class="py-3 px-4 text-right">Giá Sàn TMĐT Niêm Yết</th>
+                <th class="py-3 px-4 text-center">Tình Trạng</th>
+                <th class="py-3 px-4 text-center">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody id="shopee-results-tbody" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="6" class="py-12 text-center text-slate-400">
+                  <div class="flex flex-col items-center justify-center space-y-2">
+                    <i class="fa-solid fa-magnifying-glass-chart text-4xl text-slate-300"></i>
+                    <p class="text-sm font-medium">Nhập từ khóa hoặc chọn từ khóa gợi ý bên trên và bấm "Bắt Đầu Quét Shopee"</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
   </main>
 
   <!-- ================================================================= -->
@@ -738,21 +889,299 @@
     // Switch Tabs
     function switchTab(tabId) {
       currentTab = tabId;
-      ['dashboard', 'audit', 'dealers', 'catalog'].forEach(t => {
+      ['dashboard', 'audit', 'dealers', 'catalog', 'ai', 'shopee'].forEach(t => {
         const section = document.getElementById('tab-' + t);
         const nav = document.getElementById('nav-' + t);
-        if (t === tabId) {
-          section.classList.remove('hidden');
-          nav.classList.add('tab-active');
-          nav.classList.remove('tab-inactive');
-        } else {
-          section.classList.add('hidden');
-          nav.classList.remove('tab-active');
-          nav.classList.add('tab-inactive');
+        if (section && nav) {
+          if (t === tabId) {
+            section.classList.remove('hidden');
+            nav.classList.add('tab-active');
+            nav.classList.remove('tab-inactive');
+          } else {
+            section.classList.add('hidden');
+            nav.classList.remove('tab-active');
+            nav.classList.add('tab-inactive');
+          }
         }
       });
       if (tabId === 'audit') applyFilters();
       if (tabId === 'catalog') renderCatalog();
+    }
+
+    // ==========================================
+    // SHOPEE SCANNER ENGINE (APIFY INTEGRATION)
+    // ==========================================
+    let currentShopeeResults = [];
+
+    function quickScan(kw) {
+      document.getElementById('shopee-search-keyword').value = kw;
+      triggerShopeeScan();
+    }
+
+    async function triggerShopeeScan() {
+      const keyword = (document.getElementById('shopee-search-keyword').value || 'king blue').trim();
+      const limit = document.getElementById('shopee-search-limit').value || 20;
+      const btn = document.getElementById('btn-shopee-scan');
+      const tbody = document.getElementById('shopee-results-tbody');
+      const statsContainer = document.getElementById('shopee-stats-container');
+      const statusText = document.getElementById('shopee-scan-status-text');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Đang quét Shopee qua Apify...</span>`;
+      statusText.innerHTML = `<span class="text-orange-600 font-semibold"><i class="fa-solid fa-circle-notch fa-spin mr-1"></i>Đang lấy dữ liệu từ Shopee...</span>`;
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="py-12 text-center text-slate-500">
+            <div class="flex flex-col items-center justify-center space-y-3">
+              <div class="w-12 h-12 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin"></div>
+              <p class="font-bold text-sm text-slate-700">Đang cào dữ liệu từ các gian hàng Shopee cho từ khóa "${keyword}"...</p>
+              <p class="text-xs text-slate-400">Apify Actor xtracto/shopee-scraper đang xử lý và đối chiếu bảng giá sàn TMĐT</p>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      try {
+        let resData = null;
+        if (!isStaticMode) {
+          try {
+            const resp = await fetch(`/api/shopee/scan?keyword=${encodeURIComponent(keyword)}&limit=${limit}`);
+            if (resp.ok) {
+              resData = await resp.json();
+            }
+          } catch (e) {
+            console.warn('Local API failed, trying direct Apify fallback...', e);
+          }
+        }
+
+        // Fallback trực tiếp gọi Apify nếu static mode
+        if (!resData || resData.status !== 'success') {
+          let apifyToken = localStorage.getItem('kingblue_apify_token');
+          if (!apifyToken && isStaticMode) {
+            apifyToken = prompt('Vui lòng nhập Apify Token cá nhân để quét giá trên môi trường GitHub Pages:');
+            if (apifyToken) localStorage.setItem('kingblue_apify_token', apifyToken.trim());
+          }
+          if (apifyToken) {
+            const apifyUrl = `https://api.apify.com/v2/acts/xtracto~shopee-scraper/run-sync-get-dataset-items?token=${apifyToken.trim()}`;
+            const apifyResp = await fetch(apifyUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ country: 'vn', mode: 'keyword', keyword: keyword, maxProducts: parseInt(limit) })
+            });
+            if (apifyResp.ok) {
+              const items = await apifyResp.json();
+              resData = processShopeeItemsClientSide(items, keyword);
+            }
+          }
+        }
+
+        if (resData && resData.items && resData.items.length > 0) {
+          currentShopeeResults = resData.items;
+          renderShopeeResults(resData);
+          statusText.innerHTML = `<span class="text-emerald-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i>Đã quét xong: ${resData.total} sản phẩm lúc ${new Date().toLocaleTimeString()}</span>`;
+        } else {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="py-10 text-center text-slate-400">
+                <i class="fa-solid fa-box-open text-3xl mb-2 text-slate-300"></i>
+                <p>Không tìm thấy sản phẩm nào trên Shopee với từ khóa "${keyword}".</p>
+              </td>
+            </tr>
+          `;
+          statusText.textContent = 'Không có kết quả';
+        }
+      } catch (err) {
+        console.error('Shopee scan error:', err);
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-8 text-center text-rose-500">
+              <i class="fa-solid fa-triangle-exclamation text-2xl mb-1"></i>
+              <p class="font-bold">Có lỗi xảy ra khi quét dữ liệu Shopee: ${err.message}</p>
+            </td>
+          </tr>
+        `;
+        statusText.textContent = 'Lỗi kết nối';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-satellite-dish"></i><span>Bắt Đầu Quét Shopee</span>`;
+      }
+    }
+
+    function processShopeeItemsClientSide(items, keyword) {
+      const catalog = globalStore.pdf_catalog || [];
+      const dealers = globalStore.dealers || [];
+      let phaGiaCount = 0;
+      let tuanThuCount = 0;
+      let chuaDoiChieuCount = 0;
+
+      const analyzed = items.map(it => {
+        const pName = it.name || '';
+        const price = it.price || 0;
+        const shopId = it.shop_id;
+
+        let matchedCat = null;
+        for (const cat of catalog) {
+          const desc = (cat.item_desc || '').toLowerCase();
+          const tokens = desc.split(/[\s\-*Ø]/).filter(t => t.length >= 3 && !['đá', 'cắt', 'inox', 'hộp', 'sắt', 'cái', 'viên', 'vỉ'].includes(t));
+          for (const tok of tokens) {
+            if (pName.toLowerCase().includes(tok)) {
+              matchedCat = cat;
+              break;
+            }
+          }
+          if (matchedCat) break;
+        }
+
+        const giaSan = matchedCat ? (matchedCat.gia_san_tmdt || matchedCat.gia_le) : null;
+        let tinhTrang = 'CHUA_DOI_CHIEU';
+        let diff = 0;
+        let diffPct = 0;
+
+        if (giaSan && price > 0) {
+          diff = price - giaSan;
+          diffPct = diff / giaSan;
+          if (diffPct < -0.02) {
+            tinhTrang = 'PHA_GIA';
+            phaGiaCount++;
+          } else if (diffPct > 0.05) {
+            tinhTrang = 'VUOT_GIA';
+            tuanThuCount++;
+          } else {
+            tinhTrang = 'TUAN_THU';
+            tuanThuCount++;
+          }
+        } else {
+          chuaDoiChieuCount++;
+        }
+
+        let dealerName = `Gian hàng Shopee #${shopId}`;
+        const matchedDealer = dealers.find(d => String(d.id) === String(shopId));
+        if (matchedDealer) dealerName = matchedDealer.name;
+
+        return {
+          item_id: it.item_id,
+          shop_id: shopId,
+          dealer_name: dealerName,
+          product_name: pName,
+          url: it.url,
+          image_url: it.image_url,
+          gia_ban_thuc_te: price,
+          original_shopee_price: it.original_price,
+          rating: it.rating,
+          matched_catalog: matchedCat ? matchedCat.item_desc : null,
+          gia_san_tmdt: giaSan,
+          tinh_trang: tinhTrang,
+          chenh_lech_tien: diff,
+          phan_tram_lech: diffPct
+        };
+      });
+
+      return {
+        status: 'success',
+        keyword: keyword,
+        total: analyzed.length,
+        pha_gia_count: phaGiaCount,
+        tuan_thu_count: tuanThuCount,
+        chua_doi_chieu_count: chuaDoiChieuCount,
+        items: analyzed
+      };
+    }
+
+    function renderShopeeResults(data) {
+      const statsContainer = document.getElementById('shopee-stats-container');
+      statsContainer.classList.remove('hidden');
+      document.getElementById('shopee-stat-total').textContent = data.total;
+      document.getElementById('shopee-stat-pha-gia').textContent = data.pha_gia_count;
+      document.getElementById('shopee-stat-tuan-thu').textContent = data.tuan_thu_count;
+      document.getElementById('shopee-stat-chua-doi-chieu').textContent = data.chua_doi_chieu_count;
+
+      const tbody = document.getElementById('shopee-results-tbody');
+      tbody.innerHTML = '';
+
+      data.items.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/80 transition';
+
+        let badgeStatus = '';
+        if (item.tinh_trang === 'PHA_GIA') {
+          const pctStr = (item.phan_tram_lech * 100).toFixed(1) + '%';
+          badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-100 text-rose-700 border border-rose-300 shadow-xs"><i class="fa-solid fa-triangle-exclamation mr-1 text-rose-600"></i>PHÁ GIÁ (${pctStr})</span>`;
+        } else if (item.tinh_trang === 'TUAN_THU') {
+          badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-300"><i class="fa-solid fa-check mr-1 text-emerald-600"></i>TUÂN THỦ</span>`;
+        } else if (item.tinh_trang === 'VUOT_GIA') {
+          badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-300">VƯỢT GIÁ SÀN</span>`;
+        } else {
+          badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200">Chưa đối chiếu</span>`;
+        }
+
+        const imgTag = item.image_url ? `<img src="${item.image_url}" class="w-10 h-10 object-cover rounded-lg border border-slate-200 shrink-0" onerror="this.src='https://placehold.co/40x40?text=KB'">` : `<div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs shrink-0">KB</div>`;
+
+        const actionBtn = item.tinh_trang === 'PHA_GIA' ? `
+          <button onclick="openWarningModalFromShopee(${index})" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-xs cursor-pointer">
+            <i class="fa-solid fa-file-contract"></i>
+            <span>Soạn Công Văn</span>
+          </button>
+        ` : `
+          <a href="${item.url}" target="_blank" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition flex items-center space-x-1">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>Xem sàn</span>
+          </a>
+        `;
+
+        tr.innerHTML = `
+          <td class="py-3 px-4">
+            <div class="flex items-center space-x-3">
+              ${imgTag}
+              <div class="min-w-0">
+                <a href="${item.url}" target="_blank" class="font-bold text-slate-800 hover:text-orange-600 line-clamp-2 transition text-xs sm:text-sm">
+                  ${item.product_name}
+                </a>
+                ${item.matched_catalog ? `<div class="text-[11px] text-slate-500 flex items-center mt-0.5"><i class="fa-solid fa-link text-kb-blue mr-1"></i>Mã niêm yết: <span class="font-semibold text-kb-primary ml-1">${item.matched_catalog}</span></div>` : ''}
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-4 font-medium text-slate-700">
+            <div class="flex items-center space-x-1.5">
+              <i class="fa-solid fa-store text-orange-500"></i>
+              <span class="font-bold">${item.dealer_name}</span>
+            </div>
+            <div class="text-[10px] text-slate-400 font-mono mt-0.5">Shop ID: ${item.shop_id}</div>
+          </td>
+          <td class="py-3 px-4 text-right">
+            <div class="font-black text-sm ${item.tinh_trang === 'PHA_GIA' ? 'text-rose-600' : 'text-slate-800'}">
+              ${formatMoney(item.gia_ban_thuc_te)}
+            </div>
+            ${item.original_shopee_price ? `<div class="text-[10px] text-slate-400 line-through">${formatMoney(item.original_shopee_price)}</div>` : ''}
+          </td>
+          <td class="py-3 px-4 text-right">
+            <div class="font-bold text-slate-800">${item.gia_san_tmdt ? formatMoney(item.gia_san_tmdt) : '--'}</div>
+            <div class="text-[10px] text-slate-400">Giá sàn tối thiểu</div>
+          </td>
+          <td class="py-3 px-4 text-center">
+            ${badgeStatus}
+          </td>
+          <td class="py-3 px-4 text-center">
+            <div class="flex justify-center">
+              ${actionBtn}
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openWarningModalFromShopee(index) {
+      const it = currentShopeeResults[index];
+      if (!it) return;
+      openWarningModal(
+        it.dealer_name || `Shop Shopee #${it.shop_id}`,
+        it.product_name,
+        it.gia_san_tmdt || 0,
+        it.gia_ban_thuc_te,
+        it.chenh_lech_tien,
+        it.phan_tram_lech,
+        it.url
+      );
     }
 
     let isStaticMode = false;

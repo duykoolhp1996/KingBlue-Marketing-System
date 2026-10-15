@@ -176,6 +176,18 @@ class GiamSatGiaHandler(SimpleHTTPRequestHandler):
             self.send_json(catalog[:100])
             return
 
+        if path == "/api/shopee/scan":
+            keyword = query.get("keyword", ["king blue"])[0]
+            limit_str = query.get("limit", ["20"])[0]
+            try:
+                limit = int(limit_str)
+            except ValueError:
+                limit = 20
+            from shopee_scanner import scan_shopee_products
+            result = scan_shopee_products(keyword=keyword, max_products=limit)
+            self.send_json(result)
+            return
+
         super().do_GET()
 
     def do_POST(self):

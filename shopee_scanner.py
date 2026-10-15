@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Module quét và đối soát giá Shopee tự động qua Apify Actor xtracto/shopee-scraper
+Dành cho Hệ thống Giám sát Giá KingBlue
+"""
+
+import os
+import json
+import ssl
+import re
+import urllib.request
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STORE_FILE = os.path.join(BASE_DIR, "giam_sat_gia_store.json")
+
+def get_apify_token():
+    """Lấy Apify token từ biến môi trường hoặc tự động đọc từ cấu hình mcp_config.json"""
+    token = os.environ.get("APIFY_TOKEN")
+    if token:
+        return token
+    mcp_config_path = os.path.expanduser("~/.gemini/antigravity/mcp_config.json")
+    if os.path.exists(mcp_config_path):
+        try:
+            with open(mcp_config_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                server_url = data.get("mcpServers", {}).get("apify", {}).get("serverUrl", "")
+                match = re.search(r'token=([^&]+)', server_url)
+                if match:
+                    return match.group(1)
+                auth_header = data.get("mcpServers", {}).get("apify", {}).get("headers", {}).get("Authorization", "")
+                if auth_header.startswith("Bearer "):
+                    return auth_header.replace("Bearer ", "").strip()
+        except Exception:
+            pass
+    return ""
+
+def load_catalog_and_dealers():
+    if os.path.exists(STORE_FILE):
+        try:
+            with open(STORE_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return data.get("pdf_catalog", []), data.get("dealers", [])
+        except Exception as e:
+            print(f"[!] Lỗi đọc catalog: {e}")
+    return [], []
+
+def match_product_with_catalog(shopee_name, catalog):
+    """Tìm sản phẩm niêm yết tương ứng trong catalog PDF của KingBlue bằng cách trích xuất mã model chuẩn"""
+    if not catalog or not shopee_name:
+        return None
+    
+    name_norm = re.sub(r'[\-_]', '', shopee_name.lower())
+    codes = re.findall(r'[a-z]{1,4}[0-9]{1,4}[a-z0-9]*', name_norm)
+    
+    blacklist = {'king', 'blue', 'shopee', 'chinh', 'hang', 'thep', 'combo', 'may', 'chat', 'chatluong'}
+    
+    for code in codes:
+        if len(code) >= 4 and code not in blacklist:
+            for c in catalog:
+                desc = c.get('item_desc', '')
+                desc_norm = re.sub(r'[\-_]', '', desc.lower())
+                if code in desc_norm:
+                    return c
+    return None
+
+def scan_shopee_products(keyword="king blue", max_products=20):
+    """
+    Gọi Apify Actor xtracto/shopee-scraper để cào sản phẩm thực tế trên Shopee
+    và đối soát trực tiếp với giá sàn TMĐT niêm yết của King Blue.
+    """
+    token = get_apify_token()
+    if not token:
+        return {
+            "status": "error",
+            "message": "Chưa cấu hình Apify Token. Vui lòng kiểm tra ~/.gemini/antigravity/mcp_config.json",
+            "items": []
+        }
+
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    
+    url = f"https://api.apify.com/v2/acts/xtracto~shopee-scraper/run-sync-get-dataset-items?token={token}"
+    payload = {
+        "country": "vn",
+        "mode": "keyword",
+        "keyword": keyword,
+        "maxProducts": max_products
+    }
+    
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"}
+    )
+    
+    catalog, dealers = load_catalog_and_dealers()
+    
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=60) as resp:
+            raw_items = json.loads(resp.read().decode("utf-8"))
+    except Exception as e:
+        return {"status": "error", "message": f"Lỗi gọi Apify: {str(e)}", "items": []}
+        
+    analyzed_items = []
+    
+    for it in raw_items:
+        p_name = it.get("name", "")
+        shopee_price = it.get("price") or 0
+        shop_id = it.get("shop_id")
+        
+        matched_cat = match_product_with_catalog(p_name, catalog)
+        
+        gia_san_tmdt = matched_cat.get("gia_san_tmdt") if matched_cat else None
+        gia_le = matched_cat.get("gia_le") if matched_cat else None
+        gia_chuan = gia_san_tmdt or gia_le
+        
+        tinh_trang = "CHUA_DOI_CHIEU"
+        chenh_lech_tien = 0
+        phan_tram_lech = 0
+        
+        if gia_chuan and shopee_price > 0:
+            diff = shopee_price - gia_chuan
+            diff_pct = diff / gia_chuan
+            chenh_lech_tien = round(diff, 0)
+            phan_tram_lech = round(diff_pct, 4)
+            
+            if diff_pct < -0.02:
+                tinh_trang = "PHA_GIA"
+            elif diff_pct > 0.05:
+                tinh_trang = "VUOT_GIA"
+            else:
+                tinh_trang = "TUAN_THU"
+                
+        # Nhận diện gian hàng đại lý nếu trùng shop_id hoặc tên
+        matched_dealer = None
+        for d in dealers:
+            if str(d.get("id")) == str(shop_id) or (d.get("name") and d.get("name").lower() in p_name.lower()):
+                matched_dealer = d.get("name")
+                break
+                
+        analyzed_items.append({
+            "item_id": it.get("item_id"),
+            "shop_id": shop_id,
+            "dealer_name": matched_dealer or f"Gian hàng Shopee #{shop_id}",
+            "product_name": p_name,
+            "url": it.get("url"),
+            "image_url": it.get("image_url"),
+            "gia_ban_thuc_te": shopee_price,
+            "original_shopee_price": it.get("original_price"),
+            "rating": it.get("rating"),
+            "matched_catalog": matched_cat.get("item_desc") if matched_cat else None,
+            "gia_san_tmdt": gia_san_tmdt,
+            "gia_le": gia_le,
+            "tinh_trang": tinh_trang,
+            "chenh_lech_tien": chenh_lech_tien,
+            "phan_tram_lech": phan_tram_lech,
+            "huong_xu_ly": "Lập biên bản vi phạm giá bán sàn TMĐT" if tinh_trang == "PHA_GIA" else None
+        })
+        
+    return {
+        "status": "success",
+        "keyword": keyword,
+        "total": len(analyzed_items),
+        "pha_gia_count": len([x for x in analyzed_items if x["tinh_trang"] == "PHA_GIA"]),
+        "tuan_thu_count": len([x for x in analyzed_items if x["tinh_trang"] == "TUAN_THU"]),
+        "chua_doi_chieu_count": len([x for x in analyzed_items if x["tinh_trang"] == "CHUA_DOI_CHIEU"]),
+        "items": analyzed_items
+    }
+
+if __name__ == "__main__":
+    res = scan_shopee_products("king blue v65r", 3)
+    print(json.dumps(res, ensure_ascii=False, indent=2))
