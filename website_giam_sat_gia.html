@@ -612,13 +612,15 @@
       if (tabId === 'catalog') renderCatalog();
     }
 
-    // Load initial data
+    let isStaticMode = false;
+
+    // Load initial data (Dual Mode: Local Server API + Static GitHub Pages Fallback)
     async function loadData() {
       try {
-        const [statsRes, dealersRes] = await Promise.all([
-          fetch('/api/stats').then(r => r.json()),
-          fetch('/api/dealers').then(r => r.json())
-        ]);
+        const testRes = await fetch('/api/stats', { signal: AbortSignal.timeout(1800) });
+        if (!testRes.ok) throw new Error("API not available");
+        const statsRes = await testRes.json();
+        const dealersRes = await fetch('/api/dealers').then(r => r.json());
 
         globalStore.dealers = dealersRes;
         renderDashboard(statsRes);
@@ -626,8 +628,71 @@
         renderDealersCards();
         applyFilters();
       } catch (err) {
-        console.error("Lỗi nạp dữ liệu:", err);
+        console.warn("Chuyển sang chế độ chạy tĩnh (GitHub Pages / Standalone):", err);
+        isStaticMode = true;
+        await loadStaticStore();
       }
+    }
+
+    async function loadStaticStore() {
+      try {
+        const store = await fetch('./giam_sat_gia_store.json').then(r => r.json());
+        globalStore = store;
+
+        // Tích hợp dữ liệu khảo sát từ localStorage nếu có
+        try {
+          const localAudits = JSON.parse(localStorage.getItem('kingblue_audits') || '{}');
+          Object.keys(localAudits).forEach(id => {
+            const p = globalStore.products.find(item => item.id == id);
+            if (p) Object.assign(p, localAudits[id]);
+          });
+        } catch(e) {}
+
+        const stats = computeStats(globalStore);
+        renderDashboard(stats);
+        populateFilterDropdowns();
+        renderDealersCards();
+        applyFilters();
+      } catch (e) {
+        console.error("Lỗi nạp file giam_sat_gia_store.json:", e);
+      }
+    }
+
+    function computeStats(store) {
+      const prods = store.products || [];
+      const dealers = store.dealers || [];
+      const checked = prods.filter(p => p.gia_ban_thuc_te !== null && p.gia_ban_thuc_te !== undefined);
+      const pha_gia = prods.filter(p => p.tinh_trang === 'PHA_GIA');
+      const tuan_thu = prods.filter(p => p.tinh_trang === 'TUAN_THU');
+      const vuot_gia = prods.filter(p => p.tinh_trang === 'VUOT_GIA');
+
+      const dealer_breakdown = dealers.map(d => {
+        const dProds = prods.filter(p => p.dealer_id === d.id);
+        const dChecked = dProds.filter(p => p.gia_ban_thuc_te !== null && p.gia_ban_thuc_te !== undefined);
+        const dPhaGia = dProds.filter(p => p.tinh_trang === 'PHA_GIA');
+        return {
+          id: d.id,
+          code: d.code,
+          name: d.name,
+          employee: d.employee,
+          platform: d.platform,
+          total_prods: dProds.length,
+          checked_count: dChecked.length,
+          pha_gia_count: dPhaGia.length,
+          violation_rate: dChecked.length ? (dPhaGia.length / dChecked.length * 100) : 0
+        };
+      });
+
+      return {
+        total_dealers: dealers.length,
+        total_products: prods.length,
+        total_checked: checked.length,
+        total_pha_gia: pha_gia.length,
+        total_tuan_thu: tuan_thu.length,
+        total_vuot_gia: vuot_gia.length,
+        compliance_rate: checked.length ? (tuan_thu.length / checked.length * 100) : 0,
+        dealer_breakdown
+      };
     }
 
     // Render Dashboard
@@ -710,6 +775,40 @@
       const dealer = document.getElementById('filter-dealer').value;
       const status = document.getElementById('filter-status').value;
       const emp = document.getElementById('filter-employee').value;
+
+      if (isStaticMode) {
+        let filtered = globalStore.products || [];
+        if (dealer) {
+          const dInt = parseInt(dealer);
+          filtered = filtered.filter(p => p.dealer_id === dInt);
+        }
+        if (status) {
+          filtered = filtered.filter(p => p.tinh_trang === status);
+        }
+        if (emp) {
+          filtered = filtered.filter(p => p.employee === emp);
+        }
+        if (search) {
+          const s = search.toLowerCase().trim();
+          filtered = filtered.filter(p => 
+            (p.product_name || '').toLowerCase().includes(s) || 
+            (p.product_code || '').toLowerCase().includes(s) || 
+            (p.dealer_name || '').toLowerCase().includes(s)
+          );
+        }
+
+        const totalItems = filtered.length;
+        const start = (page - 1) * currentLimit;
+        const pagedItems = filtered.slice(start, start + currentLimit);
+        renderProducts({
+          total: totalItems,
+          page: page,
+          limit: currentLimit,
+          total_pages: Math.max(1, Math.ceil(totalItems / currentLimit)),
+          items: pagedItems
+        });
+        return;
+      }
 
       const params = new URLSearchParams();
       if (search) params.append('search', search);
@@ -857,10 +956,13 @@
     // Modal Handling
     async function openAuditModal(productId) {
       try {
-        const res = await fetch(`/api/products?search=&page=1&limit=1`).then(r => r.json());
-        // fetch specific product
-        const storeRes = await fetch('/api/products?limit=3500').then(r => r.json());
-        const prod = storeRes.items.find(p => p.id === productId);
+        let prod = null;
+        if (isStaticMode) {
+          prod = (globalStore.products || []).find(p => p.id === productId);
+        } else {
+          const storeRes = await fetch('/api/products?limit=3500').then(r => r.json());
+          prod = storeRes.items.find(p => p.id === productId);
+        }
         if (!prod) return;
 
         currentProductForAudit = prod;
@@ -951,6 +1053,50 @@
       // CHỈ ÁP DỤNG HƯỚNG XỬ LÝ KHI VÀ CHỈ KHI ĐẠI LÝ BÁN SAI GIÁ
       const action = isSaiGia ? document.getElementById('modal-action').value : null;
 
+      if (isStaticMode) {
+        const p = (globalStore.products || []).find(item => item.id == pId);
+        if (p) {
+          p.gia_ban_thuc_te = inputVal;
+          const diff = inputVal - giaSan;
+          const diffPct = diff / giaSan;
+          p.chenh_lech_tien = Math.round(diff);
+          p.phan_tram_lech = diffPct;
+          if (diffPct < -0.02) {
+            p.tinh_trang = "PHA_GIA";
+            p.huong_xu_ly = action || "Nhắc nhở qua Zalo/Điện thoại đại lý";
+          } else if (diffPct > 0.05) {
+            p.tinh_trang = "VUOT_GIA";
+            p.huong_xu_ly = null;
+          } else {
+            p.tinh_trang = "TUAN_THU";
+            p.huong_xu_ly = null;
+          }
+          p.link_bang_chung = evidence;
+          p.nguoi_kiem_tra = auditor;
+          p.ngay_kiem_tra = new Date().toLocaleString('vi-VN');
+
+          try {
+            const localAudits = JSON.parse(localStorage.getItem('kingblue_audits') || '{}');
+            localAudits[pId] = {
+              gia_ban_thuc_te: p.gia_ban_thuc_te,
+              tinh_trang: p.tinh_trang,
+              huong_xu_ly: p.huong_xu_ly,
+              link_bang_chung: p.link_bang_chung,
+              nguoi_kiem_tra: p.nguoi_kiem_tra,
+              ngay_kiem_tra: p.ngay_kiem_tra,
+              chenh_lech_tien: p.chenh_lech_tien,
+              phan_tram_lech: p.phan_tram_lech
+            };
+            localStorage.setItem('kingblue_audits', JSON.stringify(localAudits));
+          } catch(e) {}
+        }
+        closeModal();
+        renderDashboard(computeStats(globalStore));
+        applyFilters(currentPage);
+        alert("✅ Đã lưu kết quả khảo sát thành công!");
+        return;
+      }
+
       try {
         const res = await fetch('/api/audit', {
           method: 'POST',
@@ -978,18 +1124,28 @@
 
     // Catalog search
     async function searchCatalog() {
-      const q = document.getElementById('catalog-search').value;
+      const q = (document.getElementById('catalog-search').value || '').toLowerCase().trim();
+      if (isStaticMode) {
+        let items = globalStore.pdf_catalog || [];
+        if (q) items = items.filter(c => (c.item_desc || '').toLowerCase().includes(q));
+        renderCatalog(items.slice(0, 100));
+        return;
+      }
       const res = await fetch('/api/catalog?search=' + encodeURIComponent(q)).then(r => r.json());
       renderCatalog(res);
     }
 
     async function renderCatalog(items) {
       if (!items) {
-        items = await fetch('/api/catalog').then(r => r.json());
+        if (isStaticMode) {
+          items = (globalStore.pdf_catalog || []).slice(0, 100);
+        } else {
+          items = await fetch('/api/catalog').then(r => r.json());
+        }
       }
       const tbody = document.getElementById('catalog-tbody');
       tbody.innerHTML = '';
-      items.forEach((p, idx) => {
+      (items || []).forEach((p, idx) => {
         const tr = document.createElement('tr');
         tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
         tr.innerHTML = `
@@ -1051,18 +1207,23 @@
 
     async function loadWeeklyReports() {
       try {
-        const res = await fetch('/api/weekly-reports').then(r => r.json());
-        weeklyReports = res;
+        let res;
+        if (isStaticMode) {
+          res = await fetch('./weekly_reports_history.json').then(r => r.json());
+        } else {
+          res = await fetch('/api/weekly-reports').then(r => r.json());
+        }
+        weeklyReports = res || [];
         const selector = document.getElementById('select-weekly-report');
         selector.innerHTML = '';
 
-        if (!res || res.length === 0) {
+        if (!weeklyReports || weeklyReports.length === 0) {
           selector.innerHTML = '<option value="">Chưa có báo cáo nào</option>';
           document.getElementById('ai-report-body').innerHTML = '<div class="py-12 text-center text-slate-400">Bấm nút "Chạy Phân Tích Tuần Mới" ở trên để khởi tạo báo cáo AI đầu tiên.</div>';
           return;
         }
 
-        res.forEach((r, idx) => {
+        weeklyReports.forEach((r, idx) => {
           const opt = document.createElement('option');
           opt.value = r.id;
           opt.textContent = `Tuần ${r.week}/${r.year} (${r.created_at}) - ${r.title}`;
