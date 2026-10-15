@@ -222,15 +222,18 @@ class GiamSatGiaHandler(SimpleHTTPRequestHandler):
                         p["phan_tram_lech"] = round(diff_pct, 4)
                         if diff_pct < -0.02:
                             p["tinh_trang"] = "PHA_GIA"
+                            p["huong_xu_ly"] = action or "Nhắc nhở qua Zalo/Điện thoại đại lý"
                         elif diff_pct > 0.05:
                             p["tinh_trang"] = "VUOT_GIA"
+                            p["huong_xu_ly"] = None
                         else:
                             p["tinh_trang"] = "TUAN_THU"
+                            p["huong_xu_ly"] = None
                     else:
                         p["tinh_trang"] = "TUAN_THU"
+                        p["huong_xu_ly"] = None
 
                     p["link_bang_chung"] = evidence
-                    p["huong_xu_ly"] = action
                     p["nguoi_kiem_tra"] = auditor
                     p["ngay_kiem_tra"] = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
                     found = True
