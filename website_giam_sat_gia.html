@@ -578,6 +578,10 @@
     </div>
   </footer>
 
+  <!-- EMBEDDED DATA BUNDLES (Hỗ trợ chạy tức thì không bị lỗi CORS/Mạng) -->
+  <script src="giam_sat_gia_store.js"></script>
+  <script src="weekly_reports_history.js"></script>
+
   <!-- APPLICATION LOGIC JS -->
   <script>
     let globalStore = { dealers: [], products: [], pdf_catalog: [] };
@@ -614,10 +618,36 @@
 
     let isStaticMode = false;
 
-    // Load initial data (Dual Mode: Local Server API + Static GitHub Pages Fallback)
+    // Load initial data (Hỗ trợ 3 tầng: File nhúng JS -> Local Server API -> Fallback JSON)
     async function loadData() {
+      // TẦNG 1: Dữ liệu nhúng sẵn (Chạy mượt 100% trên GitHub Pages & Offline file://)
+      if (window.INITIAL_KINGBLUE_DATA && window.INITIAL_KINGBLUE_DATA.products && window.INITIAL_KINGBLUE_DATA.products.length > 0) {
+        globalStore = window.INITIAL_KINGBLUE_DATA;
+        isStaticMode = true;
+
+        try {
+          const localAudits = JSON.parse(localStorage.getItem('kingblue_audits') || '{}');
+          Object.keys(localAudits).forEach(id => {
+            const p = globalStore.products.find(item => item.id == id);
+            if (p) Object.assign(p, localAudits[id]);
+          });
+        } catch(e) {}
+
+        const stats = computeStats(globalStore);
+        renderDashboard(stats);
+        populateFilterDropdowns();
+        renderDealersCards();
+        applyFilters();
+
+        if (window.INITIAL_WEEKLY_REPORTS) {
+          weeklyReports = window.INITIAL_WEEKLY_REPORTS;
+        }
+        return;
+      }
+
+      // TẦNG 2: Gọi Server Python Localhost
       try {
-        const testRes = await fetch('/api/stats', { signal: AbortSignal.timeout(1800) });
+        const testRes = await fetch('/api/stats', { signal: AbortSignal.timeout(1500) });
         if (!testRes.ok) throw new Error("API not available");
         const statsRes = await testRes.json();
         const dealersRes = await fetch('/api/dealers').then(r => r.json());
@@ -628,6 +658,7 @@
         renderDealersCards();
         applyFilters();
       } catch (err) {
+        // TẦNG 3: Fetch file JSON tĩnh
         console.warn("Chuyển sang chế độ chạy tĩnh (GitHub Pages / Standalone):", err);
         isStaticMode = true;
         await loadStaticStore();
