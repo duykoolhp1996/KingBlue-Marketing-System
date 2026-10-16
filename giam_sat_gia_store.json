@@ -3540,7 +3540,52 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Mũi-bắn-vít-chống-trượt-siêu-cứng-thương-hiệu-KingBlue-đầu-PH2-thông-dụng-có-từ-chất-lượng-i.700251789.57753530557",
       "huong_xu_ly": "Theo dõi định kỳ",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 129,
@@ -9516,7 +9561,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 378,
@@ -15204,7 +15294,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 615,
@@ -23220,7 +23355,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 949,
@@ -29436,7 +29616,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 1208,
@@ -32292,7 +32517,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 1327,
@@ -33876,7 +34146,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 1393,
@@ -38268,7 +38583,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 1576,
@@ -42348,7 +42708,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 1746,
@@ -46884,7 +47289,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 1935,
@@ -52332,7 +52782,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 2162,
@@ -58404,7 +58899,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 2415,
@@ -64692,7 +65232,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 2677,
@@ -72276,7 +72861,52 @@
       "ngay_kiem_tra": null,
       "link_bang_chung": null,
       "huong_xu_ly": null,
-      "nguoi_kiem_tra": null
+      "nguoi_kiem_tra": null,
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "V65R",
+          "name": "Mũi PH2 chống trượt dài 65mm",
+          "gia_si": 20000,
+          "gia_le": 25000,
+          "gia_san_tmdt": 33000,
+          "gia_ban_thuc_te": 38000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.52,
+          "chenh_lech_gia_san": 5000,
+          "phan_tram_lech_san": 0.1515,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V100R",
+          "name": "Mũi PH2 chống trượt dài 100mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 48000,
+          "chenh_lech_gia_le": 13000,
+          "phan_tram_lech_le": 0.3714,
+          "chenh_lech_gia_san": 3000,
+          "phan_tram_lech_san": 0.0667,
+          "tinh_trang": "VUOT_GIA"
+        },
+        {
+          "sku_code": "V150R",
+          "name": "Mũi PH2 chống trượt dài 150mm",
+          "gia_si": 36000,
+          "gia_le": 45000,
+          "gia_san_tmdt": 58000,
+          "gia_ban_thuc_te": 60000,
+          "chenh_lech_gia_le": 15000,
+          "phan_tram_lech_le": 0.3333,
+          "chenh_lech_gia_san": 2000,
+          "phan_tram_lech_san": 0.0345,
+          "tinh_trang": "TUAN_THU"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 0,
+      "sku_violation_rate": 0.0
     },
     {
       "id": 2993,
@@ -79500,7 +80130,78 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Mũi-khoan-bắn-vít-không-sử-dụng-tăc-kê-chuôi-lục-giác-King-Blue-khoan-gạch-men-khoan-tường-i.700251789.25787097632",
       "huong_xu_ly": "Cảnh báo vi phạm giá sàn TMĐT theo chính sách King Blue",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "KBLJ-03*100",
+          "name": "Quy cách Ø3.0 x 100mm",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 40180,
+          "chenh_lech_gia_le": 3180,
+          "phan_tram_lech_le": 0.0859,
+          "chenh_lech_gia_san": -7820,
+          "phan_tram_lech_san": -0.1629,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBLJ-03.2*100",
+          "name": "Quy cách Ø3.2 x 100mm",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 40180,
+          "chenh_lech_gia_le": 3180,
+          "phan_tram_lech_le": 0.0859,
+          "chenh_lech_gia_san": -7820,
+          "phan_tram_lech_san": -0.1629,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBLJ-03.5*100",
+          "name": "Quy cách Ø3.5 x 100mm",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 40180,
+          "chenh_lech_gia_le": 3180,
+          "phan_tram_lech_le": 0.0859,
+          "chenh_lech_gia_san": -7820,
+          "phan_tram_lech_san": -0.1629,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBLJ-04*100",
+          "name": "Quy cách Ø4.0 x 100mm",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 40180,
+          "chenh_lech_gia_le": 3180,
+          "phan_tram_lech_le": 0.0859,
+          "chenh_lech_gia_san": -7820,
+          "phan_tram_lech_san": -0.1629,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBLJ-04.2*100",
+          "name": "Quy cách Ø4.2 x 100mm",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 40180,
+          "chenh_lech_gia_le": 3180,
+          "phan_tram_lech_le": 0.0859,
+          "chenh_lech_gia_san": -7820,
+          "phan_tram_lech_san": -0.1629,
+          "tinh_trang": "PHA_GIA"
+        }
+      ],
+      "total_skus": 5,
+      "violated_skus": 5,
+      "sku_violation_rate": 1.0
     },
     {
       "id": 3294,
@@ -79524,7 +80225,52 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Mũi-vít-chuyên-không-dùng-tắc-kê-mũi-khoan-không-tắc-kê-Kingblue-khoan-bê-tông-tường-gạch-men-i.700251789.42557464296",
       "huong_xu_ly": "Cảnh báo vi phạm giá sàn TMĐT theo chính sách King Blue",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "KBLJ-03.2*100",
+          "name": "Mũi vít chuyên không tắc kê Ø3.2",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 39500,
+          "chenh_lech_gia_le": 2500,
+          "phan_tram_lech_le": 0.0676,
+          "chenh_lech_gia_san": -8500,
+          "phan_tram_lech_san": -0.1771,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBLJ-03.5*100",
+          "name": "Mũi vít chuyên không tắc kê Ø3.5",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 39500,
+          "chenh_lech_gia_le": 2500,
+          "phan_tram_lech_le": 0.0676,
+          "chenh_lech_gia_san": -8500,
+          "phan_tram_lech_san": -0.1771,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBLJ-04.0*100",
+          "name": "Mũi vít chuyên không tắc kê Ø4.0",
+          "gia_si": 30000,
+          "gia_le": 37000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 39500,
+          "chenh_lech_gia_le": 2500,
+          "phan_tram_lech_le": 0.0676,
+          "chenh_lech_gia_san": -8500,
+          "phan_tram_lech_san": -0.1771,
+          "tinh_trang": "PHA_GIA"
+        }
+      ],
+      "total_skus": 3,
+      "violated_skus": 3,
+      "sku_violation_rate": 1.0
     },
     {
       "id": 3295,
@@ -79548,7 +80294,78 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Chụp-bulong-sâu-lòng-thương-hiệu-KingBlue-chính-hãng-chất-lượng-dài-8cm-(-giá-1-cái-)-i.700251789.42150282082",
       "huong_xu_ly": "Cảnh báo vi phạm giá sàn TMĐT theo chính sách King Blue",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "KB-BL80-08",
+          "name": "Đầu chụp sâu lòng 8mm x 80mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 42000,
+          "gia_ban_thuc_te": 37240,
+          "chenh_lech_gia_le": 2240,
+          "phan_tram_lech_le": 0.064,
+          "chenh_lech_gia_san": -4760,
+          "phan_tram_lech_san": -0.1133,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KB-BL80-10",
+          "name": "Đầu chụp sâu lòng 10mm x 80mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 42000,
+          "gia_ban_thuc_te": 37240,
+          "chenh_lech_gia_le": 2240,
+          "phan_tram_lech_le": 0.064,
+          "chenh_lech_gia_san": -4760,
+          "phan_tram_lech_san": -0.1133,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KB-BL80-12",
+          "name": "Đầu chụp sâu lòng 12mm x 80mm",
+          "gia_si": 30000,
+          "gia_le": 38000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 39500,
+          "chenh_lech_gia_le": 1500,
+          "phan_tram_lech_le": 0.0395,
+          "chenh_lech_gia_san": -5500,
+          "phan_tram_lech_san": -0.1222,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KB-BL80-13",
+          "name": "Đầu chụp sâu lòng 13mm x 80mm",
+          "gia_si": 32000,
+          "gia_le": 40000,
+          "gia_san_tmdt": 48000,
+          "gia_ban_thuc_te": 42000,
+          "chenh_lech_gia_le": 2000,
+          "phan_tram_lech_le": 0.05,
+          "chenh_lech_gia_san": -6000,
+          "phan_tram_lech_san": -0.125,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KB-BL80-14",
+          "name": "Đầu chụp sâu lòng 14mm x 80mm",
+          "gia_si": 34000,
+          "gia_le": 42000,
+          "gia_san_tmdt": 50000,
+          "gia_ban_thuc_te": 44000,
+          "chenh_lech_gia_le": 2000,
+          "phan_tram_lech_le": 0.0476,
+          "chenh_lech_gia_san": -6000,
+          "phan_tram_lech_san": -0.12,
+          "tinh_trang": "PHA_GIA"
+        }
+      ],
+      "total_skus": 5,
+      "violated_skus": 5,
+      "sku_violation_rate": 1.0
     },
     {
       "id": 3296,
@@ -79572,7 +80389,91 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Mũi-lục-giác-H3-H8-lục-giác-sao-T10-T50-thương-hiệu-Tolsen-Kingblue-chính-hãng-chất-lượng-cao-i.700251789.21314002744",
       "huong_xu_ly": "Cảnh báo vi phạm giá sàn TMĐT theo chính sách King Blue",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "L8100-H3",
+          "name": "Mũi lục giác H3 x 50mm",
+          "gia_si": 9500,
+          "gia_le": 12000,
+          "gia_san_tmdt": 15000,
+          "gia_ban_thuc_te": 13000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0833,
+          "chenh_lech_gia_san": -2000,
+          "phan_tram_lech_san": -0.1333,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "L8100-H4",
+          "name": "Mũi lục giác H4 x 50mm",
+          "gia_si": 9500,
+          "gia_le": 12000,
+          "gia_san_tmdt": 15000,
+          "gia_ban_thuc_te": 13000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0833,
+          "chenh_lech_gia_san": -2000,
+          "phan_tram_lech_san": -0.1333,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "L8100-H5",
+          "name": "Mũi lục giác H5 x 50mm",
+          "gia_si": 9500,
+          "gia_le": 12000,
+          "gia_san_tmdt": 15000,
+          "gia_ban_thuc_te": 13000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0833,
+          "chenh_lech_gia_san": -2000,
+          "phan_tram_lech_san": -0.1333,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "L8100-H6",
+          "name": "Mũi lục giác H6 x 65mm",
+          "gia_si": 9500,
+          "gia_le": 12000,
+          "gia_san_tmdt": 15000,
+          "gia_ban_thuc_te": 13000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0833,
+          "chenh_lech_gia_san": -2000,
+          "phan_tram_lech_san": -0.1333,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "T9100-T15",
+          "name": "Mũi hoa thị sao T15 x 50mm",
+          "gia_si": 10000,
+          "gia_le": 13000,
+          "gia_san_tmdt": 16000,
+          "gia_ban_thuc_te": 14000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0769,
+          "chenh_lech_gia_san": -2000,
+          "phan_tram_lech_san": -0.125,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "T9100-T20",
+          "name": "Mũi hoa thị sao T20 x 50mm",
+          "gia_si": 10000,
+          "gia_le": 13000,
+          "gia_san_tmdt": 16000,
+          "gia_ban_thuc_te": 14000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0769,
+          "chenh_lech_gia_san": -2000,
+          "phan_tram_lech_san": -0.125,
+          "tinh_trang": "PHA_GIA"
+        }
+      ],
+      "total_skus": 6,
+      "violated_skus": 6,
+      "sku_violation_rate": 1.0
     },
     {
       "id": 3297,
@@ -79620,7 +80521,78 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Mũi-khoan-đa-năng-chuôi-lục-giác-thương-hiệu-KingBlue-chất-lượng-cao-(-giá-1-mũi-)-i.700251789.24606687290",
       "huong_xu_ly": "Cảnh báo vi phạm giá sàn TMĐT theo chính sách King Blue",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "KBH2F-04*95",
+          "name": "Phân loại Ø4 x 95mm (Chuôi lục giác)",
+          "gia_si": 25000,
+          "gia_le": 32000,
+          "gia_san_tmdt": 42000,
+          "gia_ban_thuc_te": 37240,
+          "chenh_lech_gia_le": 5240,
+          "phan_tram_lech_le": 0.1638,
+          "chenh_lech_gia_san": -4760,
+          "phan_tram_lech_san": -0.1133,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBH2F-06*95",
+          "name": "Phân loại Ø6 x 95mm (Chuôi lục giác)",
+          "gia_si": 25000,
+          "gia_le": 32000,
+          "gia_san_tmdt": 42000,
+          "gia_ban_thuc_te": 37240,
+          "chenh_lech_gia_le": 5240,
+          "phan_tram_lech_le": 0.1638,
+          "chenh_lech_gia_san": -4760,
+          "phan_tram_lech_san": -0.1133,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBH2F-08*115",
+          "name": "Phân loại Ø8 x 115mm (Chuôi lục giác)",
+          "gia_si": 32000,
+          "gia_le": 40000,
+          "gia_san_tmdt": 52000,
+          "gia_ban_thuc_te": 46500,
+          "chenh_lech_gia_le": 6500,
+          "phan_tram_lech_le": 0.1625,
+          "chenh_lech_gia_san": -5500,
+          "phan_tram_lech_san": -0.1058,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBH2F-10*120",
+          "name": "Phân loại Ø10 x 120mm (Chuôi lục giác)",
+          "gia_si": 38000,
+          "gia_le": 48000,
+          "gia_san_tmdt": 62000,
+          "gia_ban_thuc_te": 55000,
+          "chenh_lech_gia_le": 7000,
+          "phan_tram_lech_le": 0.1458,
+          "chenh_lech_gia_san": -7000,
+          "phan_tram_lech_san": -0.1129,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBH2F-12*120",
+          "name": "Phân loại Ø12 x 120mm (Chuôi lục giác)",
+          "gia_si": 45000,
+          "gia_le": 56000,
+          "gia_san_tmdt": 72000,
+          "gia_ban_thuc_te": 64000,
+          "chenh_lech_gia_le": 8000,
+          "phan_tram_lech_le": 0.1429,
+          "chenh_lech_gia_san": -8000,
+          "phan_tram_lech_san": -0.1111,
+          "tinh_trang": "PHA_GIA"
+        }
+      ],
+      "total_skus": 5,
+      "violated_skus": 5,
+      "sku_violation_rate": 1.0
     },
     {
       "id": 3299,
@@ -79644,7 +80616,78 @@
       "ngay_kiem_tra": "2026-10-16 16:34",
       "link_bang_chung": "https://shopee.vn/Mũi-khoan-bê-tông-khoan-tường-chuôi-gài-thương-hiệu-KINGBLUE-chất-lượng-cao-i.700251789.20700540433",
       "huong_xu_ly": "Cảnh báo vi phạm giá sàn TMĐT theo chính sách King Blue",
-      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)"
+      "nguoi_kiem_tra": "🐱 Xu Xu (AI Auto-Shopee)",
+      "has_variations": true,
+      "variations": [
+        {
+          "sku_code": "KBL2S-06*160",
+          "name": "Biến thể Ø6 x 160mm",
+          "gia_si": 24000,
+          "gia_le": 30000,
+          "gia_san_tmdt": 38000,
+          "gia_ban_thuc_te": 28420,
+          "chenh_lech_gia_le": -1580,
+          "phan_tram_lech_le": -0.0527,
+          "chenh_lech_gia_san": -9580,
+          "phan_tram_lech_san": -0.2521,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBL2S-08*160",
+          "name": "Biến thể Ø8 x 160mm",
+          "gia_si": 28000,
+          "gia_le": 35000,
+          "gia_san_tmdt": 45000,
+          "gia_ban_thuc_te": 34500,
+          "chenh_lech_gia_le": -500,
+          "phan_tram_lech_le": -0.0143,
+          "chenh_lech_gia_san": -10500,
+          "phan_tram_lech_san": -0.2333,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBL2S-10*160",
+          "name": "Biến thể Ø10 x 160mm",
+          "gia_si": 34000,
+          "gia_le": 42000,
+          "gia_san_tmdt": 54000,
+          "gia_ban_thuc_te": 42000,
+          "chenh_lech_gia_le": 0,
+          "phan_tram_lech_le": 0.0,
+          "chenh_lech_gia_san": -12000,
+          "phan_tram_lech_san": -0.2222,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBL2S-12*160",
+          "name": "Biến thể Ø12 x 160mm",
+          "gia_si": 39000,
+          "gia_le": 48000,
+          "gia_san_tmdt": 62000,
+          "gia_ban_thuc_te": 49000,
+          "chenh_lech_gia_le": 1000,
+          "phan_tram_lech_le": 0.0208,
+          "chenh_lech_gia_san": -13000,
+          "phan_tram_lech_san": -0.2097,
+          "tinh_trang": "PHA_GIA"
+        },
+        {
+          "sku_code": "KBL2-3.2*90",
+          "name": "Biến thể Ø3.2 x 90mm",
+          "gia_si": 23000,
+          "gia_le": 29000,
+          "gia_san_tmdt": 38000,
+          "gia_ban_thuc_te": 28420,
+          "chenh_lech_gia_le": -580,
+          "phan_tram_lech_le": -0.02,
+          "chenh_lech_gia_san": -9580,
+          "phan_tram_lech_san": -0.2521,
+          "tinh_trang": "PHA_GIA"
+        }
+      ],
+      "total_skus": 5,
+      "violated_skus": 5,
+      "sku_violation_rate": 1.0
     },
     {
       "id": 3300,

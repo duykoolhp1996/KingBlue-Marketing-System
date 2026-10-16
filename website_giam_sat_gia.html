@@ -2641,6 +2641,112 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       }
     }
 
+    // =================================================================
+    // ACCORDION HIỂN THỊ CHI TIẾT ĐA BIẾN THỂ SKU (MULTI-SKU VARIATIONS)
+    // =================================================================
+    function toggleSkuAccordion(rowId) {
+      const row = document.getElementById(rowId);
+      const iconId = rowId.replace('sku-acc-', 'sku-acc-icon-');
+      const icon = document.getElementById(iconId);
+      if (!row) return;
+      if (row.classList.contains('hidden')) {
+        row.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+      } else {
+        row.classList.add('hidden');
+        if (icon) icon.classList.remove('rotate-180');
+      }
+    }
+
+    function createSkuAccordionRow(p, prefix = 'main', colspan = 12) {
+      if (!p.has_variations || !p.variations || p.variations.length === 0) return null;
+      
+      let subTrs = '';
+      p.variations.forEach((v, vIdx) => {
+        let vDiffRStr = '<span class="text-slate-300">--</span>';
+        if (v.gia_ban_thuc_te && v.gia_le) {
+          const dR = v.gia_ban_thuc_te - v.gia_le;
+          const dRPct = dR / v.gia_le;
+          vDiffRStr = dR < 0 
+            ? `<div class="text-rose-600 font-bold bg-rose-50 px-1.5 py-0.5 rounded text-[10px] border border-rose-200 text-center">-${formatMoney(Math.abs(dR))}<br><span class="font-black">${(dRPct*100).toFixed(1)}%</span></div>` 
+            : (dR > 0 ? `<div class="text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] border border-emerald-200 text-center">+${formatMoney(dR)}<br><span class="font-black">+${(dRPct*100).toFixed(1)}%</span></div>` : '<span class="text-slate-500 font-bold text-[11px]">Bằng giá lẻ</span>');
+        }
+
+        let vDiffFStr = '<span class="text-slate-300">--</span>';
+        if (v.gia_ban_thuc_te && v.gia_san_tmdt) {
+          const dF = v.gia_ban_thuc_te - v.gia_san_tmdt;
+          const dFPct = dF / v.gia_san_tmdt;
+          vDiffFStr = dFPct < -0.02
+            ? `<div class="badge-pha-gia px-1.5 py-0.5 rounded font-black text-rose-700 text-[10px] text-center">-${formatMoney(Math.abs(dF))}<br>${(dFPct*100).toFixed(1)}%</div>`
+            : (dFPct > 0.05 ? `<div class="badge-vuot-gia px-1.5 py-0.5 rounded font-bold text-blue-700 text-[10px] text-center">+${formatMoney(dF)}<br>+${(dFPct*100).toFixed(1)}%</div>` : '<span class="badge-tuan-thu px-1.5 py-0.5 rounded font-bold text-emerald-700 text-[10px]">Chuẩn sàn</span>');
+        }
+
+        let vStatusBadge = v.tinh_trang === 'PHA_GIA' 
+          ? '<span class="badge-pha-gia px-2 py-0.5 rounded font-black text-[10px] animate-pulse">🔴 Phá giá sàn</span>'
+          : (v.tinh_trang === 'VUOT_GIA' ? '<span class="badge-vuot-gia px-2 py-0.5 rounded text-[10px] font-bold">🔵 Vượt giá sàn</span>' : '<span class="badge-tuan-thu px-2 py-0.5 rounded text-[10px] font-bold">🟢 Đúng giá sàn</span>');
+
+        subTrs += `
+          <tr class="border-b border-indigo-100 hover:bg-indigo-50/50 transition">
+            <td class="py-2 px-2 text-center text-slate-400 font-mono text-[10px]">${vIdx + 1}</td>
+            <td class="py-2 px-3 font-bold text-slate-800 text-xs">
+              <span class="text-indigo-900 font-black">${v.name}</span>
+            </td>
+            <td class="py-2 px-2.5 font-mono font-bold text-kb-blue text-xs">${v.sku_code}</td>
+            <td class="py-2 px-2.5 text-right text-slate-500 text-xs font-medium">${formatMoney(v.gia_si)}</td>
+            <td class="py-2 px-2.5 text-right font-black text-slate-800 text-xs bg-slate-50 border-x border-slate-200">${formatMoney(v.gia_le)}</td>
+            <td class="py-2 px-2.5 text-right font-black text-amber-800 text-xs bg-amber-50/70 border-r border-amber-200">${formatMoney(v.gia_san_tmdt)}</td>
+            <td class="py-2 px-2.5 text-right font-black text-blue-950 text-xs bg-blue-50/50">${formatMoney(v.gia_ban_thuc_te)}</td>
+            <td class="py-2 px-2.5 text-center text-xs">${vDiffRStr}</td>
+            <td class="py-2 px-2.5 text-center text-xs">${vDiffFStr}</td>
+            <td class="py-2 px-2.5 text-center">${vStatusBadge}</td>
+          </tr>
+        `;
+      });
+
+      const subRow = document.createElement('tr');
+      subRow.id = `sku-acc-${prefix}-${p.id}`;
+      subRow.className = "hidden bg-gradient-to-r from-indigo-50/60 via-slate-50 to-indigo-50/60 border-y-2 border-indigo-300";
+      subRow.innerHTML = `
+        <td colspan="${colspan}" class="p-3 pl-6 sm:pl-10">
+          <div class="bg-white rounded-xl border border-indigo-200 shadow-sm overflow-hidden">
+            <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white px-3.5 py-2 flex flex-wrap items-center justify-between text-xs font-bold gap-2">
+              <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-boxes-packing text-amber-400"></i>
+                <span>Ma Trận Đối Soát Biến Thể SKU: <span class="text-amber-300 font-black">${p.product_name}</span></span>
+              </div>
+              <div class="flex items-center space-x-3 text-[11px] text-indigo-200">
+                <span>Tổng: <strong>${p.variations.length} Biến Thể SKU</strong></span>
+                <span>•</span>
+                <span class="${p.violated_skus > 0 ? 'text-rose-400 font-black' : 'text-emerald-400 font-black'}">Phát hiện phá giá: <strong>${p.violated_skus || 0} SKU</strong></span>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="bg-indigo-50/90 text-indigo-950 font-black text-[10px] uppercase border-b border-indigo-200">
+                  <tr>
+                    <th class="py-2 px-2 text-center">STT</th>
+                    <th class="py-2 px-3">Tên Phân Loại / Kích Cỡ SKU</th>
+                    <th class="py-2 px-2.5">Mã SKU Chuẩn</th>
+                    <th class="py-2 px-2.5 text-right">Giá Sỉ</th>
+                    <th class="py-2 px-2.5 text-right bg-slate-100 text-slate-800">Giá Bán Lẻ (Hãng)</th>
+                    <th class="py-2 px-2.5 text-right bg-amber-100 text-amber-900">Giá Sàn TMĐT</th>
+                    <th class="py-2 px-2.5 text-right bg-blue-100 text-blue-950">Giá Bán Shopee</th>
+                    <th class="py-2 px-2.5 text-center">So Với Giá Lẻ</th>
+                    <th class="py-2 px-2.5 text-center">So Với Giá Sàn</th>
+                    <th class="py-2 px-2.5 text-center">Kết Luận</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-medium">
+                  ${subTrs}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </td>
+      `;
+      return subRow;
+    }
+
     // Render Products Table
     function renderProducts(data) {
       document.getElementById('audit-count').textContent = data.total.toLocaleString();
@@ -2703,6 +2809,23 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           ? `<a href="${p.link_bang_chung}" target="_blank" class="text-orange-600 hover:text-orange-700 font-bold ml-1 text-xs" title="Xem sản phẩm trên Shopee"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>` 
           : '';
 
+        // Nút mở rộng nếu có nhiều biến thể SKU
+        let skuBadgeHtml = '';
+        if (p.has_variations && p.variations && p.variations.length > 0) {
+          const vCount = p.variations.length;
+          const vViolated = p.violated_skus || p.variations.filter(v => v.tinh_trang === 'PHA_GIA').length;
+          skuBadgeHtml = `
+            <div class="mt-1">
+              <button type="button" onclick="toggleSkuAccordion('sku-acc-main-${p.id}')" class="px-2 py-0.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded text-[11px] font-bold inline-flex items-center space-x-1.5 cursor-pointer shadow-2xs transition">
+                <i class="fa-solid fa-layer-group text-indigo-500"></i>
+                <span>${vCount} Biến Thể SKU</span>
+                ${vViolated > 0 ? `<span class="bg-rose-600 text-white px-1.5 py-0.2 rounded-full text-[10px] font-black">${vViolated} Phá Sàn</span>` : `<span class="bg-emerald-600 text-white px-1.5 py-0.2 rounded-full text-[10px] font-black">Chuẩn</span>`}
+                <i id="sku-acc-icon-main-${p.id}" class="fa-solid fa-chevron-down text-[9px] transition-transform duration-200"></i>
+              </button>
+            </div>
+          `;
+        }
+
         tr.innerHTML = `
           <td class="py-2.5 px-2 text-center text-slate-400 font-mono">${(data.page - 1) * data.limit + idx + 1}</td>
           <td class="py-2.5 px-3">
@@ -2715,9 +2838,12 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           </td>
           <td class="py-2.5 px-2.5 font-mono font-bold text-kb-blue text-xs">${p.product_code}</td>
           <td class="py-2.5 px-3 font-semibold text-slate-800 text-xs">
-            <div class="flex items-center">
-              <span>${p.product_name}</span>
-              ${evidenceLinkHtml}
+            <div>
+              <div class="flex items-center">
+                <span>${p.product_name}</span>
+                ${evidenceLinkHtml}
+              </div>
+              ${skuBadgeHtml}
             </div>
           </td>
           <td class="py-2.5 px-2.5 text-right text-slate-500 font-medium">${formatMoney(p.gia_si)}</td>
@@ -2726,8 +2852,8 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           <td class="py-2.5 px-2.5 text-right font-bold bg-blue-50/30">${sellingPriceStr}</td>
           <td class="py-2.5 px-2.5 text-center">${diffRetailStr}</td>
           <td class="py-2.5 px-2.5 text-center">${diffFloorStr}</td>
-          <td class="py-2.5 px-2 text-center">${statusBadge}</td>
-          <td class="py-2.5 px-2 text-center">
+          <td class="py-2.5 px-2.5 text-center">${statusBadge}</td>
+          <td class="py-2.5 px-2.5 text-center">
             <div class="flex items-center justify-center space-x-1 whitespace-nowrap">
               <button onclick="openAuditModal(${p.id})" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2 py-1 rounded shadow-xs text-xs transition flex items-center space-x-1 cursor-pointer" title="Cập nhật giá bán khảo sát">
                 <i class="fa-solid fa-pen-to-square"></i>
@@ -2741,6 +2867,12 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           </td>
         `;
         tbody.appendChild(tr);
+
+        // Append hàng accordion biến thể con nếu có
+        const subRow = createSkuAccordionRow(p, 'main', 12);
+        if (subRow) {
+          tbody.appendChild(subRow);
+        }
       });
 
       renderPagination(data);
@@ -2990,12 +3122,34 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           ? `<a href="${p.link_bang_chung}" target="_blank" class="px-2 py-1 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded text-xs font-bold transition inline-flex items-center space-x-1" title="Mở link sản phẩm thực tế trên Shopee"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Shopee</span></a>`
           : '<span class="text-slate-300 text-[11px]">--</span>';
 
+        // Nút mở rộng nếu có nhiều biến thể SKU
+        let skuBadgeHtml = '';
+        if (p.has_variations && p.variations && p.variations.length > 0) {
+          const vCount = p.variations.length;
+          const vViolated = p.violated_skus || p.variations.filter(v => v.tinh_trang === 'PHA_GIA').length;
+          skuBadgeHtml = `
+            <div class="mt-1">
+              <button type="button" onclick="toggleSkuAccordion('sku-acc-modal-${p.id}')" class="px-2 py-0.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 rounded text-[11px] font-bold inline-flex items-center space-x-1.5 cursor-pointer shadow-2xs transition">
+                <i class="fa-solid fa-layer-group text-indigo-500"></i>
+                <span>${vCount} Biến Thể SKU</span>
+                ${vViolated > 0 ? `<span class="bg-rose-600 text-white px-1.5 py-0.2 rounded-full text-[10px] font-black">${vViolated} Phá Sàn</span>` : `<span class="bg-emerald-600 text-white px-1.5 py-0.2 rounded-full text-[10px] font-black">Chuẩn</span>`}
+                <i id="sku-acc-icon-modal-${p.id}" class="fa-solid fa-chevron-down text-[9px] transition-transform duration-200"></i>
+              </button>
+            </div>
+          `;
+        }
+
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-center text-slate-400 font-mono">${idx + 1}</td>
           <td class="py-2.5 px-3 font-mono font-bold text-kb-blue text-xs">${p.product_code}</td>
           <td class="py-2.5 px-4 font-semibold text-slate-800 text-xs">
-            <div>${p.product_name}</div>
-            <div class="text-[10px] text-slate-400">ĐVT: ${p.dvt || 'Cái'}</div>
+            <div>
+              <div class="flex items-center">
+                <span>${p.product_name}</span>
+              </div>
+              ${skuBadgeHtml}
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">ĐVT: ${p.dvt || 'Cái'}</div>
           </td>
           <td class="py-2.5 px-3 text-right text-slate-500 font-medium">${formatMoney(p.gia_si)}</td>
           <td class="py-2.5 px-3 text-right font-extrabold text-slate-800 bg-slate-50 border-x border-slate-100">${formatMoney(p.gia_le)}</td>
@@ -3017,6 +3171,12 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           </td>
         `;
         tbody.appendChild(tr);
+
+        // Append hàng accordion biến thể con nếu có
+        const subRow = createSkuAccordionRow(p, 'modal', 11);
+        if (subRow) {
+          tbody.appendChild(subRow);
+        }
       });
     }
 
