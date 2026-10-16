@@ -378,8 +378,7 @@
                 <th class="py-3 px-2.5 text-right bg-slate-800 text-white font-black">Giá Lẻ (Hãng)</th>
                 <th class="py-3 px-2.5 text-right bg-amber-600 text-amber-50 font-extrabold">Giá Sàn TMĐT</th>
                 <th class="py-3 px-2.5 text-right bg-blue-900 text-white font-extrabold">Giá Bán Shopee</th>
-                <th class="py-3 px-2.5 text-center bg-indigo-950/60 text-indigo-100 font-extrabold">So Với Giá Lẻ</th>
-                <th class="py-3 px-2.5 text-center bg-rose-950/60 text-rose-100 font-extrabold">So Với Giá Sàn</th>
+                <th class="py-3 px-2.5 text-center bg-rose-950/80 text-rose-100 font-extrabold">So Với Giá Sàn TMĐT</th>
                 <th class="py-3 px-2 text-center">Kết Luận</th>
                 <th class="py-3 px-2 text-center">Hành Động</th>
               </tr>
@@ -812,8 +811,7 @@
               <th class="py-2.5 px-3 text-right bg-slate-700 text-white font-black">Giá Bán Lẻ (Hãng)</th>
               <th class="py-2.5 px-3 text-right bg-amber-600 text-white font-black">Giá Sàn TMĐT</th>
               <th class="py-2.5 px-3 text-right bg-blue-900 text-white font-black">Giá Bán Shopee</th>
-              <th class="py-2.5 px-3 text-center bg-indigo-950/60 text-indigo-200">So Với Giá Lẻ</th>
-              <th class="py-2.5 px-3 text-center bg-rose-950/60 text-rose-200">So Với Giá Sàn TMĐT</th>
+              <th class="py-2.5 px-3 text-center bg-rose-950/80 text-rose-200">So Với Giá Sàn TMĐT</th>
               <th class="py-2.5 px-3 text-center">Tình Trạng</th>
               <th class="py-2.5 px-3 text-center">Bằng Chứng & Xử Lý</th>
             </tr>
@@ -897,18 +895,20 @@
           </div>
         </div>
 
-        <!-- Live Calculation Preview -->
-        <div id="modal-preview-box" class="p-3 rounded-xl border hidden space-y-2 bg-slate-50">
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <div class="p-2 rounded-lg bg-white border border-slate-200">
-              <div class="text-[11px] text-slate-500 font-medium">So với Giá Bán Lẻ:</div>
-              <div class="font-bold text-slate-800" id="modal-preview-diff-retail">--</div>
-              <div class="text-[11px] font-black" id="modal-preview-pct-retail">--</div>
+        <!-- Live Calculation Preview (CHỈ SO SÁNH VỚI GIÁ SÀN TMĐT) -->
+        <div id="modal-preview-box" class="p-3.5 rounded-xl border hidden space-y-2.5 bg-slate-50">
+          <div class="p-2.5 rounded-lg bg-amber-50/80 border border-amber-200">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-amber-900 font-bold">Đối Soát Vs Giá Sàn TMĐT:</span>
+              <span class="text-[11px] text-amber-700 italic">Căn cứ quy chế sàn</span>
             </div>
-            <div class="p-2 rounded-lg bg-amber-50 border border-amber-200">
-              <div class="text-[11px] text-amber-800 font-medium">So với Giá Sàn TMĐT:</div>
-              <div class="font-bold text-amber-900" id="modal-preview-diff">--</div>
-              <div class="text-[11px] font-black" id="modal-preview-pct">--</div>
+            <div class="flex items-center justify-between mt-1.5">
+              <span class="text-xs text-slate-600 font-medium">Chênh lệch tiền:</span>
+              <span class="font-extrabold text-sm" id="modal-preview-diff">--</span>
+            </div>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-xs text-slate-600 font-medium">Tỷ lệ chênh lệch:</span>
+              <span class="font-black text-sm" id="modal-preview-pct">--</span>
             </div>
           </div>
           <div class="flex items-center justify-between pt-1 border-t border-slate-200">
@@ -2658,20 +2658,11 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       }
     }
 
-    function createSkuAccordionRow(p, prefix = 'main', colspan = 12) {
+    function createSkuAccordionRow(p, prefix = 'main', colspan = 11) {
       if (!p.has_variations || !p.variations || p.variations.length === 0) return null;
       
       let subTrs = '';
       p.variations.forEach((v, vIdx) => {
-        let vDiffRStr = '<span class="text-slate-300">--</span>';
-        if (v.gia_ban_thuc_te && v.gia_le) {
-          const dR = v.gia_ban_thuc_te - v.gia_le;
-          const dRPct = dR / v.gia_le;
-          vDiffRStr = dR < 0 
-            ? `<div class="text-rose-600 font-bold bg-rose-50 px-1.5 py-0.5 rounded text-[10px] border border-rose-200 text-center">-${formatMoney(Math.abs(dR))}<br><span class="font-black">${(dRPct*100).toFixed(1)}%</span></div>` 
-            : (dR > 0 ? `<div class="text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] border border-emerald-200 text-center">+${formatMoney(dR)}<br><span class="font-black">+${(dRPct*100).toFixed(1)}%</span></div>` : '<span class="text-slate-500 font-bold text-[11px]">Bằng giá lẻ</span>');
-        }
-
         let vDiffFStr = '<span class="text-slate-300">--</span>';
         if (v.gia_ban_thuc_te && v.gia_san_tmdt) {
           const dF = v.gia_ban_thuc_te - v.gia_san_tmdt;
@@ -2696,7 +2687,6 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
             <td class="py-2 px-2.5 text-right font-black text-slate-800 text-xs bg-slate-50 border-x border-slate-200">${formatMoney(v.gia_le)}</td>
             <td class="py-2 px-2.5 text-right font-black text-amber-800 text-xs bg-amber-50/70 border-r border-amber-200">${formatMoney(v.gia_san_tmdt)}</td>
             <td class="py-2 px-2.5 text-right font-black text-blue-950 text-xs bg-blue-50/50">${formatMoney(v.gia_ban_thuc_te)}</td>
-            <td class="py-2 px-2.5 text-center text-xs">${vDiffRStr}</td>
             <td class="py-2 px-2.5 text-center text-xs">${vDiffFStr}</td>
             <td class="py-2 px-2.5 text-center">${vStatusBadge}</td>
           </tr>
@@ -2717,7 +2707,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
               <div class="flex items-center space-x-3 text-[11px] text-indigo-200">
                 <span>Tổng: <strong>${p.variations.length} Biến Thể SKU</strong></span>
                 <span>•</span>
-                <span class="${p.violated_skus > 0 ? 'text-rose-400 font-black' : 'text-emerald-400 font-black'}">Phát hiện phá giá: <strong>${p.violated_skus || 0} SKU</strong></span>
+                <span class="${p.violated_skus > 0 ? 'text-rose-400 font-black' : 'text-emerald-400 font-black'}">Phát hiện phá giá sàn: <strong>${p.violated_skus || 0} SKU</strong></span>
               </div>
             </div>
             <div class="overflow-x-auto">
@@ -2731,8 +2721,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
                     <th class="py-2 px-2.5 text-right bg-slate-100 text-slate-800">Giá Bán Lẻ (Hãng)</th>
                     <th class="py-2 px-2.5 text-right bg-amber-100 text-amber-900">Giá Sàn TMĐT</th>
                     <th class="py-2 px-2.5 text-right bg-blue-100 text-blue-950">Giá Bán Shopee</th>
-                    <th class="py-2 px-2.5 text-center">So Với Giá Lẻ</th>
-                    <th class="py-2 px-2.5 text-center">So Với Giá Sàn</th>
+                    <th class="py-2 px-2.5 text-center bg-rose-100 text-rose-900">So Với Giá Sàn TMĐT</th>
                     <th class="py-2 px-2.5 text-center">Kết Luận</th>
                   </tr>
                 </thead>
@@ -2756,7 +2745,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       tbody.innerHTML = '';
 
       if (!data.items || data.items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="12" class="py-8 text-center text-slate-400">Không tìm thấy sản phẩm nào phù hợp.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" class="py-8 text-center text-slate-400">Không tìm thấy sản phẩm nào phù hợp.</td></tr>`;
         return;
       }
 
@@ -2773,21 +2762,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           statusBadge = '<span class="badge-vuot-gia px-2 py-0.5 rounded font-bold text-[11px]">🔵 Vượt giá sàn</span>';
         }
 
-        // 1. So sánh với Giá Bán Lẻ (Niêm Yết)
-        let diffRetailStr = '<span class="text-slate-300 italic">--</span>';
-        if (p.gia_ban_thuc_te && p.gia_le) {
-          const diffRetail = p.gia_ban_thuc_te - p.gia_le;
-          const diffRetailPct = diffRetail / p.gia_le;
-          if (diffRetail < 0) {
-            diffRetailStr = `<div class="text-rose-600 font-bold bg-rose-50/80 px-1.5 py-0.5 rounded text-[11px] border border-rose-200 inline-block text-center whitespace-nowrap">-${formatMoney(Math.abs(diffRetail))}<br><span class="text-[10px] font-black">${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
-          } else if (diffRetail > 0) {
-            diffRetailStr = `<div class="text-emerald-700 font-bold bg-emerald-50/80 px-1.5 py-0.5 rounded text-[11px] border border-emerald-200 inline-block text-center whitespace-nowrap">+${formatMoney(diffRetail)}<br><span class="text-[10px] font-black">+${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
-          } else {
-            diffRetailStr = `<span class="text-slate-600 font-bold bg-slate-100 px-1.5 py-0.5 rounded text-[11px]">Bằng giá lẻ</span>`;
-          }
-        }
-
-        // 2. So sánh với Giá Sàn TMĐT (Quy định)
+        // So sánh trực tiếp với Giá Sàn TMĐT do King Blue quy định
         let diffFloorStr = '<span class="text-slate-300 italic">--</span>';
         if (p.gia_ban_thuc_te && p.gia_san_tmdt) {
           const diffFloor = p.gia_ban_thuc_te - p.gia_san_tmdt;
@@ -2850,7 +2825,6 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           <td class="py-2.5 px-2.5 text-right font-extrabold text-slate-800 bg-slate-50/70 border-x border-slate-100">${formatMoney(p.gia_le)}</td>
           <td class="py-2.5 px-2.5 text-right font-extrabold text-amber-800 bg-amber-50/70 border-r border-amber-100">${formatMoney(p.gia_san_tmdt)}</td>
           <td class="py-2.5 px-2.5 text-right font-bold bg-blue-50/30">${sellingPriceStr}</td>
-          <td class="py-2.5 px-2.5 text-center">${diffRetailStr}</td>
           <td class="py-2.5 px-2.5 text-center">${diffFloorStr}</td>
           <td class="py-2.5 px-2.5 text-center">${statusBadge}</td>
           <td class="py-2.5 px-2.5 text-center">
@@ -2869,7 +2843,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
         tbody.appendChild(tr);
 
         // Append hàng accordion biến thể con nếu có
-        const subRow = createSkuAccordionRow(p, 'main', 12);
+        const subRow = createSkuAccordionRow(p, 'main', 11);
         if (subRow) {
           tbody.appendChild(subRow);
         }
@@ -3068,7 +3042,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       tbody.innerHTML = '';
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" class="py-10 text-center text-slate-400 font-medium">Không có sản phẩm nào phù hợp bộ lọc này.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="10" class="py-10 text-center text-slate-400 font-medium">Không có sản phẩm nào phù hợp bộ lọc này.</td></tr>`;
         return;
       }
 
@@ -3086,21 +3060,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           statusBadge = '<span class="badge-vuot-gia px-2 py-0.5 rounded font-bold text-[11px]">🔵 Vượt giá sàn</span>';
         }
 
-        // 1. SO SÁNH VỚI GIÁ BÁN LẺ
-        let diffRetailStr = '<span class="text-slate-300 italic">--</span>';
-        if (p.gia_ban_thuc_te && p.gia_le) {
-          const diffRetail = p.gia_ban_thuc_te - p.gia_le;
-          const diffRetailPct = diffRetail / p.gia_le;
-          if (diffRetail < 0) {
-            diffRetailStr = `<div class="text-rose-600 font-bold bg-rose-50 px-2 py-1 rounded text-[11px] border border-rose-200 text-center whitespace-nowrap">-${formatMoney(Math.abs(diffRetail))}<br><span class="text-[10px] font-black">${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
-          } else if (diffRetail > 0) {
-            diffRetailStr = `<div class="text-emerald-700 font-bold bg-emerald-50 px-2 py-1 rounded text-[11px] border border-emerald-200 text-center whitespace-nowrap">+${formatMoney(diffRetail)}<br><span class="text-[10px] font-black">+${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
-          } else {
-            diffRetailStr = `<span class="text-slate-600 font-bold bg-slate-100 px-2 py-1 rounded text-[11px]">Bằng giá lẻ</span>`;
-          }
-        }
-
-        // 2. SO SÁNH VỚI GIÁ SÀN TMĐT
+        // SO SÁNH VỚI GIÁ SÀN TMĐT
         let diffFloorStr = '<span class="text-slate-300 italic">--</span>';
         if (p.gia_ban_thuc_te && p.gia_san_tmdt) {
           const diffFloor = p.gia_ban_thuc_te - p.gia_san_tmdt;
@@ -3155,7 +3115,6 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           <td class="py-2.5 px-3 text-right font-extrabold text-slate-800 bg-slate-50 border-x border-slate-100">${formatMoney(p.gia_le)}</td>
           <td class="py-2.5 px-3 text-right font-extrabold text-amber-800 bg-amber-50/70 border-r border-amber-100">${formatMoney(p.gia_san_tmdt)}</td>
           <td class="py-2.5 px-3 text-right font-bold bg-blue-50/30">${sellingPriceStr}</td>
-          <td class="py-2.5 px-3 text-center">${diffRetailStr}</td>
           <td class="py-2.5 px-3 text-center">${diffFloorStr}</td>
           <td class="py-2.5 px-3 text-center">${statusBadge}</td>
           <td class="py-2.5 px-3 text-center whitespace-nowrap">
@@ -3173,7 +3132,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
         tbody.appendChild(tr);
 
         // Append hàng accordion biến thể con nếu có
-        const subRow = createSkuAccordionRow(p, 'modal', 11);
+        const subRow = createSkuAccordionRow(p, 'modal', 10);
         if (subRow) {
           tbody.appendChild(subRow);
         }
@@ -3209,8 +3168,8 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       const prods = (globalStore.products || []).filter(p => p.dealer_id === currentDealerModalId);
 
       const rows = prods.map((p, idx) => {
-        let diffRetailVal = p.gia_ban_thuc_te && p.gia_le ? (p.gia_ban_thuc_te - p.gia_le) : '';
         let diffFloorVal = p.gia_ban_thuc_te && p.gia_san_tmdt ? (p.gia_ban_thuc_te - p.gia_san_tmdt) : '';
+        let diffFloorPct = p.gia_ban_thuc_te && p.gia_san_tmdt ? ((p.gia_ban_thuc_te - p.gia_san_tmdt) / p.gia_san_tmdt * 100).toFixed(1) + '%' : '';
         return {
           "STT": idx + 1,
           "Mã SP": p.product_code,
@@ -3220,8 +3179,8 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           "Giá Bán Lẻ (Hãng) (VNĐ)": p.gia_le || 0,
           "Giá Sàn TMĐT (VNĐ)": p.gia_san_tmdt || 0,
           "Giá Bán Thực Tế (Shopee) (VNĐ)": p.gia_ban_thuc_te || '',
-          "Chênh Lệch vs Giá Lẻ (VNĐ)": diffRetailVal,
-          "Chênh Lệch vs Giá Sàn (VNĐ)": diffFloorVal,
+          "Chênh Lệch vs Giá Sàn TMĐT (VNĐ)": diffFloorVal,
+          "Tỷ Lệ Chênh Lệch vs Giá Sàn": diffFloorPct,
           "Kết Luận": p.tinh_trang === 'PHA_GIA' ? 'Phá giá sàn' : (p.tinh_trang === 'TUAN_THU' ? 'Đúng giá sàn' : (p.tinh_trang === 'VUOT_GIA' ? 'Vượt giá sàn' : 'Chưa kiểm tra')),
           "Link Shopee": p.link_bang_chung || ''
         };
@@ -3401,25 +3360,14 @@ Nhân viên phụ trách: ${prod.employee || 'Admin'}`;
 
       box.classList.remove('hidden');
 
-      // 1. So sánh với Giá Bán Lẻ
-      if (giaLe > 0) {
-        const diffRetail = inputVal - giaLe;
-        const pctRetail = (diffRetail / giaLe) * 100;
-        document.getElementById('modal-preview-diff-retail').textContent = (diffRetail > 0 ? '+' : '') + formatMoney(diffRetail);
-        document.getElementById('modal-preview-pct-retail').textContent = (pctRetail > 0 ? '+' : '') + pctRetail.toFixed(1) + '%';
-        document.getElementById('modal-preview-diff-retail').className = diffRetail < 0 ? 'font-bold text-rose-600' : (diffRetail > 0 ? 'font-bold text-emerald-700' : 'font-bold text-slate-700');
-        document.getElementById('modal-preview-pct-retail').className = diffRetail < 0 ? 'text-[11px] font-black text-rose-600' : (diffRetail > 0 ? 'text-[11px] font-black text-emerald-700' : 'text-[11px] font-bold text-slate-700');
-      } else {
-        document.getElementById('modal-preview-diff-retail').textContent = '--';
-        document.getElementById('modal-preview-pct-retail').textContent = '--';
-      }
-
-      // 2. So sánh với Giá Sàn TMĐT
+      // Đối soát trực tiếp với Giá Sàn TMĐT do King Blue quy định
       const diffFloor = inputVal - giaSan;
       const pctFloor = (diffFloor / giaSan) * 100;
 
       document.getElementById('modal-preview-diff').textContent = (diffFloor > 0 ? '+' : '') + formatMoney(diffFloor);
       document.getElementById('modal-preview-pct').textContent = (pctFloor > 0 ? '+' : '') + pctFloor.toFixed(1) + '%';
+      document.getElementById('modal-preview-diff').className = diffFloor < 0 ? 'font-black text-rose-700' : (diffFloor > 0 ? 'font-bold text-blue-700' : 'font-bold text-emerald-700');
+      document.getElementById('modal-preview-pct').className = diffFloor < 0 ? 'font-black text-rose-700' : (diffFloor > 0 ? 'font-bold text-blue-700' : 'font-bold text-emerald-700');
 
       const conclusion = document.getElementById('modal-preview-conclusion');
       if (pctFloor < -2) {
