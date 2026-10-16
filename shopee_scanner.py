@@ -68,6 +68,7 @@ def scan_shopee_products(keyword="king blue", max_products=20):
     """
     Gọi Apify Actor xtracto/shopee-scraper để cào sản phẩm thực tế trên Shopee
     và đối soát trực tiếp với giá sàn TMĐT niêm yết của King Blue.
+    Hỗ trợ cả tìm kiếm theo từ khóa và quét trực tiếp theo link gian hàng (Shop URL).
     """
     token = get_apify_token()
     if not token:
@@ -82,12 +83,35 @@ def scan_shopee_products(keyword="king blue", max_products=20):
     ctx.verify_mode = ssl.CERT_NONE
     
     url = f"https://api.apify.com/v2/acts/xtracto~shopee-scraper/run-sync-get-dataset-items?token={token}"
-    payload = {
-        "country": "vn",
-        "mode": "keyword",
-        "keyword": keyword,
-        "maxProducts": max_products
-    }
+    
+    # Kiểm tra xem keyword có phải là URL shop hay chứa tham số shop không
+    payload = {"country": "vn"}
+    raw_kw = (keyword or "").strip()
+    
+    if "700251789" in raw_kw or "shopdiennuoc.nhat" in raw_kw:
+        payload["mode"] = "shop"
+        payload["shop"] = "shopdiennuoc.nhat"
+        payload["maxProducts"] = max_products
+    elif "shopee.vn/shop/" in raw_kw or "/shop/" in raw_kw:
+        shop_val = raw_kw.split("/shop/")[-1].split("?")[0].strip()
+        payload["mode"] = "shop"
+        payload["shop"] = shop_val
+        payload["maxProducts"] = max_products
+    elif "shopee.vn/" in raw_kw and "?" in raw_kw and "shop=" in raw_kw:
+        # Link tìm kiếm trong shop: https://shopee.vn/search?keyword=...&shop=...
+        m_shop = re.search(r'shop=([a-zA-Z0-9_\.\-]+)', raw_kw)
+        shop_id = m_shop.group(1) if m_shop else ""
+        if shop_id == "700251789":
+            payload["mode"] = "shop"
+            payload["shop"] = "shopdiennuoc.nhat"
+        else:
+            payload["mode"] = "shop"
+            payload["shop"] = shop_id
+        payload["maxProducts"] = max_products
+    else:
+        payload["mode"] = "keyword"
+        payload["keyword"] = raw_kw or "king blue"
+        payload["maxProducts"] = max_products
     
     req = urllib.request.Request(
         url,
@@ -107,8 +131,14 @@ def scan_shopee_products(keyword="king blue", max_products=20):
     
     for it in raw_items:
         p_name = it.get("name", "")
+        # Nếu quét shop thì chỉ giữ các sản phẩm KingBlue / Tolsen hoặc khớp
+        if payload.get("mode") == "shop":
+            name_low = p_name.lower()
+            if not any(k in name_low for k in ["king", "blue", "kinblue", "kbl", "st8", "tolsen", "v65", "kbh", "khd"]):
+                continue
+
         shopee_price = it.get("price") or 0
-        shop_id = it.get("shop_id")
+        shop_id = it.get("shop_id") or (700251789 if "shopdiennuoc.nhat" in str(payload.get("shop")) else None)
         
         matched_cat = match_product_with_catalog(p_name, catalog)
         
@@ -135,10 +165,13 @@ def scan_shopee_products(keyword="king blue", max_products=20):
                 
         # Nhận diện gian hàng đại lý nếu trùng shop_id hoặc tên
         matched_dealer = None
-        for d in dealers:
-            if str(d.get("id")) == str(shop_id) or (d.get("name") and d.get("name").lower() in p_name.lower()):
-                matched_dealer = d.get("name")
-                break
+        if str(shop_id) == "700251789" or "shopdiennuoc.nhat" in str(payload.get("shop")):
+            matched_dealer = "Điện nước Nhật (Shop) HCM"
+        else:
+            for d in dealers:
+                if str(d.get("id")) == str(shop_id) or (d.get("name") and d.get("name").lower() in p_name.lower()):
+                    matched_dealer = d.get("name")
+                    break
                 
         analyzed_items.append({
             "item_id": it.get("item_id"),
