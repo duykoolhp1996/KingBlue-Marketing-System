@@ -586,15 +586,15 @@
         </div>
       </div>
 
-      <!-- Shopee Stats Bar -->
-      <div id="shopee-stats-container" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <!-- Shopee Stats Bar (Retailer-Focused KPIs) -->
+      <div id="shopee-stats-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg font-bold">
-            <i class="fa-solid fa-boxes-stacked"></i>
+          <div class="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-store"></i>
           </div>
           <div>
-            <div class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Tổng Đã Quét</div>
-            <div class="text-xl font-black text-slate-800" id="shopee-stat-total">0</div>
+            <div class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Tổng Nhà Bán Lẻ</div>
+            <div class="text-xl font-black text-slate-800" id="shopee-stat-shops">0 Shop</div>
           </div>
         </div>
 
@@ -603,8 +603,8 @@
             <i class="fa-solid fa-triangle-exclamation"></i>
           </div>
           <div>
-            <div class="text-[11px] font-medium text-rose-600 uppercase tracking-wider">Phát Hiện Phá Giá</div>
-            <div class="text-xl font-black text-rose-600" id="shopee-stat-pha-gia">0</div>
+            <div class="text-[11px] font-medium text-rose-600 uppercase tracking-wider">Nhà Bán Lẻ Phá Giá</div>
+            <div class="text-xl font-black text-rose-600" id="shopee-stat-shops-pha-gia">0 Shop</div>
           </div>
         </div>
 
@@ -613,38 +613,65 @@
             <i class="fa-solid fa-circle-check"></i>
           </div>
           <div>
-            <div class="text-[11px] font-medium text-emerald-600 uppercase tracking-wider">Tuân Thủ Giá Sàn</div>
-            <div class="text-xl font-black text-emerald-600" id="shopee-stat-tuan-thu">0</div>
+            <div class="text-[11px] font-medium text-emerald-600 uppercase tracking-wider">Nhà Bán Lẻ Đúng Giá</div>
+            <div class="text-xl font-black text-emerald-600" id="shopee-stat-shops-tuan-thu">0 Shop</div>
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-xs flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg font-bold">
-            <i class="fa-solid fa-circle-question"></i>
+        <div class="bg-white p-4 rounded-xl border border-blue-200 shadow-xs flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-boxes-stacked"></i>
           </div>
           <div>
-            <div class="text-[11px] font-medium text-amber-600 uppercase tracking-wider">Chưa Đối Chiếu</div>
-            <div class="text-xl font-black text-amber-600" id="shopee-stat-chua-doi-chieu">0</div>
+            <div class="text-[11px] font-medium text-slate-500 uppercase tracking-wider">Tổng SP Quét Được</div>
+            <div class="text-xl font-black text-slate-800" id="shopee-stat-total">0 SP</div>
           </div>
         </div>
       </div>
 
-      <!-- Shopee Results Table Container -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-          <div>
-            <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center space-x-2">
-              <i class="fa-solid fa-list-check text-orange-500"></i>
-              <span>Danh Sách Sản Phẩm Shopee Của Các Nhà Bán Hàng</span>
-            </h3>
-            <p class="text-xs text-slate-500">Dữ liệu được cập nhật tự động trực tiếp từ nền tảng Shopee qua Apify</p>
-          </div>
-          <div id="shopee-scan-status-text" class="text-xs text-slate-500 font-medium italic">
-            Chưa quét dữ liệu
-          </div>
+      <!-- Shopee Results Toolbar & Filter -->
+      <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center space-x-2">
+            <i class="fa-solid fa-store text-orange-500"></i>
+            <span>Kết Quả Giám Sát Theo Từng Nhà Bán Lẻ (Shopee Stores)</span>
+          </h3>
+          <p class="text-xs text-slate-500">Phân nhóm dữ liệu chi tiết theo từng gian hàng đại lý để quản lý và xử lý vi phạm</p>
         </div>
 
-        <!-- Table -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- View Switcher -->
+          <div class="inline-flex rounded-xl border border-slate-200 bg-slate-50 p-1">
+            <button onclick="setShopeeViewMode('retailer')" id="btn-view-retailer" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-white text-orange-600 shadow-xs transition flex items-center space-x-1.5 cursor-pointer">
+              <i class="fa-solid fa-boxes-packing"></i>
+              <span>Theo Nhà Bán Lẻ</span>
+            </button>
+            <button onclick="setShopeeViewMode('table')" id="btn-view-table" class="px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5 cursor-pointer">
+              <i class="fa-solid fa-table-list"></i>
+              <span>Dạng Bảng Tất Cả SP</span>
+            </button>
+          </div>
+
+          <!-- Filter Retailer Status -->
+          <select id="shopee-shop-filter" onchange="filterShopeeRetailers()" class="text-xs font-bold px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer">
+            <option value="">Tất Cả Nhà Bán Lẻ</option>
+            <option value="PHA_GIA">🚨 Chỉ Nhà Bán Lẻ Phá Giá</option>
+            <option value="TUAN_THU">✅ Nhà Bán Lẻ Tuân Thủ</option>
+          </select>
+
+          <div id="shopee-scan-status-text" class="text-xs text-slate-500 font-medium italic pl-1">
+            Sẵn sàng quét
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 1: GROUPED BY RETAILER CARDS (DEFAULT) -->
+      <div id="shopee-retailers-container" class="space-y-4">
+        <!-- Rendered via JS by Retailer -->
+      </div>
+
+      <!-- VIEW 2: FLAT TABLE CONTAINER -->
+      <div id="shopee-table-container" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs sm:text-sm">
             <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-[10px] font-extrabold tracking-wider">
@@ -658,14 +685,7 @@
               </tr>
             </thead>
             <tbody id="shopee-results-tbody" class="divide-y divide-slate-100">
-              <tr>
-                <td colspan="6" class="py-12 text-center text-slate-400">
-                  <div class="flex flex-col items-center justify-center space-y-2">
-                    <i class="fa-solid fa-magnifying-glass-chart text-4xl text-slate-300"></i>
-                    <p class="text-sm font-medium">Nhập từ khóa hoặc chọn từ khóa gợi ý bên trên và bấm "Bắt Đầu Quét Shopee"</p>
-                  </div>
-                </td>
-              </tr>
+              <!-- Rendered via JS -->
             </tbody>
           </table>
         </div>
@@ -1087,18 +1107,542 @@
       };
     }
 
-    function renderShopeeResults(data) {
-      const statsContainer = document.getElementById('shopee-stats-container');
-      statsContainer.classList.remove('hidden');
-      document.getElementById('shopee-stat-total').textContent = data.total;
-      document.getElementById('shopee-stat-pha-gia').textContent = data.pha_gia_count;
-      document.getElementById('shopee-stat-tuan-thu').textContent = data.tuan_thu_count;
-      document.getElementById('shopee-stat-chua-doi-chieu').textContent = data.chua_doi_chieu_count;
+    // ==========================================
+    // SHOPEE RETAILER-GROUPED DISPLAY ENGINE
+    // ==========================================
+    let currentShopeeViewMode = 'retailer'; // 'retailer' | 'table'
+    let currentShopeeShopFilter = ''; // '' | 'PHA_GIA' | 'TUAN_THU'
 
+    const INITIAL_SHOPEE_SCAN_DATA = {
+      status: "success",
+      keyword: "king blue",
+      total: 15,
+      pha_gia_count: 10,
+      tuan_thu_count: 5,
+      chua_doi_chieu_count: 0,
+      items: [
+        {
+          item_id: 27895992065,
+          shop_id: 850940540,
+          dealer_name: "King Blue Official Store HCM #850940540",
+          product_name: "HÀNG CHÍNH HÃNG KING BLUE: Máy Thổi Phản Lực Dùng Pin 18V-21V K18PLS, Thổi Hút Bụi Quạt Mát",
+          url: "https://shopee.vn/HÀNG-CHÍNH-HÃNG-KING-BLUE-Máy-Thổi-Phản-Lực-Dùng-Pin-18V-21V-K18PLS-Thổi-Hút-Bụi-Quạt-Mát--i.850940540.27895992065",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134201-81ztc-mtwff3j7g4y210",
+          gia_ban_thuc_te: 1090000,
+          original_shopee_price: 1350000,
+          rating: 4.9,
+          matched_catalog: "Máy thổi phản lực pin K18PLS",
+          gia_san_tmdt: 1240000,
+          gia_le: 1090000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -150000,
+          phan_tram_lech: -0.121
+        },
+        {
+          item_id: 47668331946,
+          shop_id: 1577240266,
+          dealer_name: "Điện Máy Cầm Tay Toàn Phát #1577240266",
+          product_name: "Máy thổi phản lực KING BLUE K18PLS 18V 3 chức năng thổi hút bụi quét làm mát cầm tay",
+          url: "https://shopee.vn/Máy-thổi-phản-lực-KING-BLUE-K18PLS-18V-3-chức-năng-thổi-hút-bụi-quét-làm-mát-cầm-tay-i.1577240266.47668331946",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mtgdgv2xpd6u5c",
+          gia_ban_thuc_te: 1099999,
+          original_shopee_price: 1571428,
+          rating: 5.0,
+          matched_catalog: "Máy thổi phản lực pin K18PLS",
+          gia_san_tmdt: 1240000,
+          gia_le: 1090000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -140001,
+          phan_tram_lech: -0.1129
+        },
+        {
+          item_id: 27408604608,
+          shop_id: 1223399083,
+          dealer_name: "Đồ Nghề Xây Dựng & Kim Khí #1223399083",
+          product_name: "Mũi khoan đa năng lục giác KingBlue KBH2F kích thước 4 - 12mm, dài 95mm, khoan tường gạch men",
+          url: "https://shopee.vn/Mũi-khoan-đa-năng-lục-giác-KingBlue-KBH2F-kích-thước-4-12mm-dài-95mm-khoan-tường-gạch-men-đá-kính-bê-tông-sắt-i.1223399083.27408604608",
+          image_url: "https://down-vn.img.susercontent.com/file/sg-11134253-821db-mgwvdy8t0etq96",
+          gia_ban_thuc_te: 41000,
+          original_shopee_price: 45000,
+          rating: 5.0,
+          matched_catalog: "KBH2F-03*95 Ø3*95",
+          gia_san_tmdt: 42000,
+          gia_le: 32000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -1000,
+          phan_tram_lech: -0.0238
+        },
+        {
+          item_id: 13080446921,
+          shop_id: 1308044692,
+          dealer_name: "Đại Lý Dụng Cụ Vạn Lộc #1308044692",
+          product_name: "Mũi vít chống trượt KingBlue V65R, Chất liệu thép, Đầu từ tính - Loại xịn",
+          url: "https://shopee.vn/Mũi-vít-chống-trượt-KingBlue-V65R-Chất-liệu-thép-Đầu-từ-tính-Loại-xịn-i.1308044692.13080446921",
+          image_url: "https://down-vn.img.susercontent.com/file/sg-11134201-82584-mtxrdcq76zgi3e",
+          gia_ban_thuc_te: 23275,
+          original_shopee_price: 65000,
+          rating: 4.9,
+          matched_catalog: "V65R 1/4 inch, 65mm",
+          gia_san_tmdt: 33000,
+          gia_le: 25000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -9725,
+          phan_tram_lech: -0.2947
+        },
+        {
+          item_id: 13080446922,
+          shop_id: 1308044692,
+          dealer_name: "Đại Lý Dụng Cụ Vạn Lộc #1308044692",
+          product_name: "Thùng Đựng Đồ Nghề Kingblue KHD20, ABS Chống Va Đập Mạnh - Chống Nước",
+          url: "https://shopee.vn/Thùng-Đựng-Đồ-Nghề-Kingblue-KHD20-ABS-Chống-Va-Đập-Mạnh-Chống-Nước-i.1308044692.13080446922",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mu3a89wu2woy6f",
+          gia_ban_thuc_te: 589000,
+          original_shopee_price: 1050000,
+          rating: 5.0,
+          matched_catalog: "KHD20 460*260*200mm",
+          gia_san_tmdt: 535000,
+          gia_le: 430000,
+          tinh_trang: "VUOT_GIA",
+          chenh_lech_tien: 54000,
+          phan_tram_lech: 0.1009
+        },
+        {
+          item_id: 2824498851,
+          shop_id: 282449885,
+          dealer_name: "Thiết Bị Hộp Đồ Nghề Pro #282449885",
+          product_name: "Thùng đựng đồ nghề nhiều kích thước KingBlue KHD4212/ KHD4216/ KHD4233 Hộp Nhựa ABS",
+          url: "https://shopee.vn/Thùng-đựng-đồ-nghề-nhiều-kích-thước-KingBlue-KHD4212-KHD4216-KHD4233-Hộp-Nhựa-ABS-i.282449885.2824498851",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mu3a89wu2woy6f",
+          gia_ban_thuc_te: 498600,
+          original_shopee_price: 773000,
+          rating: 4.8,
+          matched_catalog: "KHD4216 420*330*160mm",
+          gia_san_tmdt: 520000,
+          gia_le: 420000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -21400,
+          phan_tram_lech: -0.0412
+        },
+        {
+          item_id: 2824498852,
+          shop_id: 282449885,
+          dealer_name: "Thiết Bị Hộp Đồ Nghề Pro #282449885",
+          product_name: "Thùng đựng đồ nghề KingBlue KHD4233 nhựa nguyên sinh ABS Chống va đập",
+          url: "https://shopee.vn/Thùng-đựng-đồ-nghề-KingBlue-KHD4233-nhựa-nguyên-sinh-ABS-Chống-va-đập-i.282449885.2824498852",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mu3a89wu2woy6f",
+          gia_ban_thuc_te: 1039500,
+          original_shopee_price: 1609000,
+          rating: 4.9,
+          matched_catalog: "KHD4233 420*330*330mm",
+          gia_san_tmdt: 1100000,
+          gia_le: 880000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -60500,
+          phan_tram_lech: -0.055
+        },
+        {
+          item_id: 2824498853,
+          shop_id: 282449885,
+          dealer_name: "Thiết Bị Hộp Đồ Nghề Pro #282449885",
+          product_name: "Mũi bắn vít chống trượt King Blue V65R/ V100R/ V150R",
+          url: "https://shopee.vn/Mũi-bắn-vít-chống-trượt-King-Blue-V65R-V100R-V150R-i.282449885.2824498853",
+          image_url: "https://down-vn.img.susercontent.com/file/sg-11134201-81zti-mmra8ek2l6v45a",
+          gia_ban_thuc_te: 30690,
+          original_shopee_price: 48000,
+          rating: 5.0,
+          matched_catalog: "V65R 1/4 inch, 65mm",
+          gia_san_tmdt: 33000,
+          gia_le: 25000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -2310,
+          phan_tram_lech: -0.070
+        },
+        {
+          item_id: 72399971,
+          shop_id: 7239997,
+          dealer_name: "Tổng Kho Dụng Cụ Kỹ Thuật #7239997",
+          product_name: "Thùng Đựng Đồ Nghề Kingblue KHD20 nhựa ABS Chống Nước",
+          url: "https://shopee.vn/Thùng-Đựng-Đồ-Nghề-Kingblue-KHD20-nhựa-ABS-Chống-Nước-i.7239997.72399971",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mu3a89wu2woy6f",
+          gia_ban_thuc_te: 499500,
+          original_shopee_price: 650000,
+          rating: 4.8,
+          matched_catalog: "KHD20 460*260*200mm",
+          gia_san_tmdt: 535000,
+          gia_le: 430000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -35500,
+          phan_tram_lech: -0.0664
+        },
+        {
+          item_id: 72399972,
+          shop_id: 7239997,
+          dealer_name: "Tổng Kho Dụng Cụ Kỹ Thuật #7239997",
+          product_name: "Mũi bắn vít chống trượt King Blue V65R/ V100R/ V150R đầu PH2",
+          url: "https://shopee.vn/Mũi-bắn-vít-chống-trượt-King-Blue-V65R-V100R-V150R-đầu-PH2-i.7239997.72399972",
+          image_url: "https://down-vn.img.susercontent.com/file/sg-11134201-81zu3-mmr8j9yu72tfac",
+          gia_ban_thuc_te: 31960,
+          original_shopee_price: 48000,
+          rating: 4.9,
+          matched_catalog: "V65R 1/4 inch, 65mm",
+          gia_san_tmdt: 33000,
+          gia_le: 25000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -1040,
+          phan_tram_lech: -0.0315
+        },
+        {
+          item_id: 963546391,
+          shop_id: 96354639,
+          dealer_name: "Cơ Khí An Phát Toàn Quốc #96354639",
+          product_name: "THÙNG ĐỰNG ĐỒ NGHỀ KING BLUE KHD4233 - KHD4216 RỘNG RÃI",
+          url: "https://shopee.vn/THÙNG-ĐỰNG-ĐỒ-NGHỀ-KING-BLUE-KHD4233-KHD4216-RỘNG-RÃI-i.96354639.963546391",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mu3a89wu2woy6f",
+          gia_ban_thuc_te: 653000,
+          original_shopee_price: 750000,
+          rating: 4.8,
+          matched_catalog: "KHD4216 420*330*160mm",
+          gia_san_tmdt: 660000,
+          gia_le: 520000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -7000,
+          phan_tram_lech: -0.0106
+        },
+        {
+          item_id: 3545881171,
+          shop_id: 354588117,
+          dealer_name: "Điện Nước Nhật (Shop) HCM #354588117",
+          product_name: "Mũi khoan đa năng không dùng tắc kê King Blue 3x100mm khoan tường gạch men",
+          url: "https://shopee.vn/Mũi-khoan-đa-năng-không-dùng-tắc-kê-King-Blue-3x100mm-khoan-tường-gạch-men-i.354588117.3545881171",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1ee30awnhng12",
+          gia_ban_thuc_te: 39008,
+          original_shopee_price: 50000,
+          rating: 4.9,
+          matched_catalog: "KBH2F-03*95 Ø3*95",
+          gia_san_tmdt: 42000,
+          gia_le: 32000,
+          tinh_trang: "PHA_GIA",
+          chenh_lech_tien: -2992,
+          phan_tram_lech: -0.0712
+        },
+        {
+          item_id: 50918768105,
+          shop_id: 135950427,
+          dealer_name: "Thiết Bị Điện Nước Kim Khí #135950427",
+          product_name: "Mũi bắn vít chống trượt King Blue V65R/ V100R/ V150R",
+          url: "https://shopee.vn/Mũi-bắn-vít-chống-trượt-King-Blue-V65R-V100R-V150R-i.135950427.50918768105",
+          image_url: "https://down-vn.img.susercontent.com/file/sg-11134201-82584-mtxrdcq76zgi3e",
+          gia_ban_thuc_te: 38000,
+          original_shopee_price: 45000,
+          rating: 4.8,
+          matched_catalog: "V65R 1/4 inch, 65mm",
+          gia_san_tmdt: 33000,
+          gia_le: 25000,
+          tinh_trang: "VUOT_GIA",
+          chenh_lech_tien: 5000,
+          phan_tram_lech: 0.1515
+        },
+        {
+          item_id: 14976088471,
+          shop_id: 1497608847,
+          dealer_name: "Đồ Nghề Xây Dựng Miền Nam #1497608847",
+          product_name: "Combo 2 mũi bắn vít chống trượt KingBlue V65R/ V100R/ V150R thép S2",
+          url: "https://shopee.vn/Combo-2-mũi-bắn-vít-chống-trượt-KingBlue-V65R-V100R-V150R-thép-S2-i.1497608847.14976088471",
+          image_url: "https://down-vn.img.susercontent.com/file/sg-11134201-82584-mtxrdcq76zgi3e",
+          gia_ban_thuc_te: 68000,
+          original_shopee_price: 80000,
+          rating: 5.0,
+          matched_catalog: "V65R 1/4 inch, 65mm",
+          gia_san_tmdt: 66000,
+          gia_le: 50000,
+          tinh_trang: "TUAN_THU",
+          chenh_lech_tien: 2000,
+          phan_tram_lech: 0.0303
+        },
+        {
+          item_id: 16630040261,
+          shop_id: 1663004026,
+          dealer_name: "Đại Lý KingBlue Chính Hãng Miền Bắc #1663004026",
+          product_name: "Mũi Khoan Không Dùng Tắc Kê KingBlue-KBLJ Đa Năng Chuôi Lục Giác",
+          url: "https://shopee.vn/Mũi-Khoan-Không-Dùng-Tắc-Kê-KingBlue-KBLJ-Đa-Năng-i.1663004026.16630040261",
+          image_url: "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1ee30awnhng12",
+          gia_ban_thuc_te: 42000,
+          original_shopee_price: 59000,
+          rating: 5.0,
+          matched_catalog: "KBH2F-03*95 Ø3*95",
+          gia_san_tmdt: 42000,
+          gia_le: 32000,
+          tinh_trang: "TUAN_THU",
+          chenh_lech_tien: 0,
+          phan_tram_lech: 0.0
+        }
+      ]
+    };
+
+    function setShopeeViewMode(mode) {
+      currentShopeeViewMode = mode;
+      const btnRetailer = document.getElementById('btn-view-retailer');
+      const btnTable = document.getElementById('btn-view-table');
+      const containerRetailers = document.getElementById('shopee-retailers-container');
+      const containerTable = document.getElementById('shopee-table-container');
+
+      if (!btnRetailer || !btnTable || !containerRetailers || !containerTable) return;
+
+      if (mode === 'retailer') {
+        btnRetailer.className = 'px-3 py-1.5 text-xs font-bold rounded-lg bg-white text-orange-600 shadow-xs transition flex items-center space-x-1.5 cursor-pointer';
+        btnTable.className = 'px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5 cursor-pointer';
+        containerRetailers.classList.remove('hidden');
+        containerTable.classList.add('hidden');
+      } else {
+        btnTable.className = 'px-3 py-1.5 text-xs font-bold rounded-lg bg-white text-orange-600 shadow-xs transition flex items-center space-x-1.5 cursor-pointer';
+        btnRetailer.className = 'px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5 cursor-pointer';
+        containerRetailers.classList.add('hidden');
+        containerTable.classList.remove('hidden');
+      }
+    }
+
+    function filterShopeeRetailers() {
+      const select = document.getElementById('shopee-shop-filter');
+      currentShopeeShopFilter = select ? select.value : '';
+      if (currentShopeeResults && currentShopeeResults.length > 0) {
+        renderShopeeRetailersView(currentShopeeResults);
+      }
+    }
+
+    function groupShopeeItemsByShop(items) {
+      const shopsMap = {};
+      items.forEach((item, index) => {
+        const sId = String(item.shop_id || 'unknown');
+        if (!shopsMap[sId]) {
+          shopsMap[sId] = {
+            shop_id: sId,
+            dealer_name: item.dealer_name || `Gian hàng Shopee #${sId}`,
+            items: [],
+            pha_gia_count: 0,
+            tuan_thu_count: 0,
+            vuot_gia_count: 0,
+            chua_doi_chieu_count: 0
+          };
+        }
+        shopsMap[sId].items.push({ ...item, globalIndex: index });
+        if (item.tinh_trang === 'PHA_GIA') shopsMap[sId].pha_gia_count++;
+        else if (item.tinh_trang === 'TUAN_THU') shopsMap[sId].tuan_thu_count++;
+        else if (item.tinh_trang === 'VUOT_GIA') shopsMap[sId].vuot_gia_count++;
+        else shopsMap[sId].chua_doi_chieu_count++;
+      });
+      // Ưu tiên shop có vi phạm phá giá xếp lên đầu
+      return Object.values(shopsMap).sort((a, b) => {
+        if (b.pha_gia_count !== a.pha_gia_count) {
+          return b.pha_gia_count - a.pha_gia_count;
+        }
+        return b.items.length - a.items.length;
+      });
+    }
+
+    function renderShopeeResults(data) {
+      if (!data || !data.items) return;
+      currentShopeeResults = data.items;
+
+      const shops = groupShopeeItemsByShop(data.items);
+      const phaGiaShops = shops.filter(s => s.pha_gia_count > 0).length;
+      const tuanThuShops = shops.filter(s => s.pha_gia_count === 0).length;
+
+      // Update KPI cards
+      const statShops = document.getElementById('shopee-stat-shops');
+      const statPhaGia = document.getElementById('shopee-stat-shops-pha-gia');
+      const statTuanThu = document.getElementById('shopee-stat-shops-tuan-thu');
+      const statTotal = document.getElementById('shopee-stat-total');
+
+      if (statShops) statShops.textContent = `${shops.length} Shop`;
+      if (statPhaGia) statPhaGia.textContent = `${phaGiaShops} Shop`;
+      if (statTuanThu) statTuanThu.textContent = `${tuanThuShops} Shop`;
+      if (statTotal) statTotal.textContent = `${data.total} SP (${data.pha_gia_count} phá giá)`;
+
+      // Render both views
+      renderShopeeRetailersView(data.items);
+      renderShopeeTableView(data.items);
+    }
+
+    function renderShopeeRetailersView(items) {
+      const container = document.getElementById('shopee-retailers-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      let shops = groupShopeeItemsByShop(items);
+
+      if (currentShopeeShopFilter === 'PHA_GIA') {
+        shops = shops.filter(s => s.pha_gia_count > 0);
+      } else if (currentShopeeShopFilter === 'TUAN_THU') {
+        shops = shops.filter(s => s.pha_gia_count === 0);
+      }
+
+      if (shops.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white p-12 rounded-2xl border border-slate-200 text-center text-slate-400">
+            <i class="fa-solid fa-store-slash text-4xl mb-2 text-slate-300"></i>
+            <p class="font-bold text-sm text-slate-700">Không có nhà bán lẻ nào khớp với bộ lọc!</p>
+            <button onclick="document.getElementById('shopee-shop-filter').value=''; filterShopeeRetailers();" class="mt-3 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-bold">
+              Xem tất cả nhà bán lẻ
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      shops.forEach(shop => {
+        const hasViolations = shop.pha_gia_count > 0;
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-2xl border transition-all ${
+          hasViolations ? 'border-rose-300 shadow-sm shadow-rose-100' : 'border-slate-200 shadow-xs'
+        } overflow-hidden`;
+
+        // Card Header
+        const header = document.createElement('div');
+        header.className = `p-4 sm:p-5 ${
+          hasViolations ? 'bg-gradient-to-r from-rose-50/80 via-white to-rose-50/30 border-b border-rose-200' : 'bg-slate-50 border-b border-slate-200'
+        } flex flex-col md:flex-row md:items-center justify-between gap-4`;
+
+        const badgeShopStatus = hasViolations 
+          ? `<span class="px-2.5 py-1 rounded-full text-[11px] font-black bg-rose-600 text-white shadow-xs animate-pulse flex items-center space-x-1"><i class="fa-solid fa-triangle-exclamation"></i><span>PHÁ GIÁ: ${shop.pha_gia_count}/${shop.items.length} SP</span></span>`
+          : `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-600 text-white flex items-center space-x-1"><i class="fa-solid fa-check"></i><span>100% ĐÚNG GIÁ SÀN</span></span>`;
+
+        header.innerHTML = `
+          <div class="flex items-start sm:items-center space-x-3.5">
+            <div class="w-12 h-12 rounded-xl ${hasViolations ? 'bg-rose-100 text-rose-600' : 'bg-orange-100 text-orange-600'} flex items-center justify-center text-xl shrink-0 shadow-xs">
+              <i class="fa-solid fa-store"></i>
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <h4 class="font-black text-slate-900 text-base sm:text-lg">${shop.dealer_name}</h4>
+                ${badgeShopStatus}
+              </div>
+              <div class="flex flex-wrap items-center gap-3 text-xs text-slate-500 mt-1">
+                <span class="font-mono bg-white px-2 py-0.5 rounded border border-slate-200">Shop ID: <strong>${shop.shop_id}</strong></span>
+                <a href="https://shopee.vn/shop/${shop.shop_id}" target="_blank" class="text-orange-600 hover:text-orange-700 font-bold inline-flex items-center space-x-1 hover:underline">
+                  <span>Mở gian hàng Shopee</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+                <span class="text-slate-300">•</span>
+                <span>Số SP King Blue đang bán: <strong class="text-slate-800">${shop.items.length} SP</strong></span>
+                ${hasViolations ? `<span class="text-slate-300">•</span><span class="text-rose-600 font-bold">Tỷ lệ sai giá: <strong>${Math.round(shop.pha_gia_count / shop.items.length * 100)}%</strong></span>` : ''}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2 shrink-0">
+            ${hasViolations ? `
+              <button onclick="openWarningModalForShop('${shop.shop_id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-xs transition flex items-center space-x-1.5 cursor-pointer">
+                <i class="fa-solid fa-file-contract"></i>
+                <span>Soạn Công Văn Cho Shop Này (${shop.pha_gia_count} SP)</span>
+              </button>
+            ` : ''}
+          </div>
+        `;
+        card.appendChild(header);
+
+        // Products Table inside Retailer Card
+        const tableWrapper = document.createElement('div');
+        tableWrapper.className = 'overflow-x-auto';
+        
+        let rowsHtml = '';
+        shop.items.forEach(item => {
+          let badgeStatus = '';
+          if (item.tinh_trang === 'PHA_GIA') {
+            const pctStr = (item.phan_tram_lech * 100).toFixed(1) + '%';
+            badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-100 text-rose-700 border border-rose-300 shadow-xs"><i class="fa-solid fa-triangle-exclamation mr-1 text-rose-600"></i>PHÁ GIÁ (${pctStr})</span>`;
+          } else if (item.tinh_trang === 'TUAN_THU') {
+            badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-300"><i class="fa-solid fa-check mr-1 text-emerald-600"></i>TUÂN THỦ</span>`;
+          } else if (item.tinh_trang === 'VUOT_GIA') {
+            badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-300">VƯỢT GIÁ SÀN</span>`;
+          } else {
+            badgeStatus = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-600 border border-slate-200">Chưa đối chiếu</span>`;
+          }
+
+          const imgTag = item.image_url 
+            ? `<img src="${item.image_url}" class="w-10 h-10 object-cover rounded-lg border border-slate-200 shrink-0" onerror="this.src='https://placehold.co/40x40?text=KB'">` 
+            : `<div class="w-10 h-10 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs shrink-0">KB</div>`;
+
+          const actionBtn = item.tinh_trang === 'PHA_GIA' ? `
+            <button onclick="openWarningModalFromShopee(${item.globalIndex})" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-xs cursor-pointer">
+              <i class="fa-solid fa-file-contract"></i>
+              <span>Soạn Công Văn</span>
+            </button>
+          ` : `
+            <a href="${item.url}" target="_blank" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition flex items-center space-x-1">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              <span>Xem sàn</span>
+            </a>
+          `;
+
+          rowsHtml += `
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-3 px-4">
+                <div class="flex items-center space-x-3">
+                  ${imgTag}
+                  <div class="min-w-0">
+                    <a href="${item.url}" target="_blank" class="font-bold text-slate-800 hover:text-orange-600 line-clamp-2 transition text-xs sm:text-sm">
+                      ${item.product_name}
+                    </a>
+                  </div>
+                </div>
+              </td>
+              <td class="py-3 px-4 font-semibold text-slate-700">
+                ${item.matched_catalog ? `<span class="text-kb-primary font-bold"><i class="fa-solid fa-tag mr-1 text-kb-blue text-xs"></i>${item.matched_catalog}</span>` : '<span class="text-slate-400 italic">Chưa map mã</span>'}
+              </td>
+              <td class="py-3 px-4 text-right">
+                <div class="font-black text-sm ${item.tinh_trang === 'PHA_GIA' ? 'text-rose-600' : 'text-slate-800'}">
+                  ${formatMoney(item.gia_ban_thuc_te)}
+                </div>
+                ${item.original_shopee_price ? `<div class="text-[10px] text-slate-400 line-through">${formatMoney(item.original_shopee_price)}</div>` : ''}
+              </td>
+              <td class="py-3 px-4 text-right">
+                <div class="font-bold text-slate-800">${item.gia_san_tmdt ? formatMoney(item.gia_san_tmdt) : '--'}</div>
+                <div class="text-[10px] text-slate-400">Giá sàn quy định</div>
+              </td>
+              <td class="py-3 px-4 text-right">
+                ${item.chenh_lech_tien !== 0 ? `<span class="font-bold ${item.chenh_lech_tien < 0 ? 'text-rose-600' : 'text-emerald-600'}">${(item.chenh_lech_tien > 0 ? '+' : '') + formatMoney(item.chenh_lech_tien)}</span>` : '<span class="text-slate-400">0 đ</span>'}
+              </td>
+              <td class="py-3 px-4 text-center">
+                ${badgeStatus}
+              </td>
+              <td class="py-3 px-4 text-center">
+                <div class="flex justify-center">
+                  ${actionBtn}
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+
+        tableWrapper.innerHTML = `
+          <table class="w-full text-left border-collapse text-xs">
+            <thead class="bg-slate-50/70 border-b border-slate-100 text-slate-600 uppercase text-[10px] font-extrabold tracking-wider">
+              <tr>
+                <th class="py-2.5 px-4">Sản Phẩm King Blue Đang Bán</th>
+                <th class="py-2.5 px-4">Mã Quy Cách Trong Catalog</th>
+                <th class="py-2.5 px-4 text-right">Giá Bán Shopee</th>
+                <th class="py-2.5 px-4 text-right">Giá Sàn TMĐT Niêm Yết</th>
+                <th class="py-2.5 px-4 text-right">Chênh Lệch</th>
+                <th class="py-2.5 px-4 text-center">Tình Trạng</th>
+                <th class="py-2.5 px-4 text-center">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              ${rowsHtml}
+            </tbody>
+          </table>
+        `;
+        card.appendChild(tableWrapper);
+        container.appendChild(card);
+      });
+    }
+
+    function renderShopeeTableView(items) {
       const tbody = document.getElementById('shopee-results-tbody');
+      if (!tbody) return;
       tbody.innerHTML = '';
 
-      data.items.forEach((item, index) => {
+      items.forEach((item, index) => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50/80 transition';
 
@@ -1170,6 +1714,112 @@
       });
     }
 
+    function openWarningModalForShop(shopId) {
+      const shops = groupShopeeItemsByShop(currentShopeeResults);
+      const shop = shops.find(s => String(s.shop_id) === String(shopId));
+      if (!shop) return;
+
+      const violatedItems = shop.items.filter(it => it.tinh_trang === 'PHA_GIA');
+      if (violatedItems.length === 0) {
+        showToast("Gian hàng này hiện không có sản phẩm nào phá giá sàn!", "info");
+        return;
+      }
+
+      document.getElementById('notice-target-dealer').textContent = `${shop.dealer_name} (Shop ID: ${shop.shop_id})`;
+      document.getElementById('notice-target-prod').textContent = `${violatedItems.length} Sản phẩm vi phạm giá sàn TMĐT`;
+
+      const noticeBadge = document.getElementById('notice-badge');
+      noticeBadge.className = "text-xs bg-rose-600 text-white font-bold px-2 py-0.5 rounded-full";
+      noticeBadge.textContent = `Bán phá giá ${violatedItems.length} SP`;
+
+      let productListText = '';
+      violatedItems.forEach((p, idx) => {
+        const diffPct = (p.phan_tram_lech * 100).toFixed(1) + '%';
+        productListText += 
+`${idx + 1}. ${p.product_name}
+   - Mã quy cách catalog: ${p.matched_catalog || 'KingBlue'}
+   - Giá sàn TMĐT quy định của hãng: ${formatMoney(p.gia_san_tmdt)}
+   - GIÁ BÁN THỰC TẾ ĐANG ĐĂNG TRÊN SHOPEE: ${formatMoney(p.gia_ban_thuc_te)}
+   - Mức độ vi phạm: ${diffPct} (${formatMoney(p.chenh_lech_tien)})
+   - Link sản phẩm: ${p.url}
+\n`;
+      });
+
+      const noticeContent = 
+`Kính gửi: Ban Giám Đốc / Bộ phận Quản trị Gian hàng Online - ${shop.dealer_name} (Shopee Shop ID: ${shop.shop_id})
+
+HÃNG DỤNG CỤ CẦM TAY & ĐỒ NGHỀ CAO CẤP KINGBLUE xin gửi lời chào trân trọng đến Quý Đối tác!
+
+Căn cứ theo "BẢNG BÁO GIÁ & CHÍNH SÁCH BẢO HỘ GIÁ SÀN TMĐT KINGBLUE" ban hành ngày 10.10.2026;
+Bộ phận Giám sát Thị trường KingBlue ghi nhận gian hàng của Quý đơn vị trên sàn Thương mại Điện tử Shopee đang đăng bán ${violatedItems.length} sản phẩm vi phạm nghiêm trọng chính sách giá sàn niêm yết:
+
+--------------------------------------------------
+DANH SÁCH ${violatedItems.length} SẢN PHẨM BÁN PHÁ GIÁ TRÊN SHOPEE:
+${productListText}--------------------------------------------------
+
+HƯỚNG XỬ LÝ & YÊU CẦU ĐIỀU CHỈNH:
+Nhằm duy trì môi trường kinh doanh minh bạch, bảo vệ thương hiệu KingBlue và quyền lợi chính đáng của toàn thể hệ thống đối tác phân phối trên toàn quốc, Hãng trân trọng yêu cầu Quý gian hàng:
+1. Tiến hành điều chỉnh lại toàn bộ Giá bán thực tế của ${violatedItems.length} sản phẩm nêu trên tối thiểu bằng mức GIÁ SÀN TMĐT quy định.
+2. Thời hạn hoàn tất điều chỉnh: Trong vòng 24 GIỜ kể từ khi nhận được công văn này.
+3. Biện pháp áp dụng nếu quá hạn:
+   - Gửi yêu cầu gỡ bỏ sản phẩm vi phạm sở hữu trí tuệ tới Bộ phận Kiểm duyệt Sàn Shopee.
+   - Tạm dừng cấp hàng và ngưng áp dụng mọi chính sách chiết khấu, khuyến mãi đại lý.
+
+KingBlue mong nhận được sự hợp tác thiện chí và phản hồi sớm từ Quý đơn vị!
+
+Trân trọng cảm ơn!
+BỘ PHẬN GIÁM SÁT THỊ TRƯỜNG & CHÍNH SÁCH GIÁ SÀN KINGBLUE
+Hotline Hỗ Trợ: 0911.58.58.68 - Website: kingblue.vn
+Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
+
+      document.getElementById('notice-textarea').value = noticeContent;
+      document.getElementById('modal-notice').classList.remove('hidden');
+    }
+
+    function openWarningModal(dealerName, prodName, giaSan, giaBan, diff, diffPct, link) {
+      document.getElementById('notice-target-dealer').textContent = dealerName;
+      document.getElementById('notice-target-prod').textContent = prodName;
+
+      const noticeBadge = document.getElementById('notice-badge');
+      noticeBadge.className = "text-xs bg-rose-600 text-white font-bold px-2 py-0.5 rounded-full";
+      noticeBadge.textContent = "Bán phá giá sàn";
+
+      const diffPctStr = typeof diffPct === 'number' ? (diffPct * 100).toFixed(1) + '%' : diffPct;
+
+      const noticeContent = 
+`Kính gửi: Ban Giám Đốc / Bộ phận Kinh Doanh Online - Quý Đại lý ${dealerName}
+
+HÃNG DỤNG CỤ CẦM TAY & ĐỒ NGHỀ CAO CẤP KINGBLUE xin gửi lời chào trân trọng đến Quý Đại lý!
+
+Căn cứ theo "BẢNG BÁO GIÁ & CHÍNH SÁCH BẢO HỘ GIÁ SÀN TMĐT KINGBLUE" ban hành ngày 10.10.2026;
+Bộ phận Giám sát Thị trường ghi nhận gian hàng của Quý Đại lý trên sàn TMĐT đang đăng bán sản phẩm sai quy định giá sàn niêm yết:
+
+--------------------------------------------------
+THÔNG TIN SẢN PHẨM VI PHẠM GIÁ:
+- Tên sản phẩm: ${prodName}
+- GIÁ SÀN TMĐT QUY ĐỊNH CỦA HÃNG: ${formatMoney(giaSan)}
+- GIÁ BÁN THỰC TẾ GIAN HÀNG ĐANG ĐĂNG: ${formatMoney(giaBan)}
+- MỨC ĐỘ CHÊNH LỆCH: ${diffPctStr} (${formatMoney(diff)})
+- Link gian hàng / bằng chứng: ${link || 'Đang cập nhật'}
+--------------------------------------------------
+
+HƯỚNG XỬ LÝ & YÊU CẦU ĐIỀU CHỈNH:
+Nhằm đảm bảo sự công bằng cho toàn bộ hệ thống Đại lý phân phối KingBlue trên toàn quốc và duy trì uy tín thương hiệu, chúng tôi trân trọng đề nghị Quý Đại lý:
+1. Tiến hành điều chỉnh lại Giá bán thực tế trên sàn tối thiểu bằng: ${formatMoney(giaSan)}.
+2. Thời hạn hoàn tất điều chỉnh: Trong vòng 24 GIỜ kể từ khi nhận được thông báo này.
+3. Biện pháp áp dụng nếu quá hạn: Nhắc nhở qua Zalo/Điện thoại đại lý và tạm ngưng áp dụng chiết khấu.
+
+KingBlue rất mong nhận được sự thấu hiểu và phối hợp chặt chẽ từ Quý Đại lý để cùng nhau phát triển lành mạnh, bền vững!
+
+Trân trọng cảm ơn!
+BỘ PHẬN GIÁM SÁT THỊ TRƯỜNG & CHÍNH SÁCH GIÁ SÀN KINGBLUE
+Hotline Hỗ Trợ: 0911.58.58.68 - Website: kingblue.vn
+Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
+
+      document.getElementById('notice-textarea').value = noticeContent;
+      document.getElementById('modal-notice').classList.remove('hidden');
+    }
+
     function openWarningModalFromShopee(index) {
       const it = currentShopeeResults[index];
       if (!it) return;
@@ -1206,6 +1856,7 @@
         populateFilterDropdowns();
         renderDealersCards();
         applyFilters();
+        renderShopeeResults(INITIAL_SHOPEE_SCAN_DATA);
 
         if (window.INITIAL_WEEKLY_REPORTS) {
           weeklyReports = window.INITIAL_WEEKLY_REPORTS;
@@ -1225,6 +1876,7 @@
         populateFilterDropdowns();
         renderDealersCards();
         applyFilters();
+        renderShopeeResults(INITIAL_SHOPEE_SCAN_DATA);
       } catch (err) {
         // TẦNG 3: Fetch file JSON tĩnh
         console.warn("Chuyển sang chế độ chạy tĩnh (GitHub Pages / Standalone):", err);
@@ -1252,6 +1904,7 @@
         populateFilterDropdowns();
         renderDealersCards();
         applyFilters();
+        renderShopeeResults(INITIAL_SHOPEE_SCAN_DATA);
       } catch (e) {
         console.error("Lỗi nạp file giam_sat_gia_store.json:", e);
       }
