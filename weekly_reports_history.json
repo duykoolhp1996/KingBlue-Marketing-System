@@ -1,5 +1,18 @@
 [
   {
+    "id": "WR-2026-W42-AUDIT",
+    "week": 42,
+    "year": 2026,
+    "created_at": "16/10/2026 16:50:55",
+    "title": "BÁO CÁO GIÁM SÁT THỰC ĐỊA SHOPEE - ĐẠI LÝ ĐIỆN NƯỚC NHẬT HCM (SHOP 700251789)",
+    "summary": "Quét thực tế 12 sản phẩm King Blue của đại lý Điện Nước Nhật HCM trên Shopee: Phát hiện 9 sản phẩm phá giá sàn TMĐT (-6.3% đến -25.2%).",
+    "compliance_pct": 25.0,
+    "total_prods": 3302,
+    "total_checked": 12,
+    "total_pha_gia": 9,
+    "markdown_content": "# 🚨 BÁO CÁO GIÁM SÁT THỰC ĐỊA SHOPEE: GIAN HÀNG 700251789\n**Thời gian kiểm tra**: 16/10/2026 | **Đơn vị thực hiện**: 🐱 Xu Xu (AI Auto-Shopee Scanner)\n**Đại lý**: Điện nước Nhật (Shop) HCM (DL001) | **Phụ trách**: BẢO TRÂM | **Gian hàng Shopee**:  (ID: 700251789)\n\n---\n\n### 1. KẾT QUẢ THẨM ĐỊNH THỰC TẾ\n- **Tổng sản phẩm King Blue khảo sát**: 12 sản phẩm\n- **Số sản phẩm phá giá sàn TMĐT**: **9 sản phẩm (75%)**\n- **Số sản phẩm tuân thủ / vượt giá**: 3 sản phẩm (25%)\n- **Mức độ phá giá sâu nhất**: Mũi khoan bê tông chuôi gài KingBlue KBL2 (bán 28.420 đ so với giá sàn 38.000 đ, **giảm -25.2%**)\n- **Các mặt hàng chủ lực vi phạm**:\n  1. Mũi khoan không dùng tắc kê KBLJ-03*100: Bán 40.180 đ (Sàn: 48.000 đ -> **-16.3%**)\n  2. Mũi vít không dùng tắc kê KBLJ-03.2*100: Bán 39.500 đ (Sàn: 48.000 đ -> **-17.7%**)\n  3. Mũi khoan bê tông KBL2: Bán 28.420 đ (Sàn: 38.000 đ -> **-25.2%**)\n  4. Mũi khoan đa năng KBH2F: Bán 37.240 đ (Sàn: 42.000 đ -> **-11.3%**)\n  5. Bộ chụp 8 bulong sâu lòng 8cm: Bán 237.000 đ (Sàn: 280.000 đ -> **-15.4%**)\n  6. Đầu chụp bulong sâu lòng lẻ: Bán 37.240 đ (Sàn: 42.000 đ -> **-11.3%**)\n  7. Mũi lục giác lẻ H3-H8: Bán 13.000 đ (Sàn: 15.000 đ -> **-13.3%**)\n  8. Thước thủy mini KingBlue: Bán 49.000 đ (Sàn: 55.000 đ -> **-10.9%**)\n  9. Combo 2 mũi KBLJ: Bán 90.000 đ (Sàn: 96.000 đ -> **-6.3%**)\n\n---\n\n### 2. ĐỀ XUẤT HƯỚNG XỬ LÝ (ACTION PLAN)\n1. **Gửi văn bản nhắc nhở lần 1**: Nhân sự phụ trách (BẢO TRÂM) liên hệ trực tiếp chủ gian hàng  yêu cầu điều chỉnh giá bán tối thiểu về đúng giá sàn TMĐT niêm yết trong vòng 24 giờ.\n2. **Theo dõi tự động qua Apify**: Hệ thống sẽ tự động quét lại gian hàng sau 24h để xác nhận việc tăng giá.\n3. **Chế tài hợp đồng**: Nếu tiếp tục duy trì mức giá phá sàn sau thông báo, tạm dừng chính sách chiết khấu thưởng quý và dừng cung ứng hàng đợt tiếp theo.\n"
+  },
+  {
     "id": "WR-2026-W42",
     "week": 42,
     "year": 2026,
