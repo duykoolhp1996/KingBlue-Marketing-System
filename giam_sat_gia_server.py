@@ -145,12 +145,17 @@ class GiamSatGiaHandler(SimpleHTTPRequestHandler):
             if emp:
                 filtered = [p for p in filtered if p.get("employee") == emp]
 
-            if plat:
-                filtered = [p for p in filtered if plat.lower() in (p.get("platform") or "").lower()]
-
             if search:
                 s_lower = search.lower().strip()
                 filtered = [p for p in filtered if s_lower in p.get("product_name", "").lower() or s_lower in p.get("product_code", "").lower() or s_lower in p.get("dealer_name", "").lower()]
+
+            # Sắp xếp ưu tiên: Sản phẩm PHÁ GIÁ SÀN lên đầu tiên -> VƯỢT GIÁ -> TUÂN THỦ -> CHƯA KIỂM TRA
+            status_priority = {'PHA_GIA': 0, 'VUOT_GIA': 1, 'TUAN_THU': 2, 'CHUA_KIEM_TRA': 3}
+            filtered.sort(key=lambda p: (
+                status_priority.get(p.get('tinh_trang') or 'CHUA_KIEM_TRA', 3),
+                -(p.get('gia_ban_thuc_te') or 0),
+                p.get('id', 0)
+            ))
 
             total_items = len(filtered)
             start = (page - 1) * limit

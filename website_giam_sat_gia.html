@@ -370,17 +370,18 @@
           <table class="w-full text-left text-xs">
             <thead class="bg-kb-primary text-white uppercase font-bold text-[11px] tracking-wider">
               <tr>
-                <th class="py-3 px-3 text-center">STT</th>
+                <th class="py-3 px-2 text-center">STT</th>
                 <th class="py-3 px-3">Đại Lý & Sàn</th>
-                <th class="py-3 px-3">Mã SP</th>
-                <th class="py-3 px-4">Tên Sản Phẩm</th>
-                <th class="py-3 px-3 text-right">Giá Sỉ</th>
-                <th class="py-3 px-3 text-right">Giá Lẻ</th>
-                <th class="py-3 px-3 text-right bg-amber-600 text-amber-50 font-extrabold">Giá Sàn TMĐT</th>
-                <th class="py-3 px-3 text-right bg-blue-900/50">Giá Khảo Sát</th>
-                <th class="py-3 px-3 text-right">% Lệch</th>
-                <th class="py-3 px-3 text-center">Kết Luận Tuân Thủ</th>
-                <th class="py-3 px-3 text-center">Hành Động</th>
+                <th class="py-3 px-2.5">Mã SP</th>
+                <th class="py-3 px-3 min-w-[200px]">Tên Sản Phẩm</th>
+                <th class="py-3 px-2.5 text-right">Giá Sỉ</th>
+                <th class="py-3 px-2.5 text-right bg-slate-800 text-white font-black">Giá Lẻ (Hãng)</th>
+                <th class="py-3 px-2.5 text-right bg-amber-600 text-amber-50 font-extrabold">Giá Sàn TMĐT</th>
+                <th class="py-3 px-2.5 text-right bg-blue-900 text-white font-extrabold">Giá Bán Shopee</th>
+                <th class="py-3 px-2.5 text-center bg-indigo-950/60 text-indigo-100 font-extrabold">So Với Giá Lẻ</th>
+                <th class="py-3 px-2.5 text-center bg-rose-950/60 text-rose-100 font-extrabold">So Với Giá Sàn</th>
+                <th class="py-3 px-2 text-center">Kết Luận</th>
+                <th class="py-3 px-2 text-center">Hành Động</th>
               </tr>
             </thead>
             <tbody id="audit-products-tbody" class="divide-y divide-slate-100 font-medium">
@@ -697,6 +698,152 @@
   </main>
 
   <!-- ================================================================= -->
+  <!-- MODAL CHI TIẾT KHẢO SÁT SẢN PHẨM & SO SÁNH GIÁ ĐẠI LÝ -->
+  <!-- ================================================================= -->
+  <div id="modal-dealer-detail" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-5 overflow-y-auto">
+    <div class="bg-white w-full max-w-6xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[94vh] my-auto animate-in fade-in zoom-in duration-200">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-slate-900 via-kb-primary to-slate-900 text-white p-4 sm:p-5 flex items-center justify-between border-b border-slate-800 shrink-0">
+        <div class="flex items-center space-x-3">
+          <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-xl font-black shadow-inner">
+            <i class="fa-solid fa-store"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span id="mdd-dealer-code" class="px-2 py-0.5 rounded text-[11px] font-black bg-amber-400 text-slate-950 shadow-xs">DL001</span>
+              <h3 id="mdd-dealer-name" class="font-bold text-base sm:text-lg text-white">Điện nước Nhật (Shop) HCM</h3>
+            </div>
+            <div class="text-xs text-slate-300 mt-1 flex flex-wrap items-center gap-2">
+              <span>Phụ trách: <strong id="mdd-employee" class="text-amber-300">BẢO TRÂM</strong></span>
+              <span>•</span>
+              <span>Kênh: <span id="mdd-platform" class="text-blue-300 font-semibold">Shopee</span></span>
+              <span>•</span>
+              <a id="mdd-store-link" href="#" target="_blank" class="inline-flex items-center space-x-1 text-amber-300 hover:text-white underline font-semibold">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                <span id="mdd-store-link-text">Xem gian hàng Shopee</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="exportDealerDetailExcel()" class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg shadow transition cursor-pointer">
+            <i class="fa-solid fa-file-excel"></i>
+            <span>Xuất Excel</span>
+          </button>
+          <button onclick="closeDealerDetailModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition flex items-center justify-center cursor-pointer">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick KPI Stats Bar -->
+      <div class="bg-slate-50 border-b border-slate-200 px-4 sm:px-6 py-3 grid grid-cols-2 sm:grid-cols-4 gap-3 shrink-0">
+        <div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-2xs">
+          <div>
+            <div class="text-[11px] text-slate-500 font-medium">Tổng SP Niêm Yết</div>
+            <div id="mdd-stat-total" class="text-lg font-black text-slate-800">267</div>
+          </div>
+          <i class="fa-solid fa-boxes-stacked text-slate-300 text-2xl"></i>
+        </div>
+        <div class="bg-white p-3 rounded-xl border border-blue-200 flex items-center justify-between shadow-2xs">
+          <div>
+            <div class="text-[11px] text-blue-700 font-medium">Đã Khảo Sát Thực Tế</div>
+            <div id="mdd-stat-checked" class="text-lg font-black text-blue-800">12</div>
+          </div>
+          <i class="fa-solid fa-clipboard-check text-blue-400 text-2xl"></i>
+        </div>
+        <div class="bg-rose-50 p-3 rounded-xl border border-rose-200 flex items-center justify-between shadow-2xs">
+          <div>
+            <div class="text-[11px] text-rose-700 font-medium">Phát Hiện Phá Giá Sàn</div>
+            <div id="mdd-stat-pha-gia" class="text-lg font-black text-rose-700">9 SP</div>
+          </div>
+          <i class="fa-solid fa-triangle-exclamation text-rose-400 text-2xl"></i>
+        </div>
+        <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 flex items-center justify-between shadow-2xs">
+          <div>
+            <div class="text-[11px] text-emerald-700 font-medium">Đúng Chuẩn / Vượt Giá</div>
+            <div id="mdd-stat-compliant" class="text-lg font-black text-emerald-800">3 SP</div>
+          </div>
+          <i class="fa-solid fa-circle-check text-emerald-400 text-2xl"></i>
+        </div>
+      </div>
+
+      <!-- Filter Controls & Notice Banner -->
+      <div class="p-3 sm:px-6 pb-2 border-b border-slate-200 bg-white flex flex-wrap items-center justify-between gap-2.5 shrink-0">
+        <div class="flex flex-wrap items-center gap-1.5 text-xs">
+          <span class="font-bold text-slate-500 mr-1"><i class="fa-solid fa-filter text-kb-primary mr-1"></i>Lọc SP:</span>
+          <button id="mdd-filter-btn-checked" onclick="setDealerModalFilter('CHECKED')" class="px-2.5 py-1 rounded-lg font-bold bg-kb-primary text-white transition cursor-pointer shadow-xs">
+            Đã Khảo Sát (<span id="mdd-count-checked">12</span>)
+          </button>
+          <button id="mdd-filter-btn-phagia" onclick="setDealerModalFilter('PHA_GIA')" class="px-2.5 py-1 rounded-lg font-bold bg-slate-100 hover:bg-rose-100 text-slate-700 hover:text-rose-700 transition cursor-pointer">
+            🚨 Phá Giá Sàn (<span id="mdd-count-phagia">9</span>)
+          </button>
+          <button id="mdd-filter-btn-compliant" onclick="setDealerModalFilter('COMPLIANT')" class="px-2.5 py-1 rounded-lg font-bold bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-emerald-700 transition cursor-pointer">
+            ✅ Đúng Sàn / Vượt (<span id="mdd-count-compliant">3</span>)
+          </button>
+          <button id="mdd-filter-btn-all" onclick="setDealerModalFilter('ALL')" class="px-2.5 py-1 rounded-lg font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer">
+            Tất Cả Danh Mục (<span id="mdd-count-all">267</span>)
+          </button>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+            <input type="text" id="mdd-search-input" oninput="renderDealerModalTable()" placeholder="Tìm tên/mã SP..." class="pl-7 pr-3 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-kb-blue w-40 sm:w-56">
+          </div>
+          <button onclick="openNoticeModalForCurrentDealer()" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow transition flex items-center space-x-1 cursor-pointer">
+            <i class="fa-solid fa-file-signature"></i>
+            <span class="hidden sm:inline">Lập Mẫu CV/Zalo Cảnh Cáo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Body Container (Scrollable) -->
+      <div class="overflow-y-auto overflow-x-auto flex-1 p-3 sm:px-6">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="sticky top-0 z-10 bg-slate-800 text-white uppercase font-bold text-[11px] tracking-wider shadow-xs">
+            <tr>
+              <th class="py-2.5 px-3 text-center">STT</th>
+              <th class="py-2.5 px-3">Mã SP</th>
+              <th class="py-2.5 px-4 min-w-[220px]">Tên Sản Phẩm</th>
+              <th class="py-2.5 px-3 text-right">Giá Sỉ</th>
+              <th class="py-2.5 px-3 text-right bg-slate-700 text-white font-black">Giá Bán Lẻ (Hãng)</th>
+              <th class="py-2.5 px-3 text-right bg-amber-600 text-white font-black">Giá Sàn TMĐT</th>
+              <th class="py-2.5 px-3 text-right bg-blue-900 text-white font-black">Giá Bán Shopee</th>
+              <th class="py-2.5 px-3 text-center bg-indigo-950/60 text-indigo-200">So Với Giá Lẻ</th>
+              <th class="py-2.5 px-3 text-center bg-rose-950/60 text-rose-200">So Với Giá Sàn TMĐT</th>
+              <th class="py-2.5 px-3 text-center">Tình Trạng</th>
+              <th class="py-2.5 px-3 text-center">Bằng Chứng & Xử Lý</th>
+            </tr>
+          </thead>
+          <tbody id="mdd-table-tbody" class="divide-y divide-slate-100 font-medium">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 border-t border-slate-200 p-3 sm:px-6 flex items-center justify-between shrink-0 text-xs">
+        <div class="text-slate-500">
+          Hiển thị <strong id="mdd-showing-count">12</strong> sản phẩm • Đối chiếu theo Báo giá King Blue 10.10.2026
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="closeDealerDetailModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 font-semibold transition cursor-pointer">
+            Đóng
+          </button>
+          <button onclick="switchTabToAuditForDealer()" class="px-4 py-2 bg-kb-primary hover:bg-kb-blue text-white rounded-lg font-bold shadow transition flex items-center space-x-1.5 cursor-pointer">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Mở Bảng Thẩm Định Toàn Diện</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
   <!-- MODAL KHẢO SÁT & BẮT LỖI GIÁ SÀN -->
   <!-- ================================================================= -->
   <div id="modal-audit" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
@@ -718,7 +865,7 @@
         <input type="hidden" id="modal-product-id">
         
         <!-- Info Box -->
-        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
           <div class="flex items-center justify-between">
             <span class="text-slate-500 font-medium">Đại lý:</span>
             <span class="font-bold text-slate-800" id="modal-dealer-name">--</span>
@@ -727,9 +874,15 @@
             <span class="text-slate-500 font-medium">Sản phẩm:</span>
             <span class="font-bold text-kb-blue" id="modal-prod-name">--</span>
           </div>
-          <div class="flex items-center justify-between pt-1 border-t border-slate-200">
-            <span class="text-slate-500 font-medium">Giá Sàn TMĐT Quy Định:</span>
-            <span class="font-extrabold text-amber-600 text-sm" id="modal-gia-san">--</span>
+          <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200">
+            <div class="bg-white p-2 rounded-lg border border-slate-200">
+              <span class="text-slate-500 font-medium block text-[11px]">Giá Bán Lẻ (Hãng):</span>
+              <span class="font-black text-slate-800 text-sm" id="modal-gia-le">--</span>
+            </div>
+            <div class="bg-amber-50 p-2 rounded-lg border border-amber-200">
+              <span class="text-amber-800 font-medium block text-[11px]">Giá Sàn TMĐT:</span>
+              <span class="font-black text-amber-700 text-sm" id="modal-gia-san">--</span>
+            </div>
           </div>
         </div>
 
@@ -745,17 +898,21 @@
         </div>
 
         <!-- Live Calculation Preview -->
-        <div id="modal-preview-box" class="p-3 rounded-lg border hidden space-y-1">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold">Chênh lệch tiền:</span>
-            <span class="font-bold" id="modal-preview-diff">0 đ</span>
+        <div id="modal-preview-box" class="p-3 rounded-xl border hidden space-y-2 bg-slate-50">
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2 rounded-lg bg-white border border-slate-200">
+              <div class="text-[11px] text-slate-500 font-medium">So với Giá Bán Lẻ:</div>
+              <div class="font-bold text-slate-800" id="modal-preview-diff-retail">--</div>
+              <div class="text-[11px] font-black" id="modal-preview-pct-retail">--</div>
+            </div>
+            <div class="p-2 rounded-lg bg-amber-50 border border-amber-200">
+              <div class="text-[11px] text-amber-800 font-medium">So với Giá Sàn TMĐT:</div>
+              <div class="font-bold text-amber-900" id="modal-preview-diff">--</div>
+              <div class="text-[11px] font-black" id="modal-preview-pct">--</div>
+            </div>
           </div>
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold">Tỷ lệ % lệch:</span>
-            <span class="font-bold" id="modal-preview-pct">0.0%</span>
-          </div>
-          <div class="flex items-center justify-between pt-1 border-t border-current/20">
-            <span class="text-xs font-bold uppercase">Kết luận:</span>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-200">
+            <span class="text-xs font-bold uppercase text-slate-600">Đánh giá tuân thủ:</span>
             <span class="font-extrabold text-xs" id="modal-preview-conclusion">--</span>
           </div>
         </div>
@@ -2053,30 +2210,49 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
 
       (stats.dealer_breakdown || []).forEach(d => {
         const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-50/80 transition";
+        tr.className = "hover:bg-amber-50/60 transition cursor-pointer group border-b border-slate-100";
+        tr.title = `Nhấp để xem cụ thể danh mục và đối soát giá của ${d.name}`;
+        tr.onclick = (e) => {
+          if (!e.target.closest('button') && !e.target.closest('a')) {
+            openDealerDetailModal(d.id);
+          }
+        };
         
         let statusBadge = '<span class="text-slate-400 text-xs">Chưa khảo sát</span>';
         if (d.checked_count > 0) {
           if (d.pha_gia_count > 0) {
-            statusBadge = `<span class="badge-pha-gia px-2 py-0.5 rounded font-bold text-xs">Phát hiện ${d.pha_gia_count} SP phá giá</span>`;
+            statusBadge = `<span onclick="openDealerDetailModal(${d.id})" class="badge-pha-gia px-2.5 py-1 rounded-lg font-bold text-xs inline-flex items-center space-x-1 shadow-2xs group-hover:scale-105 transition cursor-pointer"><i class="fa-solid fa-triangle-exclamation text-rose-600"></i><span>Phát hiện ${d.pha_gia_count} SP phá giá</span></span>`;
           } else {
-            statusBadge = `<span class="badge-tuan-thu px-2 py-0.5 rounded font-bold text-xs">100% Đúng giá sàn</span>`;
+            statusBadge = `<span onclick="openDealerDetailModal(${d.id})" class="badge-tuan-thu px-2.5 py-1 rounded-lg font-bold text-xs inline-flex items-center space-x-1 shadow-2xs cursor-pointer"><i class="fa-solid fa-circle-check text-emerald-600"></i><span>100% Đúng giá sàn</span></span>`;
           }
         }
 
         tr.innerHTML = `
           <td class="py-3 px-4 font-bold text-kb-primary">${d.code}</td>
-          <td class="py-3 px-4 font-semibold text-slate-800">${d.name}</td>
+          <td class="py-3 px-4 font-semibold text-slate-800 group-hover:text-kb-primary transition">
+            <div class="flex items-center justify-between">
+              <span>${d.name}</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-300 group-hover:text-kb-primary transition ml-1"></i>
+            </div>
+          </td>
           <td class="py-3 px-4 text-slate-500">${d.platform.includes('HCM') ? 'HCM' : 'Toàn quốc'}</td>
           <td class="py-3 px-4 text-slate-600 font-medium">${d.employee || '--'}</td>
           <td class="py-3 px-4"><span class="bg-blue-50 text-kb-blue border border-blue-200 px-2 py-0.5 rounded font-medium text-xs">${d.platform}</span></td>
           <td class="py-3 px-4 text-right font-extrabold text-slate-700">${d.total_prods}</td>
-          <td class="py-3 px-4 text-center font-bold text-slate-600">${d.checked_count}</td>
+          <td class="py-3 px-4 text-center font-bold text-slate-700">
+            <span class="${d.checked_count > 0 ? 'bg-blue-100 text-blue-900 px-2.5 py-0.5 rounded-full font-black' : 'text-slate-400'}">${d.checked_count}</span>
+          </td>
           <td class="py-3 px-4 text-center">${statusBadge}</td>
-          <td class="py-3 px-4 text-center">
-            <button onclick="filterByDealer(${d.id})" class="bg-kb-primary hover:bg-kb-blue text-white text-xs px-2.5 py-1 rounded transition font-medium">
-              Khảo sát SP
-            </button>
+          <td class="py-3 px-4 text-center whitespace-nowrap">
+            <div class="flex items-center justify-center space-x-1.5">
+              <button onclick="openDealerDetailModal(${d.id})" class="bg-kb-primary hover:bg-kb-blue text-white text-xs px-3 py-1.5 rounded-lg shadow-xs transition font-bold flex items-center space-x-1 cursor-pointer" title="Xem cụ thể danh sách sản phẩm và so sánh giá bán lẻ / giá sàn">
+                <i class="fa-solid fa-eye"></i>
+                <span>Xem Cụ Thể</span>
+              </button>
+              <button onclick="filterByDealer(${d.id})" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs px-2 py-1.5 rounded-lg transition font-medium cursor-pointer" title="Lọc trên Bảng Thẩm Định Toàn Sàn">
+                <i class="fa-solid fa-table-list"></i>
+              </button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
@@ -2427,6 +2603,15 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
           );
         }
 
+        // Sắp xếp ưu tiên: Phá giá sàn -> Vượt giá -> Đúng sàn -> Chưa kiểm tra
+        const statusPriority = { 'PHA_GIA': 0, 'VUOT_GIA': 1, 'TUAN_THU': 2, 'CHUA_KIEM_TRA': 3 };
+        filtered.sort((a, b) => {
+          const pA = statusPriority[a.tinh_trang] !== undefined ? statusPriority[a.tinh_trang] : 3;
+          const pB = statusPriority[b.tinh_trang] !== undefined ? statusPriority[b.tinh_trang] : 3;
+          if (pA !== pB) return pA - pB;
+          return (b.gia_ban_thuc_te || 0) - (a.gia_ban_thuc_te || 0);
+        });
+
         const totalItems = filtered.length;
         const start = (page - 1) * currentLimit;
         const pagedItems = filtered.slice(start, start + currentLimit);
@@ -2465,7 +2650,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       tbody.innerHTML = '';
 
       if (!data.items || data.items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="11" class="py-8 text-center text-slate-400">Không tìm thấy sản phẩm nào phù hợp.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="12" class="py-8 text-center text-slate-400">Không tìm thấy sản phẩm nào phù hợp.</td></tr>`;
         return;
       }
 
@@ -2475,42 +2660,82 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
 
         let statusBadge = '<span class="badge-chua-kt px-2 py-0.5 rounded text-[11px]">Chưa kiểm tra</span>';
         if (p.tinh_trang === 'PHA_GIA') {
-          statusBadge = '<span class="badge-pha-gia px-2 py-0.5 rounded font-extrabold text-[11px] animate-pulse">🔴 Bán phá giá sàn</span>';
+          statusBadge = '<span class="badge-pha-gia px-2 py-0.5 rounded font-extrabold text-[11px] animate-pulse">🔴 Phá giá sàn</span>';
         } else if (p.tinh_trang === 'TUAN_THU') {
-          statusBadge = '<span class="badge-tuan-thu px-2 py-0.5 rounded font-bold text-[11px]">🟢 Đúng giá sàn</span>';
+          statusBadge = '<span class="badge-tuan-thu px-2 py-0.5 rounded font-bold text-[11px]">🟢 Chuẩn giá sàn</span>';
         } else if (p.tinh_trang === 'VUOT_GIA') {
-          statusBadge = '<span class="badge-vuot-gia px-2 py-0.5 rounded font-bold text-[11px]">🔵 Bán cao hơn</span>';
+          statusBadge = '<span class="badge-vuot-gia px-2 py-0.5 rounded font-bold text-[11px]">🔵 Vượt giá sàn</span>';
         }
 
-        const diffPctStr = p.phan_tram_lech !== null && p.phan_tram_lech !== undefined 
-          ? (p.phan_tram_lech > 0 ? `+${(p.phan_tram_lech*100).toFixed(1)}%` : `${(p.phan_tram_lech*100).toFixed(1)}%`)
-          : '--';
+        // 1. So sánh với Giá Bán Lẻ (Niêm Yết)
+        let diffRetailStr = '<span class="text-slate-300 italic">--</span>';
+        if (p.gia_ban_thuc_te && p.gia_le) {
+          const diffRetail = p.gia_ban_thuc_te - p.gia_le;
+          const diffRetailPct = diffRetail / p.gia_le;
+          if (diffRetail < 0) {
+            diffRetailStr = `<div class="text-rose-600 font-bold bg-rose-50/80 px-1.5 py-0.5 rounded text-[11px] border border-rose-200 inline-block text-center whitespace-nowrap">-${formatMoney(Math.abs(diffRetail))}<br><span class="text-[10px] font-black">${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
+          } else if (diffRetail > 0) {
+            diffRetailStr = `<div class="text-emerald-700 font-bold bg-emerald-50/80 px-1.5 py-0.5 rounded text-[11px] border border-emerald-200 inline-block text-center whitespace-nowrap">+${formatMoney(diffRetail)}<br><span class="text-[10px] font-black">+${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
+          } else {
+            diffRetailStr = `<span class="text-slate-600 font-bold bg-slate-100 px-1.5 py-0.5 rounded text-[11px]">Bằng giá lẻ</span>`;
+          }
+        }
 
-        const sellingPriceStr = p.gia_ban_thuc_te ? formatMoney(p.gia_ban_thuc_te) : '<span class="text-slate-300 italic">Chưa nhập</span>';
+        // 2. So sánh với Giá Sàn TMĐT (Quy định)
+        let diffFloorStr = '<span class="text-slate-300 italic">--</span>';
+        if (p.gia_ban_thuc_te && p.gia_san_tmdt) {
+          const diffFloor = p.gia_ban_thuc_te - p.gia_san_tmdt;
+          const diffFloorPct = diffFloor / p.gia_san_tmdt;
+          if (diffFloorPct < -0.02) {
+            diffFloorStr = `<div class="text-rose-700 font-black bg-rose-100 px-1.5 py-0.5 rounded text-[11px] border border-rose-300 inline-block text-center whitespace-nowrap">-${formatMoney(Math.abs(diffFloor))}<br><span class="text-[10px] font-black">${(diffFloorPct * 100).toFixed(1)}%</span></div>`;
+          } else if (diffFloorPct > 0.05) {
+            diffFloorStr = `<div class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded text-[11px] border border-blue-200 inline-block text-center whitespace-nowrap">+${formatMoney(diffFloor)}<br><span class="text-[10px] font-black">+${(diffFloorPct * 100).toFixed(1)}%</span></div>`;
+          } else {
+            diffFloorStr = `<span class="text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded text-[11px] border border-emerald-200">Đúng sàn</span>`;
+          }
+        }
+
+        const sellingPriceStr = p.gia_ban_thuc_te 
+          ? `<span class="text-blue-950 font-black text-xs">${formatMoney(p.gia_ban_thuc_te)}</span>` 
+          : '<span class="text-slate-300 italic text-[11px]">Chưa nhập</span>';
+
+        const evidenceLinkHtml = p.link_bang_chung 
+          ? `<a href="${p.link_bang_chung}" target="_blank" class="text-orange-600 hover:text-orange-700 font-bold ml-1 text-xs" title="Xem sản phẩm trên Shopee"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>` 
+          : '';
 
         tr.innerHTML = `
-          <td class="py-2.5 px-3 text-center text-slate-400">${(data.page - 1) * data.limit + idx + 1}</td>
+          <td class="py-2.5 px-2 text-center text-slate-400 font-mono">${(data.page - 1) * data.limit + idx + 1}</td>
           <td class="py-2.5 px-3">
             <div class="font-bold text-slate-800 text-xs">${p.dealer_name}</div>
-            <div class="text-[10px] text-slate-400">${p.platform} - NV: ${p.employee || '--'}</div>
+            <div class="text-[10px] text-slate-400 flex items-center space-x-1 mt-0.5">
+              <span>${p.platform}</span>
+              <span>•</span>
+              <span>NV: ${p.employee || '--'}</span>
+            </div>
           </td>
-          <td class="py-2.5 px-3 font-mono font-bold text-kb-blue">${p.product_code}</td>
-          <td class="py-2.5 px-4 font-semibold text-slate-800">${p.product_name}</td>
-          <td class="py-2.5 px-3 text-right text-slate-500">${formatMoney(p.gia_si)}</td>
-          <td class="py-2.5 px-3 text-right text-slate-600">${formatMoney(p.gia_le)}</td>
-          <td class="py-2.5 px-3 text-right font-extrabold text-amber-700 bg-amber-50/60">${formatMoney(p.gia_san_tmdt)}</td>
-          <td class="py-2.5 px-3 text-right font-bold text-blue-900">${sellingPriceStr}</td>
-          <td class="py-2.5 px-3 text-right font-bold ${p.phan_tram_lech < -0.02 ? 'text-rose-600' : 'text-slate-600'}">${diffPctStr}</td>
-          <td class="py-2.5 px-3 text-center">${statusBadge}</td>
-          <td class="py-2.5 px-3 text-center">
-            <div class="flex items-center justify-center space-x-1.5 whitespace-nowrap">
-              <button onclick="openAuditModal(${p.id})" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2 py-1 rounded shadow-xs text-xs transition flex items-center space-x-1" title="Khảo sát giá bán">
+          <td class="py-2.5 px-2.5 font-mono font-bold text-kb-blue text-xs">${p.product_code}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800 text-xs">
+            <div class="flex items-center">
+              <span>${p.product_name}</span>
+              ${evidenceLinkHtml}
+            </div>
+          </td>
+          <td class="py-2.5 px-2.5 text-right text-slate-500 font-medium">${formatMoney(p.gia_si)}</td>
+          <td class="py-2.5 px-2.5 text-right font-extrabold text-slate-800 bg-slate-50/70 border-x border-slate-100">${formatMoney(p.gia_le)}</td>
+          <td class="py-2.5 px-2.5 text-right font-extrabold text-amber-800 bg-amber-50/70 border-r border-amber-100">${formatMoney(p.gia_san_tmdt)}</td>
+          <td class="py-2.5 px-2.5 text-right font-bold bg-blue-50/30">${sellingPriceStr}</td>
+          <td class="py-2.5 px-2.5 text-center">${diffRetailStr}</td>
+          <td class="py-2.5 px-2.5 text-center">${diffFloorStr}</td>
+          <td class="py-2.5 px-2 text-center">${statusBadge}</td>
+          <td class="py-2.5 px-2 text-center">
+            <div class="flex items-center justify-center space-x-1 whitespace-nowrap">
+              <button onclick="openAuditModal(${p.id})" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2 py-1 rounded shadow-xs text-xs transition flex items-center space-x-1 cursor-pointer" title="Cập nhật giá bán khảo sát">
                 <i class="fa-solid fa-pen-to-square"></i>
-                <span>Khảo Sát</span>
+                <span class="hidden xl:inline">Khảo Sát</span>
               </button>
-              <button onclick="openNoticeModal(${p.id})" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded shadow-xs text-xs transition flex items-center space-x-1" title="Tạo công văn cảnh cáo / Tin nhắn Zalo">
+              <button onclick="openNoticeModal(${p.id})" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded shadow-xs text-xs transition flex items-center space-x-1 cursor-pointer" title="Tạo công văn cảnh cáo / Tin nhắn Zalo">
                 <i class="fa-solid fa-file-signature"></i>
-                <span>Mẫu CV</span>
+                <span class="hidden xl:inline">Mẫu CV</span>
               </button>
             </div>
           </td>
@@ -2590,6 +2815,266 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       });
     }
 
+    // =================================================================
+    // MODAL CHI TIẾT KHẢO SÁT & SO SÁNH GIÁ ĐẠI LÝ (DEALER SURVEY MODAL)
+    // =================================================================
+    let currentDealerModalId = null;
+    let currentDealerModalFilter = 'CHECKED'; // 'CHECKED' | 'PHA_GIA' | 'COMPLIANT' | 'ALL'
+
+    function openDealerDetailModal(dealerId) {
+      currentDealerModalId = dealerId;
+      const dealer = (globalStore.dealers || []).find(d => d.id === dealerId);
+      if (!dealer) return;
+
+      const prods = (globalStore.products || []).filter(p => p.dealer_id === dealerId);
+      const checkedProds = prods.filter(p => p.gia_ban_thuc_te !== null && p.gia_ban_thuc_te !== undefined);
+      const phaGiaProds = checkedProds.filter(p => p.tinh_trang === 'PHA_GIA');
+      const compliantProds = checkedProds.filter(p => p.tinh_trang === 'TUAN_THU' || p.tinh_trang === 'VUOT_GIA');
+
+      // 1. Điền thông tin header
+      document.getElementById('mdd-dealer-code').textContent = dealer.code;
+      document.getElementById('mdd-dealer-name').textContent = dealer.name;
+      document.getElementById('mdd-employee').textContent = dealer.employee || 'Chưa phân công';
+      document.getElementById('mdd-platform').textContent = dealer.platform || 'Shopee';
+
+      // Link gian hàng
+      const linkA = document.getElementById('mdd-store-link');
+      const linkText = document.getElementById('mdd-store-link-text');
+      let firstUrl = '#';
+      if (dealer.store_links && Object.values(dealer.store_links).length > 0) {
+        firstUrl = Object.values(dealer.store_links)[0];
+      } else if (dealer.raw_link && dealer.raw_link.includes('http')) {
+        const match = dealer.raw_link.match(/https?:\/\/[^\s]+/);
+        if (match) firstUrl = match[0];
+      }
+      linkA.href = firstUrl;
+      linkText.textContent = firstUrl !== '#' ? `Mở gian hàng ${dealer.platform}` : 'Chưa có link sàn';
+
+      // 2. Điền thẻ KPI
+      document.getElementById('mdd-stat-total').textContent = prods.length.toLocaleString();
+      document.getElementById('mdd-stat-checked').textContent = checkedProds.length.toLocaleString();
+      document.getElementById('mdd-stat-pha-gia').textContent = `${phaGiaProds.length} SP`;
+      document.getElementById('mdd-stat-compliant').textContent = `${compliantProds.length} SP`;
+
+      // 3. Điền số đếm filter
+      document.getElementById('mdd-count-checked').textContent = checkedProds.length;
+      document.getElementById('mdd-count-phagia').textContent = phaGiaProds.length;
+      document.getElementById('mdd-count-compliant').textContent = compliantProds.length;
+      document.getElementById('mdd-count-all').textContent = prods.length;
+
+      // Đặt mặc định xem các sản phẩm đã khảo sát nếu có, nếu chưa khảo sát thì xem ALL
+      currentDealerModalFilter = checkedProds.length > 0 ? 'CHECKED' : 'ALL';
+      document.getElementById('mdd-search-input').value = '';
+
+      updateDealerModalFilterButtons();
+      renderDealerModalTable();
+
+      document.getElementById('modal-dealer-detail').classList.remove('hidden');
+    }
+
+    function closeDealerDetailModal() {
+      document.getElementById('modal-dealer-detail').classList.add('hidden');
+    }
+
+    function setDealerModalFilter(filterType) {
+      currentDealerModalFilter = filterType;
+      updateDealerModalFilterButtons();
+      renderDealerModalTable();
+    }
+
+    function updateDealerModalFilterButtons() {
+      const btns = {
+        'CHECKED': document.getElementById('mdd-filter-btn-checked'),
+        'PHA_GIA': document.getElementById('mdd-filter-btn-phagia'),
+        'COMPLIANT': document.getElementById('mdd-filter-btn-compliant'),
+        'ALL': document.getElementById('mdd-filter-btn-all')
+      };
+
+      for (const [key, btn] of Object.entries(btns)) {
+        if (!btn) continue;
+        if (key === currentDealerModalFilter) {
+          btn.className = "px-2.5 py-1 rounded-lg font-bold bg-kb-primary text-white transition cursor-pointer shadow-xs";
+        } else {
+          btn.className = "px-2.5 py-1 rounded-lg font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer";
+        }
+      }
+    }
+
+    function renderDealerModalTable() {
+      if (!currentDealerModalId) return;
+      const dealerId = currentDealerModalId;
+      const prods = (globalStore.products || []).filter(p => p.dealer_id === dealerId);
+      const search = (document.getElementById('mdd-search-input').value || '').toLowerCase().trim();
+
+      let filtered = prods;
+      if (currentDealerModalFilter === 'CHECKED') {
+        filtered = filtered.filter(p => p.gia_ban_thuc_te !== null && p.gia_ban_thuc_te !== undefined);
+      } else if (currentDealerModalFilter === 'PHA_GIA') {
+        filtered = filtered.filter(p => p.tinh_trang === 'PHA_GIA');
+      } else if (currentDealerModalFilter === 'COMPLIANT') {
+        filtered = filtered.filter(p => p.tinh_trang === 'TUAN_THU' || p.tinh_trang === 'VUOT_GIA');
+      }
+
+      if (search) {
+        filtered = filtered.filter(p => 
+          (p.product_name || '').toLowerCase().includes(search) || 
+          (p.product_code || '').toLowerCase().includes(search)
+        );
+      }
+
+      // Sắp xếp: Phá giá lên đầu -> Vượt giá -> Đúng sàn -> Chưa kiểm tra
+      const statusPriority = { 'PHA_GIA': 0, 'VUOT_GIA': 1, 'TUAN_THU': 2, 'CHUA_KIEM_TRA': 3 };
+      filtered.sort((a, b) => {
+        const pA = statusPriority[a.tinh_trang] !== undefined ? statusPriority[a.tinh_trang] : 3;
+        const pB = statusPriority[b.tinh_trang] !== undefined ? statusPriority[b.tinh_trang] : 3;
+        if (pA !== pB) return pA - pB;
+        return (b.gia_ban_thuc_te || 0) - (a.gia_ban_thuc_te || 0);
+      });
+
+      document.getElementById('mdd-showing-count').textContent = filtered.length;
+      const tbody = document.getElementById('mdd-table-tbody');
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" class="py-10 text-center text-slate-400 font-medium">Không có sản phẩm nào phù hợp bộ lọc này.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+
+        // Tình trạng badge
+        let statusBadge = '<span class="badge-chua-kt px-2 py-0.5 rounded text-[11px]">Chưa kiểm tra</span>';
+        if (p.tinh_trang === 'PHA_GIA') {
+          statusBadge = '<span class="badge-pha-gia px-2 py-0.5 rounded font-extrabold text-[11px] animate-pulse">🔴 Phá giá sàn</span>';
+        } else if (p.tinh_trang === 'TUAN_THU') {
+          statusBadge = '<span class="badge-tuan-thu px-2 py-0.5 rounded font-bold text-[11px]">🟢 Chuẩn giá sàn</span>';
+        } else if (p.tinh_trang === 'VUOT_GIA') {
+          statusBadge = '<span class="badge-vuot-gia px-2 py-0.5 rounded font-bold text-[11px]">🔵 Vượt giá sàn</span>';
+        }
+
+        // 1. SO SÁNH VỚI GIÁ BÁN LẺ
+        let diffRetailStr = '<span class="text-slate-300 italic">--</span>';
+        if (p.gia_ban_thuc_te && p.gia_le) {
+          const diffRetail = p.gia_ban_thuc_te - p.gia_le;
+          const diffRetailPct = diffRetail / p.gia_le;
+          if (diffRetail < 0) {
+            diffRetailStr = `<div class="text-rose-600 font-bold bg-rose-50 px-2 py-1 rounded text-[11px] border border-rose-200 text-center whitespace-nowrap">-${formatMoney(Math.abs(diffRetail))}<br><span class="text-[10px] font-black">${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
+          } else if (diffRetail > 0) {
+            diffRetailStr = `<div class="text-emerald-700 font-bold bg-emerald-50 px-2 py-1 rounded text-[11px] border border-emerald-200 text-center whitespace-nowrap">+${formatMoney(diffRetail)}<br><span class="text-[10px] font-black">+${(diffRetailPct * 100).toFixed(1)}%</span></div>`;
+          } else {
+            diffRetailStr = `<span class="text-slate-600 font-bold bg-slate-100 px-2 py-1 rounded text-[11px]">Bằng giá lẻ</span>`;
+          }
+        }
+
+        // 2. SO SÁNH VỚI GIÁ SÀN TMĐT
+        let diffFloorStr = '<span class="text-slate-300 italic">--</span>';
+        if (p.gia_ban_thuc_te && p.gia_san_tmdt) {
+          const diffFloor = p.gia_ban_thuc_te - p.gia_san_tmdt;
+          const diffFloorPct = diffFloor / p.gia_san_tmdt;
+          if (diffFloorPct < -0.02) {
+            diffFloorStr = `<div class="text-rose-700 font-black bg-rose-100 px-2 py-1 rounded text-[11px] border border-rose-300 text-center whitespace-nowrap">-${formatMoney(Math.abs(diffFloor))}<br><span class="text-[10px] font-black">${(diffFloorPct * 100).toFixed(1)}%</span></div>`;
+          } else if (diffFloorPct > 0.05) {
+            diffFloorStr = `<div class="text-blue-700 font-bold bg-blue-50 px-2 py-1 rounded text-[11px] border border-blue-200 text-center whitespace-nowrap">+${formatMoney(diffFloor)}<br><span class="text-[10px] font-black">+${(diffFloorPct * 100).toFixed(1)}%</span></div>`;
+          } else {
+            diffFloorStr = `<span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-1 rounded text-[11px] border border-emerald-200">Đúng chuẩn sàn</span>`;
+          }
+        }
+
+        const sellingPriceStr = p.gia_ban_thuc_te 
+          ? `<span class="text-blue-950 font-black text-xs">${formatMoney(p.gia_ban_thuc_te)}</span>` 
+          : '<span class="text-slate-300 italic text-[11px]">Chưa nhập</span>';
+
+        const evidenceBtn = p.link_bang_chung 
+          ? `<a href="${p.link_bang_chung}" target="_blank" class="px-2 py-1 bg-orange-100 hover:bg-orange-200 text-orange-800 rounded text-xs font-bold transition inline-flex items-center space-x-1" title="Mở link sản phẩm thực tế trên Shopee"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Shopee</span></a>`
+          : '<span class="text-slate-300 text-[11px]">--</span>';
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-center text-slate-400 font-mono">${idx + 1}</td>
+          <td class="py-2.5 px-3 font-mono font-bold text-kb-blue text-xs">${p.product_code}</td>
+          <td class="py-2.5 px-4 font-semibold text-slate-800 text-xs">
+            <div>${p.product_name}</div>
+            <div class="text-[10px] text-slate-400">ĐVT: ${p.dvt || 'Cái'}</div>
+          </td>
+          <td class="py-2.5 px-3 text-right text-slate-500 font-medium">${formatMoney(p.gia_si)}</td>
+          <td class="py-2.5 px-3 text-right font-extrabold text-slate-800 bg-slate-50 border-x border-slate-100">${formatMoney(p.gia_le)}</td>
+          <td class="py-2.5 px-3 text-right font-extrabold text-amber-800 bg-amber-50/70 border-r border-amber-100">${formatMoney(p.gia_san_tmdt)}</td>
+          <td class="py-2.5 px-3 text-right font-bold bg-blue-50/30">${sellingPriceStr}</td>
+          <td class="py-2.5 px-3 text-center">${diffRetailStr}</td>
+          <td class="py-2.5 px-3 text-center">${diffFloorStr}</td>
+          <td class="py-2.5 px-3 text-center">${statusBadge}</td>
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
+            <div class="flex items-center justify-center space-x-1.5">
+              ${evidenceBtn}
+              <button onclick="openAuditModal(${p.id})" class="p-1.5 bg-slate-100 hover:bg-amber-100 text-slate-600 hover:text-amber-800 rounded transition cursor-pointer" title="Sửa giá khảo sát">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button onclick="openNoticeModal(${p.id})" class="p-1.5 bg-slate-100 hover:bg-blue-100 text-slate-600 hover:text-blue-800 rounded transition cursor-pointer" title="Tạo mẫu công văn cảnh cáo">
+                <i class="fa-solid fa-file-signature"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function switchTabToAuditForDealer() {
+      if (!currentDealerModalId) return;
+      const dId = currentDealerModalId;
+      closeDealerDetailModal();
+      filterByDealer(dId);
+    }
+
+    function openNoticeModalForCurrentDealer() {
+      if (!currentDealerModalId) return;
+      const dealer = (globalStore.dealers || []).find(d => d.id === currentDealerModalId);
+      const prods = (globalStore.products || []).filter(p => p.dealer_id === currentDealerModalId && p.tinh_trang === 'PHA_GIA');
+      if (prods.length > 0) {
+        openNoticeModal(prods[0].id);
+      } else {
+        const anyProd = (globalStore.products || []).find(p => p.dealer_id === currentDealerModalId);
+        if (anyProd) openNoticeModal(anyProd.id);
+        else showToast("Đại lý này chưa có sản phẩm nào trong danh mục!", "warning");
+      }
+    }
+
+    function exportDealerDetailExcel() {
+      if (!currentDealerModalId || !window.XLSX) {
+        showToast("Chưa sẵn sàng xuất file Excel!", "warning");
+        return;
+      }
+      const dealer = (globalStore.dealers || []).find(d => d.id === currentDealerModalId);
+      const prods = (globalStore.products || []).filter(p => p.dealer_id === currentDealerModalId);
+
+      const rows = prods.map((p, idx) => {
+        let diffRetailVal = p.gia_ban_thuc_te && p.gia_le ? (p.gia_ban_thuc_te - p.gia_le) : '';
+        let diffFloorVal = p.gia_ban_thuc_te && p.gia_san_tmdt ? (p.gia_ban_thuc_te - p.gia_san_tmdt) : '';
+        return {
+          "STT": idx + 1,
+          "Mã SP": p.product_code,
+          "Tên Sản Phẩm": p.product_name,
+          "ĐVT": p.dvt || 'Cái',
+          "Giá Sỉ (VNĐ)": p.gia_si || 0,
+          "Giá Bán Lẻ (Hãng) (VNĐ)": p.gia_le || 0,
+          "Giá Sàn TMĐT (VNĐ)": p.gia_san_tmdt || 0,
+          "Giá Bán Thực Tế (Shopee) (VNĐ)": p.gia_ban_thuc_te || '',
+          "Chênh Lệch vs Giá Lẻ (VNĐ)": diffRetailVal,
+          "Chênh Lệch vs Giá Sàn (VNĐ)": diffFloorVal,
+          "Kết Luận": p.tinh_trang === 'PHA_GIA' ? 'Phá giá sàn' : (p.tinh_trang === 'TUAN_THU' ? 'Đúng giá sàn' : (p.tinh_trang === 'VUOT_GIA' ? 'Vượt giá sàn' : 'Chưa kiểm tra')),
+          "Link Shopee": p.link_bang_chung || ''
+        };
+      });
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Doi_Soat_Gia");
+      const fileName = `Khao_Sat_${(dealer ? dealer.code : 'DL')}_${new Date().toISOString().slice(0,10)}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+      showToast(`Đã xuất ${rows.length} sản phẩm ra file ${fileName}!`, "success");
+    }
+
     // Modal Handling
     async function openAuditModal(productId) {
       try {
@@ -2606,6 +3091,7 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
         document.getElementById('modal-product-id').value = prod.id;
         document.getElementById('modal-dealer-name').textContent = `${prod.dealer_code} - ${prod.dealer_name}`;
         document.getElementById('modal-prod-name').textContent = `[${prod.product_code}] ${prod.product_name}`;
+        document.getElementById('modal-gia-le').textContent = formatMoney(prod.gia_le);
         document.getElementById('modal-gia-san').textContent = formatMoney(prod.gia_san_tmdt);
         document.getElementById('modal-selling-price').value = prod.gia_ban_thuc_te || '';
         document.getElementById('modal-evidence').value = prod.link_bang_chung || '';
@@ -2741,6 +3227,7 @@ Nhân viên phụ trách: ${prod.employee || 'Admin'}`;
       if (!currentProductForAudit) return;
       const inputVal = parseFloat(document.getElementById('modal-selling-price').value);
       const giaSan = currentProductForAudit.gia_san_tmdt || currentProductForAudit.gia_le;
+      const giaLe = currentProductForAudit.gia_le || 0;
       const box = document.getElementById('modal-preview-box');
       const actionWrapper = document.getElementById('modal-action-wrapper');
       const actionCompliant = document.getElementById('modal-action-compliant');
@@ -2753,26 +3240,44 @@ Nhân viên phụ trách: ${prod.employee || 'Admin'}`;
       }
 
       box.classList.remove('hidden');
-      const diff = inputVal - giaSan;
-      const pct = (diff / giaSan) * 100;
 
-      document.getElementById('modal-preview-diff').textContent = (diff > 0 ? '+' : '') + formatMoney(diff);
-      document.getElementById('modal-preview-pct').textContent = (pct > 0 ? '+' : '') + pct.toFixed(1) + '%';
+      // 1. So sánh với Giá Bán Lẻ
+      if (giaLe > 0) {
+        const diffRetail = inputVal - giaLe;
+        const pctRetail = (diffRetail / giaLe) * 100;
+        document.getElementById('modal-preview-diff-retail').textContent = (diffRetail > 0 ? '+' : '') + formatMoney(diffRetail);
+        document.getElementById('modal-preview-pct-retail').textContent = (pctRetail > 0 ? '+' : '') + pctRetail.toFixed(1) + '%';
+        document.getElementById('modal-preview-diff-retail').className = diffRetail < 0 ? 'font-bold text-rose-600' : (diffRetail > 0 ? 'font-bold text-emerald-700' : 'font-bold text-slate-700');
+        document.getElementById('modal-preview-pct-retail').className = diffRetail < 0 ? 'text-[11px] font-black text-rose-600' : (diffRetail > 0 ? 'text-[11px] font-black text-emerald-700' : 'text-[11px] font-bold text-slate-700');
+      } else {
+        document.getElementById('modal-preview-diff-retail').textContent = '--';
+        document.getElementById('modal-preview-pct-retail').textContent = '--';
+      }
+
+      // 2. So sánh với Giá Sàn TMĐT
+      const diffFloor = inputVal - giaSan;
+      const pctFloor = (diffFloor / giaSan) * 100;
+
+      document.getElementById('modal-preview-diff').textContent = (diffFloor > 0 ? '+' : '') + formatMoney(diffFloor);
+      document.getElementById('modal-preview-pct').textContent = (pctFloor > 0 ? '+' : '') + pctFloor.toFixed(1) + '%';
 
       const conclusion = document.getElementById('modal-preview-conclusion');
-      if (pct < -2) {
+      if (pctFloor < -2) {
         // ĐẠI LÝ BÁN SAI GIÁ (PHÁ GIÁ SÀN) -> CHỈ KHI NÀY MỚI KÍCH HOẠT CHỌN HƯỚNG XỬ LÝ
-        box.className = "p-3 rounded-lg border bg-rose-50 border-rose-200 text-rose-800 space-y-1";
-        conclusion.textContent = "🔴 CẢNH BÁO: BÁN PHÁ GIÁ SÀN TMĐT (SAI GIÁ)!";
+        box.className = "p-3 rounded-xl border bg-rose-50 border-rose-200 text-rose-800 space-y-2";
+        conclusion.className = "font-black text-xs text-rose-700";
+        conclusion.textContent = "🔴 CẢNH BÁO: BÁN PHÁ GIÁ SÀN TMĐT (SAI QUY ĐỊNH)!";
         actionWrapper.classList.remove('hidden');
         actionCompliant.classList.add('hidden');
-      } else if (pct > 5) {
-        box.className = "p-3 rounded-lg border bg-amber-50 border-amber-200 text-amber-800 space-y-1";
-        conclusion.textContent = "🔵 BÁN CAO HƠN GIÁ SÀN";
+      } else if (pctFloor > 5) {
+        box.className = "p-3 rounded-xl border bg-blue-50 border-blue-200 text-blue-800 space-y-2";
+        conclusion.className = "font-black text-xs text-blue-700";
+        conclusion.textContent = "🔵 BÁN CAO HƠN GIÁ SÀN TMĐT";
         actionWrapper.classList.add('hidden');
         actionCompliant.classList.remove('hidden');
       } else {
-        box.className = "p-3 rounded-lg border bg-emerald-50 border-emerald-200 text-emerald-800 space-y-1";
+        box.className = "p-3 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800 space-y-2";
+        conclusion.className = "font-black text-xs text-emerald-700";
         conclusion.textContent = "🟢 HỢP LỆ: TUÂN THỦ ĐÚNG GIÁ SÀN TMĐT";
         actionWrapper.classList.add('hidden');
         actionCompliant.classList.remove('hidden');
