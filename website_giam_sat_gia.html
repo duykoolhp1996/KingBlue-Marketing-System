@@ -716,12 +716,9 @@
             <div class="text-xs text-slate-300 mt-1 flex flex-wrap items-center gap-2">
               <span>Phụ trách: <strong id="mdd-employee" class="text-amber-300">BẢO TRÂM</strong></span>
               <span>•</span>
-              <span>Kênh: <span id="mdd-platform" class="text-blue-300 font-semibold">Shopee</span></span>
-              <span>•</span>
-              <a id="mdd-store-link" href="#" target="_blank" class="inline-flex items-center space-x-1 text-amber-300 hover:text-white underline font-semibold">
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                <span id="mdd-store-link-text">Xem gian hàng Shopee</span>
-              </a>
+              <div id="mdd-store-links-container" class="inline-flex flex-wrap items-center gap-1.5">
+                <!-- dynamic platform badges -->
+              </div>
             </div>
           </div>
         </div>
@@ -2886,11 +2883,34 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
         let linksHtml = '';
         if (d.store_links && Object.keys(d.store_links).length > 0) {
           for (const [platform, url] of Object.entries(d.store_links)) {
+            let badgeStyle = "bg-blue-50 text-kb-blue border-blue-200 hover:bg-blue-100";
+            let icon = "fa-solid fa-arrow-up-right-from-square";
+            let label = platform;
+            const pUpper = platform.toUpperCase();
+
+            if (pUpper.includes('TIKTOK')) {
+              badgeStyle = "bg-slate-900 text-pink-400 border-slate-700 hover:bg-slate-800 hover:text-pink-300";
+              icon = "fa-brands fa-tiktok";
+              label = "TikTok Shop";
+            } else if (pUpper.includes('SHOPEE')) {
+              badgeStyle = "bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100";
+              icon = "fa-solid fa-bag-shopping";
+              label = "Shopee";
+            } else if (pUpper.includes('YOUTUBE')) {
+              badgeStyle = "bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100";
+              icon = "fa-brands fa-youtube";
+              label = "YouTube";
+            } else if (pUpper.includes('WEBSITE')) {
+              badgeStyle = "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100";
+              icon = "fa-solid fa-globe";
+              label = "Website";
+            }
+
             linksHtml += `
-              <a href="${url}" target="_blank" class="inline-flex items-center space-x-1.5 text-xs text-kb-blue hover:underline bg-blue-50 px-2 py-1 rounded border border-blue-200">
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                <span class="font-bold">${platform}:</span>
-                <span class="truncate max-w-[150px]">${url}</span>
+              <a href="${url}" target="_blank" class="inline-flex items-center space-x-1.5 text-xs px-2.5 py-1 rounded border font-semibold transition ${badgeStyle}">
+                <i class="${icon} text-xs"></i>
+                <span class="font-bold">${label}:</span>
+                <span class="truncate max-w-[130px] font-normal">${url.replace(/^https?:\/\/(www\.)?/, '')}</span>
               </a>
             `;
           }
@@ -2941,20 +2961,52 @@ Thời gian gửi: ${new Date().toLocaleString('vi-VN')}`;
       document.getElementById('mdd-dealer-code').textContent = dealer.code;
       document.getElementById('mdd-dealer-name').textContent = dealer.name;
       document.getElementById('mdd-employee').textContent = dealer.employee || 'Chưa phân công';
-      document.getElementById('mdd-platform').textContent = dealer.platform || 'Shopee';
 
-      // Link gian hàng
-      const linkA = document.getElementById('mdd-store-link');
-      const linkText = document.getElementById('mdd-store-link-text');
-      let firstUrl = '#';
-      if (dealer.store_links && Object.values(dealer.store_links).length > 0) {
-        firstUrl = Object.values(dealer.store_links)[0];
-      } else if (dealer.raw_link && dealer.raw_link.includes('http')) {
-        const match = dealer.raw_link.match(/https?:\/\/[^\s]+/);
-        if (match) firstUrl = match[0];
+      // Link gian hàng đa kênh
+      const linksContainer = document.getElementById('mdd-store-links-container');
+      if (linksContainer) {
+        linksContainer.innerHTML = '';
+        if (dealer.store_links && Object.keys(dealer.store_links).length > 0) {
+          for (const [platform, url] of Object.entries(dealer.store_links)) {
+            let badgeClass = "bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700";
+            let icon = "fa-solid fa-arrow-up-right-from-square";
+            let label = platform;
+            const pUpper = platform.toUpperCase();
+
+            if (pUpper.includes('TIKTOK')) {
+              badgeClass = "bg-slate-900 border-pink-500/50 text-pink-300 hover:text-white hover:bg-pink-950";
+              icon = "fa-brands fa-tiktok";
+              label = "TikTok Shop";
+            } else if (pUpper.includes('SHOPEE')) {
+              badgeClass = "bg-orange-500/20 border-orange-500/50 text-orange-300 hover:text-white hover:bg-orange-950";
+              icon = "fa-solid fa-bag-shopping";
+              label = "Shopee";
+            } else if (pUpper.includes('LAZADA')) {
+              badgeClass = "bg-indigo-500/20 border-indigo-500/50 text-indigo-300 hover:text-white hover:bg-indigo-950";
+              icon = "fa-solid fa-cart-shopping";
+              label = "Lazada";
+            } else if (pUpper.includes('YOUTUBE')) {
+              badgeClass = "bg-rose-500/20 border-rose-500/50 text-rose-300 hover:text-white hover:bg-rose-950";
+              icon = "fa-brands fa-youtube";
+              label = "YouTube";
+            } else if (pUpper.includes('WEBSITE')) {
+              badgeClass = "bg-emerald-500/20 border-emerald-500/50 text-emerald-300 hover:text-white hover:bg-emerald-950";
+              icon = "fa-solid fa-globe";
+              label = "Website";
+            }
+
+            linksContainer.innerHTML += `
+              <a href="${url}" target="_blank" class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded border text-[11px] font-bold shadow-xs transition ${badgeClass}">
+                <i class="${icon} text-xs"></i>
+                <span>${label}</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-70"></i>
+              </a>
+            `;
+          }
+        } else {
+          linksContainer.innerHTML = `<span class="text-xs text-slate-400 italic">Chưa có link sàn</span>`;
+        }
       }
-      linkA.href = firstUrl;
-      linkText.textContent = firstUrl !== '#' ? `Mở gian hàng ${dealer.platform}` : 'Chưa có link sàn';
 
       // 2. Điền thẻ KPI
       document.getElementById('mdd-stat-total').textContent = prods.length.toLocaleString();
