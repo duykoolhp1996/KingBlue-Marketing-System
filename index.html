@@ -604,6 +604,7 @@
           <button onclick="quickScan('https://shopee.vn/search?keyword=king%20blue&shop=700251789')" class="px-2.5 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg font-bold transition cursor-pointer border border-amber-300 flex items-center space-x-1"><i class="fa-solid fa-store text-amber-600"></i><span>Shop Điện Nước Nhật (700251789)</span></button>
           <button onclick="quickScan('https://shopee.vn/search?keyword=king%20blue&shop=388478963')" class="px-2.5 py-1 bg-orange-100 hover:bg-orange-200 text-orange-900 rounded-lg font-bold transition cursor-pointer border border-orange-300 flex items-center space-x-1"><i class="fa-solid fa-store text-orange-600"></i><span>Shop #388478963 (Nguyễn Hoàng Phú)</span></button>
           <button onclick="quickScan('https://shopee.vn/search?keyword=kingblue&shop=7239997')" class="px-2.5 py-1 bg-rose-100 hover:bg-rose-200 text-rose-900 rounded-lg font-bold transition cursor-pointer border border-rose-300 flex items-center space-x-1"><i class="fa-solid fa-store text-rose-600"></i><span>Shop #7239997 (ThinkSafe HCM)</span></button>
+          <button onclick="quickScan('https://shopee.vn/lequang_shop?categoryId=100636&entryPoint=ShopByPDP&itemId=48503940317')" class="px-2.5 py-1 bg-sky-100 hover:bg-sky-200 text-sky-900 rounded-lg font-bold transition cursor-pointer border border-sky-300 flex items-center space-x-1"><i class="fa-solid fa-store text-sky-600"></i><span>Shop #lequang_shop (ĐHT Việt Nam)</span></button>
           <button onclick="quickScan('king blue v65r')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Mũi vít V65R</button>
           <button onclick="quickScan('king blue kbh2f')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Mũi khoan KBH2F</button>
           <button onclick="quickScan('thùng đựng đồ nghề king blue')" class="px-2.5 py-1 bg-slate-100 hover:bg-orange-100 hover:text-orange-700 rounded-lg font-medium transition cursor-pointer">Thùng đựng đồ nghề</button>
@@ -1069,7 +1070,7 @@
   </footer>
 
   <!-- EMBEDDED DATA BUNDLES (Hỗ trợ chạy tức thì không bị lỗi CORS/Mạng) -->
-  <script src="giam_sat_gia_store.js?v=20261017_1730"></script>
+  <script src="giam_sat_gia_store.js?v=20261017_1740"></script>
   <script src="weekly_reports_history.js"></script>
 
   <!-- APPLICATION LOGIC JS -->
@@ -1196,6 +1197,8 @@
               matchedItems = INITIAL_SHOPEE_SCAN_DATA.items.filter(it => it.shop_id === 388478963);
             } else if (keyword.includes('700251789') || keyword.toLowerCase().includes('diennuoc')) {
               matchedItems = INITIAL_SHOPEE_SCAN_DATA.items.filter(it => it.shop_id === 700251789);
+            } else if (keyword.includes('lequang_shop') || keyword.includes('48503940317') || keyword.toLowerCase().includes('đht') || keyword.toLowerCase().includes('dht')) {
+              matchedItems = INITIAL_SHOPEE_SCAN_DATA.items.filter(it => String(it.shop_id) === 'lequang_shop' || it.item_id === 48503940317);
             } else if (keyword.trim() !== '' && !keyword.toLowerCase().includes('king blue') && !keyword.toLowerCase().includes('kingblue')) {
               const kwLow = keyword.toLowerCase();
               matchedItems = INITIAL_SHOPEE_SCAN_DATA.items.filter(it => 
@@ -1301,6 +1304,12 @@
         let dealerName = `Gian hàng Shopee #${shopId}`;
         if (String(shopId) === '700251789' || (keyword && (keyword.includes('700251789') || keyword.includes('shopdiennuoc.nhat')))) {
           dealerName = 'Điện nước Nhật (Shop) HCM #700251789';
+        } else if (String(shopId) === '7239997' || (keyword && keyword.includes('7239997'))) {
+          dealerName = 'DL005 - ThinkSafe HCM (Shop baohothinksafe #7239997)';
+        } else if (String(shopId) === '388478963' || (keyword && keyword.includes('388478963'))) {
+          dealerName = 'DL002 - Nguyễn Hoàng Phú (Shop nguyenhoangphu68 #388478963)';
+        } else if (String(shopId) === 'lequang_shop' || (keyword && (keyword.includes('lequang_shop') || keyword.includes('48503940317')))) {
+          dealerName = 'DL007 - CÔNG TY TNHH ĐHT VIỆT NAM - HCM (Shop lequang_shop #48503940317)';
         } else {
           const matchedDealer = dealers.find(d => String(d.id) === String(shopId));
           if (matchedDealer) dealerName = matchedDealer.name;
@@ -1674,6 +1683,68 @@
       "tinh_trang": "PHA_GIA",
       "chenh_lech_tien": -21400,
       "phan_tram_lech": -0.0412
+    },
+    {
+      "item_id": 48503940317,
+      "shop_id": "lequang_shop",
+      "dealer_name": "DL007 - CÔNG TY TNHH ĐHT VIỆT NAM - HCM (Shop lequang_shop #48503940317)",
+      "product_name": "Mũi khoan đa năng lục giác 2 cạnh KingBlue KBH2F chuôi lục giác chính hãng",
+      "url": "https://shopee.vn/lequang_shop?categoryId=100636&entryPoint=ShopByPDP&itemId=48503940317",
+      "image_url": "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1ee30awnhng12",
+      "gia_ban_thuc_te": 42000,
+      "original_shopee_price": 42000,
+      "rating": 5.0,
+      "matched_catalog": "KBH2F-06*95 Mũi khoan ĐN lục giác 2 cạnh KingBlue",
+      "product_code": "KBH2F-0695",
+      "gia_san_tmdt": 42000,
+      "gia_le": 32000,
+      "gia_si": 26000,
+      "dvt": "Cây",
+      "tinh_trang": "TUAN_THU",
+      "chenh_lech_tien": 0,
+      "phan_tram_lech": 0.0,
+      "has_variations": true,
+      "variations": [
+        {
+          "name": "KBH2F-06*95 (6mm)",
+          "sku_code": "KBH2F-0695",
+          "gia_si": 26000,
+          "gia_le": 32000,
+          "gia_san_tmdt": 42000,
+          "gia_ban_thuc_te": 42000,
+          "tinh_trang": "TUAN_THU"
+        },
+        {
+          "name": "KBH2F-08*95 (8mm)",
+          "sku_code": "KBH2F-0895",
+          "gia_si": 33000,
+          "gia_le": 41000,
+          "gia_san_tmdt": 53000,
+          "gia_ban_thuc_te": 53000,
+          "tinh_trang": "TUAN_THU"
+        }
+      ]
+    },
+    {
+      "item_id": 48503940318,
+      "shop_id": "lequang_shop",
+      "dealer_name": "DL007 - CÔNG TY TNHH ĐHT VIỆT NAM - HCM (Shop lequang_shop #48503940317)",
+      "product_name": "Mũi bắn vít PH2 65mm thép S2 chống trượt KingBlue V65S",
+      "url": "https://shopee.vn/lequang_shop?categoryId=100636&entryPoint=ShopByPDP&itemId=48503940317",
+      "image_url": "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1ee30awnhng12",
+      "gia_ban_thuc_te": 50000,
+      "original_shopee_price": 50000,
+      "rating": 5.0,
+      "matched_catalog": "V65S Mũi bắn vít PH2 V65S KingBlue",
+      "product_code": "V65S",
+      "gia_san_tmdt": 50000,
+      "gia_le": 38000,
+      "gia_si": 31000,
+      "dvt": "Vỉ",
+      "tinh_trang": "TUAN_THU",
+      "chenh_lech_tien": 0,
+      "phan_tram_lech": 0.0,
+      "has_variations": false
     },
     {
       "item_id": 26068397861,

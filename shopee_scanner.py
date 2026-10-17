@@ -108,6 +108,18 @@ def scan_shopee_products(keyword="king blue", max_products=20):
             payload["mode"] = "shop"
             payload["shop"] = shop_id
         payload["maxProducts"] = max_products
+    elif "shopee.vn/" in raw_kw:
+        # Link gian hàng trực tiếp: https://shopee.vn/lequang_shop?...
+        m_shop = re.search(r'shopee\.vn/([a-zA-Z0-9_\.\-]+)', raw_kw)
+        shop_name = m_shop.group(1) if m_shop else ""
+        if shop_name and shop_name not in ["search", "product", "cart", "user"]:
+            payload["mode"] = "shop"
+            payload["shop"] = shop_name
+            payload["maxProducts"] = max_products
+        else:
+            payload["mode"] = "keyword"
+            payload["keyword"] = raw_kw or "king blue"
+            payload["maxProducts"] = max_products
     else:
         payload["mode"] = "keyword"
         payload["keyword"] = raw_kw or "king blue"
@@ -165,11 +177,19 @@ def scan_shopee_products(keyword="king blue", max_products=20):
                 
         # Nhận diện gian hàng đại lý nếu trùng shop_id hoặc tên
         matched_dealer = None
-        if str(shop_id) == "700251789" or "shopdiennuoc.nhat" in str(payload.get("shop")):
-            matched_dealer = "Điện nước Nhật (Shop) HCM"
+        shop_str = str(payload.get("shop") or shop_id)
+        if str(shop_id) == "700251789" or "shopdiennuoc.nhat" in shop_str:
+            matched_dealer = "Điện nước Nhật (Shop) HCM #700251789"
+        elif str(shop_id) == "7239997" or "baohothinksafe" in shop_str:
+            matched_dealer = "DL005 - ThinkSafe HCM (Shop baohothinksafe #7239997)"
+        elif str(shop_id) == "388478963" or "nguyenhoangphu" in shop_str:
+            matched_dealer = "DL002 - Nguyễn Hoàng Phú (Shop nguyenhoangphu68 #388478963)"
+        elif "lequang" in shop_str or str(shop_id) == "lequang_shop":
+            matched_dealer = "DL007 - CÔNG TY TNHH ĐHT VIỆT NAM - HCM (Shop lequang_shop #48503940317)"
         else:
             for d in dealers:
-                if str(d.get("id")) == str(shop_id) or (d.get("name") and d.get("name").lower() in p_name.lower()):
+                d_links = str(d.get("store_links", {})) + str(d.get("raw_link", ""))
+                if str(d.get("id")) == str(shop_id) or str(shop_id) in d_links or (d.get("name") and d.get("name").lower() in p_name.lower()):
                     matched_dealer = d.get("name")
                     break
                 
