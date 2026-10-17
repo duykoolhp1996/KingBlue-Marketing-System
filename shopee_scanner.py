@@ -184,8 +184,8 @@ def scan_shopee_products(keyword="king blue", max_products=20):
             matched_dealer = "DL005 - ThinkSafe HCM (Shop baohothinksafe #7239997)"
         elif str(shop_id) == "388478963" or "nguyenhoangphu" in shop_str:
             matched_dealer = "DL002 - Nguyễn Hoàng Phú (Shop nguyenhoangphu68 #388478963)"
-        elif "lequang" in shop_str or str(shop_id) == "lequang_shop":
-            matched_dealer = "DL007 - CÔNG TY TNHH ĐHT VIỆT NAM - HCM (Shop lequang_shop #48503940317)"
+        elif "591749587" in shop_str or str(shop_id) == "591749587" or "lequang" in shop_str or str(shop_id) == "lequang_shop":
+            matched_dealer = "DL007 - CÔNG TY TNHH ĐHT VIỆT NAM - HCM (Shop ĐHT HandTool #591749587 & lequang_shop)"
         else:
             for d in dealers:
                 d_links = str(d.get("store_links", {})) + str(d.get("raw_link", ""))
